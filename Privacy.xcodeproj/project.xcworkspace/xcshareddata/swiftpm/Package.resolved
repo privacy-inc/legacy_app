@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Archivable",
+        "repositoryURL": "https://github.com/archivable/package.git",
+        "state": {
+          "branch": "main",
+          "revision": "3a9639eff4c36dacd42a1ae95680ad83e1d3418a",
+          "version": null
+        }
+      },
+      {
+        "package": "Specs",
+        "repositoryURL": "https://github.com/privacy-inc/specs.git",
+        "state": {
+          "branch": "main",
+          "revision": "5d44128cc893e985485bd302b3edfbe31f69f445",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
