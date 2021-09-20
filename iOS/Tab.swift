@@ -4,10 +4,9 @@ struct Tab: View {
     let id: UUID
     
     var body: some View {
-        ScrollView {
+        VStack {
             
         }
-        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
@@ -21,14 +20,13 @@ struct Tab: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: Tabs()) {
+                Button {
+                    
+                } label: {
                     Image(systemName: "app")
                         .font(.callout)
                 }
             }
-        }
-        .task {
-            print("tab")
         }
     }
 }
