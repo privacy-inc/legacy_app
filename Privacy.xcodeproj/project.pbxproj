@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE15064E26F8AC9700C4C20C /* UISplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15064D26F8AC9700C4C20C /* UISplitViewController.swift */; };
+		CE15065026F8AF2500C4C20C /* Tabs.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15064F26F8AF2500C4C20C /* Tabs.Item.swift */; };
 		CE46B4DE26F797F600A5B5BB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE46B4DD26F797F600A5B5BB /* App.swift */; };
 		CE46B4E226F797F700A5B5BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4E126F797F700A5B5BB /* Assets.xcassets */; };
 		CE46B4EB26F7982200A5B5BB /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
@@ -14,10 +16,12 @@
 		CE9B93F026F89BA6005E1D7F /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93EF26F89BA6005E1D7F /* Tab.swift */; };
 		CE9B93F226F89E6D005E1D7F /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F126F89E6D005E1D7F /* Tabs.swift */; };
 		CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F326F89F1E005E1D7F /* Navigation.swift */; };
-		CE9B93F626F89FC4005E1D7F /* Navigation.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F526F89FC4005E1D7F /* Navigation.Flow.swift */; };
+		CEF0877126F8A9410067C014 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0877026F8A9410067C014 /* Sidebar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE15064D26F8AC9700C4C20C /* UISplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISplitViewController.swift; sourceTree = "<group>"; };
+		CE15064F26F8AF2500C4C20C /* Tabs.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Item.swift; sourceTree = "<group>"; };
 		CE46B4DA26F797F600A5B5BB /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE46B4DD26F797F600A5B5BB /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE46B4E126F797F700A5B5BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -26,7 +30,7 @@
 		CE9B93EF26F89BA6005E1D7F /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		CE9B93F126F89E6D005E1D7F /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		CE9B93F326F89F1E005E1D7F /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
-		CE9B93F526F89FC4005E1D7F /* Navigation.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.Flow.swift; sourceTree = "<group>"; };
+		CEF0877026F8A9410067C014 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,10 +67,12 @@
 			children = (
 				CE46B4EF26F79B2200A5B5BB /* Info.plist */,
 				CE46B4DD26F797F600A5B5BB /* App.swift */,
-				CE9B93F526F89FC4005E1D7F /* Navigation.Flow.swift */,
 				CE9B93F326F89F1E005E1D7F /* Navigation.swift */,
+				CEF0877026F8A9410067C014 /* Sidebar.swift */,
 				CE9B93EF26F89BA6005E1D7F /* Tab.swift */,
+				CE15064F26F8AF2500C4C20C /* Tabs.Item.swift */,
 				CE9B93F126F89E6D005E1D7F /* Tabs.swift */,
+				CE15064D26F8AC9700C4C20C /* UISplitViewController.swift */,
 				CE46B4E126F797F700A5B5BB /* Assets.xcassets */,
 			);
 			path = iOS;
@@ -157,10 +163,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE46B4DE26F797F600A5B5BB /* App.swift in Sources */,
-				CE9B93F626F89FC4005E1D7F /* Navigation.Flow.swift in Sources */,
+				CE15065026F8AF2500C4C20C /* Tabs.Item.swift in Sources */,
 				CE9B93F026F89BA6005E1D7F /* Tab.swift in Sources */,
 				CE9B93F226F89E6D005E1D7F /* Tabs.swift in Sources */,
+				CEF0877126F8A9410067C014 /* Sidebar.swift in Sources */,
 				CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */,
+				CE15064E26F8AC9700C4C20C /* UISplitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

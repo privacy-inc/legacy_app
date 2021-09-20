@@ -2,12 +2,12 @@ import SwiftUI
 
 struct Tab: View {
     let id: UUID
-    let tabs: () -> Void
     
     var body: some View {
         ScrollView {
             
         }
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
@@ -18,16 +18,17 @@ struct Tab: View {
                     Image(systemName: "magnifyingglass")
                         .font(.title3)
                 }
-                .foregroundStyle(.primary)
                 
                 Spacer()
                 
-                Button(action: tabs) {
+                NavigationLink(destination: Tabs()) {
                     Image(systemName: "app")
                         .font(.callout)
                 }
-                .foregroundStyle(.primary)
             }
+        }
+        .task {
+            print("tab")
         }
     }
 }
