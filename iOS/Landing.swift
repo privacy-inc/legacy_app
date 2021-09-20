@@ -1,75 +1,25 @@
 import SwiftUI
 
 struct Landing: View {
-    @State private var search = ""
+    @State private var query = ""
+    @State private var showing = 0
     @FocusState private var focus: Bool
     
     var body: some View {
-        ZStack {
-            VStack {
-                Spacer()
-                HStack {
-                    Button {
-                        
-                    } label: {
-                        Label("Bookmarks", systemImage: "bookmark.circle.fill")
-                            .symbolRenderingMode(.hierarchical)
-                            .font(.footnote)
-                            .imageScale(.large)
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.init("Shades"))
-                    
-                    Button {
-                        
-                    } label: {
-                        Label("Tabs", systemImage: "square.dashed.inset.filled")
-                            .symbolRenderingMode(.hierarchical)
-                            .font(.footnote)
-                            .imageScale(.large)
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.init("Shades"))
-                    
-                    Button {
-                        
-                    } label: {
-                        Label("History", systemImage: "list.bullet.circle.fill")
-                            .symbolRenderingMode(.hierarchical)
-                            .font(.footnote)
-                            .imageScale(.large)
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.init("Shades"))
-                }
-                .padding(.top, 200)
-                Spacer()
+        List {
+            search
+            segmented
+            if showing == 0 {
+                bookmarks
+            } else {
+                history
             }
-            ZStack {
-                Capsule()
-                    .fill(.ultraThickMaterial)
-                    .onTapGesture {
-                        focus = true
-                    }
-                TextField("Search or URL", text: $search)
-                    .keyboardType(.webSearch)
-                    .textInputAutocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .focused($focus)
-                    .font(.callout)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .frame(maxWidth: 300)
-                    .onSubmit(submit)
-            }
-            .padding(.horizontal)
-            .fixedSize()
         }
-        .ignoresSafeArea(.keyboard)
+        .listStyle(.insetGrouped)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Button {
-                    search = ""
+                    query = ""
                     focus = false
                 } label: {
                     Text("Cancel")
@@ -85,7 +35,76 @@ struct Landing: View {
                         .font(.footnote)
                 }
                 .buttonStyle(.bordered)
-                .disabled(search.isEmpty)
+                .disabled(query.isEmpty)
+            }
+        }
+    }
+    
+    private var search: some View {
+        Section {
+            Spacer()
+                .frame(height: 250)
+            
+            HStack {
+                Spacer()
+                ZStack {
+                    
+                    Capsule()
+                        .fill(Color(.systemBackground))
+                        .onTapGesture {
+                            focus = true
+                        }
+                    Capsule()
+                        .strokeBorder(Color("Shades"))
+                    TextField("Search or URL", text: $query)
+                        .keyboardType(.webSearch)
+                        .textInputAutocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .focused($focus)
+                        .font(.callout)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .frame(maxWidth: 300)
+                        .onSubmit(submit)
+                }
+                .padding(.horizontal)
+                .fixedSize()
+                Spacer()
+            }
+            Spacer()
+                .frame(height: 100)
+        }
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
+    }
+    
+    private var segmented: some View {
+        Section {
+            Picker("Showing", selection: $showing) {
+                Text("Bookmarks")
+                    .tag(0)
+                Text("History")
+                    .tag(1)
+            }
+            .labelsHidden()
+            .pickerStyle(.segmented)
+        }
+        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
+    }
+    
+    private var bookmarks: some View {
+        Section {
+            ForEach(0 ..< 5, id: \.self) { _ in
+                Bookmark()
+            }
+        }
+    }
+    
+    private var history: some View {
+        Section {
+            ForEach(100 ..< 200, id: \.self) { _ in
+                History()
             }
         }
     }
