@@ -9,47 +9,29 @@ struct Landing: View {
         ScrollView {
             search
             segmented
-            if showing == 0 {
-                bookmarks
-            } else {
-                history
-            }
+            history
         }
         .background(.ultraThickMaterial)
         .safeAreaInset(edge: .bottom) {
-            VStack {
+            VStack(spacing: 0) {
                 Rectangle()
                     .fill(Color.primary.opacity(0.05))
                     .frame(height: 1)
-                HStack {
-                    Spacer()
-                    ZStack {
-                        
-                        Capsule()
-                            .fill(Color(.systemBackground))
-                            .onTapGesture {
-                                focus = true
-                            }
-                        Capsule()
-                            .strokeBorder(Color("Shades"))
-                        TextField("Search", text: $query)
-                            .keyboardType(.webSearch)
-                            .textInputAutocapitalization(.none)
-                            .disableAutocorrection(true)
-                            .focused($focus)
-                            .font(.callout)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .frame(maxWidth: 300)
-                            .onSubmit(submit)
-                    }
-                    .padding(.horizontal)
-                    .fixedSize()
-                    Spacer()
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(.ultraThickMaterial)
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(Color.primary.opacity(0.05))
+                    Text("\(Image(systemName: "magnifyingglass")) Search or enter website")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .padding(.leading)
+                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
-                Spacer()
+                .frame(width: 240, height: 34)
+                .fixedSize()
+                .padding(.vertical)
             }
-            .frame(height: 100)
             .background(.ultraThinMaterial)
         }
         .toolbar {
