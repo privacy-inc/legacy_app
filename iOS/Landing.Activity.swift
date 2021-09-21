@@ -1,16 +1,17 @@
 import SwiftUI
 
 extension Landing {
-    struct Report: View {
+    struct Activity: View {
         var body: some View {
             Button {
                 
             } label: {
-                Header("Trackers Report") {
+                Header("Activity") {
                     HStack(spacing: 0) {
-                        Text("\(Image(systemName: "shield.lefthalf.filled")) 199")
-                            .monospacedDigit()
-                        Text("Trackers report")
+                        Image(systemName: "chart.xyaxis.line")
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(Color("Shades"), Color("Dawn"))
+                        Text("Activity in the last 3 weeks")
                             .foregroundStyle(.secondary)
                             .font(.footnote)
                             .padding(.leading)

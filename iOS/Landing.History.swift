@@ -20,14 +20,16 @@ extension Landing {
         let model: Model
         
         var body: some View {
-            Text("\(Image("favicon")) \(Text(model.title))\n\(Text(model.domain).foregroundColor(.secondary).font(.caption))")
-                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                .multilineTextAlignment(.leading)
-                .font(.footnote)
-                .padding()
-                .modifier(Card {
-                    
-                })
+            Button {
+                
+            } label: {
+                Text("\(Image("favicon")) \(Text(model.title))\n\(Text(model.domain).foregroundColor(.secondary).font(.caption))")
+                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    .multilineTextAlignment(.leading)
+                    .font(.footnote)
+                    .padding()
+                    .modifier(Card())
+            }
         }
     }
 }

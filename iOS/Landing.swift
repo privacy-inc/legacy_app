@@ -3,8 +3,8 @@ import SwiftUI
 struct Landing: View {
     @State private var cards = [Cards.report,
                                 .activity,
-                                .history,
-                                .bookmarks]
+                                .bookmarks,
+                                .history]
     
     var body: some View {
         ScrollView {
@@ -12,7 +12,11 @@ struct Landing: View {
                 switch $0 {
                 case .report:
                     Report()
-                default:
+                case .activity:
+                    Activity()
+                case .bookmarks:
+                    Bookmarks()
+                case .history:
                     History()
                 }
             }
@@ -30,6 +34,6 @@ enum Cards: Identifiable {
     case
     report,
     activity,
-    history,
-    bookmarks
+    bookmarks,
+    history
 }
