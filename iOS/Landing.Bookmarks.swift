@@ -6,7 +6,7 @@ extension Landing {
             Header("Bookmarks") {
                 HStack(alignment: .top) {
                     ForEach(0 ..< bookmarks.count, id: \.self) { index in
-                        VStack(spacing: 20) {
+                        VStack {
                             ForEach(bookmarks[index], content: Item.init)
                         }
                     }
@@ -23,13 +23,15 @@ extension Landing {
                 
             } label: {
                 VStack {
-                    Image("favicon")
+                    Image(model.icon)
                         .padding(8)
                         .modifier(Card())
                     Text(verbatim: model.title)
                         .frame(maxWidth: .greatestFiniteMagnitude)
-                        .font(.footnote)
+                        .font(.caption)
+                    Spacer()
                 }
+                .frame(height: 110)
             }
         }
     }
@@ -37,29 +39,28 @@ extension Landing {
 
 private let bookmarks = [
     [
-        Model(icon: "app", title: "Alan Moore - Wikipedia", domain: "wikipedia.org"),
-        Model(icon: "ellipsis", title: "Alan Moore - Google", domain: "google.com"),
-        Model(icon: "faceid", title: "Reuters", domain: "reuters.com")
+        Model(title: "Alan Moore - Wikipedia"),
+        Model(title: "Alan Moore - Google"),
+        Model(title: "Reuters")
     ],
     [
-        Model(icon: "app", title: "Alan Moore - Wikipedia", domain: "wikipedia.org"),
-        Model(icon: "ellipsis", title: "Alan Moore - Google", domain: "google.com"),
-        Model(icon: "faceid", title: "Reuters", domain: "reuters.com")
+        Model(title: "A"),
+        Model(title: "Alan Moore - Google"),
+        Model(title: "Reuters")
     ],
     [
-        Model(icon: "app", title: "Alan Moore - Wikipedia", domain: "wikipedia.org"),
-        Model(icon: "ellipsis", title: "Alan Moore - Google", domain: "google.com"),
-        Model(icon: "faceid", title: "Reuters", domain: "reuters.com")
+        Model(title: "Alan Moore - Wikipedia"),
+        Model(title: "Alan Moore - Google"),
+        Model(title: "Reuters")
     ],
     [
-        Model(icon: "app", title: "Alan Moore - Wikipedia lorem ipsum hello world lorem ipsum lorem lorem lorem ipsum hello hello lorem ipsum", domain: "wikipedia.org"),
-        Model(icon: "shield", title: "The Guardian", domain: "guardian.com"),
-        Model(icon: "faceid", title: "b", domain: "a.com")
+        Model(title: "Alan Moore - Wikipedia lorem ips"),
+        Model(title: "The Guardian"),
+        Model(title: "b")
     ]]
 
 private struct Model: Identifiable {
     let id = UUID()
-    let icon: String
+    let icon = "favicon"
     let title: String
-    let domain: String
 }
