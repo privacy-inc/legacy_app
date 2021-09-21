@@ -6,72 +6,104 @@ struct Landing: View {
     @FocusState private var focus: Bool
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                search
-                segmented
-                if showing == 0 {
-                    bookmarks
-                } else {
-                    history
-                }
-            }
-            .navigationTitle("Some")
-            .toolbar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    HStack {
-                        Spacer()
-                        ZStack {
-                            
-                            Capsule()
-                                .fill(Color(.systemBackground))
-                                .onTapGesture {
-                                    focus = true
-                                }
-                            Capsule()
-                                .strokeBorder(Color("Shades"))
-                            TextField("Search or URL", text: $query)
-                                .keyboardType(.webSearch)
-                                .textInputAutocapitalization(.none)
-                                .disableAutocorrection(true)
-                                .focused($focus)
-                                .font(.callout)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                                .frame(maxWidth: 300)
-                                .onSubmit(submit)
-                        }
-                        .padding(.horizontal)
-                        .fixedSize()
-                        Spacer()
-                    }
-                }
-                
-                
-                ToolbarItemGroup(placement: .keyboard) {
-                    Button {
-                        query = ""
-                        focus = false
-                    } label: {
-                        Text("Cancel")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    }
-                    
-                    Button {
-                        focus = false
-                        submit()
-                    } label: {
-                        Text("Search")
-                            .font(.footnote)
-                    }
-                    .buttonStyle(.bordered)
-                    .disabled(query.isEmpty)
-                }
+        ScrollView {
+            search
+            segmented
+            if showing == 0 {
+                bookmarks
+            } else {
+                history
             }
         }
-        .navigationViewStyle(.stack)
-        
+        .background(.ultraThickMaterial)
+        .safeAreaInset(edge: .bottom) {
+            VStack {
+                Rectangle()
+                    .fill(Color.primary.opacity(0.05))
+                    .frame(height: 1)
+                HStack {
+                    Spacer()
+                    ZStack {
+                        
+                        Capsule()
+                            .fill(Color(.systemBackground))
+                            .onTapGesture {
+                                focus = true
+                            }
+                        Capsule()
+                            .strokeBorder(Color("Shades"))
+                        TextField("Search", text: $query)
+                            .keyboardType(.webSearch)
+                            .textInputAutocapitalization(.none)
+                            .disableAutocorrection(true)
+                            .focused($focus)
+                            .font(.callout)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .frame(maxWidth: 300)
+                            .onSubmit(submit)
+                    }
+                    .padding(.horizontal)
+                    .fixedSize()
+                    Spacer()
+                }
+                Spacer()
+            }
+            .frame(height: 100)
+            .background(.ultraThinMaterial)
+        }
+        .toolbar {
+//            ToolbarItemGroup(placement: .bottomBar) {
+//                HStack {
+//                    Spacer()
+//                    ZStack {
+//
+//                        Capsule()
+//                            .fill(Color(.systemBackground))
+//                            .onTapGesture {
+//                                focus = true
+//                            }
+//                        Capsule()
+//                            .strokeBorder(Color("Shades"))
+//                        TextField("Search or URL", text: $query)
+//                            .keyboardType(.webSearch)
+//                            .textInputAutocapitalization(.none)
+//                            .disableAutocorrection(true)
+//                            .focused($focus)
+//                            .font(.callout)
+//                            .padding(.horizontal, 16)
+//                            .padding(.vertical, 8)
+//                            .frame(maxWidth: 300)
+//                            .onSubmit(submit)
+//                    }
+//                    .padding(.horizontal)
+//                    .fixedSize()
+//                    Spacer()
+//                }
+//            }
+            
+            
+//            ToolbarItemGroup(placement: .keyboard) {
+//                Button {
+//                    query = ""
+//                    focus = false
+//                } label: {
+//                    Text("Cancel")
+//                        .font(.footnote)
+//                        .foregroundStyle(.secondary)
+//                }
+//
+//                Button {
+//                    focus = false
+//                    submit()
+//                } label: {
+//                    Text("Search")
+//                        .font(.footnote)
+//                }
+//                .buttonStyle(.bordered)
+//                .disabled(query.isEmpty)
+//            }
+        }
     }
     
     private var search: some View {
