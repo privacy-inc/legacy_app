@@ -5,7 +5,7 @@ extension Landing {
         let title: String
         let content: Content
         
-        @inlinable init(title: String, @ViewBuilder content: () -> Content) {
+        @inlinable init(_ title: String, @ViewBuilder content: () -> Content) {
             self.title = title
             self.content = content()
         }
