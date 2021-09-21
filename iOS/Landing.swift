@@ -6,76 +6,83 @@ struct Landing: View {
     @FocusState private var focus: Bool
     
     var body: some View {
-        List {
-            search
-            segmented
-            if showing == 0 {
-                bookmarks
-            } else {
-                history
+        NavigationView {
+            ScrollView {
+                search
+                segmented
+                if showing == 0 {
+                    bookmarks
+                } else {
+                    history
+                }
             }
-        }
-        .listStyle(.insetGrouped)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Button {
-                    query = ""
-                    focus = false
-                } label: {
-                    Text("Cancel")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+            .navigationTitle("Some")
+            .toolbar {
+                ToolbarItemGroup(placement: .bottomBar) {
+                    HStack {
+                        Spacer()
+                        ZStack {
+                            
+                            Capsule()
+                                .fill(Color(.systemBackground))
+                                .onTapGesture {
+                                    focus = true
+                                }
+                            Capsule()
+                                .strokeBorder(Color("Shades"))
+                            TextField("Search or URL", text: $query)
+                                .keyboardType(.webSearch)
+                                .textInputAutocapitalization(.none)
+                                .disableAutocorrection(true)
+                                .focused($focus)
+                                .font(.callout)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .frame(maxWidth: 300)
+                                .onSubmit(submit)
+                        }
+                        .padding(.horizontal)
+                        .fixedSize()
+                        Spacer()
+                    }
                 }
                 
-                Button {
-                    focus = false
-                    submit()
-                } label: {
-                    Text("Search")
-                        .font(.footnote)
+                
+                ToolbarItemGroup(placement: .keyboard) {
+                    Button {
+                        query = ""
+                        focus = false
+                    } label: {
+                        Text("Cancel")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                    
+                    Button {
+                        focus = false
+                        submit()
+                    } label: {
+                        Text("Search")
+                            .font(.footnote)
+                    }
+                    .buttonStyle(.bordered)
+                    .disabled(query.isEmpty)
                 }
-                .buttonStyle(.bordered)
-                .disabled(query.isEmpty)
             }
         }
+        .navigationViewStyle(.stack)
+        
     }
     
     private var search: some View {
-        Section {
+        Header(title: "Search") {
             Spacer()
                 .frame(height: 250)
             
-            HStack {
-                Spacer()
-                ZStack {
-                    
-                    Capsule()
-                        .fill(Color(.systemBackground))
-                        .onTapGesture {
-                            focus = true
-                        }
-                    Capsule()
-                        .strokeBorder(Color("Shades"))
-                    TextField("Search or URL", text: $query)
-                        .keyboardType(.webSearch)
-                        .textInputAutocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .focused($focus)
-                        .font(.callout)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .frame(maxWidth: 300)
-                        .onSubmit(submit)
-                }
-                .padding(.horizontal)
-                .fixedSize()
-                Spacer()
-            }
+            
             Spacer()
                 .frame(height: 100)
         }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
     }
     
     private var segmented: some View {
