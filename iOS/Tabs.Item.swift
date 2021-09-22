@@ -2,13 +2,13 @@ import SwiftUI
 
 extension Tabs {
     struct Item: View {
-        let index: Int
+        let status: Navigation.Status
         
         var body: some View {
             Button {
                 
             } label: {
-                Snap(image: nil, width: 150, height: 150)
+                Snap(image: status.image, size: 150)
             }
         }
     }

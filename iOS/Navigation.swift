@@ -1,30 +1,29 @@
 import SwiftUI
 
 struct Navigation: View {
-    @State private var flow = Flow.landing
+    @State private var flow = Flow.landing(0)
+    @State private var status = [Status()]
     
     var body: some View {
         switch flow {
-        case .landing:
-            Landing(tabs: tabs)
-        case .tabs:
-            Tabs()
-        case let .tab(id):
-            Tab(id: id)
-        case let .out(image):
-            Out(image: image)
-        default:
+        case .menu:
             Circle()
+        case let .landing(index):
+            Landing(tabs: tabs)
+        case let .tab(index):
+            Tab(index: index)
+        case let .tabs(index):
+            Tabs(status: $status, minimize: .init(index: index))
         }
     }
     
     private func tabs() {
-        flow = .out(UIApplication.shared.snapshot)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                flow = .tabs
-            }
+        switch flow {
+        case let .landing(index), let .tab(index):
+            status[index].image = UIApplication.shared.snapshot
+            flow = .tabs(index)
+        default:
+            break
         }
     }
 }

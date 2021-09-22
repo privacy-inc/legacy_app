@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Tab: View {
-    let id: UUID
+    let index: Int
     
     var body: some View {
         VStack {

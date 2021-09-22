@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		CE15065026F8AF2500C4C20C /* Tabs.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE15064F26F8AF2500C4C20C /* Tabs.Item.swift */; };
-		CE17244926F8E9B300C2CED5 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244826F8E9B300C2CED5 /* Flow.swift */; };
+		CE17244926F8E9B300C2CED5 /* Navigation.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244826F8E9B300C2CED5 /* Navigation.Flow.swift */; };
 		CE17244B26F8EEA500C2CED5 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244A26F8EEA500C2CED5 /* Landing.swift */; };
 		CE17244F26F9094700C2CED5 /* Landing.Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */; };
 		CE17245126F909AC00C2CED5 /* Landing.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17245026F909AC00C2CED5 /* Landing.History.swift */; };
+		CE1D9C3226FB6883004F8B6B /* Navigation.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D9C3126FB6883004F8B6B /* Navigation.Status.swift */; };
+		CE1D9C3426FB6C27004F8B6B /* Tabs.Minimize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D9C3326FB6C27004F8B6B /* Tabs.Minimize.swift */; };
 		CE46B4DE26F797F600A5B5BB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE46B4DD26F797F600A5B5BB /* App.swift */; };
 		CE46B4E226F797F700A5B5BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4E126F797F700A5B5BB /* Assets.xcassets */; };
 		CE46B4EB26F7982200A5B5BB /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
@@ -24,20 +26,20 @@
 		CE470A6F26FA2284002D560A /* Landing.Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE470A6E26FA2284002D560A /* Landing.Activity.swift */; };
 		CE7DAB7626FB42DF00BEAA0F /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7526FB42DF00BEAA0F /* Int.swift */; };
 		CE7DAB7826FB49CE00BEAA0F /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */; };
-		CE7DAB7A26FB4C6200BEAA0F /* Out.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7926FB4C6200BEAA0F /* Out.swift */; };
 		CE7DAB7C26FB649B00BEAA0F /* Tabs.Snap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7B26FB649B00BEAA0F /* Tabs.Snap.swift */; };
 		CE9B93F026F89BA6005E1D7F /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93EF26F89BA6005E1D7F /* Tab.swift */; };
 		CE9B93F226F89E6D005E1D7F /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F126F89E6D005E1D7F /* Tabs.swift */; };
 		CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F326F89F1E005E1D7F /* Navigation.swift */; };
-		CEF0877126F8A9410067C014 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0877026F8A9410067C014 /* Sidebar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CE15064F26F8AF2500C4C20C /* Tabs.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Item.swift; sourceTree = "<group>"; };
-		CE17244826F8E9B300C2CED5 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
+		CE17244826F8E9B300C2CED5 /* Navigation.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.Flow.swift; sourceTree = "<group>"; };
 		CE17244A26F8EEA500C2CED5 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
 		CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.swift; sourceTree = "<group>"; };
 		CE17245026F909AC00C2CED5 /* Landing.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.swift; sourceTree = "<group>"; };
+		CE1D9C3126FB6883004F8B6B /* Navigation.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.Status.swift; sourceTree = "<group>"; };
+		CE1D9C3326FB6C27004F8B6B /* Tabs.Minimize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Minimize.swift; sourceTree = "<group>"; };
 		CE46B4DA26F797F600A5B5BB /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE46B4DD26F797F600A5B5BB /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE46B4E126F797F700A5B5BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,12 +53,10 @@
 		CE470A6E26FA2284002D560A /* Landing.Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Activity.swift; sourceTree = "<group>"; };
 		CE7DAB7526FB42DF00BEAA0F /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
-		CE7DAB7926FB4C6200BEAA0F /* Out.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Out.swift; sourceTree = "<group>"; };
 		CE7DAB7B26FB649B00BEAA0F /* Tabs.Snap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Snap.swift; sourceTree = "<group>"; };
 		CE9B93EF26F89BA6005E1D7F /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		CE9B93F126F89E6D005E1D7F /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		CE9B93F326F89F1E005E1D7F /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
-		CEF0877026F8A9410067C014 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +93,6 @@
 			children = (
 				CE46B4EF26F79B2200A5B5BB /* Info.plist */,
 				CE46B4DD26F797F600A5B5BB /* App.swift */,
-				CE17244826F8E9B300C2CED5 /* Flow.swift */,
 				CE7DAB7526FB42DF00BEAA0F /* Int.swift */,
 				CE470A6E26FA2284002D560A /* Landing.Activity.swift */,
 				CE470A6526FA0AEB002D560A /* Landing.Bar.swift */,
@@ -103,11 +102,12 @@
 				CE17245026F909AC00C2CED5 /* Landing.History.swift */,
 				CE470A6726FA0F3C002D560A /* Landing.Report.swift */,
 				CE17244A26F8EEA500C2CED5 /* Landing.swift */,
+				CE17244826F8E9B300C2CED5 /* Navigation.Flow.swift */,
+				CE1D9C3126FB6883004F8B6B /* Navigation.Status.swift */,
 				CE9B93F326F89F1E005E1D7F /* Navigation.swift */,
-				CE7DAB7926FB4C6200BEAA0F /* Out.swift */,
-				CEF0877026F8A9410067C014 /* Sidebar.swift */,
 				CE9B93EF26F89BA6005E1D7F /* Tab.swift */,
 				CE15064F26F8AF2500C4C20C /* Tabs.Item.swift */,
+				CE1D9C3326FB6C27004F8B6B /* Tabs.Minimize.swift */,
 				CE7DAB7B26FB649B00BEAA0F /* Tabs.Snap.swift */,
 				CE9B93F126F89E6D005E1D7F /* Tabs.swift */,
 				CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */,
@@ -212,12 +212,12 @@
 				CE17245126F909AC00C2CED5 /* Landing.History.swift in Sources */,
 				CE9B93F026F89BA6005E1D7F /* Tab.swift in Sources */,
 				CE9B93F226F89E6D005E1D7F /* Tabs.swift in Sources */,
-				CEF0877126F8A9410067C014 /* Sidebar.swift in Sources */,
+				CE1D9C3226FB6883004F8B6B /* Navigation.Status.swift in Sources */,
 				CE17244F26F9094700C2CED5 /* Landing.Bookmarks.swift in Sources */,
 				CE470A6F26FA2284002D560A /* Landing.Activity.swift in Sources */,
 				CE470A6426F9DE8F002D560A /* Landing.Header.swift in Sources */,
-				CE17244926F8E9B300C2CED5 /* Flow.swift in Sources */,
-				CE7DAB7A26FB4C6200BEAA0F /* Out.swift in Sources */,
+				CE17244926F8E9B300C2CED5 /* Navigation.Flow.swift in Sources */,
+				CE1D9C3426FB6C27004F8B6B /* Tabs.Minimize.swift in Sources */,
 				CE17244B26F8EEA500C2CED5 /* Landing.swift in Sources */,
 				CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */,
 				CE470A6826FA0F3C002D560A /* Landing.Report.swift in Sources */,
