@@ -1,7 +1,7 @@
 import CoreGraphics
 
 extension Tabs {
-    struct Minimize {
+    struct Transition {
         var size: CGFloat?
         let index: Int
     }

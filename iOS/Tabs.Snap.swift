@@ -15,11 +15,17 @@ extension Tabs {
                 container
                     .stroke(Color(.systemBackground), style: .init(lineWidth: 2))
                     .frame(width: size, height: size)
-                Image(uiImage: image ?? .init())
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: size, height: size)
-                    .clipShape(container)
+                if let image = image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: size, height: size)
+                        .clipShape(container)
+                } else {
+                    Image(systemName: "globe.europe.africa.fill")
+                        .foregroundColor(.init("Shades"))
+                        .font(.largeTitle)
+                }
             }
         }
     }

@@ -13,7 +13,7 @@ struct Navigation: View {
         case let .tab(index):
             Tab(index: index)
         case let .tabs(index):
-            Tabs(status: $status, minimize: .init(index: index))
+            Tabs(status: $status, transition: .init(index: index))
         }
     }
     
