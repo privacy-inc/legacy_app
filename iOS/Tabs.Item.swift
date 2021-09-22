@@ -5,13 +5,10 @@ extension Tabs {
         let index: Int
         
         var body: some View {
-            NavigationLink(destination: Tab(id: .init())) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(.regularMaterial)
-                    Text(verbatim: "\(index)")
-                }
-                .frame(width: 150, height: 150)
+            Button {
+                
+            } label: {
+                Snap(image: nil, width: 150, height: 150)
             }
         }
     }

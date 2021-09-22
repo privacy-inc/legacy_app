@@ -9,17 +9,7 @@ struct Out: View {
         ZStack {
             Rectangle()
                 .fill(.ultraThickMaterial)
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .frame(width: width, height: height)
-                .shadow(color: .primary.opacity(0.1), radius: 10)
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .stroke(Color(.systemBackground), style: .init(lineWidth: 2))
-                .frame(width: width, height: height)
-            Image.init(uiImage: image ?? .init())
-                .resizable()
-                .scaledToFill()
-                .frame(width: width, height: height)
-                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            Tabs.Snap(image: image, width: width, height: height)
         }
         .edgesIgnoringSafeArea(.all)
         .task {
