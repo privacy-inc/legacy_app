@@ -8,12 +8,12 @@ struct Navigation: View {
         switch flow {
         case .menu:
             Circle()
-        case let .landing(index):
+        case .landing:
             Landing(tabs: tabs)
-        case let .tab(index):
-            Tab(index: index)
+        case .tab:
+            Tab(tabs: tabs)
         case let .tabs(index):
-            Tabs(status: $status, transition: .init(index: index))
+            Tabs(status: $status, transition: .init(index: index), tab: tab)
         }
     }
     
@@ -25,5 +25,9 @@ struct Navigation: View {
         default:
             break
         }
+    }
+    
+    private func tab(_ index: Int) {
+        flow = .tab(index)
     }
 }

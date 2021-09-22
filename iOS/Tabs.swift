@@ -1,11 +1,10 @@
 import SwiftUI
-import Combine
 
 struct Tabs: View {
     @Binding var status: [Navigation.Status]
     @State var transition: Transition?
+    let tab: (Int) -> Void
     @Namespace private var animating
-    private let scroll = PassthroughSubject<UUID, Never>()
     
     var body: some View {
         ZStack {
@@ -22,17 +21,42 @@ struct Tabs: View {
             }
         }
         .task {
-            scroll.send(status[transition!.index].id)
             withAnimation(.easeInOut(duration: 0.3)) {
                 transition!.size = 150
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    transition = nil
+            DispatchQueue
+                .main
+                .asyncAfter(deadline: .now() + 0.3) {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        transition = nil
+                    }
+                }
+        }
+    }
+    
+    private func open(_ id: UUID) {
+        let index = status
+            .firstIndex {
+                $0.id == id
+            }!
+        withAnimation(.easeInOut(duration: 0.2)) {
+            transition = .init(size: 150, index: index)
+        }
+        
+        DispatchQueue
+            .main
+            .asyncAfter(deadline: .now() + 0.2) {
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    transition?.size = nil
                 }
             }
-        }
+        
+        DispatchQueue
+            .main
+            .asyncAfter(deadline: .now() + 0.55) {
+                tab(index)
+            }
     }
     
     private var scrollView: some View {
@@ -59,8 +83,8 @@ struct Tabs: View {
                 }
             }
             .frame(maxWidth: .greatestFiniteMagnitude)
-            .onReceive(scroll) {
-                proxy.scrollTo($0, anchor: .center)
+            .onAppear {
+                proxy.scrollTo(status[transition!.index].id, anchor: .center)
             }
         }
     }
@@ -69,11 +93,7 @@ struct Tabs: View {
         Group {
             Button {
                 status.append(.init())
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        scroll.send(status.last!.id)
-                    }
-                }
+                open(status.last!.id)
             } label: {
                 Image(systemName: "plus.circle.fill")
                     .font(.largeTitle)
