@@ -2,6 +2,8 @@ import SwiftUI
 
 extension Landing {
     struct Bar: View {
+        @Environment(\.verticalSizeClass) private var vertical
+        
         var body: some View {
             VStack(spacing: 0) {
                 Rectangle()
@@ -37,7 +39,7 @@ extension Landing {
                             .padding(.trailing)
                     }
                 }
-                .padding()
+                .padding(vertical == .compact ? 2 : 16)
             }
             .background(.ultraThinMaterial)
         }

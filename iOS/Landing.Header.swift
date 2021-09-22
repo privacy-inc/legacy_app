@@ -15,9 +15,10 @@ extension Landing {
                 Text(title)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .font(.headline)
+                    .padding(.leading)
                 content
             }
-            .padding()
+            .padding(.vertical)
         }
     }
 }

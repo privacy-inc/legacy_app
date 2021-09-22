@@ -4,14 +4,11 @@ struct Tabs: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
-                Spacer()
-                    .frame(width: 20)
                 ForEach(0 ..< 5) {
                     Item(index: $0)
                 }
-                Spacer()
-                    .frame(width: 20)
             }
+            .padding(.horizontal, 40)
             .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
         }
         .background(LinearGradient(gradient: .init(colors: [.init(.systemFill), .init(.secondarySystemFill)]),

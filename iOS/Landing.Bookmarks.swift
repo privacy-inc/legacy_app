@@ -2,16 +2,36 @@ import SwiftUI
 
 extension Landing {
     struct Bookmarks: View {
+        @State private var items = [[Model]]()
+        @Environment(\.verticalSizeClass) private var vertical
+        
         var body: some View {
             Header("Bookmarks") {
                 HStack(alignment: .top) {
-                    ForEach(0 ..< bookmarks.count, id: \.self) { index in
+                    ForEach(0 ..< items.count, id: \.self) { index in
                         VStack {
-                            ForEach(bookmarks[index], content: Item.init)
+                            ForEach(items[index], content: Item.init)
                         }
                     }
                 }
             }
+            .onAppear {
+                update(with: vertical)
+            }
+            .onChange(of: vertical, perform: update(with:))
+        }
+        
+        private func update(with vertical: UserInterfaceSizeClass?) {
+            items = (vertical == .compact ? 5 : 4)
+                .columns(with: 2)
+                .reduce(into: .init()) { result, position in
+                    if bookmarks.count > position.index {
+                        if position.row == 0 {
+                            result.append(.init())
+                        }
+                        result[position.col].append(bookmarks[position.index])
+                    }
+                }
         }
     }
     
@@ -27,37 +47,32 @@ extension Landing {
                         .padding(8)
                         .modifier(Card())
                     Text(verbatim: model.title)
-                        .frame(maxWidth: .greatestFiniteMagnitude)
-                        .font(.caption)
-                    Spacer()
+                        .font(.caption2)
+                        .lineLimit(2)
+                        .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .top)
+                        .padding(.horizontal)
                 }
-                .frame(height: 110)
+                .frame(height: 100)
             }
         }
     }
 }
 
 private let bookmarks = [
-    [
-        Model(title: "Alan Moore - Wikipedia"),
-        Model(title: "Alan Moore - Google"),
-        Model(title: "Reuters")
-    ],
-    [
-        Model(title: "A"),
-        Model(title: "Alan Moore - Google"),
-        Model(title: "Reuters")
-    ],
-    [
-        Model(title: "Alan Moore - Wikipedia"),
-        Model(title: "Alan Moore - Google"),
-        Model(title: "Reuters")
-    ],
-    [
-        Model(title: "Alan Moore - Wikipedia lorem ips"),
-        Model(title: "The Guardian"),
-        Model(title: "b")
-    ]]
+    Model(title: "Alan Moore - Wikipedia"),
+    .init(title: "Alan Moore - Google"),
+    .init(title: "A"),
+    .init(title: "Alan Moore - Google"),
+    .init(title: "Alan Moore - Wikipedia"),
+    .init(title: "Reuters"),
+    .init(title: "Alan Moore - Wikipedia lorem ips"),
+    .init(title: "r"),
+    .init(title: "dsda"),
+    .init(title: "Alan Moore - Wikipedia lorem ips dasddasdasa"),
+    .init(title: "fdsfsd"),
+    .init(title: "535354334"),
+    .init(title: "popopodas adsasdas")
+]
 
 private struct Model: Identifiable {
     let id = UUID()

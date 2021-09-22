@@ -19,6 +19,7 @@ extension Landing {
                     }
                     .padding()
                     .modifier(Card())
+                    .padding(.horizontal)
                 }
             }
         }
