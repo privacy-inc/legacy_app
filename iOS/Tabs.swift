@@ -4,6 +4,7 @@ struct Tabs: View {
     @Binding var status: [Navigation.Status]
     @State var minimize: Minimize
     @State private var snap = true
+    @Namespace private var minimising
     
     var body: some View {
         ZStack {
@@ -15,7 +16,18 @@ struct Tabs: View {
                         Spacer()
                             .frame(width: 20)
                             .frame(maxHeight: .greatestFiniteMagnitude)
-                        ForEach(status, content: Item.init)
+                        ForEach(status) {
+                            if $0.id == status[minimize.index].id {
+                                if !snap {
+                                    Item(status: $0)
+                                        .id($0.id)
+                                        .matchedGeometryEffect(id: $0.id, in: minimising, properties: .position, isSource: false)
+                                }
+                            } else {
+                                Item(status: $0)
+                                    .id($0.id)
+                            }
+                        }
                         Spacer()
                             .frame(width: 20)
                             .frame(maxHeight: .greatestFiniteMagnitude)
@@ -37,9 +49,11 @@ struct Tabs: View {
                 }
             }
             .frame(maxHeight: .greatestFiniteMagnitude, alignment: .bottom)
+            .padding(.bottom, 50)
             if snap {
                 Snap(image: status[minimize.index].image, size: minimize.size)
                     .allowsHitTesting(false)
+                    .matchedGeometryEffect(id: status[minimize.index].id, in: minimising, properties: .position, isSource: true)
             }
         }
         .edgesIgnoringSafeArea(.all)
@@ -48,8 +62,10 @@ struct Tabs: View {
                 minimize.size = 150
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                snap = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    snap = false
+                }
             }
         }
     }
