@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct Landing: View {
+    let tabs: () -> Void
     @State private var cards = [Cards.report,
                                 .activity,
                                 .bookmarks,
@@ -22,7 +23,9 @@ struct Landing: View {
             }
         }
         .background(.ultraThickMaterial)
-        .safeAreaInset(edge: .bottom, content: Bar.init)
+        .safeAreaInset(edge: .bottom) {
+            Bar(tabs: tabs)
+        }
     }
 }
 

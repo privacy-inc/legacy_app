@@ -1,9 +1,10 @@
-import Foundation
+import UIKit
 
 enum Flow {
     case
     landing,
     tab(UUID),
     tabs,
-    menu
+    menu,
+    out(UIImage?)
 }

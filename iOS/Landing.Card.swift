@@ -6,7 +6,7 @@ extension Landing {
             content
                 .background(RoundedRectangle(cornerRadius: 12, style: .continuous)
                                 .fill(Color(.systemBackground))
-                                .shadow(color: .black.opacity(0.05), radius: 10))
+                                .shadow(color: .primary.opacity(0.05), radius: 10))
         }
     }
 }

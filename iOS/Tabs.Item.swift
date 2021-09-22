@@ -11,7 +11,7 @@ extension Tabs {
                         .fill(.regularMaterial)
                     Text(verbatim: "\(index)")
                 }
-                .frame(width: 200, height: 300)
+                .frame(width: 150, height: 150)
             }
         }
     }

@@ -2,6 +2,7 @@ import SwiftUI
 
 extension Landing {
     struct Bar: View {
+        let tabs: () -> Void
         @Environment(\.verticalSizeClass) private var vertical
         
         var body: some View {
@@ -31,9 +32,7 @@ extension Landing {
                     }
                     .frame(width: 220, height: 34)
                     Spacer()
-                    Button {
-                        
-                    } label: {
+                    Button(action: tabs) {
                         Image(systemName: "square.on.square.dashed")
                             .symbolRenderingMode(.hierarchical)
                             .padding(.trailing)
