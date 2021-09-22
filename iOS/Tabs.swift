@@ -1,17 +1,20 @@
 import SwiftUI
+import Combine
 
 struct Tabs: View {
     @Binding var status: [Navigation.Status]
     @State var minimize: Minimize
     @State private var snap = true
     @Namespace private var minimising
+    private let scroll = PassthroughSubject<UUID, Never>()
     
     var body: some View {
         ZStack {
             LinearGradient(gradient: .init(colors: [.init(.systemFill), .init(.secondarySystemFill)]),
                                        startPoint: .bottom, endPoint: .top)
+                .edgesIgnoringSafeArea(.all)
             ScrollViewReader { proxy in
-                ScrollView(.horizontal, showsIndicators: true) {
+                ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         Spacer()
                             .frame(width: 20)
@@ -34,13 +37,18 @@ struct Tabs: View {
                     }
                 }
                 .frame(maxWidth: .greatestFiniteMagnitude)
-                .onAppear {
-                    proxy.scrollTo(status[minimize.index].id, anchor: .center)
+                .onReceive(scroll) {
+                    proxy.scrollTo($0, anchor: .center)
                 }
             }
             Group {
                 Button {
-                    
+                    status.append(.init())
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            scroll.send(status.last!.id)
+                        }
+                    }
                 } label: {
                     Image(systemName: "plus.circle.fill")
                         .font(.title)
@@ -49,15 +57,16 @@ struct Tabs: View {
                 }
             }
             .frame(maxHeight: .greatestFiniteMagnitude, alignment: .bottom)
-            .padding(.bottom, 50)
+            .padding(.bottom)
             if snap {
                 Snap(image: status[minimize.index].image, size: minimize.size)
+                    .edgesIgnoringSafeArea(.all)
                     .allowsHitTesting(false)
                     .matchedGeometryEffect(id: status[minimize.index].id, in: minimising, properties: .position, isSource: true)
             }
         }
-        .edgesIgnoringSafeArea(.all)
         .task {
+            scroll.send(status[minimize.index].id)
             withAnimation(.easeInOut(duration: 0.3)) {
                 minimize.size = 150
             }
