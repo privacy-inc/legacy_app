@@ -137,7 +137,11 @@ struct Tabs: View {
     private func item(_ status: Status) -> some View {
         VStack(spacing: 0) {
             Button {
-                print("button \(#file)")
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.status.removeAll {
+                        $0.id == status.id
+                    }
+                }
             } label: {
                 Image(systemName: "xmark.circle.fill")
                     .font(.title2.weight(.light))
