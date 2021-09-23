@@ -1,92 +1,112 @@
 import SwiftUI
 
 extension Search {
-    final class Representable: UIView, UIViewRepresentable {
-//        var hasText = false
-//
-//        func insertText(_ text: String) {
-//
-//        }
-//
-//        func deleteBackward() {
-//
-//        }
+    final class Representable: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate {
+        private var editable = true
+        private let tab: () -> Void
+        private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 52), inputViewStyle: .keyboard)
+        private weak var field: UITextField!
+        override var inputAccessoryView: UIView? { input }
+        override var canBecomeFirstResponder: Bool { editable }
         
-//        let input = UIInputView(frame: .init(x: 0, y: 0, width: 330, height: 48), inputViewStyle: .keyboard)
-//        override var inputAccessoryView: UIView? { input }
+        deinit {
+            print("rep gone")
+        }
         
         required init?(coder: NSCoder) { nil }
-        init() {
+        init(tab: @escaping () -> Void) {
+            self.tab = tab
             super.init(frame: .zero)
-//            backgroundColor = .red
+            
+            print("rep init")
             
             let background = UIView()
-            background.backgroundColor = .systemBackground.withAlphaComponent(0.2)
+            background.backgroundColor = .init(named: "Input")
             background.translatesAutoresizingMaskIntoConstraints = false
             background.isUserInteractionEnabled = false
-            background.layer.cornerRadius = 13
-            background.layer.borderColor = UIColor.label.withAlphaComponent(0.1).cgColor
+            background.layer.cornerRadius = 12
+            background.layer.borderColor = UIColor.label.withAlphaComponent(0.05).cgColor
             background.layer.borderWidth = 1
             background.layer.cornerCurve = .continuous
-            addSubview(background)
+            input.addSubview(background)
             
-            
-            
-            let field = UITextField(frame: .init(x: 80, y: 0, width: 240, height: 50))
-//            field.translatesAutoresizingMaskIntoConstraints = false
+            let field = UITextField()
+            field.translatesAutoresizingMaskIntoConstraints = false
+            field.keyboardType = .webSearch
             field.clearButtonMode = .always
             field.autocorrectionType = .no
             field.autocapitalizationType = .none
             field.spellCheckingType = .no
-//            field.backgroundColor = .clear
             field.tintColor = .label
             field.font = .preferredFont(forTextStyle: .callout)
             field.allowsEditingTextAttributes = false
-//            field.delegate = self
-            field.borderStyle = .none
-            addSubview(field)
-//            self.field = field
-            
-            
-            
-            background.leftAnchor.constraint(equalTo: field.leftAnchor, constant: -16).isActive = true
-            background.rightAnchor.constraint(equalTo: field.rightAnchor, constant: 8).isActive = true
+            field.delegate = self
+            input.addSubview(field)
+            self.field = field
+
+            background.leftAnchor.constraint(equalTo: input.safeAreaLayoutGuide.leftAnchor, constant: 20).isActive = true
+            background.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor, constant: -20).isActive = true
             background.centerYAnchor.constraint(equalTo: field.centerYAnchor).isActive = true
-            background.heightAnchor.constraint(equalToConstant: 38).isActive = true
+            background.heightAnchor.constraint(equalToConstant: 36).isActive = true
             
+            field.centerYAnchor.constraint(equalTo: input.centerYAnchor, constant: 3).isActive = true
+            field.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 16).isActive = true
+            field.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -8).isActive = true
             
+            DispatchQueue
+                .main
+                .asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                    self?.becomeFirstResponder()
+                }
+        }
+        
+        func textFieldDidEndEditing(_: UITextField) {
+            tab()
+        }
+        
+        func textFieldShouldReturn(_: UITextField) -> Bool {
+//            let state = wrapper.session.items[state: id]
+//            cloud
+//                .browse(field.text!, browse: state.browse) { [weak self] in
+//                    guard let id = self?.id else { return }
+//                    if state.browse == $0 {
+//                        if state.isError {
+//                            self?.wrapper.session.tab.browse(id, $0)
+//                        }
+//                        self?.wrapper.session.load.send((id: id, access: $1))
+//                    } else {
+//                        self?.wrapper.session.tab.browse(id, $0)
+//                    }
+//                }
+//            dismiss()
+            field.resignFirstResponder()
+            return true
+        }
+        
+        func textFieldDidChangeSelection(_: UITextField) {
+//            wrapper.filter = field.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        
+        var hasText: Bool {
+            get {
+                field.text?.isEmpty == false
+            }
+            set {
+                
+            }
+        }
+        
+        func textFieldShouldEndEditing(_: UITextField) -> Bool {
+            editable = false
+            return true
+        }
+        
+        func insertText(_: String) {
             
+        }
+        
+        func deleteBackward() {
             
-            
-            
-            
-            
-            
-            
-            
-//            let input = UIInputView(frame: .init(x: 0, y: 0, width: 300, height: 48), inputViewStyle: .keyboard)
-//            input.translatesAutoresizingMaskIntoConstraints = false
-//            self.inputAccessoryView = input
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-//            addSubview(input)
-            
-//            input.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-//            input.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-//            input.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         }
         
         func makeUIView(context: Context) -> Representable {
@@ -94,5 +114,12 @@ extension Search {
         }
         
         func updateUIView(_: Representable, context: Context) { }
+        
+        @discardableResult override func becomeFirstResponder() -> Bool {
+            DispatchQueue.main.async { [weak self] in
+                self?.field.becomeFirstResponder()
+            }
+            return super.becomeFirstResponder()
+        }
     }
 }

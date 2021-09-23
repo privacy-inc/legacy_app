@@ -6,7 +6,7 @@ extension Landing {
             Button {
                 
             } label: {
-                Header("Activity") {
+                Section("Activity") {
                     HStack(spacing: 0) {
                         Image(systemName: "chart.xyaxis.line")
                             .symbolRenderingMode(.palette)

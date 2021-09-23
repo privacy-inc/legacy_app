@@ -34,7 +34,7 @@ extension Landing {
                                 .frame(width: 38, height: 38)
                             Image(systemName: "magnifyingglass")
                                 .font(.callout)
-                                .foregroundColor(.white)
+                                .foregroundColor(.init(.systemBackground))
                         }
                     }
                     Spacer()

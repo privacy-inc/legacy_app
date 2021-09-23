@@ -1,7 +1,7 @@
 import SwiftUI
 
-extension Landing {
-    struct Header<Content>: View where Content : View {
+extension Search {
+    struct Section<Content>: View where Content : View {
         let title: String
         let content: Content
         
@@ -14,11 +14,14 @@ extension Landing {
             VStack {
                 Text(title)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                    .font(.headline)
+                    .font(.footnote)
                     .padding(.leading)
+                    .foregroundStyle(.tertiary)
                 content
+                    .modifier(Card())
+                    .padding(.horizontal)
             }
-            .padding(.vertical)
+            .padding(.vertical, 8)
         }
     }
 }

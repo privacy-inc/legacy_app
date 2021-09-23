@@ -121,10 +121,10 @@ struct Tabs: View {
                     status = []
                 }
             } label: {
-                Text("Close all \(Image(systemName: "flame.fill"))")
-                    .symbolRenderingMode(.hierarchical)
+                Text("Close all")
                     .font(.footnote)
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 5)
             }
             .buttonStyle(.bordered)
             .buttonBorderShape(.capsule)
@@ -145,7 +145,7 @@ struct Tabs: View {
             } label: {
                 Image(systemName: "xmark.circle.fill")
                     .font(.title2.weight(.light))
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(.secondary)
                     .symbolRenderingMode(.hierarchical)
             }
             .padding(.bottom, 20)

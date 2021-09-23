@@ -6,7 +6,7 @@ extension Landing {
             Button {
                 
             } label: {
-                Header("Trackers Report") {
+                Section("Trackers Report") {
                     HStack(spacing: 0) {
                         Text("\(Image(systemName: "shield.lefthalf.filled")) 199")
                             .monospacedDigit()

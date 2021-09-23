@@ -10,10 +10,9 @@ extension Search {
             VStack(spacing: 0) {
                 ZStack {
                     Image(systemName: "magnifyingglass")
-                        .font(.body)
-                        .foregroundStyle(.tertiary)
                     Group {
                         Button(role: .cancel) {
+                            UIApplication.shared.hide()
                             withAnimation(.easeInOut(duration: 0.4)) {
                                 offset = -100
                             }
@@ -32,8 +31,9 @@ extension Search {
                 .padding(.bottom, vertical == .compact ? 0 : 6)
                 
                 Rectangle()
-                    .fill(Color.primary.opacity(0.05))
-                    .frame(height: 1)
+                    .fill(HierarchicalShapeStyle.quaternary)
+                    .frame(height: 0.5)
+                    .edgesIgnoringSafeArea(.horizontal)
             }
             .background(.ultraThinMaterial)
             .offset(y: offset)

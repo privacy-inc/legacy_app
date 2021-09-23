@@ -6,7 +6,7 @@ extension Landing {
         @Environment(\.verticalSizeClass) private var vertical
         
         var body: some View {
-            Header("History") {
+            Section("History") {
                 HStack(alignment: .top) {
                     ForEach(0 ..< items.count, id: \.self) { index in
                         VStack {

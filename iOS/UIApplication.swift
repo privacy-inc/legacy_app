@@ -14,6 +14,10 @@ extension UIApplication {
             }
     }
     
+    func hide() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
     private var scene: UIWindowScene? {
         connectedScenes
             .filter {
