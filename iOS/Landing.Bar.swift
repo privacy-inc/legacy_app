@@ -11,37 +11,41 @@ extension Landing {
                 Rectangle()
                     .fill(Color.primary.opacity(0.05))
                     .frame(height: 1)
+                    .edgesIgnoringSafeArea(.horizontal)
                 HStack {
                     Button {
                         
                     } label: {
                         Image(systemName: "gear")
                             .symbolRenderingMode(.hierarchical)
-                            .padding(.leading)
+                            .padding(.horizontal)
                     }
                     Spacer()
                     Button(action: search) {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            Circle()
                                 .fill(.regularMaterial)
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .stroke(Color.primary.opacity(0.1))
-                            Text("\(Image(systemName: "magnifyingglass")) Search or enter website")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                                .padding(.leading)
-                                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                                .frame(width: 38, height: 38)
+                                .shadow(color: .primary.opacity(0.1), radius: vertical == .compact ? 0 : 3)
+                            Circle()
+                                .stroke(Color(.systemBackground))
+                                .frame(width: 38, height: 38)
+                            Image(systemName: "magnifyingglass")
+                                .font(.caption)
+                                .foregroundStyle(.primary)
                         }
-                        .frame(width: 220, height: 34)
+                        .fixedSize()
                     }
                     Spacer()
                     Button(action: tabs) {
                         Image(systemName: "square.on.square.dashed")
                             .symbolRenderingMode(.hierarchical)
-                            .padding(.trailing)
+                            .padding(.horizontal)
                     }
                 }
-                .padding(vertical == .compact ? 2 : 16)
+                .padding(.horizontal)
+                .padding(.top, vertical == .compact ? 2 : 8)
+                .padding(.bottom, 2)
             }
             .background(.ultraThinMaterial)
         }

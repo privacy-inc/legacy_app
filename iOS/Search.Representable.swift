@@ -24,7 +24,7 @@ extension Search {
             background.backgroundColor = .systemBackground.withAlphaComponent(0.2)
             background.translatesAutoresizingMaskIntoConstraints = false
             background.isUserInteractionEnabled = false
-            background.layer.cornerRadius = 12
+            background.layer.cornerRadius = 13
             background.layer.borderColor = UIColor.label.withAlphaComponent(0.1).cgColor
             background.layer.borderWidth = 1
             background.layer.cornerCurve = .continuous
@@ -32,7 +32,7 @@ extension Search {
             
             
             
-            let field = UITextField(frame: .init(x: 80, y: 0, width: 200, height: 50))
+            let field = UITextField(frame: .init(x: 80, y: 0, width: 240, height: 50))
 //            field.translatesAutoresizingMaskIntoConstraints = false
             field.clearButtonMode = .always
             field.autocorrectionType = .no
@@ -40,7 +40,7 @@ extension Search {
             field.spellCheckingType = .no
 //            field.backgroundColor = .clear
             field.tintColor = .label
-            field.font = .preferredFont(forTextStyle: .footnote)
+            field.font = .preferredFont(forTextStyle: .callout)
             field.allowsEditingTextAttributes = false
 //            field.delegate = self
             field.borderStyle = .none
@@ -49,10 +49,10 @@ extension Search {
             
             
             
-            background.leftAnchor.constraint(equalTo: field.leftAnchor, constant: -14).isActive = true
-            background.rightAnchor.constraint(equalTo: field.rightAnchor, constant: 6).isActive = true
+            background.leftAnchor.constraint(equalTo: field.leftAnchor, constant: -16).isActive = true
+            background.rightAnchor.constraint(equalTo: field.rightAnchor, constant: 8).isActive = true
             background.centerYAnchor.constraint(equalTo: field.centerYAnchor).isActive = true
-            background.heightAnchor.constraint(equalToConstant: 36).isActive = true
+            background.heightAnchor.constraint(equalToConstant: 38).isActive = true
             
             
             
