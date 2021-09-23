@@ -5,7 +5,7 @@ struct Tabs: View {
     @Binding var status: [Navigation.Status]
     @State var transition: Transition?
     let tab: (Int) -> Void
-    @State private var entering = true
+    @State private var entering = false
     @Namespace private var animating
     private let scroll = PassthroughSubject<UUID, Never>()
     
@@ -26,13 +26,13 @@ struct Tabs: View {
         .task {
             scroll.send(status[transition!.index].id)
             
-            withAnimation(.easeInOut(duration: 0.3)) {
+            withAnimation(.easeInOut(duration: 0.2)) {
                 transition!.size = 150
             }
             
             DispatchQueue
                 .main
-                .asyncAfter(deadline: .now() + 0.3) {
+                .asyncAfter(deadline: .now() + 0.2) {
                     withAnimation(.easeInOut(duration: 0.2)) {
                         transition = nil
                     }
@@ -46,27 +46,19 @@ struct Tabs: View {
                 $0.id == id
             }!
         
-        entering = false
+        entering = true
         
-        withAnimation(.easeInOut(duration: 0.2)) {
-            scroll.send(id)
-        }
-        
-        withAnimation(.easeInOut(duration: 0.2)) {
+        withAnimation(.easeInOut(duration: 0.1)) {
             transition = .init(size: 150, index: index)
         }
         
-        DispatchQueue
-            .main
-            .asyncAfter(deadline: .now() + 0.1) {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    transition?.size = nil
-                }
-            }
+        withAnimation(.easeInOut(duration: 0.3)) {
+            transition?.size = nil
+        }
         
         DispatchQueue
             .main
-            .asyncAfter(deadline: .now() + 0.4) {
+            .asyncAfter(deadline: .now() + 0.3) {
                 tab(index)
             }
     }
@@ -105,6 +97,11 @@ struct Tabs: View {
                 DispatchQueue
                     .main
                     .asyncAfter(deadline: .now() + 0.1) {
+                        
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            scroll.send(status.last!.id)
+                        }
+                        
                         open(status.last!.id)
                     }
             } label: {
