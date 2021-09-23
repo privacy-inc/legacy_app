@@ -10,7 +10,7 @@ extension Search {
             VStack(spacing: 0) {
                 ZStack {
                     Image(systemName: "magnifyingglass")
-                        .font(.title3)
+                        .font(.body)
                         .foregroundStyle(.tertiary)
                     Group {
                         Button(role: .cancel) {

@@ -30,17 +30,12 @@ extension Landing {
                     } label: {
                         ZStack {
                             Circle()
-                                .fill(.regularMaterial)
-                                .frame(width: 38, height: 38)
-                                .shadow(color: .primary.opacity(0.1), radius: vertical == .compact ? 0 : 3)
-                            Circle()
-                                .stroke(Color(.systemBackground))
+                                .fill(Color("Shades"))
                                 .frame(width: 38, height: 38)
                             Image(systemName: "magnifyingglass")
-                                .font(.caption)
-                                .foregroundStyle(.primary)
+                                .font(.callout)
+                                .foregroundColor(.white)
                         }
-                        .fixedSize()
                     }
                     Spacer()
                     Button(action: tabs) {
