@@ -4,13 +4,14 @@ extension Landing {
     struct Bar: View {
         let tabs: () -> Void
         let search: () -> Void
+        @State private var offset = CGFloat(100)
         @Environment(\.verticalSizeClass) private var vertical
         
         var body: some View {
             VStack(spacing: 0) {
                 Rectangle()
-                    .fill(Color.primary.opacity(0.05))
-                    .frame(height: 1)
+                    .fill(HierarchicalShapeStyle.quaternary)
+                    .frame(height: 0.5)
                     .edgesIgnoringSafeArea(.horizontal)
                 HStack {
                     Button {
@@ -21,7 +22,12 @@ extension Landing {
                             .padding(.horizontal)
                     }
                     Spacer()
-                    Button(action: search) {
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            offset = 100
+                        }
+                        search()
+                    } label: {
                         ZStack {
                             Circle()
                                 .fill(.regularMaterial)
@@ -48,6 +54,12 @@ extension Landing {
                 .padding(.bottom, 2)
             }
             .background(.ultraThinMaterial)
+            .offset(y: offset)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 0.4)) {
+                    offset = 0
+                }
+            }
         }
     }
 }

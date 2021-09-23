@@ -14,7 +14,7 @@ extension Search {
                         .foregroundStyle(.tertiary)
                     Group {
                         Button(role: .cancel) {
-                            withAnimation(.easeInOut(duration: 0.35)) {
+                            withAnimation(.easeInOut(duration: 0.4)) {
                                 offset = -100
                             }
                             tab()
@@ -23,12 +23,13 @@ extension Search {
                                 .font(.callout)
                                 .foregroundStyle(.secondary)
                                 .padding(.horizontal)
-                                .padding(.vertical, 8)
+                                .padding(.vertical, 6)
                         }
                     }
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .trailing)
                 }
-                .padding(vertical == .compact ? 0 : 8)
+                .padding(.top, 2)
+                .padding(.bottom, vertical == .compact ? 0 : 6)
                 
                 Rectangle()
                     .fill(Color.primary.opacity(0.05))
@@ -37,7 +38,7 @@ extension Search {
             .background(.ultraThinMaterial)
             .offset(y: offset)
             .onAppear {
-                withAnimation(.easeInOut(duration: 0.35)) {
+                withAnimation(.easeInOut(duration: 0.4)) {
                     offset = 0
                 }
             }

@@ -43,7 +43,7 @@ struct Navigation: View {
     private func search() {
         switch flow {
         case let .landing(index), let .tab(index):
-            withAnimation(.easeInOut(duration: 0.3)) {
+            withAnimation(.easeInOut(duration: 0.4)) {
                 flow = .search(index)
             }
         default:

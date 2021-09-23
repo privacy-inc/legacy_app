@@ -9,9 +9,6 @@ struct Search: View {
         }
         .frame(maxWidth: .greatestFiniteMagnitude)
         .background(.ultraThickMaterial)
-        .safeAreaInset(edge: .bottom) {
-            Bar()
-        }
         .safeAreaInset(edge: .top) {
             Header(tab: tab)
         }
