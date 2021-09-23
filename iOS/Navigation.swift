@@ -13,7 +13,7 @@ struct Navigation: View {
         case .tab:
             Tab(tabs: tabs)
         case .search:
-            Search()
+            Search(tab: tab)
         case let .tabs(index):
             Tabs(status: $status, transition: .init(index: index), tab: tab)
         }
@@ -29,10 +29,23 @@ struct Navigation: View {
         }
     }
     
+    private func tab() {
+        switch flow {
+        case let .search(index):
+            withAnimation(.easeInOut(duration: 0.3)) {
+                tab(index)
+            }
+        default:
+            break
+        }
+    }
+    
     private func search() {
         switch flow {
         case let .landing(index), let .tab(index):
-            flow = .search(index)
+            withAnimation(.easeInOut(duration: 0.3)) {
+                flow = .search(index)
+            }
         default:
             break
         }
