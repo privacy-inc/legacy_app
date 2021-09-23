@@ -9,9 +9,11 @@ struct Navigation: View {
         case .menu:
             Circle()
         case .landing:
-            Landing(tabs: tabs)
+            Landing(tabs: tabs, search: search)
         case .tab:
             Tab(tabs: tabs)
+        case .search:
+            Search()
         case let .tabs(index):
             Tabs(status: $status, transition: .init(index: index), tab: tab)
         }
@@ -22,6 +24,15 @@ struct Navigation: View {
         case let .landing(index), let .tab(index):
             status[index].image = UIApplication.shared.snapshot
             flow = .tabs(index)
+        default:
+            break
+        }
+    }
+    
+    private func search() {
+        switch flow {
+        case let .landing(index), let .tab(index):
+            flow = .search(index)
         default:
             break
         }

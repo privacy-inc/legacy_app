@@ -3,6 +3,7 @@ import SwiftUI
 extension Landing {
     struct Bar: View {
         let tabs: () -> Void
+        let search: () -> Void
         @Environment(\.verticalSizeClass) private var vertical
         
         var body: some View {
@@ -19,18 +20,20 @@ extension Landing {
                             .padding(.leading)
                     }
                     Spacer()
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .fill(.regularMaterial)
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .stroke(Color.primary.opacity(0.1))
-                        Text("\(Image(systemName: "magnifyingglass")) Search or enter website")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                            .padding(.leading)
-                            .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    Button(action: search) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .fill(.regularMaterial)
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .stroke(Color.primary.opacity(0.1))
+                            Text("\(Image(systemName: "magnifyingglass")) Search or enter website")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                                .padding(.leading)
+                                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                        }
+                        .frame(width: 220, height: 34)
                     }
-                    .frame(width: 220, height: 34)
                     Spacer()
                     Button(action: tabs) {
                         Image(systemName: "square.on.square.dashed")

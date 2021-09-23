@@ -6,6 +6,7 @@ extension Navigation {
         menu,
         landing(Int),
         tab(Int),
-        tabs(Int)
+        tabs(Int),
+        search(Int)
     }
 }
