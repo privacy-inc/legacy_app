@@ -28,6 +28,10 @@ struct Navigation: View {
     }
     
     private func tab(_ index: Int) {
-        flow = .tab(index)
+        if status[index].browse == nil {
+            flow = .landing(index)
+        } else {
+            flow = .tabs(index)
+        }
     }
 }

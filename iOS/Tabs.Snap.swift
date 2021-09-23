@@ -9,7 +9,7 @@ extension Tabs {
         var body: some View {
             ZStack {
                 container
-                    .fill(Color(.systemBackground))
+                    .fill(.ultraThickMaterial)
                     .frame(width: size, height: size)
                     .shadow(color: .primary.opacity(0.1), radius: 10)
                 container
@@ -22,8 +22,8 @@ extension Tabs {
                         .frame(width: size, height: size)
                         .clipShape(container)
                 } else {
-                    Image(systemName: "globe.europe.africa.fill")
-                        .foregroundColor(.init("Shades"))
+                    Image(systemName: "magnifyingglass")
+                        .foregroundStyle(.tertiary)
                         .font(.largeTitle)
                 }
             }

@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 
 struct Tabs: View {
-    @Binding var status: [Navigation.Status]
+    @Binding var status: [Status]
     @State var transition: Transition?
     let tab: (Int) -> Void
     @State private var entering = false
@@ -17,25 +17,25 @@ struct Tabs: View {
             scrollView
             add
             if transition != nil {
-                Snap(image: status[transition!.index].image, size: transition!.size)
-                    .edgesIgnoringSafeArea(.all)
-                    .allowsHitTesting(false)
-                    .matchedGeometryEffect(id: status[transition!.index].id, in: animating, properties: .position, isSource: entering)
+                VStack {
+                    Snap(image: status[transition!.index].image, size: transition!.size)
+                        .edgesIgnoringSafeArea(.all)
+                        .allowsHitTesting(false)
+                        .matchedGeometryEffect(id: status[transition!.index].id, in: animating, properties: .position, isSource: entering)
+                }
             }
         }
         .task {
             scroll.send(status[transition!.index].id)
             
-            withAnimation(.easeInOut(duration: 0.2)) {
+            withAnimation(.easeInOut(duration: 0.3)) {
                 transition!.size = 150
             }
             
             DispatchQueue
                 .main
-                .asyncAfter(deadline: .now() + 0.2) {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        transition = nil
-                    }
+                .asyncAfter(deadline: .now() + 0.3) {
+                    transition = nil
                 }
         }
     }
@@ -115,12 +115,36 @@ struct Tabs: View {
         .padding(.bottom)
     }
     
-    private func item(_ status: Navigation.Status) -> some View {
-        Snap(image: status.image, size: 150)
-            .matchedGeometryEffect(id: status.id, in: animating, properties: .position, isSource: !entering)
-            .id(status.id)
-            .onTapGesture {
-                open(status.id)
+    private func item(_ status: Status) -> some View {
+        VStack(spacing: 0) {
+            Button {
+                print("button \(#file)")
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.title2.weight(.light))
+                    .foregroundStyle(.tertiary)
+                    .symbolRenderingMode(.hierarchical)
             }
+            .padding(.bottom, 20)
+            
+            Button {
+                open(status.id)
+            } label: {
+                VStack(spacing: 0) {
+                    Snap(image: status.image, size: 150)
+                        .matchedGeometryEffect(id: status.id, in: animating, properties: .position, isSource: !entering)
+                        .id(status.id)
+                    Text(verbatim: status.title)
+                        .font(.caption)
+                        .lineLimit(1)
+                        .padding(.horizontal)
+                        .padding(.vertical, 12)
+                    Image(systemName: "bolt.circle.fill")
+                        .symbolRenderingMode(.hierarchical)
+                        .foregroundColor(.init("Shades"))
+                        .font(.title)
+                }
+            }
+        }
     }
 }
