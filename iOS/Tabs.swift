@@ -5,7 +5,7 @@ struct Tabs: View {
     @Binding var status: [Status]
     @State var transition: Transition?
     let tab: (Int) -> Void
-    @State private var entering = false
+    @State private var entering = true
     @Namespace private var animating
     private let scroll = PassthroughSubject<UUID, Never>()
     
@@ -15,14 +15,13 @@ struct Tabs: View {
                                        startPoint: .bottom, endPoint: .top)
                 .edgesIgnoringSafeArea(.all)
             scrollView
+            closeAll
             add
             if transition != nil {
-                VStack {
-                    Snap(image: status[transition!.index].image, size: transition!.size)
-                        .edgesIgnoringSafeArea(.all)
-                        .allowsHitTesting(false)
-                        .matchedGeometryEffect(id: status[transition!.index].id, in: animating, properties: .position, isSource: entering)
-                }
+                Snap(image: status[transition!.index].image, size: transition!.size)
+                    .edgesIgnoringSafeArea(.all)
+                    .allowsHitTesting(false)
+                    .matchedGeometryEffect(id: status[transition!.index].id, in: animating, properties: .position, isSource: !entering)
             }
         }
         .task {
@@ -46,7 +45,7 @@ struct Tabs: View {
                 $0.id == id
             }!
         
-        entering = true
+        entering = false
         
         withAnimation(.easeInOut(duration: 0.1)) {
             transition = .init(size: 150, index: index)
@@ -110,9 +109,29 @@ struct Tabs: View {
                     .symbolRenderingMode(.hierarchical)
                     .foregroundColor(.init("Shades"))
             }
+            .padding(.bottom)
         }
         .frame(maxHeight: .greatestFiniteMagnitude, alignment: .bottom)
-        .padding(.bottom)
+    }
+    
+    private var closeAll: some View {
+        Group {
+            Button {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    status = []
+                }
+            } label: {
+                Text("Close all \(Image(systemName: "flame.fill"))")
+                    .symbolRenderingMode(.hierarchical)
+                    .font(.footnote)
+                    .foregroundStyle(.tertiary)
+            }
+            .buttonStyle(.bordered)
+            .buttonBorderShape(.capsule)
+            .padding(.top)
+            .disabled(status.isEmpty)
+        }
+        .frame(maxHeight: .greatestFiniteMagnitude, alignment: .top)
     }
     
     private func item(_ status: Status) -> some View {
@@ -132,7 +151,7 @@ struct Tabs: View {
             } label: {
                 VStack(spacing: 0) {
                     Snap(image: status.image, size: 150)
-                        .matchedGeometryEffect(id: status.id, in: animating, properties: .position, isSource: !entering)
+                        .matchedGeometryEffect(id: status.id, in: animating, properties: .position, isSource: entering)
                         .id(status.id)
                     Text(verbatim: status.title)
                         .font(.caption)
