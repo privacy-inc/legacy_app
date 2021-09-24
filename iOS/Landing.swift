@@ -25,7 +25,23 @@ struct Landing: View {
         }
         .background(.ultraThickMaterial)
         .safeAreaInset(edge: .bottom) {
-            Bar(tabs: tabs, search: search)
+            Bar(search: search) {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "gear")
+                        .symbolRenderingMode(.hierarchical)
+                        .padding(.horizontal)
+                }
+                Spacer()
+            } trailing: {
+                Spacer()
+                Button(action: tabs) {
+                    Image(systemName: "square.on.square.dashed")
+                        .symbolRenderingMode(.hierarchical)
+                        .padding(.horizontal)
+                }
+            }
         }
     }
 }

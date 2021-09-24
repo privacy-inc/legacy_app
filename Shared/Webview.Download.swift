@@ -1,7 +1,6 @@
 import WebKit
-import Sleuth
 
-@available(macOS 12, iOS 14.5, *) extension Webview: WKDownloadDelegate {
+extension Webview: WKDownloadDelegate {
     func webView(_: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
         didBecome.delegate = self
     }
@@ -37,11 +36,11 @@ import Sleuth
     #elseif os(iOS)
     
     func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String, completionHandler: @escaping (URL?) -> Void) {
-        decideDestinationUsing
-            .url
-            .map {
-                try? UIApplication.shared.share(Data(contentsOf: $0).temporal(suggestedFilename))
-            }
+//        decideDestinationUsing
+//            .url
+//            .map {
+//                try? UIApplication.shared.share(Data(contentsOf: $0).temporal(suggestedFilename))
+//            }
         download.cancel(nil)
         completionHandler(nil)
     }

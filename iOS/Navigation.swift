@@ -10,8 +10,8 @@ struct Navigation: View {
             Circle()
         case .landing:
             Landing(tabs: tabs, search: search)
-        case .tab:
-            Tab(tabs: tabs)
+        case .web:
+            Tab(tabs: tabs, search: search)
         case .search:
             Search(tab: tab)
         case let .tabs(index):
@@ -20,42 +20,27 @@ struct Navigation: View {
     }
     
     private func tabs() {
-        switch flow {
-        case let .landing(index), let .tab(index):
-            status[index].image = UIApplication.shared.snapshot
-            flow = .tabs(index)
-        default:
-            break
-        }
+        status[flow.index].image = UIApplication.shared.snapshot
+        flow = .tabs(flow.index)
     }
     
     private func tab() {
-        switch flow {
-        case let .search(index):
-            withAnimation(.easeInOut(duration: 0.3)) {
-                tab(index)
-            }
-        default:
-            break
+        withAnimation(.easeInOut(duration: 0.3)) {
+            tab(flow.index)
         }
     }
     
     private func search() {
-        switch flow {
-        case let .landing(index), let .tab(index):
-            withAnimation(.easeInOut(duration: 0.4)) {
-                flow = .search(index)
-            }
-        default:
-            break
+        withAnimation(.easeInOut(duration: 0.4)) {
+            flow = .search(flow.index)
         }
     }
     
     private func tab(_ index: Int) {
-        if status[index].browse == nil {
-            flow = .landing(index)
-        } else {
-            flow = .tabs(index)
-        }
+//        if status[index].browse == nil {
+//            flow = .landing(index)
+//        } else {
+            flow = .web(index)
+//        }
     }
 }
