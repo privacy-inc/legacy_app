@@ -34,6 +34,10 @@
 		CE9B93F026F89BA6005E1D7F /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93EF26F89BA6005E1D7F /* Tab.swift */; };
 		CE9B93F226F89E6D005E1D7F /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F126F89E6D005E1D7F /* Tabs.swift */; };
 		CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F326F89F1E005E1D7F /* Navigation.swift */; };
+		CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
+		CEF5548526FDD4F000FE0E9C /* Webview.Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548326FDD4F000FE0E9C /* Webview.Download.swift */; };
+		CEF5548826FDD4FA00FE0E9C /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548626FDD4FA00FE0E9C /* Web.swift */; };
+		CEF5548926FDD4FA00FE0E9C /* Web.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548726FDD4FA00FE0E9C /* Web.Coordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +69,10 @@
 		CE9B93EF26F89BA6005E1D7F /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		CE9B93F126F89E6D005E1D7F /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		CE9B93F326F89F1E005E1D7F /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		CEF5548226FDD4F000FE0E9C /* Webview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
+		CEF5548326FDD4F000FE0E9C /* Webview.Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webview.Download.swift; sourceTree = "<group>"; };
+		CEF5548626FDD4FA00FE0E9C /* Web.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
+		CEF5548726FDD4FA00FE0E9C /* Web.Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web.Coordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +131,8 @@
 				CE7DAB7B26FB649B00BEAA0F /* Tabs.Snap.swift */,
 				CE9B93F126F89E6D005E1D7F /* Tabs.swift */,
 				CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */,
+				CEF5548726FDD4FA00FE0E9C /* Web.Coordinator.swift */,
+				CEF5548626FDD4FA00FE0E9C /* Web.swift */,
 				CE46B4E126F797F700A5B5BB /* Assets.xcassets */,
 			);
 			path = iOS;
@@ -131,6 +141,8 @@
 		CE46B4E926F7980000A5B5BB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CEF5548326FDD4F000FE0E9C /* Webview.Download.swift */,
+				CEF5548226FDD4F000FE0E9C /* Webview.swift */,
 				CE46B4EA26F7982200A5B5BB /* Colours.xcassets */,
 				CE470A6C26FA1DB2002D560A /* Images.xcassets */,
 			);
@@ -216,13 +228,17 @@
 			files = (
 				CE7DAB7826FB49CE00BEAA0F /* UIApplication.swift in Sources */,
 				CE9B637226FC8BA700CD4DCE /* Search.Representable.swift in Sources */,
+				CEF5548826FDD4FA00FE0E9C /* Web.swift in Sources */,
 				CE470A6A26FA10CB002D560A /* Card.swift in Sources */,
 				CE470A6626FA0AEB002D560A /* Landing.Bar.swift in Sources */,
 				CE7DAB7C26FB649B00BEAA0F /* Tabs.Snap.swift in Sources */,
+				CEF5548926FDD4FA00FE0E9C /* Web.Coordinator.swift in Sources */,
+				CEF5548526FDD4F000FE0E9C /* Webview.Download.swift in Sources */,
 				CE46B4DE26F797F600A5B5BB /* App.swift in Sources */,
 				CE9B637626FCA05800CD4DCE /* Search.Header.swift in Sources */,
 				CE7DAB7626FB42DF00BEAA0F /* Int.swift in Sources */,
 				CE17245126F909AC00C2CED5 /* Landing.History.swift in Sources */,
+				CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */,
 				CE9B93F026F89BA6005E1D7F /* Tab.swift in Sources */,
 				CE9B93F226F89E6D005E1D7F /* Tabs.swift in Sources */,
 				CE1D9C3226FB6883004F8B6B /* Status.swift in Sources */,
