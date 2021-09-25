@@ -1,5 +1,6 @@
 import WebKit
 import Combine
+import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     final var subs = Set<AnyCancellable>()
@@ -105,6 +106,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         
         load(cloud.archive.value.page(browse).access)
         */
+        
+        
     }
     
     func external(_ url: URL) {
@@ -139,27 +142,27 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         navigationDelegate = nil
     }
     
-//    final func load(_ access: Page.Access) {
-//        switch access {
-//        case let .remote(remote):
-//            remote
-//                .url
-//                .map(load)
-//        case let .local(local):
-//            local
-//                .open {
-//                    loadFileURL($0, allowingReadAccessTo: $1)
-//                }
-//        case let .deeplink(deeplink):
-//            deeplink
-//                .url
-//                .map(load)
-//        case let .embed(embed):
-//            embed
-//                .url
-//                .map(load)
-//        }
-//    }
+    final func load(_ access: AccessType) {
+        switch access {
+        case let .remote(remote):
+            remote
+                .url
+                .map(load)
+        case let .local(local):
+            local
+                .open {
+                    loadFileURL($0, allowingReadAccessTo: $1)
+                }
+        case let .deeplink(deeplink):
+            deeplink
+                .url
+                .map(load)
+        case let .embed(embed):
+            embed
+                .url
+                .map(load)
+        }
+    }
     
     final func load(_ url: URL) {
         load(.init(url: url))
