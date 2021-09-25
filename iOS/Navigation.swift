@@ -13,7 +13,7 @@ struct Navigation: View {
         case .web:
             Tab(tabs: tabs, search: search)
         case .search:
-            Search(tab: tab)
+            Search(tab: tab, searching: searching)
         case let .tabs(index):
             Tabs(status: $status, transition: .init(index: index), tab: tab)
         }
@@ -36,11 +36,20 @@ struct Navigation: View {
         }
     }
     
+    private func searching(search: String) {
+        Task {
+            if let history = await cloud.search(search) {
+                status[flow.index].history = history
+            }
+            tab()
+        }
+    }
+    
     private func tab(_ index: Int) {
-//        if status[index].browse == nil {
-//            flow = .landing(index)
-//        } else {
+        if status[index].history == nil {
+            flow = .landing(index)
+        } else {
             flow = .web(index)
-//        }
+        }
     }
 }

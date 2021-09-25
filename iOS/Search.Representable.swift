@@ -3,7 +3,7 @@ import SwiftUI
 extension Search {
     final class Representable: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate {
         private var editable = true
-        private let tab: () -> Void
+        private let searching: (String) -> Void
         private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 52), inputViewStyle: .keyboard)
         private weak var field: UITextField!
         override var inputAccessoryView: UIView? { input }
@@ -14,8 +14,8 @@ extension Search {
         }
         
         required init?(coder: NSCoder) { nil }
-        init(tab: @escaping () -> Void) {
-            self.tab = tab
+        init(searching: @escaping (String) -> Void) {
+            self.searching = searching
             super.init(frame: .zero)
             
             print("rep init")
@@ -60,25 +60,8 @@ extension Search {
                 }
         }
         
-        func textFieldDidEndEditing(_: UITextField) {
-            tab()
-        }
-        
         func textFieldShouldReturn(_: UITextField) -> Bool {
-//            let state = wrapper.session.items[state: id]
-//            cloud
-//                .browse(field.text!, browse: state.browse) { [weak self] in
-//                    guard let id = self?.id else { return }
-//                    if state.browse == $0 {
-//                        if state.isError {
-//                            self?.wrapper.session.tab.browse(id, $0)
-//                        }
-//                        self?.wrapper.session.load.send((id: id, access: $1))
-//                    } else {
-//                        self?.wrapper.session.tab.browse(id, $0)
-//                    }
-//                }
-//            dismiss()
+            searching(field.text!)
             field.resignFirstResponder()
             return true
         }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct Search: View {
     let tab: () -> Void
+    let searching: (String) -> Void
     
     var body: some View {
         ScrollView {
@@ -29,7 +30,7 @@ struct Search: View {
                     }
                 }
             }
-            Representable(tab: tab)
+            Representable(searching: searching)
                 .frame(height: 1)
         }
         .frame(maxWidth: .greatestFiniteMagnitude)
