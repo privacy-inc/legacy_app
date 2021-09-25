@@ -10,8 +10,8 @@ struct Navigation: View {
             Circle()
         case .landing:
             Landing(tabs: tabs, search: search)
-        case .web:
-            Tab(tabs: tabs, search: search)
+        case let .web(index):
+            Tab(history: status[index].history!, tabs: tabs, search: search)
         case .search:
             Search(tab: tab, searching: searching)
         case let .tabs(index):

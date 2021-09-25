@@ -3,6 +3,7 @@ import Combine
 import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
+    
     final var subs = Set<AnyCancellable>()
 //    final let id: UUID
 //    final let browse: Int
@@ -11,7 +12,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     
     required init?(coder: NSCoder) { nil }
 //    init(configuration: WKWebViewConfiguration, session: Session, id: UUID, browse: Int, settings: Sleuth.Settings) {
-    init() {
+    init(history: Int) {
+        
 //        self.session = session
 //        self.id = id
 //        self.browse = browse
@@ -107,7 +109,13 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         load(cloud.archive.value.page(browse).access)
         */
         
-        
+        Task {
+            guard let history = await cloud.model.history
+                    .first (where: {
+                        $0.id == history
+                    }) else { return }
+            load(history.website.access)
+        }
     }
     
     func external(_ url: URL) {
@@ -143,22 +151,12 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     }
     
     final func load(_ access: AccessType) {
-        switch access {
-        case let .remote(remote):
-            remote
-                .url
-                .map(load)
-        case let .local(local):
-            local
-                .open {
-                    loadFileURL($0, allowingReadAccessTo: $1)
-                }
-        case let .deeplink(deeplink):
-            deeplink
-                .url
-                .map(load)
-        case let .embed(embed):
-            embed
+        if let access = access as? Access.Local {
+            access.open { file, directory in
+                loadFileURL(file, allowingReadAccessTo: directory)
+            }
+        } else {
+            access
                 .url
                 .map(load)
         }
@@ -179,7 +177,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     
     final func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
 //        guard settings.http else {
-//            completionHandler(.performDefaultHandling, nil)
+            completionHandler(.performDefaultHandling, nil)
 //            return
 //        }
 //        completionHandler(.useCredential, didReceive.protectionSpace.serverTrust.map(URLCredential.init(trust:)))
@@ -214,6 +212,15 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     }
     
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
+        
+        
+        
+        decisionHandler(.allow, preferences)
+        
+        
+        
+        
+        
         /*switch cloud.policy(decidePolicyFor.request.url!) {
         case .allow:
             print("allow \(decidePolicyFor.request.url!)")

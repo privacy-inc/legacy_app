@@ -1,11 +1,12 @@
 import SwiftUI
 
 struct Tab: View {
+    let history: Int
     let tabs: () -> Void
     let search: () -> Void
     
     var body: some View {
-        Web()
+        Web(history: history)
             .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
             .safeAreaInset(edge: .bottom) {
                 Bar(search: search) {

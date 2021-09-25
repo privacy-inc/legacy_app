@@ -16,7 +16,7 @@ final class Web: Webview, UIViewRepresentable {
     weak var newTab: PassthroughSubject<URL, Never>!
     
     required init?(coder: NSCoder) { nil }
-    override init() {
+    override init(history: Int) {
 //            newTab = wrapper.session.newTab
 //            var settings = wrapper.session.archive.settings
 //
@@ -30,7 +30,7 @@ final class Web: Webview, UIViewRepresentable {
         configuration.allowsInlineMediaPlayback = true
         configuration.ignoresViewportScaleLimits = true
         
-        super.init()
+        super.init(history: history)
         scrollView.keyboardDismissMode = .none
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.clipsToBounds = false
