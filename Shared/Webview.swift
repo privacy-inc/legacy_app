@@ -90,9 +90,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
             }
             .removeDuplicates()
             .sink { title in
-                Task {
-                    await cloud.update(title: title, history: history)
-                }
+                Task
+                    .detached(priority: .utility) {
+                        await cloud.update(title: title, history: history)
+                    }
             }
             .store(in: &subs)
 
@@ -110,14 +111,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         
         load(cloud.archive.value.page(browse).access)
         */
-        
-        Task {
-            guard let history = await cloud.model.history
-                    .first (where: {
-                        $0.id == history
-                    }) else { return }
-            load(history.website.access)
-        }
     }
     
     func external(_ url: URL) {

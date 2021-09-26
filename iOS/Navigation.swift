@@ -38,32 +38,33 @@ struct Navigation: View {
     }
     
     private func searching(search: String) {
-        Task {
-            do {
-                if let id = status[flow.index].history {
-                    try await cloud.search(search, history: id)
-                } else {
-                    status[flow.index].history = try await cloud.search(search)
-                }
-                
-                let history = await cloud.model.history
-                    .first {
-                        $0.id == status[flow.index].history
-                    }!
-                
-                await MainActor
-                    .run {
-                        if status[flow.index].web == nil {
-                            status[flow.index].web = .init(history: status[flow.index].history!)
-                        }
-                        
-                        status[flow.index].web!.load(history.website.access)
-                        
-                        tab()
+        Task
+            .detached(priority: .utility) {
+                do {
+                    if let id = status[flow.index].history {
+                        try await cloud.search(search, history: id)
+                    } else {
+                        status[flow.index].history = try await cloud.search(search)
                     }
-            } catch {
-                tab()
-            }
+                    
+                    let history = await cloud.model.history
+                        .first {
+                            $0.id == status[flow.index].history
+                        }!
+                    
+                    await MainActor
+                        .run {
+                            if status[flow.index].web == nil {
+                                status[flow.index].web = .init(history: status[flow.index].history!)
+                            }
+                            
+                            status[flow.index].web!.load(history.website.access)
+                            
+                            tab()
+                        }
+                } catch {
+                    tab()
+                }
         }
     }
     
