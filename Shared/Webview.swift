@@ -82,20 +82,22 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
                 session.tab.update(id, back: $0)
             }
             .store(in: &subs)
+         */
         
         publisher(for: \.title, options: .new)
             .compactMap {
                 $0
             }
-            .filter {
-                !$0.isEmpty
-            }
             .removeDuplicates()
-            .sink {
-                cloud.update(browse, title: $0)
+            .sink { title in
+                Task {
+                    await cloud.update(title: title, history: history)
+                }
             }
             .store(in: &subs)
 
+        
+        /*
         publisher(for: \.url, options: .new)
             .compactMap {
                 $0

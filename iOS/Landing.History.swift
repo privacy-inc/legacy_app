@@ -1,8 +1,10 @@
 import SwiftUI
+import Specs
 
 extension Landing {
     struct History: View {
-        @State private var items = [[Model]]()
+        @State private var history = [Specs.History]()
+        @State private var items = [[Specs.History]]()
         @Environment(\.verticalSizeClass) private var vertical
         
         var body: some View {
@@ -20,6 +22,10 @@ extension Landing {
                 update(with: vertical)
             }
             .onChange(of: vertical, perform: update(with:))
+            .onReceive(cloud) {
+                history = $0.history
+                update(with: vertical)
+            }
         }
         
         private func update(with vertical: UserInterfaceSizeClass?) {
@@ -37,13 +43,13 @@ extension Landing {
     }
     
     private struct Item: View {
-        let model: Model
+        let item: Specs.History
         
         var body: some View {
             Button {
                 
             } label: {
-                Text("\(Image(model.icon)) \(Text(model.title))\n\(Text(model.domain).foregroundColor(.secondary).font(.caption2))")
+                Text("\(Image("")) \(Text(item.website.title))\n\(Text(item.website.access.value).foregroundColor(.secondary).font(.caption2))")
                     .font(.caption)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
@@ -52,29 +58,4 @@ extension Landing {
             }
         }
     }
-}
-
-private let history = [
-    Model(title: "Alan Moore - Wikipedia", domain: "wikipedia.org"),
-    .init(title: "Alan Moore - Google", domain: "google.com"),
-    .init(title: "Reuters", domain: "reuters.com"),
-    .init(title: "Alan Moore - Wikipedia lorem ipsum hello world lorem ipsum lorem lorem lorem ipsum hello hello lorem ipsum", domain: "wikipedia.org"),
-    .init(title: "The Guardian", domain: "guardian.com"),
-    .init(title: "b", domain: "a.com"),
-    .init(title: "bdasdas", domain: "qeqwdasdas"),
-    .init(title: "bd", domain: "adad"),
-    .init(title: "bdasdas asdksja", domain: "dasdsadsafasdasdsaasda"),
-    .init(title: "bds dsadas asd", domain: "fjdasjdas"),
-    .init(title: "b sdaas asdd asd sad a", domain: "ad.com"),
-    .init(title: "bd", domain: "asas.com"),
-    .init(title: "bss", domain: "aasddsadas.com"),
-    .init(title: "bdassa", domain: "afads.com"),
-    .init(title: "b das das dsa", domain: "asad.com"),
-    .init(title: "b dasldmala adslmaslm", domain: "aadsdjaskdfajfdjdksjb.com"),]
-
-private struct Model: Identifiable {
-    let id = UUID()
-    let icon = "favicon"
-    let title: String
-    let domain: String
 }
