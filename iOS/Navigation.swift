@@ -3,6 +3,7 @@ import SwiftUI
 struct Navigation: View {
     @State private var flow = Flow.landing(0)
     @State private var status = [Status()]
+    @State private var webs = [Int : Web]()
     
     var body: some View {
         switch flow {
@@ -14,6 +15,7 @@ struct Navigation: View {
             Tab(history: status[index].history!, tabs: tabs, search: search)
         case .search:
             Search(tab: tab, searching: searching)
+                .equatable()
         case let .tabs(index):
             Tabs(status: $status, transition: .init(index: index), tab: tab)
         }

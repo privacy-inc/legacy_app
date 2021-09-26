@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Search: View {
+struct Search: View, Equatable {
     let tab: () -> Void
     let searching: (String) -> Void
     
@@ -46,5 +46,9 @@ struct Search: View {
             .frame(height: 1)
             .padding(.leading, 40)
             .padding(.trailing, 2)
+    }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        true
     }
 }
