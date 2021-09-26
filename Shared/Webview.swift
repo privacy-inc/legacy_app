@@ -10,7 +10,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
 //    final let settings: Sleuth.Settings
 //    final let session: Session
     
-    required init?(coder: NSCoder) { nil }
+    @MainActor required init?(coder: NSCoder) { nil }
 //    init(configuration: WKWebViewConfiguration, session: Session, id: UUID, browse: Int, settings: Sleuth.Settings) {
     init(history: Int) {
         
@@ -145,7 +145,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         navigationDelegate = nil
     }
     
-    final func load(_ access: AccessType) {
+    @MainActor final func load(_ access: AccessType) {
         if let access = access as? Access.Local {
             access.open { file, directory in
                 loadFileURL(file, allowingReadAccessTo: directory)
@@ -153,7 +153,9 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         } else {
             access
                 .url
-                .map(load)
+                .map {
+                    load($0)
+                }
         }
     }
     

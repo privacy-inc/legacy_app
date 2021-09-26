@@ -52,16 +52,13 @@ struct Navigation: View {
                             $0.id == status[flow.index].history
                         }!
                     
-                    await MainActor
-                        .run {
-                            if status[flow.index].web == nil {
-                                status[flow.index].web = .init(history: status[flow.index].history!)
-                            }
-                            
-                            status[flow.index].web!.load(history.website.access)
-                            
-                            tab()
-                        }
+                    if status[flow.index].web == nil {
+                        status[flow.index].web = await .init(history: status[flow.index].history!)
+                    }
+                    
+                    await status[flow.index].web!.load(history.website.access)
+                    
+                    tab()
                 } catch {
                     tab()
                 }
