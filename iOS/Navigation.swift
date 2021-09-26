@@ -3,7 +3,6 @@ import SwiftUI
 struct Navigation: View {
     @State private var flow = Flow.landing(0)
     @State private var status = [Status()]
-    @State private var webs = [Int : Web]()
     
     var body: some View {
         switch flow {
@@ -12,7 +11,7 @@ struct Navigation: View {
         case .landing:
             Landing(tabs: tabs, search: search)
         case let .web(index):
-            Tab(history: status[index].history!, tabs: tabs, search: search)
+            Tab(web: status[index].web!, tabs: tabs, search: search)
         case .search:
             Search(tab: tab, searching: searching)
                 .equatable()
@@ -40,10 +39,31 @@ struct Navigation: View {
     
     private func searching(search: String) {
         Task {
-            if let history = await cloud.search(search) {
-                status[flow.index].history = history
+            do {
+                if let id = status[flow.index].history {
+                    try await cloud.search(search, history: id)
+                } else {
+                    status[flow.index].history = try await cloud.search(search)
+                }
+                
+                let history = await cloud.model.history
+                    .first {
+                        $0.id == status[flow.index].history
+                    }!
+                
+                await MainActor
+                    .run {
+                        if status[flow.index].web == nil {
+                            status[flow.index].web = .init(history: status[flow.index].history!)
+                        }
+                        
+                        status[flow.index].web!.load(history.website.access)
+                        
+                        tab()
+                    }
+            } catch {
+                tab()
             }
-            tab()
         }
     }
     

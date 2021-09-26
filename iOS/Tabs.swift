@@ -117,6 +117,13 @@ struct Tabs: View {
     private var closeAll: some View {
         Group {
             Button {
+                status
+                    .forEach {
+                        $0
+                            .web?
+                            .clear()
+                    }
+                
                 withAnimation(.easeInOut(duration: 0.3)) {
                     status = []
                 }
@@ -138,9 +145,12 @@ struct Tabs: View {
         VStack(spacing: 0) {
             Button {
                 withAnimation(.easeInOut(duration: 0.3)) {
-                    self.status.removeAll {
-                        $0.id == status.id
-                    }
+                    self.status
+                        .remove {
+                            $0.id == status.id
+                        }?
+                        .web?
+                        .clear()
                 }
             } label: {
                 Image(systemName: "xmark.circle.fill")
@@ -157,7 +167,7 @@ struct Tabs: View {
                     Snap(image: status.image, size: 150)
                         .matchedGeometryEffect(id: status.id, in: animating, properties: .position, isSource: entering)
                         .id(status.id)
-                    Text(verbatim: status.title)
+                    Text(verbatim: status.web?.title ?? "New")
                         .font(.caption)
                         .lineLimit(1)
                         .padding(.horizontal)
@@ -167,6 +177,7 @@ struct Tabs: View {
                         .foregroundColor(.init("Shades"))
                         .font(.title)
                 }
+                .frame(width: 150)
             }
         }
     }

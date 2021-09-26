@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct Tab: View {
-    let history: Int
+    let web: Web
     let tabs: () -> Void
     let search: () -> Void
     
     var body: some View {
-        Web(history: history)
+        web
+            .edgesIgnoringSafeArea(.horizontal)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(search: search) {
                     Button {
