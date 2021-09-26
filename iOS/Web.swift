@@ -4,6 +4,7 @@ import Combine
 
 final class Web: Webview, UIViewRepresentable {
     
+    
         func makeUIView(context: Context) -> Web {
             self
         }
@@ -17,6 +18,8 @@ final class Web: Webview, UIViewRepresentable {
     
     required init?(coder: NSCoder) { nil }
     override init(history: Int) {
+        print("web init")
+        
 //            newTab = wrapper.session.newTab
 //            var settings = wrapper.session.archive.settings
 //
@@ -186,6 +189,7 @@ final class Web: Webview, UIViewRepresentable {
     
     deinit {
         scrollView.delegate = nil
+        print("web gone")
     }
     
     override func external(_ url: URL) {

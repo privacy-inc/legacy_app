@@ -7,8 +7,7 @@ struct Tab: View {
     
     var body: some View {
         Web(history: history)
-            .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
-            .safeAreaInset(edge: .bottom) {
+            .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(search: search) {
                     Button {
                         

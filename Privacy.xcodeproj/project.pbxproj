@@ -34,6 +34,13 @@
 		CE9B93F026F89BA6005E1D7F /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93EF26F89BA6005E1D7F /* Tab.swift */; };
 		CE9B93F226F89E6D005E1D7F /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F126F89E6D005E1D7F /* Tabs.swift */; };
 		CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F326F89F1E005E1D7F /* Navigation.swift */; };
+		CEAAFB2327009BE100149F0C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2227009BE100149F0C /* StoreKit.framework */; };
+		CEAAFB2527009C1E00149F0C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2427009C1E00149F0C /* CloudKit.framework */; };
+		CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2627009E4000149F0C /* App.Delegate.swift */; };
+		CEAAFB2B27009E9600149F0C /* Store.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2827009E9600149F0C /* Store.State.swift */; };
+		CEAAFB2C27009E9600149F0C /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */; };
+		CEAAFB2D27009E9600149F0C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2A27009E9600149F0C /* Store.swift */; };
+		CEAAFB2F27009ED400149F0C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2E27009ED400149F0C /* Transaction.swift */; };
 		CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
 		CEF5548526FDD4F000FE0E9C /* Webview.Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548326FDD4F000FE0E9C /* Webview.Download.swift */; };
 		CEF5548926FDD4FA00FE0E9C /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548726FDD4FA00FE0E9C /* Web.swift */; };
@@ -68,6 +75,14 @@
 		CE9B93EF26F89BA6005E1D7F /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		CE9B93F126F89E6D005E1D7F /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		CE9B93F326F89F1E005E1D7F /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		CEAAFB2027009BB900149F0C /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
+		CEAAFB2227009BE100149F0C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		CEAAFB2427009C1E00149F0C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		CEAAFB2627009E4000149F0C /* App.Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.Delegate.swift; sourceTree = "<group>"; };
+		CEAAFB2827009E9600149F0C /* Store.State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.State.swift; sourceTree = "<group>"; };
+		CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
+		CEAAFB2A27009E9600149F0C /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		CEAAFB2E27009ED400149F0C /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		CEF5548226FDD4F000FE0E9C /* Webview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
 		CEF5548326FDD4F000FE0E9C /* Webview.Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webview.Download.swift; sourceTree = "<group>"; };
 		CEF5548726FDD4FA00FE0E9C /* Web.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
@@ -78,7 +93,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEAAFB2527009C1E00149F0C /* CloudKit.framework in Frameworks */,
 				CE46B4EE26F7993A00A5B5BB /* Specs in Frameworks */,
+				CEAAFB2327009BE100149F0C /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +108,7 @@
 				CE46B4DC26F797F600A5B5BB /* iOS */,
 				CE46B4DB26F797F600A5B5BB /* Products */,
 				CE46B4E926F7980000A5B5BB /* Shared */,
+				CEAAFB2127009BE100149F0C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,12 +123,14 @@
 		CE46B4DC26F797F600A5B5BB /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CEAAFB2027009BB900149F0C /* iOS.entitlements */,
 				CE46B4EF26F79B2200A5B5BB /* Info.plist */,
+				CEAAFB2627009E4000149F0C /* App.Delegate.swift */,
 				CE46B4DD26F797F600A5B5BB /* App.swift */,
+				CE470A6526FA0AEB002D560A /* Bar.swift */,
 				CE470A6926FA10CB002D560A /* Card.swift */,
 				CE7DAB7526FB42DF00BEAA0F /* Int.swift */,
 				CE470A6E26FA2284002D560A /* Landing.Activity.swift */,
-				CE470A6526FA0AEB002D560A /* Bar.swift */,
 				CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */,
 				CE17245026F909AC00C2CED5 /* Landing.History.swift */,
 				CE470A6726FA0F3C002D560A /* Landing.Report.swift */,
@@ -138,12 +158,25 @@
 			isa = PBXGroup;
 			children = (
 				CE8AF27B26FF698A00F6655F /* Global.swift */,
+				CEAAFB2827009E9600149F0C /* Store.State.swift */,
+				CEAAFB2A27009E9600149F0C /* Store.swift */,
+				CEAAFB2E27009ED400149F0C /* Transaction.swift */,
+				CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */,
 				CEF5548326FDD4F000FE0E9C /* Webview.Download.swift */,
 				CEF5548226FDD4F000FE0E9C /* Webview.swift */,
 				CE46B4EA26F7982200A5B5BB /* Colours.xcassets */,
 				CE470A6C26FA1DB2002D560A /* Images.xcassets */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		CEAAFB2127009BE100149F0C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEAAFB2427009C1E00149F0C /* CloudKit.framework */,
+				CEAAFB2227009BE100149F0C /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,12 +256,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEAAFB2B27009E9600149F0C /* Store.State.swift in Sources */,
 				CE7DAB7826FB49CE00BEAA0F /* UIApplication.swift in Sources */,
 				CE9B637226FC8BA700CD4DCE /* Search.Representable.swift in Sources */,
 				CE470A6A26FA10CB002D560A /* Card.swift in Sources */,
 				CE470A6626FA0AEB002D560A /* Bar.swift in Sources */,
 				CE7DAB7C26FB649B00BEAA0F /* Tabs.Snap.swift in Sources */,
 				CEF5548926FDD4FA00FE0E9C /* Web.swift in Sources */,
+				CEAAFB2C27009E9600149F0C /* UNUserNotificationCenter.swift in Sources */,
 				CEF5548526FDD4F000FE0E9C /* Webview.Download.swift in Sources */,
 				CE46B4DE26F797F600A5B5BB /* App.swift in Sources */,
 				CE9B637626FCA05800CD4DCE /* Search.Header.swift in Sources */,
@@ -236,16 +271,19 @@
 				CE17245126F909AC00C2CED5 /* Landing.History.swift in Sources */,
 				CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */,
 				CE9B93F026F89BA6005E1D7F /* Tab.swift in Sources */,
+				CEAAFB2D27009E9600149F0C /* Store.swift in Sources */,
 				CE9B93F226F89E6D005E1D7F /* Tabs.swift in Sources */,
 				CE1D9C3226FB6883004F8B6B /* Status.swift in Sources */,
 				CE17244F26F9094700C2CED5 /* Landing.Bookmarks.swift in Sources */,
 				CE470A6F26FA2284002D560A /* Landing.Activity.swift in Sources */,
 				CE470A6426F9DE8F002D560A /* Landing.Section.swift in Sources */,
+				CEAAFB2F27009ED400149F0C /* Transaction.swift in Sources */,
 				CE8AF27C26FF698A00F6655F /* Global.swift in Sources */,
 				CE17244926F8E9B300C2CED5 /* Navigation.Flow.swift in Sources */,
 				CE1D9C3426FB6C27004F8B6B /* Tabs.Minimize.swift in Sources */,
 				CE17244B26F8EEA500C2CED5 /* Landing.swift in Sources */,
 				CE9B637826FCD0E900CD4DCE /* Search.Section.swift in Sources */,
+				CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */,
 				CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */,
 				CE9B637026FC8B6200CD4DCE /* Search.swift in Sources */,
 				CE470A6826FA0F3C002D560A /* Landing.Report.swift in Sources */,
@@ -325,7 +363,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = iOS/iOS.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 7AMWG3RLHN;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -345,6 +385,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This website wants to access your location.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save photos to your library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -359,6 +403,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = incognit;
+				PROVISIONING_PROFILE_SPECIFIER = "Incognit dev";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -400,7 +445,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = iOS/iOS.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 7AMWG3RLHN;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -415,6 +462,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This website wants to access your location.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save photos to your library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +479,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = incognit;
+				PROVISIONING_PROFILE_SPECIFIER = "Incognit store";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";

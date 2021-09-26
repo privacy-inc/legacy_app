@@ -35,7 +35,7 @@ struct Search: View {
         }
         .frame(maxWidth: .greatestFiniteMagnitude)
         .background(.ultraThickMaterial)
-        .safeAreaInset(edge: .top) {
+        .safeAreaInset(edge: .top, spacing: 0) {
             Header(tab: tab)
         }
     }

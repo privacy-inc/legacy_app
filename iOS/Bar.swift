@@ -43,11 +43,11 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
             .padding(.bottom, 2)
         }
         .background(.ultraThinMaterial)
-        .offset(y: offset)
+//        .offset(y: offset)
         .onAppear {
-            withAnimation(.easeInOut(duration: 0.4)) {
-                offset = 0
-            }
+//            withAnimation(.easeInOut(duration: 0.4)) {
+//                offset = 0
+//            }
         }
     }
 }

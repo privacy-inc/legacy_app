@@ -24,7 +24,7 @@ struct Landing: View {
             }
         }
         .background(.ultraThickMaterial)
-        .safeAreaInset(edge: .bottom) {
+        .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(search: search) {
                 Button {
                     
