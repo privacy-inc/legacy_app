@@ -16,7 +16,7 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
     var body: some View {
         VStack(spacing: 0) {
             Rectangle()
-                .fill(HierarchicalShapeStyle.quaternary)
+                .fill(Color.secondary)
                 .frame(height: 0.5)
                 .edgesIgnoringSafeArea(.horizontal)
             HStack {
@@ -29,11 +29,11 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
                 } label: {
                     ZStack {
                         Circle()
-                            .fill(Color("Shades"))
+                            .fill(Color.secondary)
                             .frame(width: 38, height: 38)
                         Image(systemName: "magnifyingglass")
                             .font(.callout)
-                            .foregroundColor(.init(.systemBackground))
+                            .foregroundColor(.primary)
                     }
                 }
                 trailing
@@ -43,11 +43,11 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
             .padding(.bottom, 2)
         }
         .background(.ultraThinMaterial)
-//        .offset(y: offset)
+        .offset(y: offset)
         .onAppear {
-//            withAnimation(.easeInOut(duration: 0.4)) {
-//                offset = 0
-//            }
+            withAnimation(.easeInOut(duration: 0.4)) {
+                offset = 0
+            }
         }
     }
 }

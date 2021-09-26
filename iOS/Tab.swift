@@ -27,5 +27,12 @@ struct Tab: View {
                     }
                 }
             }
+            .safeAreaInset(edge: .top, spacing: 0) {
+                Rectangle()
+                    .fill(Color.secondary)
+                    .frame(height: 0.5)
+                    .edgesIgnoringSafeArea(.horizontal)
+                    .background(.ultraThinMaterial)
+            }
     }
 }

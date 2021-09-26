@@ -31,7 +31,7 @@ extension Search {
                 .padding(.bottom, vertical == .compact ? 0 : 6)
                 
                 Rectangle()
-                    .fill(HierarchicalShapeStyle.quaternary)
+                    .fill(Color.secondary)
                     .frame(height: 0.5)
                     .edgesIgnoringSafeArea(.horizontal)
             }
