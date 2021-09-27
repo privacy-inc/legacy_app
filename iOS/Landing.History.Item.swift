@@ -5,29 +5,35 @@ import Specs
 extension Landing.History {
     struct Item: View {
         let item: History
+        @State private var domain: String?
+        @State private var pub: Favicon.Pub?
         @State private var image: UIImage?
-        @State private var sub: AnyCancellable?
         
         var body: some View {
             Button {
                 
             } label: {
-                Text("\(icon) \(title) \(subtitle)")
-                    .font(.caption)
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding()
-                    .modifier(Card())
-            }
-            .task {
-                if let domain = (item.website.access as? Access.Remote)?.domain {
-                    await sub = favicon
-                        .publisher(for: domain)
-                        .sink {
-                            print("sync image")
+                if let pub = pub {
+                    Text("\(icon) \(title) \(subtitle)")
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                        .onReceive(pub) {
                             image = $0
                         }
+                } else {
+                    title
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                }
+            }
+            .font(.caption)
+            .fixedSize(horizontal: false, vertical: true)
+            .padding()
+            .modifier(Card())
+            .task {
+                domain = (item.website.access as? Access.Remote)?.domain
+                if domain != nil {
+                    pub = await favicon.publisher(for: domain!)
                 }
             }
         }
@@ -45,12 +51,8 @@ extension Landing.History {
         }
         
         private var subtitle: Text {
-            if let domain = (item.website.access as? Access.Remote)?.domain {
-                return Text(verbatim: ": " + domain)
-                    .foregroundColor(.secondary)
-            } else {
-                return Text(verbatim: "")
-            }
+            Text(verbatim: ": " + domain!)
+                .foregroundColor(.secondary)
         }
     }
 }
