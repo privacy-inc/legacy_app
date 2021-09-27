@@ -15,9 +15,6 @@ extension Landing {
                     }
                 }
             }
-            .onAppear {
-                update(with: vertical)
-            }
             .onChange(of: vertical, perform: update(with:))
         }
         

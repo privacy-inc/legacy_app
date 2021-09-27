@@ -18,9 +18,6 @@ extension Landing {
                 }
                 .padding(.horizontal)
             }
-            .onAppear {
-                update(with: vertical)
-            }
             .onChange(of: vertical, perform: update(with:))
             .onReceive(cloud) {
                 history = $0.history
@@ -39,23 +36,6 @@ extension Landing {
                         result[position.col].append(history[position.index])
                     }
                 }
-        }
-    }
-    
-    private struct Item: View {
-        let item: Specs.History
-        
-        var body: some View {
-            Button {
-                
-            } label: {
-                Text("\(Image("")) \(Text(item.website.title))\n\(Text(item.website.access.value).foregroundColor(.secondary).font(.caption2))")
-                    .font(.caption)
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                    .padding()
-                    .modifier(Card())
-            }
         }
     }
 }

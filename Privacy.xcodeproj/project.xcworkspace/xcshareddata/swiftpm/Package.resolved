@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/archivable/package.git",
         "state": {
           "branch": "main",
-          "revision": "0912a00db34596abd5102a2a81763ce00a8a62bd",
+          "revision": "c006c26b1c4f499e7b5caaddff51b523e84693f7",
           "version": null
         }
       },
@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/privacy-inc/specs.git",
         "state": {
           "branch": "main",
-          "revision": "11de3476da93d89651ca7bc6b0294e9ccc7afc8b",
+          "revision": "868ba6b6d1b5844693e7c8d85f977f020c338729",
           "version": null
         }
       }

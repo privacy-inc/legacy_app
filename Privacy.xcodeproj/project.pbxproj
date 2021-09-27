@@ -23,6 +23,7 @@
 		CE470A6A26FA10CB002D560A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE470A6926FA10CB002D560A /* Card.swift */; };
 		CE470A6D26FA1DB2002D560A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE470A6C26FA1DB2002D560A /* Images.xcassets */; };
 		CE470A6F26FA2284002D560A /* Landing.Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE470A6E26FA2284002D560A /* Landing.Activity.swift */; };
+		CE4A6DAD2702289000458E9B /* Landing.History.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */; };
 		CE7DAB7626FB42DF00BEAA0F /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7526FB42DF00BEAA0F /* Int.swift */; };
 		CE7DAB7826FB49CE00BEAA0F /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */; };
 		CE7DAB7C26FB649B00BEAA0F /* Tabs.Snap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7B26FB649B00BEAA0F /* Tabs.Snap.swift */; };
@@ -64,6 +65,7 @@
 		CE470A6926FA10CB002D560A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CE470A6C26FA1DB2002D560A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE470A6E26FA2284002D560A /* Landing.Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Activity.swift; sourceTree = "<group>"; };
+		CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Item.swift; sourceTree = "<group>"; };
 		CE7DAB7526FB42DF00BEAA0F /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CE7DAB7B26FB649B00BEAA0F /* Tabs.Snap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Snap.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				CE7DAB7526FB42DF00BEAA0F /* Int.swift */,
 				CE470A6E26FA2284002D560A /* Landing.Activity.swift */,
 				CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */,
+				CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */,
 				CE17245026F909AC00C2CED5 /* Landing.History.swift */,
 				CE470A6726FA0F3C002D560A /* Landing.Report.swift */,
 				CE470A6326F9DE8F002D560A /* Landing.Section.swift */,
@@ -278,6 +281,7 @@
 				CE470A6F26FA2284002D560A /* Landing.Activity.swift in Sources */,
 				CE470A6426F9DE8F002D560A /* Landing.Section.swift in Sources */,
 				CEAAFB2F27009ED400149F0C /* Transaction.swift in Sources */,
+				CE4A6DAD2702289000458E9B /* Landing.History.Item.swift in Sources */,
 				CE8AF27C26FF698A00F6655F /* Global.swift in Sources */,
 				CE17244926F8E9B300C2CED5 /* Navigation.Flow.swift in Sources */,
 				CE1D9C3426FB6C27004F8B6B /* Tabs.Minimize.swift in Sources */,

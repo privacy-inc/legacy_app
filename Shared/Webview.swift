@@ -2,7 +2,8 @@ import WebKit
 import Combine
 import Specs
 
-class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
+class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
+    private let history: Int
     
     final var subs = Set<AnyCancellable>()
 //    final let id: UUID
@@ -12,8 +13,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     
     @MainActor required init?(coder: NSCoder) { nil }
 //    init(configuration: WKWebViewConfiguration, session: Session, id: UUID, browse: Int, settings: Sleuth.Settings) {
-    init(history: Int) {
-        
+    init(history: Int, settings: Settings) {
+        self.history = history
 //        self.session = session
 //        self.id = id
 //        self.browse = browse
@@ -32,6 +33,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
 //        configuration.userContentController.addUserScript(.init(source: settings.start, injectionTime: .atDocumentStart, forMainFrameOnly: true))
 //        configuration.userContentController.addUserScript(.init(source: settings.end, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         
+        configuration.userContentController.addUserScript(.init(source: Script.favicon.script, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        
     #if DEBUG
         configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
     #endif
@@ -46,6 +49,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
+        
         /*
         Script
             .Message
@@ -117,30 +121,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         
     }
     
-    func userContentController(_: WKUserContentController, didReceive: WKScriptMessage) {
-//        switch Script.Message(rawValue: didReceive.name) {
-//        case .favicon:
-//            (didReceive.body as? String)
-//                .map {
-//                    favicon
-//                        .save(domain: cloud.archive.value.page(browse).access.short, url: $0)
-//                }
-//        default:
-//            break
-//        }
-    }
-    
     final func clear() {
         stopLoading()
-        
-//        Script
-//            .Message
-//            .allCases
-//            .map(\.rawValue)
-//            .forEach {
-//                configuration.userContentController.removeScriptMessageHandler(forName: $0)
-//            }
-        
         uiDelegate = nil
         navigationDelegate = nil
     }
@@ -198,10 +180,16 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
 //        session.tab.update(id, progress: 1)
 //        cloud.activity()
 //
-//        if case let .remote(remote) = cloud.archive.value.page(browse).access,
-//           favicon.needs(domain: remote.domain) {
-//            evaluateJavaScript("_privacy_incognit_favicon();")
-//        }
+        
+        Task {
+            guard
+                let access = await cloud.model.history.first(where: { $0.id == history })?.website.access,
+                let domain = (access as? Access.Remote)?.domain,
+                let url = try? await (evaluateJavaScript(Script.favicon.method)) as? String
+            else { return }
+            print(url)
+            await favicon.received(url: url, for: domain)
+        }
 //
 //        if !settings.timers {
 //            evaluateJavaScript("Promise = null;")
