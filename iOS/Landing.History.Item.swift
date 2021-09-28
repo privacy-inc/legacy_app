@@ -4,10 +4,11 @@ import Specs
 extension Landing.History {
     struct Item: View {
         let item: History
+        let select: (Int) -> Void
         
         var body: some View {
             Button {
-                
+                select(item.id)
             } label: {
                 switch item.website.access {
                 case let remote as Access.Remote:

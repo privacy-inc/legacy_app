@@ -3,6 +3,7 @@ import Specs
 
 extension Landing {
     struct History: View {
+        let select: (Int) -> Void
         @State private var history = [Specs.History]()
         @State private var items = [[Specs.History]]()
         @Environment(\.verticalSizeClass) private var vertical
@@ -12,7 +13,9 @@ extension Landing {
                 HStack(alignment: .top) {
                     ForEach(0 ..< items.count, id: \.self) { index in
                         VStack {
-                            ForEach(items[index], content: Item.init)
+                            ForEach(items[index]) {
+                                Item(item: $0, select: select)
+                            }
                         }
                     }
                 }

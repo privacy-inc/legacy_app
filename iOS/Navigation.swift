@@ -9,7 +9,7 @@ struct Navigation: View {
         case .menu:
             Circle()
         case .landing:
-            Landing(tabs: tabs, search: search)
+            Landing(tabs: tabs, search: search, history: history)
         case let .web(index):
             Tab(web: status[index].web!, tabs: tabs, search: search)
         case .search:
@@ -37,6 +37,15 @@ struct Navigation: View {
         }
     }
     
+    private func history(_ id: Int) {
+        status[flow.index].history = id
+        
+        Task {
+            await prepare()
+            tab()
+        }
+    }
+    
     private func searching(search: String) {
         Task
             .detached(priority: .utility) {
@@ -47,19 +56,7 @@ struct Navigation: View {
                         status[flow.index].history = try await cloud.search(search)
                     }
                     
-                    let history = await cloud.model.history
-                        .first {
-                            $0.id == status[flow.index].history
-                        }!
-                    
-                    let settings = await cloud.model.settings
-                    
-                    if status[flow.index].web == nil {
-                        status[flow.index].web = await .init(history: status[flow.index].history!, settings: settings)
-                    }
-                    
-                    await status[flow.index].web!.load(history.website.access)
-                    
+                    await prepare()
                     tab()
                 } catch {
                     tab()
@@ -73,5 +70,20 @@ struct Navigation: View {
         } else {
             flow = .web(index)
         }
+    }
+    
+    private func prepare() async {
+        let history = await cloud.model.history
+            .first {
+                $0.id == status[flow.index].history
+            }!
+        
+        let settings = await cloud.model.settings
+        
+        if status[flow.index].web == nil {
+            status[flow.index].web = await .init(history: status[flow.index].history!, settings: settings)
+        }
+        
+        await status[flow.index].web!.load(history.website.access)
     }
 }

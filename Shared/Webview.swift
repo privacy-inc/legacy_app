@@ -88,7 +88,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             .store(in: &subs)
          */
         
-        publisher(for: \.title, options: .new)
+        publisher(for: \.title)
             .compactMap {
                 $0
             }
@@ -101,20 +101,18 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             }
             .store(in: &subs)
 
-        
-        /*
-        publisher(for: \.url, options: .new)
+        publisher(for: \.url)
             .compactMap {
                 $0
             }
             .removeDuplicates()
-            .sink {
-                cloud.update(browse, url: $0)
+            .sink { url in
+                Task
+                    .detached(priority: .utility) {
+                        await cloud.update(url: url, history: history)
+                    }
             }
             .store(in: &subs)
-        
-        load(cloud.archive.value.page(browse).access)
-        */
     }
     
     func external(_ url: URL) {

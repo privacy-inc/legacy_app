@@ -4,6 +4,7 @@ import Specs
 struct Landing: View {
     let tabs: () -> Void
     let search: () -> Void
+    let history: (Int) -> Void
     @State private var cards = [Cards.report,
                                 .activity,
                                 .bookmarks,
@@ -20,7 +21,7 @@ struct Landing: View {
                 case .bookmarks:
                     Bookmarks()
                 case .history:
-                    History()
+                    History(select: history)
                 }
             }
         }
