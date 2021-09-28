@@ -141,43 +141,17 @@ struct Tabs: View {
         .frame(maxHeight: .greatestFiniteMagnitude, alignment: .top)
     }
     
-    private func item(_ status: Status) -> some View {
-        VStack(spacing: 0) {
-            Button {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    self.status
-                        .remove {
-                            $0.id == status.id
-                        }?
-                        .web?
-                        .clear()
-                }
-            } label: {
-                Image(systemName: "xmark.circle.fill")
-                    .font(.title2.weight(.light))
-                    .foregroundStyle(.secondary)
-                    .symbolRenderingMode(.hierarchical)
-            }
-            .padding(.bottom, 20)
-            
-            Button {
-                open(status.id)
-            } label: {
-                VStack(spacing: 0) {
-                    Snap(image: status.image, size: 150)
-                        .matchedGeometryEffect(id: status.id, in: animating, properties: .position, isSource: entering)
-                        .id(status.id)
-                    Text(verbatim: status.web?.title ?? "New")
-                        .font(.caption)
-                        .lineLimit(1)
-                        .padding(.horizontal)
-                        .padding(.vertical, 12)
-                    Image(systemName: "bolt.circle.fill")
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundColor(.init("Shades"))
-                        .font(.title)
-                }
-                .frame(width: 150)
+    private func item(_ item: Status) -> some View {
+        Item(status: item, animating: animating, entering: entering) {
+            open(item.id)
+        } close: {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                status
+                    .remove {
+                        $0.id == item.id
+                    }?
+                    .web?
+                    .clear()
             }
         }
     }

@@ -11,7 +11,7 @@ extension Tabs {
                 container
                     .fill(.ultraThickMaterial)
                     .frame(width: size, height: size)
-                    .shadow(color: .primary.opacity(0.05), radius: 5)
+                    .shadow(color: .primary.opacity(0.1), radius: 5)
                 container
                     .stroke(Color(.systemBackground), style: .init(lineWidth: 2))
                     .frame(width: size, height: size)

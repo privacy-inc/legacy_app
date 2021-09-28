@@ -27,7 +27,7 @@ extension Landing {
         
         private func update(with vertical: UserInterfaceSizeClass?) {
             items = (vertical == .compact ? 3 : 2)
-                .columns(with: 3)
+                .columns(with: 4)
                 .reduce(into: .init()) { result, position in
                     if history.count > position.index {
                         if position.row == 0 {

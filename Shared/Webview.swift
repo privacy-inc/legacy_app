@@ -184,11 +184,11 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         Task {
             guard
                 let access = await cloud.model.history.first(where: { $0.id == history })?.website.access,
-                let domain = (access as? Access.Remote)?.domain,
+                await favicon.request(for: access),
                 let url = try? await (evaluateJavaScript(Script.favicon.method)) as? String
             else { return }
             print(url)
-            await favicon.received(url: url, for: domain)
+            await favicon.received(url: url, for: access)
         }
 //
 //        if !settings.timers {
