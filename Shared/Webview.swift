@@ -88,7 +88,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             .store(in: &subs)
          */
         
-        publisher(for: \.title)
+        publisher(for: \.title, options: .new)
             .compactMap {
                 $0
             }
@@ -101,7 +101,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             }
             .store(in: &subs)
 
-        publisher(for: \.url)
+        publisher(for: \.url, options: .new)
             .compactMap {
                 $0
             }

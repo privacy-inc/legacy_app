@@ -12,7 +12,7 @@ struct Icon: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
-                    .clipped()
+                    .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
             } else {
                 Image(systemName: "app")
                     .font(.title.weight(.light))

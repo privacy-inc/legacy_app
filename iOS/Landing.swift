@@ -25,6 +25,7 @@ struct Landing: View {
                 }
             }
         }
+        .clipped()
         .background(.ultraThickMaterial)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(search: search) {

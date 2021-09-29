@@ -35,7 +35,6 @@ extension Tabs {
                         Group {
                             if let publisher = publisher {
                                 Icon(access: access!, publisher: publisher)
-                                    .padding(4)
                             } else {
                                 Image(systemName: "bolt.circle.fill")
                                     .symbolRenderingMode(.hierarchical)

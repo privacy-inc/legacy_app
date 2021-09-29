@@ -42,7 +42,8 @@ struct Navigation: View {
         
         Task {
             await prepare()
-            tab()
+            tab(flow.index)
+            await load()
         }
     }
     
@@ -57,7 +58,8 @@ struct Navigation: View {
                     }
                     
                     await prepare()
-                    tab()
+                    tab(flow.index)
+                    await load()
                 } catch {
                     tab()
                 }
@@ -73,17 +75,21 @@ struct Navigation: View {
     }
     
     private func prepare() async {
-        let history = await cloud.model.history
-            .first {
-                $0.id == status[flow.index].history
-            }!
-        
         let settings = await cloud.model.settings
         
         if status[flow.index].web == nil {
             status[flow.index].web = await .init(history: status[flow.index].history!, settings: settings)
         }
-        
-        await status[flow.index].web!.load(history.website.access)
+    }
+    
+    private func load() async {
+        await status[flow.index].web!.load(cloud
+                                            .model
+                                            .history
+                                            .first {
+                                                $0.id == status[flow.index].history
+                                            }!
+                                            .website
+                                            .access)
     }
 }
