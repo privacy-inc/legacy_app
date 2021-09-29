@@ -4,7 +4,7 @@ import Specs
 extension Landing {
     struct Bookmarks: View {
         @State private var bookmarks = [Website]()
-        @State private var items = [[Model]]()
+        @State private var items = [[Website]]()
         @Environment(\.verticalSizeClass) private var vertical
         
         var body: some View {
@@ -12,7 +12,9 @@ extension Landing {
                 HStack(alignment: .top) {
                     ForEach(0 ..< items.count, id: \.self) { index in
                         VStack {
-                            ForEach(items[index], content: Item.init)
+                            ForEach(items[index], id: \.access.value) {
+                                Item(item: $0)
+                            }
                         }
                     }
                 }
@@ -39,17 +41,17 @@ extension Landing {
     }
     
     private struct Item: View {
-        let model: Model
+        let item: Website
         
         var body: some View {
             Button {
                 
             } label: {
                 VStack {
-                    Image(model.icon)
-                        .padding(8)
-                        .modifier(Card())
-                    Text(verbatim: model.title)
+//                    Image(model.icon)
+//                        .padding(8)
+//                        .modifier(Card())
+                    Text(verbatim: item.title)
                         .font(.caption2)
                         .lineLimit(2)
                         .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .top)
