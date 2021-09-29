@@ -13,17 +13,28 @@ struct Tab: View {
                     Button {
                         
                     } label: {
-                        Image(systemName: "gear")
-                            .symbolRenderingMode(.hierarchical)
-                            .padding(.horizontal)
+                        Image(systemName: "chevron.backward")
+                            .frame(width: 60)
+                    }
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "chevron.forward")
+                            .frame(width: 60)
                     }
                     Spacer()
                 } trailing: {
                     Spacer()
                     Button(action: tabs) {
+                        Image(systemName: "ellipsis.circle")
+                            .symbolRenderingMode(.hierarchical)
+                            .font(.title2)
+                            .frame(width: 60)
+                    }
+                    Button(action: tabs) {
                         Image(systemName: "square.on.square.dashed")
                             .symbolRenderingMode(.hierarchical)
-                            .padding(.horizontal)
+                            .frame(width: 60)
                     }
                 }
             }

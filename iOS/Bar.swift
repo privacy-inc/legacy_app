@@ -4,7 +4,6 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
     let search: () -> Void
     private let leading: Leading
     private let trailing: Trailing
-    @State private var offset = CGFloat(100)
     @Environment(\.verticalSizeClass) private var vertical
     
     @inlinable init(search: @escaping () -> Void, @ViewBuilder leading: () -> Leading, @ViewBuilder trailing: () -> Trailing) {
@@ -19,12 +18,9 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
                 .fill(Color.secondary)
                 .frame(height: 0.5)
                 .edgesIgnoringSafeArea(.horizontal)
-            HStack {
+            HStack(spacing: 0) {
                 leading
                 Button {
-                    withAnimation(.easeInOut(duration: 0.4)) {
-                        offset = 100
-                    }
                     search()
                 } label: {
                     ZStack {
@@ -43,11 +39,5 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
             .padding(.bottom, 2)
         }
         .background(.ultraThinMaterial)
-        .offset(y: offset)
-        .onAppear {
-            withAnimation(.easeInOut(duration: 0.4)) {
-                offset = 0
-            }
-        }
     }
 }

@@ -3,7 +3,6 @@ import SwiftUI
 extension Search {
     struct Header: View {
         let tab: () -> Void
-        @State private var offset = CGFloat(-100)
         @Environment(\.verticalSizeClass) private var vertical
         
         var body: some View {
@@ -13,9 +12,6 @@ extension Search {
                     Group {
                         Button(role: .cancel) {
                             UIApplication.shared.hide()
-                            withAnimation(.easeInOut(duration: 0.4)) {
-                                offset = -100
-                            }
                             tab()
                         } label: {
                             Text("Cancel")
@@ -36,12 +32,6 @@ extension Search {
                     .edgesIgnoringSafeArea(.horizontal)
             }
             .background(.ultraThinMaterial)
-            .offset(y: offset)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 0.4)) {
-                    offset = 0
-                }
-            }
         }
     }
 }
