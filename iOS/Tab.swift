@@ -4,6 +4,7 @@ struct Tab: View {
     let web: Web
     let tabs: () -> Void
     let search: () -> Void
+    @State private var options = false
     
     var body: some View {
         web
@@ -14,27 +15,35 @@ struct Tab: View {
                         
                     } label: {
                         Image(systemName: "chevron.backward")
-                            .frame(width: 60)
+                            .frame(width: 64)
                     }
                     Button {
                         
                     } label: {
                         Image(systemName: "chevron.forward")
-                            .frame(width: 60)
+                            .frame(width: 64)
                     }
                     Spacer()
                 } trailing: {
                     Spacer()
-                    Button(action: tabs) {
+                    
+                    Button {
+                        options = true
+                    } label: {
                         Image(systemName: "ellipsis.circle")
                             .symbolRenderingMode(.hierarchical)
                             .font(.title2)
-                            .frame(width: 60)
+                            .frame(width: 64)
                     }
+                    .sheet(isPresented: $options) {
+                        Options(rootView: .init(web: web))
+                            .edgesIgnoringSafeArea(.all)
+                    }
+                    
                     Button(action: tabs) {
                         Image(systemName: "square.on.square.dashed")
                             .symbolRenderingMode(.hierarchical)
-                            .frame(width: 60)
+                            .frame(width: 64)
                     }
                 }
             }

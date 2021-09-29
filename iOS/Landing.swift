@@ -34,7 +34,7 @@ struct Landing: View {
                 } label: {
                     Image(systemName: "gear")
                         .symbolRenderingMode(.hierarchical)
-                        .frame(width: 60)
+                        .frame(width: 64)
                 }
                 Spacer()
             } trailing: {
@@ -42,7 +42,7 @@ struct Landing: View {
                 Button(action: tabs) {
                     Image(systemName: "square.on.square.dashed")
                         .symbolRenderingMode(.hierarchical)
-                        .frame(width: 60)
+                        .frame(width: 64)
                 }
             }
         }

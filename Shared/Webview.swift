@@ -3,7 +3,7 @@ import Combine
 import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
-    private let history: Int
+    let history: Int
     
     final var subs = Set<AnyCancellable>()
 //    final let id: UUID
