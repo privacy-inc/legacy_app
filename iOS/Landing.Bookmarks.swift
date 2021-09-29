@@ -1,7 +1,9 @@
 import SwiftUI
+import Specs
 
 extension Landing {
     struct Bookmarks: View {
+        @State private var bookmarks = [Website]()
         @State private var items = [[Model]]()
         @Environment(\.verticalSizeClass) private var vertical
         
@@ -16,6 +18,10 @@ extension Landing {
                 }
             }
             .onChange(of: vertical, perform: update(with:))
+            .onReceive(cloud) {
+                bookmarks = $0.bookmarks
+                update(with: vertical)
+            }
         }
         
         private func update(with vertical: UserInterfaceSizeClass?) {
@@ -53,26 +59,4 @@ extension Landing {
             }
         }
     }
-}
-
-private let bookmarks = [
-    Model(title: "Alan Moore - Wikipedia"),
-    .init(title: "Alan Moore - Google"),
-    .init(title: "A"),
-    .init(title: "Alan Moore - Google"),
-    .init(title: "Alan Moore - Wikipedia"),
-    .init(title: "Reuters"),
-    .init(title: "Alan Moore - Wikipedia lorem ips"),
-    .init(title: "r"),
-    .init(title: "dsda"),
-    .init(title: "Alan Moore - Wikipedia lorem ips dasddasdasa"),
-    .init(title: "fdsfsd"),
-    .init(title: "535354334"),
-    .init(title: "popopodas adsasdas")
-]
-
-private struct Model: Identifiable {
-    let id = UUID()
-    let icon = "favicon"
-    let title: String
 }
