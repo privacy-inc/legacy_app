@@ -1,48 +1,49 @@
 import SwiftUI
 
 struct Navigation: View {
-    @State private var flow = Flow.landing(0)
+    @State private var flow = Flow.landing
+    @State private var index = 0
     @State private var status = [Status()]
     
     var body: some View {
         switch flow {
-        case .menu:
-            Circle()
+        case .settings:
+            Settings()
         case .landing:
-            Landing(tabs: tabs, search: search, history: history)
-        case let .web(index):
+            Landing(tabs: tabs, search: search, settings: settings, history: history)
+        case .web:
             Tab(web: status[index].web!, tabs: tabs, search: search)
         case .search:
             Search(tab: tab, searching: searching)
                 .equatable()
-        case let .tabs(index):
+        case .tabs:
             Tabs(status: $status, transition: .init(index: index), tab: tab)
         }
     }
     
-    private func tabs() {
-        status[flow.index].image = UIApplication.shared.snapshot
-        flow = .tabs(flow.index)
+    private func settings() {
+        withAnimation(.easeInOut(duration: 0.4)) {
+            flow = .settings
+        }
     }
     
-    private func tab() {
-        withAnimation(.easeInOut(duration: 0.3)) {
-            tab(flow.index)
-        }
+    private func tabs() {
+        status[index].image = UIApplication.shared.snapshot
+        flow = .tabs
     }
     
     private func search() {
         withAnimation(.easeInOut(duration: 0.4)) {
-            flow = .search(flow.index)
+            flow = .search
         }
     }
     
     private func history(_ id: Int) {
-        status[flow.index].history = id
+        status[index].history = id
         
         Task {
             await prepare()
-            tab(flow.index)
+            flow = .web
             await load()
         }
     }
@@ -51,14 +52,14 @@ struct Navigation: View {
         Task
             .detached(priority: .utility) {
                 do {
-                    if let id = status[flow.index].history {
+                    if let id = status[index].history {
                         try await cloud.search(search, history: id)
                     } else {
-                        status[flow.index].history = try await cloud.search(search)
+                        status[index].history = try await cloud.search(search)
                     }
                     
                     await prepare()
-                    tab(flow.index)
+                    tab()
                     await load()
                 } catch {
                     tab()
@@ -67,29 +68,35 @@ struct Navigation: View {
     }
     
     private func tab(_ index: Int) {
-        if status[index].history == nil {
-            flow = .landing(index)
-        } else {
-            flow = .web(index)
+        self.index = index
+        tab()
+    }
+    
+    private func tab() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            if status[index].history == nil {
+                flow = .landing
+            } else {
+                flow = .web
+            }
         }
     }
     
     private func prepare() async {
         let settings = await cloud.model.settings
-        
-        if status[flow.index].web == nil {
-            status[flow.index].web = await .init(history: status[flow.index].history!, settings: settings)
+        if status[index].web == nil {
+            status[index].web = await .init(history: status[index].history!, settings: settings)
         }
     }
     
     private func load() async {
-        await status[flow.index].web!.load(cloud
-                                            .model
-                                            .history
-                                            .first {
-                                                $0.id == status[flow.index].history
-                                            }!
-                                            .website
-                                            .access)
+        await status[index].web!.load(cloud
+                                        .model
+                                        .history
+                                        .first {
+                                            $0.id == status[index].history
+                                        }!
+                                        .website
+                                        .access)
     }
 }

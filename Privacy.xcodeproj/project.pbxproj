@@ -40,6 +40,7 @@
 		CE9B93F026F89BA6005E1D7F /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93EF26F89BA6005E1D7F /* Tab.swift */; };
 		CE9B93F226F89E6D005E1D7F /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F126F89E6D005E1D7F /* Tabs.swift */; };
 		CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F326F89F1E005E1D7F /* Navigation.swift */; };
+		CE9DFA0D2706136500D69810 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA0C2706136500D69810 /* Settings.swift */; };
 		CEAAFB2327009BE100149F0C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2227009BE100149F0C /* StoreKit.framework */; };
 		CEAAFB2527009C1E00149F0C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2427009C1E00149F0C /* CloudKit.framework */; };
 		CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2627009E4000149F0C /* App.Delegate.swift */; };
@@ -89,6 +90,7 @@
 		CE9B93EF26F89BA6005E1D7F /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		CE9B93F126F89E6D005E1D7F /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		CE9B93F326F89F1E005E1D7F /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		CE9DFA0C2706136500D69810 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CEAAFB2027009BB900149F0C /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CEAAFB2227009BE100149F0C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		CEAAFB2427009C1E00149F0C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -157,13 +159,14 @@
 				CE17244A26F8EEA500C2CED5 /* Landing.swift */,
 				CE17244826F8E9B300C2CED5 /* Navigation.Flow.swift */,
 				CE9B93F326F89F1E005E1D7F /* Navigation.swift */,
-				CED63AEB27048150001C8183 /* Options.Content.swift */,
 				CE571DD02705DC270032C8A8 /* Options.Content.Control.swift */,
+				CED63AEB27048150001C8183 /* Options.Content.swift */,
 				CED63AE927047E5A001C8183 /* Options.swift */,
 				CE9B637526FCA05800CD4DCE /* Search.Header.swift */,
 				CE9B637126FC8BA700CD4DCE /* Search.Representable.swift */,
 				CE9B637726FCD0E900CD4DCE /* Search.Section.swift */,
 				CE9B636F26FC8B6200CD4DCE /* Search.swift */,
+				CE9DFA0C2706136500D69810 /* Settings.swift */,
 				CE1D9C3126FB6883004F8B6B /* Status.swift */,
 				CE0816542705C56B00E2D44E /* Tab.Loading.swift */,
 				CE9B93EF26F89BA6005E1D7F /* Tab.swift */,
@@ -314,6 +317,7 @@
 				CE1D9C3426FB6C27004F8B6B /* Tabs.Minimize.swift in Sources */,
 				CE17244B26F8EEA500C2CED5 /* Landing.swift in Sources */,
 				CE9B637826FCD0E900CD4DCE /* Search.Section.swift in Sources */,
+				CE9DFA0D2706136500D69810 /* Settings.swift in Sources */,
 				CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */,
 				CE6FE9AB2703345C00403ADA /* Tabs.Item.swift in Sources */,
 				CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */,

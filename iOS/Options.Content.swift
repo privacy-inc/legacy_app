@@ -157,14 +157,14 @@ extension Options {
         }
         
         private var options: some View {
-            HStack {
+            HStack(spacing: 20) {
                 Spacer()
                 
                 Button {
                     
                 } label: {
                     Text("Find")
-                        .font(.footnote)
+                        .font(.caption)
                     Image(systemName: "rectangle.and.text.magnifyingglass")
                         .font(.body)
                 }
@@ -174,7 +174,7 @@ extension Options {
                     
                 } label: {
                     Text("Bookmark")
-                        .font(.footnote)
+                        .font(.caption)
                     Image(systemName: "bookmark")
                         .font(.callout)
                 }
@@ -184,7 +184,7 @@ extension Options {
                     
                 } label: {
                     Text("Share")
-                        .font(.footnote)
+                        .font(.caption)
                     Image(systemName: "square.and.arrow.up")
                         .font(.callout)
                 }

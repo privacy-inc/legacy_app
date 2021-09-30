@@ -4,6 +4,7 @@ import Specs
 struct Landing: View {
     let tabs: () -> Void
     let search: () -> Void
+    let settings: () -> Void
     let history: (Int) -> Void
     @State private var cards = [Cards.report,
                                 .activity,
@@ -29,9 +30,7 @@ struct Landing: View {
         .background(.ultraThickMaterial)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(search: search) {
-                Button {
-                    
-                } label: {
+                Button(action: settings) {
                     Image(systemName: "gear")
                         .symbolRenderingMode(.hierarchical)
                         .frame(width: 70)

@@ -13,7 +13,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     @MainActor required init?(coder: NSCoder) { nil }
 //    init(configuration: WKWebViewConfiguration, session: Session, id: UUID, browse: Int, settings: Sleuth.Settings) {
-    init(history: Int, settings: Settings) {
+    init(history: Int, settings: Specs.Settings) {
         self.history = history
 //        self.session = session
 //        self.id = id
