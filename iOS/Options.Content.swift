@@ -157,7 +157,7 @@ extension Options {
         }
         
         private var options: some View {
-            HStack(spacing: 20) {
+            HStack(spacing: 30) {
                 Spacer()
                 
                 Button {
@@ -168,17 +168,20 @@ extension Options {
                     Image(systemName: "rectangle.and.text.magnifyingglass")
                         .font(.body)
                 }
-                .padding()
                 
                 Button {
-                    
+                    dismiss()
+                    Task
+                        .detached {
+                            await UNUserNotificationCenter.send(message: "Bookmark added!")
+                            await cloud.bookmark(history: web.history)
+                        }
                 } label: {
                     Text("Bookmark")
                         .font(.caption)
                     Image(systemName: "bookmark")
                         .font(.callout)
                 }
-                .padding()
                 
                 Button {
                     
@@ -188,7 +191,6 @@ extension Options {
                     Image(systemName: "square.and.arrow.up")
                         .font(.callout)
                 }
-                .padding()
                 
                 Spacer()
             }

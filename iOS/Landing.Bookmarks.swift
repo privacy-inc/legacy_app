@@ -39,26 +39,4 @@ extension Landing {
                 }
         }
     }
-    
-    private struct Item: View {
-        let item: Website
-        
-        var body: some View {
-            Button {
-                
-            } label: {
-                VStack {
-//                    Image(model.icon)
-//                        .padding(8)
-//                        .modifier(Card())
-                    Text(verbatim: item.title)
-                        .font(.caption2)
-                        .lineLimit(2)
-                        .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .top)
-                        .padding(.horizontal)
-                }
-                .frame(height: 100)
-            }
-        }
-    }
 }

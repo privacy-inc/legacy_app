@@ -42,6 +42,8 @@
 		CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F326F89F1E005E1D7F /* Navigation.swift */; };
 		CE9DFA0D2706136500D69810 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA0C2706136500D69810 /* Settings.swift */; };
 		CE9DFA0F27061D5400D69810 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA0E27061D5400D69810 /* Copy.swift */; };
+		CE9DFA112706275C00D69810 /* Landing.Bookmarks.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */; };
+		CE9DFA132706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */; };
 		CEAAFB2327009BE100149F0C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2227009BE100149F0C /* StoreKit.framework */; };
 		CEAAFB2527009C1E00149F0C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2427009C1E00149F0C /* CloudKit.framework */; };
 		CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2627009E4000149F0C /* App.Delegate.swift */; };
@@ -93,6 +95,8 @@
 		CE9B93F326F89F1E005E1D7F /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		CE9DFA0C2706136500D69810 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE9DFA0E27061D5400D69810 /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
+		CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.swift; sourceTree = "<group>"; };
+		CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.Remote.swift; sourceTree = "<group>"; };
 		CEAAFB2027009BB900149F0C /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CEAAFB2227009BE100149F0C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		CEAAFB2427009C1E00149F0C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -153,6 +157,8 @@
 				CE7DAB7526FB42DF00BEAA0F /* Int.swift */,
 				CE470A6E26FA2284002D560A /* Landing.Activity.swift */,
 				CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */,
+				CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */,
+				CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */,
 				CE6FE9A827031FCB00403ADA /* Landing.History.Item.Remote.swift */,
 				CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */,
 				CE17245026F909AC00C2CED5 /* Landing.History.swift */,
@@ -288,11 +294,13 @@
 			files = (
 				CEAAFB2B27009E9600149F0C /* Store.State.swift in Sources */,
 				CE7DAB7826FB49CE00BEAA0F /* UIApplication.swift in Sources */,
+				CE9DFA112706275C00D69810 /* Landing.Bookmarks.Item.swift in Sources */,
 				CE9B637226FC8BA700CD4DCE /* Search.Representable.swift in Sources */,
 				CE470A6A26FA10CB002D560A /* Card.swift in Sources */,
 				CED63AEA27047E5A001C8183 /* Options.swift in Sources */,
 				CE6FE9A927031FCB00403ADA /* Landing.History.Item.Remote.swift in Sources */,
 				CE470A6626FA0AEB002D560A /* Bar.swift in Sources */,
+				CE9DFA132706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift in Sources */,
 				CE7DAB7C26FB649B00BEAA0F /* Tabs.Snap.swift in Sources */,
 				CEF5548926FDD4FA00FE0E9C /* Web.swift in Sources */,
 				CEAAFB2C27009E9600149F0C /* UNUserNotificationCenter.swift in Sources */,
