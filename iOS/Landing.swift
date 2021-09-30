@@ -6,6 +6,7 @@ struct Landing: View {
     let search: () -> Void
     let settings: () -> Void
     let history: (Int) -> Void
+    let url: (URL) -> Void
     @State private var cards = [Cards.report,
                                 .activity,
                                 .bookmarks,
@@ -20,7 +21,7 @@ struct Landing: View {
                 case .activity:
                     Activity()
                 case .bookmarks:
-                    Bookmarks()
+                    Bookmarks(select: url)
                 case .history:
                     History(select: history)
                 }

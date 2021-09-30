@@ -3,6 +3,7 @@ import Specs
 
 extension Landing {
     struct Bookmarks: View {
+        let select: (URL) -> Void
         @State private var bookmarks = [Website]()
         @State private var items = [[Website]]()
         @Environment(\.verticalSizeClass) private var vertical
@@ -13,7 +14,7 @@ extension Landing {
                     ForEach(0 ..< items.count, id: \.self) { index in
                         VStack {
                             ForEach(items[index], id: \.access.value) {
-                                Item(item: $0)
+                                Item(item: $0, select: select)
                             }
                         }
                     }

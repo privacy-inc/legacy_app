@@ -10,7 +10,7 @@ struct Navigation: View {
         case .settings:
             Settings(tab: tab)
         case .landing:
-            Landing(tabs: tabs, search: search, settings: settings, history: history)
+            Landing(tabs: tabs, search: search, settings: settings, history: history, url: url)
         case .web:
             Tab(web: status[index].web!, tabs: tabs, search: search)
         case .search:
@@ -35,6 +35,15 @@ struct Navigation: View {
     private func search() {
         withAnimation(.easeInOut(duration: 0.4)) {
             flow = .search
+        }
+    }
+    
+    private func url(_ url: URL) {
+        Task {
+            status[index].history = await cloud.open(url: url)
+            await prepare()
+            flow = .web
+            await load()
         }
     }
     
