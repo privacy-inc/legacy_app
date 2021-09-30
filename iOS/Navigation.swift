@@ -8,7 +8,7 @@ struct Navigation: View {
     var body: some View {
         switch flow {
         case .settings:
-            Settings()
+            Settings(tab: tab)
         case .landing:
             Landing(tabs: tabs, search: search, settings: settings, history: history)
         case .web:
