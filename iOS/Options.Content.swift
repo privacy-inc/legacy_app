@@ -93,6 +93,7 @@ extension Options {
             .fixedSize(horizontal: false, vertical: true)
             .padding()
             .padding(.horizontal)
+            .allowsHitTesting(false)
         }
         
         private var controls: some View {
@@ -107,6 +108,7 @@ extension Options {
                         .font(.callout.weight(.medium))
                         .frame(width: 40, height: 40)
                         .foregroundStyle(backwards ? .primary : .quaternary)
+                        .allowsHitTesting(false)
                 }
                 .allowsHitTesting(backwards)
                 
@@ -125,6 +127,7 @@ extension Options {
                             .foregroundColor(.init(.systemBackground))
                     }
                     .frame(width: 50, height: 40)
+                    .allowsHitTesting(false)
                 }
                 
                 Button {
@@ -135,6 +138,7 @@ extension Options {
                         .font(.callout.weight(.medium))
                         .frame(width: 40, height: 40)
                         .foregroundStyle(forwards ? .primary : .quaternary)
+                        .allowsHitTesting(false)
                 }
                 .allowsHitTesting(forwards)
                 
@@ -144,10 +148,20 @@ extension Options {
         }
         
         private var options: some View {
-            VStack {
-                Control(title: "Share", icon: "square.and.arrow.up") {
+            HStack {
+                Spacer()
+                
+                Button {
                     
+                } label: {
+                    Text("Share")
+                        .font(.footnote)
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.callout)
                 }
+                .buttonStyle(.bordered)
+                .tint(.secondary)
+                .foregroundStyle(.primary)
                 
                 Button {
                     
@@ -176,7 +190,7 @@ extension Options {
                 }
             }
             .symbolRenderingMode(.hierarchical)
-            .padding()
+            .padding(.vertical)
         }
     }
 }
