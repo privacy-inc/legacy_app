@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE0816552705C56B00E2D44E /* Tab.Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0816542705C56B00E2D44E /* Tab.Loading.swift */; };
 		CE17244926F8E9B300C2CED5 /* Navigation.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244826F8E9B300C2CED5 /* Navigation.Flow.swift */; };
 		CE17244B26F8EEA500C2CED5 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244A26F8EEA500C2CED5 /* Landing.swift */; };
 		CE17244F26F9094700C2CED5 /* Landing.Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE0816542705C56B00E2D44E /* Tab.Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.swift; sourceTree = "<group>"; };
 		CE17244826F8E9B300C2CED5 /* Navigation.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.Flow.swift; sourceTree = "<group>"; };
 		CE17244A26F8EEA500C2CED5 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
 		CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				CE9B637726FCD0E900CD4DCE /* Search.Section.swift */,
 				CE9B636F26FC8B6200CD4DCE /* Search.swift */,
 				CE1D9C3126FB6883004F8B6B /* Status.swift */,
+				CE0816542705C56B00E2D44E /* Tab.Loading.swift */,
 				CE9B93EF26F89BA6005E1D7F /* Tab.swift */,
 				CE6FE9AA2703345C00403ADA /* Tabs.Item.swift */,
 				CE1D9C3326FB6C27004F8B6B /* Tabs.Minimize.swift */,
@@ -295,6 +298,7 @@
 				CE9B93F226F89E6D005E1D7F /* Tabs.swift in Sources */,
 				CE1D9C3226FB6883004F8B6B /* Status.swift in Sources */,
 				CE17244F26F9094700C2CED5 /* Landing.Bookmarks.swift in Sources */,
+				CE0816552705C56B00E2D44E /* Tab.Loading.swift in Sources */,
 				CE470A6F26FA2284002D560A /* Landing.Activity.swift in Sources */,
 				CE470A6426F9DE8F002D560A /* Landing.Section.swift in Sources */,
 				CE6FE9A727031D9C00403ADA /* Icon.swift in Sources */,

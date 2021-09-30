@@ -12,55 +12,16 @@ extension Options {
         @Environment(\.dismiss) private var dismiss
         
         var body: some View {
-            NavigationView {
-                List {
-                    heading
-                    options
-                }
-                .listStyle(.insetGrouped)
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        switch url?.scheme?.lowercased() {
-                        case "https":
-                            Text("\(Image(systemName: "lock.fill")) Secure connection")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                        case "http":
-                            Text("\(Image(systemName: "exclamationmark.triangle.fill")) Insecure connection")
-                                .symbolRenderingMode(.hierarchical)
-                                .font(.footnote)
-                                .foregroundStyle(.primary)
-                        default:
-                            EmptyView()
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        if loading {
-                            Button {
-                                dismiss()
-                            } label: {
-                                Text("Stop \(Image(systemName: "xmark"))")
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .tint(.init("Dawn"))
-                            .font(.footnote)
-                        } else {
-                            Button {
-                                dismiss()
-                            } label: {
-                                Text("Reload \(Image(systemName: "arrow.clockwise"))")
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .tint(.init("Shades"))
-                            .font(.footnote)
-                        }
-                    }
-                }
+            List {
+                heading
+                controls
+                options
             }
-            .navigationViewStyle(.stack)
-            .onReceive(web.publisher(for: \.isLoading)) {
-                loading = $0
+            .listStyle(.insetGrouped)
+            .onReceive(web.publisher(for: \.isLoading)) { value in
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    loading = value
+                }
             }
             .onReceive(web.publisher(for: \.url)) {
                 url = $0
@@ -81,15 +42,34 @@ extension Options {
         }
         
         private var heading: some View {
-            VStack(spacing: 5) {
+            VStack {
                 if let publisher = publisher {
                     Icon(access: access!, publisher: publisher)
                         .padding(.bottom)
                 }
+            
+                switch url?.scheme?.lowercased() {
+                case "https":
+                    Text("\(Image(systemName: "lock.fill")) Secure connection")
+                        .font(.caption)
+                        .imageScale(.small)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                case "http":
+                    Text("\(Image(systemName: "exclamationmark.triangle.fill")) Connection not secure")
+                        .font(.caption)
+                        .foregroundStyle(.primary)
+                        .symbolRenderingMode(.hierarchical)
+                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                default:
+                    EmptyView()
+                }
+                
                 Text(verbatim: title)
                     .foregroundStyle(.primary)
                     .font(.callout)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                
                 Text(verbatim: url?.absoluteString ?? "")
                     .foregroundStyle(.tertiary)
                     .font(.footnote)
@@ -142,6 +122,40 @@ extension Options {
                 }
             }
             .symbolRenderingMode(.hierarchical)
+        }
+        
+        private var controls: some View {
+            Section {
+                HStack {
+                    Spacer()
+                    Button {
+                        if loading {
+                            web.stopLoading()
+                        } else {
+                            web.reload()
+                        }
+                    } label: {
+                        ZStack {
+                            if loading {
+                                Capsule()
+                                    .fill(Color("Dawn"))
+                                Image(systemName: "xmark")
+                                    
+                            } else {
+                                Capsule()
+                                    .fill(Color("Shades"))
+                                Image(systemName: "arrow.clockwise")
+                            }
+                        }
+                        .font(.footnote.weight(.medium))
+                        .foregroundColor(.init(.systemBackground))
+                        .frame(width: 40, height: 40)
+                    }
+                    Spacer()
+                }
+            }
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
         }
     }
 }
