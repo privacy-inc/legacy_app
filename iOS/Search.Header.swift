@@ -9,6 +9,7 @@ extension Search {
             VStack(spacing: 0) {
                 ZStack {
                     Image(systemName: "magnifyingglass")
+                        .allowsHitTesting(false)
                     Group {
                         Button(role: .cancel) {
                             UIApplication.shared.hide()
@@ -30,6 +31,7 @@ extension Search {
                     .fill(Color.secondary)
                     .frame(height: 0.5)
                     .edgesIgnoringSafeArea(.horizontal)
+                    .allowsHitTesting(false)
             }
             .background(.ultraThinMaterial)
         }

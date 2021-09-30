@@ -18,6 +18,7 @@ extension Tabs {
                         .font(.title2.weight(.light))
                         .foregroundStyle(.secondary)
                         .symbolRenderingMode(.hierarchical)
+                        .allowsHitTesting(false)
                 }
                 .padding(.bottom, 20)
                 
@@ -45,6 +46,7 @@ extension Tabs {
                         .frame(width: 32, height: 32)
                     }
                     .frame(width: 150)
+                    .allowsHitTesting(false)
                 }
             }
             .task {

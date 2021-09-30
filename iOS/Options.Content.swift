@@ -9,31 +9,45 @@ extension Options {
         @State private var url: URL?
         @State private var access: AccessType?
         @State private var publisher: Favicon.Pub?
+        @State private var backwards = false
+        @State private var forwards = false
         @Environment(\.dismiss) private var dismiss
         
         var body: some View {
-            List {
+            VStack {
                 heading
                 controls
                 options
+                Spacer()
             }
-            .listStyle(.insetGrouped)
             .onReceive(web.publisher(for: \.isLoading)) { value in
-                withAnimation(.easeInOut(duration: 0.3)) {
+                withAnimation(.easeInOut(duration: 0.6)) {
                     loading = value
                 }
             }
-            .onReceive(web.publisher(for: \.url)) {
-                url = $0
-                publisher = nil
+            .onReceive(web.publisher(for: \.url)) { value in
+                url = value
                 update()
             }
-            .onReceive(web.publisher(for: \.title)) {
-                title = $0 ?? ""
+            .onReceive(web.publisher(for: \.title)) { value in
+                title = value ?? ""
+            }
+            .onReceive(web.publisher(for: \.canGoBack)) { value in
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    backwards = value
+                }
+            }
+            .onReceive(web.publisher(for: \.canGoForward)) { value in
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    forwards = value
+                }
             }
         }
         
         private func update() {
+            publisher = nil
+            access = nil
+            
             Task {
                 guard let access = await cloud.model.history.first(where: { $0.id == web.history })?.website.access else { return }
                 self.access = access
@@ -43,9 +57,10 @@ extension Options {
         
         private var heading: some View {
             VStack {
-                if let publisher = publisher {
-                    Icon(access: access!, publisher: publisher)
-                        .padding(.bottom)
+                if let publisher = publisher, let access = access {
+                    Icon(access: access, publisher: publisher)
+                        .padding(.vertical)
+                        .id(access.value)
                 }
             
                 switch url?.scheme?.lowercased() {
@@ -76,23 +91,62 @@ extension Options {
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             }
             .fixedSize(horizontal: false, vertical: true)
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
+            .padding()
+            .padding(.horizontal)
+        }
+        
+        private var controls: some View {
+            HStack(spacing: 30) {
+                Spacer()
+                
+                Button {
+                    web.goBack()
+                    update()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .font(.callout.weight(.medium))
+                        .frame(width: 40, height: 40)
+                        .foregroundStyle(backwards ? .primary : .quaternary)
+                }
+                .allowsHitTesting(backwards)
+                
+                Button {
+                    if loading {
+                        web.stopLoading()
+                    } else {
+                        web.reload()
+                    }
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(loading ? Color("Dawn") : .init("Shades"))
+                        Image(systemName: loading ? "xmark" : "arrow.clockwise")
+                            .font(.footnote.weight(.bold))
+                            .foregroundColor(.init(.systemBackground))
+                    }
+                    .frame(width: 50, height: 40)
+                }
+                
+                Button {
+                    web.goForward()
+                    update()
+                } label: {
+                    Image(systemName: "chevron.forward")
+                        .font(.callout.weight(.medium))
+                        .frame(width: 40, height: 40)
+                        .foregroundStyle(forwards ? .primary : .quaternary)
+                }
+                .allowsHitTesting(forwards)
+                
+                Spacer()
+            }
+            .padding(.vertical)
         }
         
         private var options: some View {
-            Section {
-                Button {
+            VStack {
+                Control(title: "Share", icon: "square.and.arrow.up") {
                     
-                } label: {
-                    HStack {
-                        Text("Share")
-                            .font(.footnote)
-                        Spacer()
-                        Image(systemName: "square.and.arrow.up")
-                            .font(.callout)
-                            .frame(width: 24)
-                    }
                 }
                 
                 Button {
@@ -122,40 +176,7 @@ extension Options {
                 }
             }
             .symbolRenderingMode(.hierarchical)
-        }
-        
-        private var controls: some View {
-            Section {
-                HStack {
-                    Spacer()
-                    Button {
-                        if loading {
-                            web.stopLoading()
-                        } else {
-                            web.reload()
-                        }
-                    } label: {
-                        ZStack {
-                            if loading {
-                                Capsule()
-                                    .fill(Color("Dawn"))
-                                Image(systemName: "xmark")
-                                    
-                            } else {
-                                Capsule()
-                                    .fill(Color("Shades"))
-                                Image(systemName: "arrow.clockwise")
-                            }
-                        }
-                        .font(.footnote.weight(.medium))
-                        .foregroundColor(.init(.systemBackground))
-                        .frame(width: 40, height: 40)
-                    }
-                    Spacer()
-                }
-            }
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
+            .padding()
         }
     }
 }

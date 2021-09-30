@@ -14,6 +14,7 @@ struct Tabs: View {
             LinearGradient(gradient: .init(colors: [.init(.systemFill), .init(.secondarySystemFill)]),
                                        startPoint: .bottom, endPoint: .top)
                 .edgesIgnoringSafeArea(.all)
+                .allowsHitTesting(false)
             scrollView
             closeAll
             add
@@ -108,6 +109,7 @@ struct Tabs: View {
                     .font(.largeTitle)
                     .symbolRenderingMode(.hierarchical)
                     .foregroundColor(.init("Shades"))
+                    .allowsHitTesting(false)
             }
             .padding(.bottom)
         }
@@ -132,6 +134,7 @@ struct Tabs: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .padding(.horizontal, 5)
+                    .allowsHitTesting(false)
             }
             .buttonStyle(.bordered)
             .buttonBorderShape(.capsule)

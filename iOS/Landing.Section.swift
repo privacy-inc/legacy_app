@@ -16,6 +16,7 @@ extension Landing {
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .font(.headline)
                     .padding(.leading)
+                    .allowsHitTesting(false)
                 content
             }
             .padding(.vertical)

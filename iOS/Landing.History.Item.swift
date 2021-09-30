@@ -13,6 +13,7 @@ extension Landing.History {
                 switch item.website.access {
                 case let remote as Access.Remote:
                     Remote(title: item.website.title, access: remote)
+                        .allowsHitTesting(false)
                 case let local as Access.Local:
                     Circle()
                 case let deeplink as Access.Deeplink:

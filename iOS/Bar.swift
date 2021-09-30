@@ -18,6 +18,7 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
                 .fill(Color.secondary)
                 .frame(height: 0.5)
                 .edgesIgnoringSafeArea(.horizontal)
+                .allowsHitTesting(false)
             HStack(spacing: 0) {
                 leading
                 Button {

@@ -19,6 +19,7 @@ struct Icon: View {
                     .foregroundStyle(.quaternary)
             }
         }
+        .allowsHitTesting(false)
         .frame(width: 32, height: 32)
         .onReceive(publisher) {
             image = $0

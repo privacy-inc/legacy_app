@@ -6,7 +6,7 @@ final class Options: UIHostingController<Options.Content>, UIViewControllerRepre
         sheetPresentationController
             .map {
                 $0.detents = [.medium(), .large()]
-                $0.largestUndimmedDetentIdentifier = .medium
+                $0.preferredCornerRadius = 20
             }
     }
     

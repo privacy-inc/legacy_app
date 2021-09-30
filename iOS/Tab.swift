@@ -19,6 +19,7 @@ struct Tab: View {
                             .symbolRenderingMode(.hierarchical)
                             .font(.title2)
                             .frame(width: 70)
+                            .allowsHitTesting(false)
                     }
                     .sheet(isPresented: $options) {
                         Options(rootView: .init(web: web))
@@ -33,6 +34,7 @@ struct Tab: View {
                         Image(systemName: "square.on.square.dashed")
                             .symbolRenderingMode(.hierarchical)
                             .frame(width: 70)
+                            .allowsHitTesting(false)
                     }
                 }
             }

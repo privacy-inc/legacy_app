@@ -17,6 +17,7 @@ extension Search {
                     .font(.footnote)
                     .padding(.leading)
                     .foregroundStyle(.tertiary)
+                    .allowsHitTesting(false)
                 content
                     .modifier(Card())
                     .padding(.horizontal)
