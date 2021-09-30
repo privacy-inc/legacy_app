@@ -15,10 +15,20 @@ extension Options {
         
         var body: some View {
             VStack {
+                HStack {
+                    Spacer()
+                    
+                    Button("Dismiss") {
+                        dismiss()
+                    }
+                    .font(.footnote)
+                    .foregroundStyle(.tertiary)
+                    .padding([.top, .trailing])
+                }
                 heading
-                controls
                 options
                 Spacer()
+                controls
             }
             .onReceive(web.publisher(for: \.isLoading)) { value in
                 withAnimation(.easeInOut(duration: 0.6)) {
@@ -59,7 +69,7 @@ extension Options {
             VStack {
                 if let publisher = publisher, let access = access {
                     Icon(access: access, publisher: publisher)
-                        .padding(.vertical)
+                        .padding(.bottom)
                         .id(access.value)
                 }
             
@@ -91,8 +101,7 @@ extension Options {
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             }
             .fixedSize(horizontal: false, vertical: true)
-            .padding()
-            .padding(.horizontal)
+            .padding(.horizontal, 40)
             .allowsHitTesting(false)
         }
         
@@ -144,7 +153,7 @@ extension Options {
                 
                 Spacer()
             }
-            .padding(.vertical)
+            .padding(.bottom, 30)
         }
         
         private var options: some View {
@@ -154,43 +163,37 @@ extension Options {
                 Button {
                     
                 } label: {
+                    Text("Find")
+                        .font(.footnote)
+                    Image(systemName: "rectangle.and.text.magnifyingglass")
+                        .font(.body)
+                }
+                .padding()
+                
+                Button {
+                    
+                } label: {
+                    Text("Bookmark")
+                        .font(.footnote)
+                    Image(systemName: "bookmark")
+                        .font(.callout)
+                }
+                .padding()
+                
+                Button {
+                    
+                } label: {
                     Text("Share")
                         .font(.footnote)
                     Image(systemName: "square.and.arrow.up")
                         .font(.callout)
                 }
-                .buttonStyle(.bordered)
-                .tint(.secondary)
-                .foregroundStyle(.primary)
+                .padding()
                 
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Text("Bookmark")
-                            .font(.footnote)
-                        Spacer()
-                        Image(systemName: "bookmark.fill")
-                            .font(.callout)
-                            .frame(width: 24)
-                    }
-                }
-                
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Text("Find on page")
-                            .font(.footnote)
-                        Spacer()
-                        Image(systemName: "rectangle.and.text.magnifyingglass")
-                            .font(.callout)
-                            .frame(width: 24)
-                    }
-                }
+                Spacer()
             }
             .symbolRenderingMode(.hierarchical)
-            .padding(.vertical)
+            .padding(.top)
         }
     }
 }
