@@ -25,6 +25,7 @@ extension Landing.Bookmarks {
                     }
                 }
                 .frame(height: 100)
+                .frame(maxWidth: 120)
                 .allowsHitTesting(false)
             }
         }

@@ -14,11 +14,21 @@ struct Bookmarks: View {
                     select(item.access)
                 }
             }
-            .onDelete { index in
+            .onDelete {
+                guard let index = $0.first else { return }
                 
+                Task
+                    .detached(priority: .utility) {
+                        await cloud.delete(bookmark: index)
+                    }
             }
             .onMove { index, destination in
+                guard let index = index.first else { return }
                 
+                Task
+                    .detached(priority: .utility) {
+                        await cloud.move(bookmark: index, to: destination)
+                    }
             }
         }
         .listStyle(.insetGrouped)
