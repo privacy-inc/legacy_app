@@ -41,7 +41,7 @@ struct Landing: View {
                         .allowsHitTesting(false)
                 }
                 .sheet(isPresented: $sidebar) {
-                    Sidebar(presented: $sidebar, access: access)
+                    Sidebar(presented: $sidebar, access: access, history: history)
                 }
                 
                 Spacer()

@@ -4,6 +4,7 @@ import Specs
 struct Sidebar: View {
     @Binding var presented: Bool
     let access: (AccessType) -> Void
+    let history: (Int) -> Void
     @State private var forget = false
     
     var body: some View {
@@ -86,7 +87,7 @@ struct Sidebar: View {
                     .allowsHitTesting(false)
             }
             
-            NavigationLink(destination: Circle()) {
+            NavigationLink(destination: History(presented: $presented, select: history)) {
                 Label("History", systemImage: "clock")
                     .allowsHitTesting(false)
             }

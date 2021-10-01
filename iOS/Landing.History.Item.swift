@@ -3,7 +3,7 @@ import Specs
 
 extension Landing.History {
     struct Item: View {
-        let item: History
+        let item: Specs.History
         let select: (Int) -> Void
         
         var body: some View {
