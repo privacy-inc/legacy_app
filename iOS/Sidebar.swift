@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct Sidebar: View {
-    @Environment(\.dismiss) private var dismiss
+    @Binding var presented: Bool
+    let url: (URL) -> Void
     @State private var forget = false
     
     var body: some View {
@@ -20,7 +21,7 @@ struct Sidebar: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        dismiss()
+                        presented = false
                     } label: {
                         Text("Done")
                             .font(.callout)
@@ -64,12 +65,12 @@ struct Sidebar: View {
     
     private var report: some View {
         Section("Report") {
-            NavigationLink(destination: Settings.init) {
+            NavigationLink(destination: Circle()) {
                 Label("Trackers", systemImage: "shield.lefthalf.filled")
                     .allowsHitTesting(false)
             }
             
-            NavigationLink(destination: Settings.init) {
+            NavigationLink(destination: Circle()) {
                 Label("Activity", systemImage: "chart.xyaxis.line")
                     .allowsHitTesting(false)
             }
@@ -79,12 +80,12 @@ struct Sidebar: View {
     
     private var websites: some View {
         Section("Websites") {
-            NavigationLink(destination: Settings.init) {
+            NavigationLink(destination: Bookmarks(presented: $presented, select: url)) {
                 Label("Bookmarks", systemImage: "bookmark")
                     .allowsHitTesting(false)
             }
             
-            NavigationLink(destination: Settings.init) {
+            NavigationLink(destination: Circle()) {
                 Label("History", systemImage: "clock")
                     .allowsHitTesting(false)
             }
@@ -94,17 +95,17 @@ struct Sidebar: View {
     
     private var app: some View {
         Section("App") {
-            NavigationLink(destination: Settings.init) {
+            NavigationLink(destination: Settings(presented: $presented)) {
                 Label("Settings", systemImage: "gear")
                     .allowsHitTesting(false)
             }
             
-            NavigationLink(destination: Settings.init) {
+            NavigationLink(destination: Circle()) {
                 Label("Privacy +", systemImage: "plus.viewfinder")
                     .allowsHitTesting(false)
             }
             
-            NavigationLink(destination: Settings.init) {
+            NavigationLink(destination: Circle()) {
                 Label("About", systemImage: "eyeglasses")
                     .allowsHitTesting(false)
             }

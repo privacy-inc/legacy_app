@@ -2,9 +2,9 @@ import SwiftUI
 import Specs
 
 struct Settings: View {
+    @Binding var presented: Bool
     @State private var requested = true
     @State private var enabled = true
-    @Environment(\.dismiss) private var dismiss
     
 //    @AppStorage(Defaults._authenticate.rawValue) private var authenticate = false
 //    @AppStorage(Defaults._tools.rawValue) private var tools = true
@@ -45,7 +45,7 @@ struct Settings: View {
                 .allowsHitTesting(false)
             Action(title: enabled ? "Open Settings" : "Activate notifications", symbol: "app.badge") {
                 if enabled || requested {
-                    dismiss()
+                    presented = false
                     UIApplication.shared.settings()
                 } else {
                     Task {

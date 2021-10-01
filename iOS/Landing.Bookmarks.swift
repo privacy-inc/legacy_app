@@ -13,7 +13,7 @@ extension Landing {
                 HStack(alignment: .top) {
                     ForEach(0 ..< items.count, id: \.self) { index in
                         VStack {
-                            ForEach(items[index], id: \.access.value) {
+                            ForEach(items[index]) {
                                 Item(item: $0, select: select)
                             }
                         }

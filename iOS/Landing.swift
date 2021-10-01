@@ -40,7 +40,9 @@ struct Landing: View {
                         .frame(width: 70)
                         .allowsHitTesting(false)
                 }
-                .sheet(isPresented: $sidebar, content: Sidebar.init)
+                .sheet(isPresented: $sidebar) {
+                    Sidebar(presented: $sidebar, url: url)
+                }
                 
                 Spacer()
             } trailing: {
