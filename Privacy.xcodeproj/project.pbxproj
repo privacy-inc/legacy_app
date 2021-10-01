@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE0816552705C56B00E2D44E /* Tab.Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0816542705C56B00E2D44E /* Tab.Loading.swift */; };
+		CE0F2D4927074C5400B63060 /* Landing.Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F2D4827074C5400B63060 /* Landing.Edit.swift */; };
 		CE17244926F8E9B300C2CED5 /* Navigation.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244826F8E9B300C2CED5 /* Navigation.Flow.swift */; };
 		CE17244B26F8EEA500C2CED5 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244A26F8EEA500C2CED5 /* Landing.swift */; };
 		CE17244F26F9094700C2CED5 /* Landing.Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */; };
@@ -67,6 +68,7 @@
 
 /* Begin PBXFileReference section */
 		CE0816542705C56B00E2D44E /* Tab.Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.swift; sourceTree = "<group>"; };
+		CE0F2D4827074C5400B63060 /* Landing.Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.swift; sourceTree = "<group>"; };
 		CE17244826F8E9B300C2CED5 /* Navigation.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.Flow.swift; sourceTree = "<group>"; };
 		CE17244A26F8EEA500C2CED5 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
 		CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */,
 				CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */,
 				CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */,
+				CE0F2D4827074C5400B63060 /* Landing.Edit.swift */,
 				CE6FE9A827031FCB00403ADA /* Landing.History.Item.Remote.swift */,
 				CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */,
 				CE17245026F909AC00C2CED5 /* Landing.History.swift */,
@@ -363,6 +366,7 @@
 				CE9B637026FC8B6200CD4DCE /* Search.swift in Sources */,
 				CE4047F1270726BA00E101D1 /* Listed.Remote.swift in Sources */,
 				CE470A6826FA0F3C002D560A /* Landing.Report.swift in Sources */,
+				CE0F2D4927074C5400B63060 /* Landing.Edit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

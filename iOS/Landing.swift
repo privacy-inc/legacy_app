@@ -7,15 +7,13 @@ struct Landing: View {
     let history: (Int) -> Void
     let access: (AccessType) -> Void
     @State private var sidebar = false
-    @State private var cards = [Cards.report,
-                                .activity,
-                                .bookmarks,
-                                .history]
+    @State private var editing = false
+    @State private var cards = [Specs.Card]()
     
     var body: some View {
         ScrollView {
             ForEach(cards) {
-                switch $0 {
+                switch $0.id {
                 case .report:
                     Report()
                 case .activity:
@@ -26,9 +24,14 @@ struct Landing: View {
                     History(select: history)
                 }
             }
+            edit
         }
+        .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
         .clipped()
         .background(.ultraThickMaterial)
+        .onReceive(cloud) {
+            cards = $0.cards
+        }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(search: search) {
                 Button {
@@ -56,16 +59,17 @@ struct Landing: View {
             }
         }
     }
-}
-
-enum Cards: Identifiable {
-    var id: Self {
-        self
-    }
     
-    case
-    report,
-    activity,
-    bookmarks,
-    history
+    private var edit: some View {
+        Button {
+            editing = true
+        } label: {
+            Label("Configure", systemImage: "slider.vertical.3")
+                .font(.footnote)
+                .imageScale(.large)
+        }
+        .foregroundStyle(.secondary)
+        .padding(.vertical, 50)
+        .sheet(isPresented: $editing, content: Edit.init)
+    }
 }
