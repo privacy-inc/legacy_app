@@ -26,6 +26,7 @@ extension Options {
                     .padding([.top, .trailing])
                 }
                 heading
+                Spacer()
                 options
                 Spacer()
                 controls
@@ -157,45 +158,29 @@ extension Options {
         }
         
         private var options: some View {
-            HStack(spacing: 30) {
+            HStack(spacing: 60) {
                 Spacer()
                 
-                Button {
+                Control(title: "Find", symbol: "rectangle.and.text.magnifyingglass") {
                     
-                } label: {
-                    Text("Find")
-                        .font(.caption)
-                    Image(systemName: "rectangle.and.text.magnifyingglass")
-                        .font(.body)
                 }
                 
-                Button {
+                Control(title: "Bookmark", symbol: "bookmark") {
                     dismiss()
                     Task
                         .detached {
                             await UNUserNotificationCenter.send(message: "Bookmark added!")
                             await cloud.bookmark(history: web.history)
                         }
-                } label: {
-                    Text("Bookmark")
-                        .font(.caption)
-                    Image(systemName: "bookmark")
-                        .font(.callout)
                 }
                 
-                Button {
+                Control(title: "Share", symbol: "square.and.arrow.up") {
                     
-                } label: {
-                    Text("Share")
-                        .font(.caption)
-                    Image(systemName: "square.and.arrow.up")
-                        .font(.callout)
                 }
                 
                 Spacer()
             }
             .symbolRenderingMode(.hierarchical)
-            .padding(.top)
         }
     }
 }

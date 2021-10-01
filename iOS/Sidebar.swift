@@ -1,8 +1,9 @@
 import SwiftUI
+import Specs
 
 struct Sidebar: View {
     @Binding var presented: Bool
-    let url: (URL) -> Void
+    let access: (AccessType) -> Void
     @State private var forget = false
     
     var body: some View {
@@ -80,7 +81,7 @@ struct Sidebar: View {
     
     private var websites: some View {
         Section("Websites") {
-            NavigationLink(destination: Bookmarks(presented: $presented, select: url)) {
+            NavigationLink(destination: Bookmarks(presented: $presented, select: access)) {
                 Label("Bookmarks", systemImage: "bookmark")
                     .allowsHitTesting(false)
             }

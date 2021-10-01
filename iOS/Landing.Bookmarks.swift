@@ -3,7 +3,7 @@ import Specs
 
 extension Landing {
     struct Bookmarks: View {
-        let select: (URL) -> Void
+        let select: (AccessType) -> Void
         @State private var bookmarks = [Website]()
         @State private var items = [[Website]]()
         @Environment(\.verticalSizeClass) private var vertical

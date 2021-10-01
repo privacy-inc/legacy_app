@@ -1,4 +1,5 @@
 import SwiftUI
+import Specs
 
 struct Navigation: View {
     @State private var flow = Flow.landing
@@ -8,7 +9,7 @@ struct Navigation: View {
     var body: some View {
         switch flow {
         case .landing:
-            Landing(tabs: tabs, search: search, history: history, url: url)
+            Landing(tabs: tabs, search: search, history: history, access: access)
         case .web:
             Tab(web: status[index].web!, tabs: tabs, search: search)
         case .search:
@@ -30,9 +31,9 @@ struct Navigation: View {
         }
     }
     
-    private func url(_ url: URL) {
+    private func access(_ access: AccessType) {
         Task {
-            status[index].history = await cloud.open(url: url)
+            status[index].history = await cloud.open(access: access)
             await prepare()
             flow = .web
             await load()

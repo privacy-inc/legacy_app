@@ -4,14 +4,11 @@ import Specs
 extension Landing.Bookmarks {
     struct Item: View {
         let item: Website
-        let select: (URL) -> Void
+        let select: (AccessType) -> Void
         
         var body: some View {
             Button {
-                item
-                    .access
-                    .url
-                    .map(select)
+                select(item.access)
             } label: {
                 VStack {
                     switch item.access {

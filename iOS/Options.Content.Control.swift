@@ -3,25 +3,19 @@ import SwiftUI
 extension Options.Content {
     struct Control: View {
         let title: String
-        let icon: String
+        let symbol: String
         let action: () -> Void
         
         var body: some View {
             Button(action: action) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(.ultraThickMaterial)
-                    HStack {
-                        Text(title)
-                            .font(.footnote)
-                        Spacer()
-                        Image(systemName: icon)
-                            .font(.callout)
-                            .frame(width: 24)
-                    }
-                    .padding(.horizontal)
+                VStack(spacing: 4) {
+                    Image(systemName: symbol)
+                        .font(.callout)
+                    Text(title)
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
                 }
-                .frame(width: 180, height: 36)
+                .allowsHitTesting(false)
             }
         }
     }

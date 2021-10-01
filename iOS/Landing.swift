@@ -5,7 +5,7 @@ struct Landing: View {
     let tabs: () -> Void
     let search: () -> Void
     let history: (Int) -> Void
-    let url: (URL) -> Void
+    let access: (AccessType) -> Void
     @State private var sidebar = false
     @State private var cards = [Cards.report,
                                 .activity,
@@ -21,7 +21,7 @@ struct Landing: View {
                 case .activity:
                     Activity()
                 case .bookmarks:
-                    Bookmarks(select: url)
+                    Bookmarks(select: access)
                 case .history:
                     History(select: history)
                 }
@@ -41,7 +41,7 @@ struct Landing: View {
                         .allowsHitTesting(false)
                 }
                 .sheet(isPresented: $sidebar) {
-                    Sidebar(presented: $sidebar, url: url)
+                    Sidebar(presented: $sidebar, access: access)
                 }
                 
                 Spacer()

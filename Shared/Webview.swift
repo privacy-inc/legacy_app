@@ -126,16 +126,20 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     @MainActor final func load(_ access: AccessType) {
-        if let access = access as? Access.Local {
-            access.open { file, directory in
-                loadFileURL(file, allowingReadAccessTo: directory)
-            }
-        } else {
-            access
+        switch access {
+        case let url as AccessURL:
+            url
                 .url
                 .map {
                     load($0)
                 }
+        case let local as Access.Local:
+            local
+                .open { file, directory in
+                    loadFileURL(file, allowingReadAccessTo: directory)
+                }
+        default:
+            break
         }
     }
     
