@@ -4,35 +4,22 @@ import Specs
 struct Settings: View {
     @State private var requested = true
     @State private var enabled = true
-    let tab: () -> Void
+    @Environment(\.dismiss) private var dismiss
+    
 //    @AppStorage(Defaults._authenticate.rawValue) private var authenticate = false
 //    @AppStorage(Defaults._tools.rawValue) private var tools = true
 //    @AppStorage(Defaults._spell.rawValue) private var spell = true
 //    @AppStorage(Defaults._correction.rawValue) private var correction = false
     
     var body: some View {
-        NavigationView {
-            List {
-                notifications
-            }
-            .symbolRenderingMode(.multicolor)
-            .toggleStyle(SwitchToggleStyle(tint: .orange))
-            .listStyle(.grouped)
-            .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: tab) {
-                        Text("Done")
-                            .font(.callout)
-                            .foregroundColor(.init("Shades"))
-                            .padding(.leading)
-                            .contentShape(Rectangle())
-                    }
-                }
-            }
+        List {
+            notifications
         }
-        .navigationViewStyle(.stack)
+        .symbolRenderingMode(.multicolor)
+        .toggleStyle(SwitchToggleStyle(tint: .orange))
+        .listStyle(.grouped)
+        .navigationTitle("Settings")
+        .navigationBarTitleDisplayMode(.large)
         .task {
             await check()
         }
@@ -55,9 +42,10 @@ struct Settings: View {
                 .foregroundStyle(.secondary)
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
-            Button {
+                .allowsHitTesting(false)
+            Action(title: enabled ? "Open Settings" : "Activate notifications", symbol: "app.badge") {
                 if enabled || requested {
-                    tab()
+                    dismiss()
                     UIApplication.shared.settings()
                 } else {
                     Task {
@@ -65,14 +53,6 @@ struct Settings: View {
                         requested = true
                         await check()
                     }
-                }
-            } label: {
-                HStack {
-                    Text(enabled ? "Open Settings" : "Activate notifications")
-                        .font(.callout)
-                    Spacer()
-                    Image(systemName: "app.badge")
-                        .font(.title3)
                 }
             }
         }

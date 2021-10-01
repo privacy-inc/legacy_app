@@ -7,10 +7,8 @@ struct Navigation: View {
     
     var body: some View {
         switch flow {
-        case .settings:
-            Settings(tab: tab)
         case .landing:
-            Landing(tabs: tabs, search: search, settings: settings, history: history, url: url)
+            Landing(tabs: tabs, search: search, history: history, url: url)
         case .web:
             Tab(web: status[index].web!, tabs: tabs, search: search)
         case .search:
@@ -18,12 +16,6 @@ struct Navigation: View {
                 .equatable()
         case .tabs:
             Tabs(status: $status, transition: .init(index: index), tab: tab)
-        }
-    }
-    
-    private func settings() {
-        withAnimation(.easeInOut(duration: 0.4)) {
-            flow = .settings
         }
     }
     

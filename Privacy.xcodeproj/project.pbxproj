@@ -14,6 +14,8 @@
 		CE17245126F909AC00C2CED5 /* Landing.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17245026F909AC00C2CED5 /* Landing.History.swift */; };
 		CE1D9C3226FB6883004F8B6B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D9C3126FB6883004F8B6B /* Status.swift */; };
 		CE1D9C3426FB6C27004F8B6B /* Tabs.Minimize.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D9C3326FB6C27004F8B6B /* Tabs.Minimize.swift */; };
+		CE4047E727070BD800E101D1 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4047E627070BD800E101D1 /* Sidebar.swift */; };
+		CE4047E92707115800E101D1 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4047E82707115800E101D1 /* Action.swift */; };
 		CE46B4DE26F797F600A5B5BB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE46B4DD26F797F600A5B5BB /* App.swift */; };
 		CE46B4E226F797F700A5B5BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4E126F797F700A5B5BB /* Assets.xcassets */; };
 		CE46B4EB26F7982200A5B5BB /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
@@ -66,6 +68,8 @@
 		CE17245026F909AC00C2CED5 /* Landing.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.swift; sourceTree = "<group>"; };
 		CE1D9C3126FB6883004F8B6B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		CE1D9C3326FB6C27004F8B6B /* Tabs.Minimize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Minimize.swift; sourceTree = "<group>"; };
+		CE4047E627070BD800E101D1 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
+		CE4047E82707115800E101D1 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		CE46B4DA26F797F600A5B5BB /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE46B4DD26F797F600A5B5BB /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE46B4E126F797F700A5B5BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 			children = (
 				CEAAFB2027009BB900149F0C /* iOS.entitlements */,
 				CE46B4EF26F79B2200A5B5BB /* Info.plist */,
+				CE4047E82707115800E101D1 /* Action.swift */,
 				CEAAFB2627009E4000149F0C /* App.Delegate.swift */,
 				CE46B4DD26F797F600A5B5BB /* App.swift */,
 				CE470A6526FA0AEB002D560A /* Bar.swift */,
@@ -156,9 +161,9 @@
 				CE6FE9A627031D9C00403ADA /* Icon.swift */,
 				CE7DAB7526FB42DF00BEAA0F /* Int.swift */,
 				CE470A6E26FA2284002D560A /* Landing.Activity.swift */,
-				CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */,
 				CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */,
 				CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */,
+				CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */,
 				CE6FE9A827031FCB00403ADA /* Landing.History.Item.Remote.swift */,
 				CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */,
 				CE17245026F909AC00C2CED5 /* Landing.History.swift */,
@@ -175,6 +180,7 @@
 				CE9B637726FCD0E900CD4DCE /* Search.Section.swift */,
 				CE9B636F26FC8B6200CD4DCE /* Search.swift */,
 				CE9DFA0C2706136500D69810 /* Settings.swift */,
+				CE4047E627070BD800E101D1 /* Sidebar.swift */,
 				CE1D9C3126FB6883004F8B6B /* Status.swift */,
 				CE0816542705C56B00E2D44E /* Tab.Loading.swift */,
 				CE9B93EF26F89BA6005E1D7F /* Tab.swift */,
@@ -320,8 +326,10 @@
 				CE0816552705C56B00E2D44E /* Tab.Loading.swift in Sources */,
 				CE470A6F26FA2284002D560A /* Landing.Activity.swift in Sources */,
 				CE470A6426F9DE8F002D560A /* Landing.Section.swift in Sources */,
+				CE4047E92707115800E101D1 /* Action.swift in Sources */,
 				CE6FE9A727031D9C00403ADA /* Icon.swift in Sources */,
 				CEAAFB2F27009ED400149F0C /* Transaction.swift in Sources */,
+				CE4047E727070BD800E101D1 /* Sidebar.swift in Sources */,
 				CE4A6DAD2702289000458E9B /* Landing.History.Item.swift in Sources */,
 				CE8AF27C26FF698A00F6655F /* Global.swift in Sources */,
 				CE17244926F8E9B300C2CED5 /* Navigation.Flow.swift in Sources */,

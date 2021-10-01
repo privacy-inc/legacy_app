@@ -4,9 +4,9 @@ import Specs
 struct Landing: View {
     let tabs: () -> Void
     let search: () -> Void
-    let settings: () -> Void
     let history: (Int) -> Void
     let url: (URL) -> Void
+    @State private var sidebar = false
     @State private var cards = [Cards.report,
                                 .activity,
                                 .bookmarks,
@@ -31,12 +31,17 @@ struct Landing: View {
         .background(.ultraThickMaterial)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(search: search) {
-                Button(action: settings) {
-                    Image(systemName: "gear")
+                Button {
+                    sidebar = true
+                } label: {
+                    Image(systemName: "line.3.horizontal")
+                        .font(.title3)
                         .symbolRenderingMode(.hierarchical)
                         .frame(width: 70)
                         .allowsHitTesting(false)
                 }
+                .sheet(isPresented: $sidebar, content: Sidebar.init)
+                
                 Spacer()
             } trailing: {
                 Spacer()

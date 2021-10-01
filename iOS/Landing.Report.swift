@@ -6,11 +6,11 @@ extension Landing {
             Button {
                 
             } label: {
-                Section("Trackers Report") {
+                Section("Trackers") {
                     HStack(spacing: 0) {
                         Text("\(Image(systemName: "shield.lefthalf.filled")) 199")
                             .monospacedDigit()
-                        Text("Trackers report")
+                        Text("Trackers prevented")
                             .foregroundStyle(.secondary)
                             .font(.footnote)
                             .padding(.leading)
