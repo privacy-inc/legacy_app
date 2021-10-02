@@ -14,8 +14,8 @@ struct Landing: View {
         ScrollView {
             ForEach(cards) {
                 switch $0.id {
-                case .report:
-                    Report()
+                case .trackers:
+                    Trackers()
                 case .activity:
                     Activity()
                 case .bookmarks:
@@ -24,13 +24,16 @@ struct Landing: View {
                     History(select: history)
                 }
             }
+            .animation(.easeInOut(duration: 0.45), value: cards)
             edit
         }
         .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
         .clipped()
         .background(.ultraThickMaterial)
         .onReceive(cloud) {
-            cards = $0.cards
+            cards = $0
+                .cards
+                .filter(\.state)
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(search: search) {
@@ -70,6 +73,8 @@ struct Landing: View {
         }
         .foregroundStyle(.secondary)
         .padding(.vertical, 50)
-        .sheet(isPresented: $editing, content: Edit.init)
+        .sheet(isPresented: $editing) {
+            Edit(rootView: .init())
+        }
     }
 }

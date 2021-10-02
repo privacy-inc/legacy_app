@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Landing {
-    struct Report: View {
+    struct Trackers: View {
         var body: some View {
             Button {
                 
