@@ -26,7 +26,7 @@ struct Navigation: View {
     }
     
     private func search() {
-        withAnimation(.easeInOut(duration: 0.4)) {
+        withAnimation(.spring()) {
             flow = .search
         }
     }
@@ -75,12 +75,12 @@ struct Navigation: View {
     }
     
     private func tab() {
-        withAnimation(.easeInOut(duration: 0.3)) {
-            if status[index].history == nil {
+        if status[index].history == nil {
+            withAnimation(.spring()) {
                 flow = .landing
-            } else {
-                flow = .web
             }
+        } else {
+            flow = .web
         }
     }
     

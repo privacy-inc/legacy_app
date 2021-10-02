@@ -7,7 +7,6 @@ extension Landing {
             sheetPresentationController
                 .map {
                     $0.detents = [.medium()]
-                    $0.largestUndimmedDetentIdentifier = .medium
                 }
         }
         
