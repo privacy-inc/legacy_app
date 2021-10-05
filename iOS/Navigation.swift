@@ -85,9 +85,8 @@ struct Navigation: View {
     }
     
     private func prepare() async {
-        let settings = await cloud.model.settings
         if status[index].web == nil {
-            status[index].web = await .init(history: status[index].history!, settings: settings)
+            status[index].web = await .init(history: status[index].history!, settings: cloud.model.settings.configuration)
         }
     }
     

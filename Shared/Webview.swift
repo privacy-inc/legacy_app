@@ -3,90 +3,52 @@ import Combine
 import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
-    let history: UInt16
-    
+    final let history: UInt16
     final var subs = Set<AnyCancellable>()
-//    final let id: UUID
-//    final let browse: Int
-//    final let settings: Sleuth.Settings
-//    final let session: Session
+    private let settings: Specs.Settings.Configuration
     
-    @MainActor required init?(coder: NSCoder) { nil }
-//    init(configuration: WKWebViewConfiguration, session: Session, id: UUID, browse: Int, settings: Sleuth.Settings) {
-    init(history: UInt16, settings: Specs.Settings) {
+    required init?(coder: NSCoder) { nil }
+    @MainActor init(configuration: WKWebViewConfiguration, history: UInt16, settings: Specs.Settings.Configuration) {
         self.history = history
-//        self.session = session
-//        self.id = id
-//        self.browse = browse
-//        self.settings = settings
-        
-        var configuration = WKWebViewConfiguration()
+        self.settings = settings
         
         configuration.suppressesIncrementalRendering = false
         configuration.allowsAirPlayForMediaPlayback = true
-#warning("Add a setting for this")
-        configuration.mediaTypesRequiringUserActionForPlayback = .all
-//        configuration.preferences.javaScriptCanOpenWindowsAutomatically = settings.popups && settings.javascript
-//        configuration.preferences.isFraudulentWebsiteWarningEnabled = !settings.http
-//        configuration.defaultWebpagePreferences.allowsContentJavaScript = settings.popups && settings.javascript
-//        configuration.websiteDataStore = .nonPersistent()
-//        configuration.userContentController.addUserScript(.init(source: settings.start, injectionTime: .atDocumentStart, forMainFrameOnly: true))
-//        configuration.userContentController.addUserScript(.init(source: settings.end, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-        
+        configuration.preferences.javaScriptCanOpenWindowsAutomatically = settings.popups && settings.javascript
+        configuration.preferences.isFraudulentWebsiteWarningEnabled = !settings.http
+        configuration.defaultWebpagePreferences.allowsContentJavaScript = settings.popups && settings.javascript
+        configuration.websiteDataStore = .nonPersistent()
         configuration.userContentController.addUserScript(.init(source: Script.favicon.script, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        
+        let scripts = settings.scripts
+        configuration.userContentController.addUserScript(.init(source: scripts.start, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        configuration.userContentController.addUserScript(.init(source: scripts.end, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        
+        switch settings.autoplay {
+        case .none:
+            configuration.mediaTypesRequiringUserActionForPlayback = .all
+        case .audio:
+            configuration.mediaTypesRequiringUserActionForPlayback = .video
+        case .video:
+            configuration.mediaTypesRequiringUserActionForPlayback = .audio
+        case .all:
+            configuration.mediaTypesRequiringUserActionForPlayback = []
+        }
         
     #if DEBUG
         configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
     #endif
 
-//        WKContentRuleListStore
-//            .default()!
-//            .compileContentRuleList(forIdentifier: "rules", encodedContentRuleList: settings.rules) { rules, _ in
-//                rules.map(configuration.userContentController.add)
-//            }
-//
+        WKContentRuleListStore
+            .default()!
+            .compileContentRuleList(forIdentifier: "rules", encodedContentRuleList: settings.blockers) { rules, _ in
+                rules.map(configuration.userContentController.add)
+            }
+
         super.init(frame: .zero, configuration: configuration)
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
-        
-        /*
-        Script
-            .Message
-            .allCases
-            .map(\.rawValue)
-            .forEach {
-                configuration.userContentController.add(self, name: $0)
-            }
-        
-        publisher(for: \.estimatedProgress, options: .new)
-            .removeDuplicates()
-            .sink {
-                session.tab.update(id, progress: $0)
-            }
-            .store(in: &subs)
-
-        publisher(for: \.isLoading, options: .new)
-            .removeDuplicates()
-            .sink {
-                session.tab.update(id, loading: $0)
-            }
-            .store(in: &subs)
-
-        publisher(for: \.canGoForward, options: .new)
-            .removeDuplicates()
-            .sink {
-                session.tab.update(id, forward: $0)
-            }
-            .store(in: &subs)
-
-        publisher(for: \.canGoBack, options: .new)
-            .removeDuplicates()
-            .sink {
-                session.tab.update(id, back: $0)
-            }
-            .store(in: &subs)
-         */
         
         publisher(for: \.title)
             .compactMap {
@@ -125,6 +87,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         navigationDelegate = nil
     }
     
+    final func load(_ url: URL) {
+        load(.init(url: url))
+    }
+    
     @MainActor final func load(_ access: AccessType) {
         switch access {
         case let url as AccessURL:
@@ -141,10 +107,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         default:
             break
         }
-    }
-    
-    final func load(_ url: URL) {
-        load(.init(url: url))
     }
     
     final func error(url: URL?, description: String) {
@@ -167,7 +129,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
         guard
             (withError as NSError).code != NSURLErrorCancelled,
-            (withError as NSError).code != frame_load_interrupted
+            (withError as NSError).code != Code.frameLoadInterrupted.rawValue
         else { return }
         
         error(url: (withError as? URLError)
@@ -197,6 +159,19 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
 //            evaluateJavaScript("Promise = null;")
 //        }
     }
+    
+//    final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
+//        switch cloud.policy(history: history, url: decidePolicyFor.request.url!) {
+//        case .allow:
+//            print("allow \(decidePolicyFor.request.url!)")
+//            preferences.allowsContentJavaScript = settings.javascript
+//            if #available(macOS 12, iOS 14.5, *), decidePolicyFor.shouldPerformDownload {
+//                decisionHandler(.download, preferences)
+//            } else {
+//                decisionHandler(.allow, preferences)
+//            }
+//        }
+//    }
     
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
         
@@ -244,7 +219,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         }*/
     }
     
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+    final func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         guard #available(macOS 12, iOS 14.5, *), !navigationResponse.canShowMIMEType else {
             decisionHandler(.allow)
             return
@@ -265,6 +240,3 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         }
     }
 }
-
-private let url_cant_be_shown = 101
-private let frame_load_interrupted = 102

@@ -18,15 +18,8 @@ final class Web: Webview, UIViewRepresentable {
     weak var newTab: PassthroughSubject<URL, Never>!
     
     required init?(coder: NSCoder) { nil }
-    override init(history: UInt16, settings: Specs.Settings) {
+    init(history: UInt16, settings: Specs.Settings.Configuration) {
         print("web init")
-        
-//            newTab = wrapper.session.newTab
-//            var settings = wrapper.session.archive.settings
-//
-//            if !UIApplication.dark {
-//                settings.dark = false
-//            }
         
         let configuration = WKWebViewConfiguration()
         configuration.dataDetectorTypes = [.link]
@@ -34,7 +27,7 @@ final class Web: Webview, UIViewRepresentable {
         configuration.allowsInlineMediaPlayback = true
         configuration.ignoresViewportScaleLimits = true
         
-        super.init(history: history, settings: settings)
+        super.init(configuration: configuration, history: history, settings: settings, dark: UIApplication.shared.dark && settings.dark)
         scrollView.keyboardDismissMode = .none
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.clipsToBounds = false
@@ -198,7 +191,7 @@ final class Web: Webview, UIViewRepresentable {
     }
     
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
-//            UIApplication.shared.resign()
+        UIApplication.shared.hide()
     }
 
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
