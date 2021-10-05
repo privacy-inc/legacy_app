@@ -30,6 +30,17 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
+    func share(_ any: Any) {
+        scene?
+            .keyWindow?
+            .rootViewController
+            .map {
+                let controller = UIActivityViewController(activityItems: [any], applicationActivities: nil)
+                controller.popoverPresentationController?.sourceView = $0.view
+                $0.present(controller, animated: true)
+            }
+    }
+    
     private var scene: UIWindowScene? {
         connectedScenes
             .filter {

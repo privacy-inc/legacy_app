@@ -4,11 +4,11 @@ import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     final let history: UInt16
-    final var subs = Set<AnyCancellable>()
+    private var subs = Set<AnyCancellable>()
     private let settings: Specs.Settings.Configuration
     
     required init?(coder: NSCoder) { nil }
-    @MainActor init(configuration: WKWebViewConfiguration, history: UInt16, settings: Specs.Settings.Configuration) {
+    @MainActor init(configuration: WKWebViewConfiguration, history: UInt16, settings: Specs.Settings.Configuration, dark: Bool) {
         self.history = history
         self.settings = settings
         
@@ -19,10 +19,11 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.defaultWebpagePreferences.allowsContentJavaScript = settings.popups && settings.javascript
         configuration.websiteDataStore = .nonPersistent()
         configuration.userContentController.addUserScript(.init(source: Script.favicon.script, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        configuration.userContentController.addUserScript(.init(source: settings.scripts, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         
-        let scripts = settings.scripts
-        configuration.userContentController.addUserScript(.init(source: scripts.start, injectionTime: .atDocumentStart, forMainFrameOnly: true))
-        configuration.userContentController.addUserScript(.init(source: scripts.end, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        if dark && settings.dark {
+            configuration.userContentController.addUserScript(.init(source: Script.dark.script, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        }
         
         switch settings.autoplay {
         case .none:
@@ -81,6 +82,15 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         
     }
     
+    func error(url: URL?, description: String) {
+        Task
+            .detached(priority: .utility) { [weak self] in
+                guard let self = self else { return }
+                await cloud.update(url: self.url ?? URL(string: "about:blank")!, history: self.history)
+                await cloud.update(title: description, history: self.history)
+            }
+    }
+    
     final func clear() {
         stopLoading()
         uiDelegate = nil
@@ -109,21 +119,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         }
     }
     
-    final func error(url: URL?, description: String) {
-        let url = url ?? self.url ?? URL(string: "about:blank")!
-//        cloud.update(browse, url: url)
-//        cloud.update(browse, title: description)
-//        cloud.activity()
-//        session.tab.error(id, .init(url: url.absoluteString, description: description))
-//        session.tab.update(id, progress: 1)
-    }
-    
-    final func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-//        guard settings.http else {
-            completionHandler(.performDefaultHandling, nil)
-//            return
-//        }
-//        completionHandler(.useCredential, didReceive.protectionSpace.serverTrust.map(URLCredential.init(trust:)))
+    final func webView(_: WKWebView, respondTo: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
+        settings.http
+        ? (.useCredential, respondTo.protectionSpace.serverTrust.map(URLCredential.init(trust:)))
+        : (.performDefaultHandling, nil)
     }
     
     final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
@@ -141,10 +140,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     final func webView(_: WKWebView, didFinish: WKNavigation!) {
-//        session.tab.update(id, progress: 1)
-//        cloud.activity()
-//
-        
         Task {
             guard
                 let access = await cloud.model.history.first(where: { $0.id == history })?.website.access,
@@ -154,77 +149,51 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             print(url)
             await favicon.received(url: url, for: access)
         }
-//
-//        if !settings.timers {
-//            evaluateJavaScript("Promise = null;")
-//        }
+        
+        if !settings.timers {
+            evaluateJavaScript(Script.unpromise.script)
+        }
     }
     
-//    final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
-//        switch cloud.policy(history: history, url: decidePolicyFor.request.url!) {
-//        case .allow:
-//            print("allow \(decidePolicyFor.request.url!)")
-//            preferences.allowsContentJavaScript = settings.javascript
-//            if #available(macOS 12, iOS 14.5, *), decidePolicyFor.shouldPerformDownload {
-//                decisionHandler(.download, preferences)
-//            } else {
-//                decisionHandler(.allow, preferences)
-//            }
-//        }
-//    }
-    
-    final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        
-        
-        
-        decisionHandler(.allow, preferences)
-        
-        
-        
-        
-        
-        /*switch cloud.policy(decidePolicyFor.request.url!) {
+    final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
+        switch await cloud.policy(history: history, url: decidePolicyFor.request.url!) {
         case .allow:
             print("allow \(decidePolicyFor.request.url!)")
-//            preferences.allowsContentJavaScript = settings.javascript
+            preferences.allowsContentJavaScript = settings.javascript
             if #available(macOS 12, iOS 14.5, *), decidePolicyFor.shouldPerformDownload {
-                decisionHandler(.download, preferences)
+                return (.download, preferences)
             } else {
-                decisionHandler(.allow, preferences)
+                return (.allow, preferences)
             }
         case .external:
             print("external \(decidePolicyFor.request.url!)")
-            decisionHandler(.cancel, preferences)
             external(decidePolicyFor.request.url!)
+            return (.cancel, preferences)
         case .ignore:
-//            print("ignore \(decidePolicyFor.request.url!)")
-            decisionHandler(.cancel, preferences)
             decidePolicyFor
                 .targetFrame
                 .map(\.isMainFrame)
                 .map {
                     guard $0 else { return }
-//                    session.tab.error(id, .init(url: decidePolicyFor.request.url!.absoluteString, description: "There was an error"))
+                    error(url: decidePolicyFor.request.url!, description: "There was an error")
                 }
+            return (.cancel, preferences)
         case .block:
-//            print("block \(decidePolicyFor.request.url!)")
-            decisionHandler(.cancel, preferences)
             decidePolicyFor
                 .targetFrame
                 .map(\.isMainFrame)
                 .map {
                     guard $0 else { return }
-//                    session.tab.error(id, .init(url: decidePolicyFor.request.url!.absoluteString, description: "Blocked"))
+                    error(url: decidePolicyFor.request.url!, description: "Blocked")
                 }
-        }*/
+            return (.cancel, preferences)
+        }
     }
     
-    final func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        guard #available(macOS 12, iOS 14.5, *), !navigationResponse.canShowMIMEType else {
-            decisionHandler(.allow)
-            return
-        }
-        decisionHandler(.download)
+    final func webView(_: WKWebView, decidePolicyFor: WKNavigationResponse) async -> WKNavigationResponsePolicy {
+        decidePolicyFor.canShowMIMEType
+        ? .allow
+        : .download
     }
     
     final class func clear() {

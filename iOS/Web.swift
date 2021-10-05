@@ -4,18 +4,7 @@ import Combine
 import Specs
 
 final class Web: Webview, UIViewRepresentable {
-    
-    
-        func makeUIView(context: Context) -> Web {
-            self
-        }
-    
-        func updateUIView(_: Web, context: Context) {
-    
-        }
-    
-    
-    weak var newTab: PassthroughSubject<URL, Never>!
+    let tab = PassthroughSubject<URL, Never>()
     
     required init?(coder: NSCoder) { nil }
     init(history: UInt16, settings: Specs.Settings.Configuration) {
@@ -27,69 +16,16 @@ final class Web: Webview, UIViewRepresentable {
         configuration.allowsInlineMediaPlayback = true
         configuration.ignoresViewportScaleLimits = true
         
-        super.init(configuration: configuration, history: history, settings: settings, dark: UIApplication.shared.dark && settings.dark)
+        let dark = UIApplication.shared.dark
+        
+        super.init(configuration: configuration, history: history, settings: settings, dark: dark)
         scrollView.keyboardDismissMode = .none
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.clipsToBounds = false
-//            isOpaque = !settings.dark
-//            scrollView.backgroundColor = .secondarySystemBackground
-//            scrollView.indicatorStyle = settings.dark ? .white : .default
+        scrollView.backgroundColor = .secondarySystemBackground
+        scrollView.indicatorStyle = dark && settings.dark ? .white : .default
 
         /*
-        wrapper
-            .session
-            .load
-            .filter {
-                $0.id == id
-            }
-            .sink { [weak self] in
-                self?.load($0.access)
-            }
-            .store(in: &subs)
-        
-        wrapper
-            .session
-            .reload
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.reload()
-            }
-            .store(in: &subs)
-        
-        wrapper
-            .session
-            .stop
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.stopLoading()
-            }
-            .store(in: &subs)
-        
-        wrapper
-            .session
-            .back
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.goBack()
-            }
-            .store(in: &subs)
-        
-        wrapper
-            .session
-            .forward
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.goForward()
-            }
-            .store(in: &subs)
         
         wrapper
             .session
@@ -190,6 +126,10 @@ final class Web: Webview, UIViewRepresentable {
         UIApplication.shared.open(url)
     }
     
+    override func error(url: URL?, description: String) {
+        
+    }
+    
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
         UIApplication.shared.hide()
     }
@@ -204,40 +144,48 @@ final class Web: Webview, UIViewRepresentable {
         return nil
     }
     
-    func webView(_: WKWebView, contextMenuConfigurationForElement: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
-        completionHandler(.init(identifier: nil, previewProvider: nil, actionProvider: { elements in
+    func webView(_: WKWebView, contextMenuConfigurationFor: WKContextMenuElementInfo) async -> UIContextMenuConfiguration? {
+        .init(identifier: nil, previewProvider: nil, actionProvider: { elements in
             var elements = elements
                 .filter {
                     guard let name = ($0 as? UIAction)?.identifier.rawValue else { return true }
                     return !(name.hasSuffix("Open") || name.hasSuffix("List"))
                 }
             
-            if let url = contextMenuConfigurationForElement
+            if let url = contextMenuConfigurationFor
                 .linkURL {
                     elements
                         .insert(UIAction(title: NSLocalizedString("Open in new tab", comment: ""),
                                          image: UIImage(systemName: "plus.square.on.square"))
                         { [weak self] _ in
-                            self?.newTab.send(url)
+                            self?.tab.send(url)
                         }, at: 0)
                 }
             return .init(title: "", children: elements)
-        }))
+        })
     }
     
     func webView(_: WKWebView, contextMenuForElement element: WKContextMenuElementInfo, willCommitWithAnimator: UIContextMenuInteractionCommitAnimating) {
         if let url = element.linkURL {
             load(url)
         } else if let data = (willCommitWithAnimator.previewViewController?.view.subviews.first as? UIImageView)?.image?.pngData() {
-//                load(data.temporal("image.png"))
+            load(data.temporal("image.png"))
         }
     }
     
-    private func found(_ offset: CGFloat) {
-        scrollView.scrollRectToVisible(.init(x: 0,
-                                             y: offset + scrollView.contentOffset.y - (offset > 0 ? 160 : -180),
-                                             width: 320,
-                                             height: 320),
-                                       animated: true)
+//    private func found(_ offset: CGFloat) {
+//        scrollView.scrollRectToVisible(.init(x: 0,
+//                                             y: offset + scrollView.contentOffset.y - (offset > 0 ? 160 : -180),
+//                                             width: 320,
+//                                             height: 320),
+//                                       animated: true)
+//    }
+    
+    func makeUIView(context: Context) -> Web {
+        self
+    }
+
+    func updateUIView(_: Web, context: Context) {
+
     }
 }

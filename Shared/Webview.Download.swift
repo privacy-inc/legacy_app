@@ -36,11 +36,12 @@ extension Webview: WKDownloadDelegate {
     #elseif os(iOS)
     
     func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String, completionHandler: @escaping (URL?) -> Void) {
-//        decideDestinationUsing
-//            .url
-//            .map {
-//                try? UIApplication.shared.share(Data(contentsOf: $0).temporal(suggestedFilename))
-//            }
+        decideDestinationUsing
+            .url
+            .map {
+                try? UIApplication.shared.share(Data(contentsOf: $0).temporal(suggestedFilename))
+            }
+        
         download.cancel(nil)
         completionHandler(nil)
     }
