@@ -22,7 +22,6 @@ final class Web: Webview, UIViewRepresentable {
         scrollView.keyboardDismissMode = .none
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.clipsToBounds = false
-        scrollView.backgroundColor = .secondarySystemBackground
         scrollView.indicatorStyle = dark && settings.dark ? .white : .default
 
         /*

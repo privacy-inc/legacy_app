@@ -127,6 +127,7 @@ extension Options {
                         web.stopLoading()
                     } else {
                         web.reload()
+                        dismiss()
                     }
                 } label: {
                     ZStack {

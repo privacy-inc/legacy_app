@@ -9,6 +9,7 @@ struct Tab: View {
     
     var body: some View {
         web
+            .background(Color(web.underPageBackgroundColor))
             .edgesIgnoringSafeArea(.horizontal)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(search: search) {
@@ -41,7 +42,7 @@ struct Tab: View {
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 0) {
                     Loading(progress: progress)
-                        .stroke(Color("Shades"), lineWidth: 2.5)
+                        .stroke(Color.secondary, lineWidth: 2.5)
                         .frame(height: 2.5)
                     Rectangle()
                         .fill(Color.secondary)

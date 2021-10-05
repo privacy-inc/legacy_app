@@ -24,14 +24,10 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
                 Button {
                     search()
                 } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.secondary)
-                            .frame(width: 38, height: 38)
-                        Image(systemName: "magnifyingglass")
-                            .font(.callout)
-                            .foregroundColor(.primary)
-                    }
+                    Image(systemName: "magnifyingglass")
+                        .font(.title2)
+                        .foregroundStyle(.primary)
+                        .frame(width: 38, height: 38)
                 }
                 trailing
             }

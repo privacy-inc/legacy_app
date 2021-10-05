@@ -76,6 +76,12 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                     }
             }
             .store(in: &subs)
+        
+        publisher(for: \.themeColor)
+            .sink { [weak self] in
+                self?.underPageBackgroundColor = $0 ?? .systemBackground
+            }
+            .store(in: &subs)
     }
     
     func external(_ url: URL) {
