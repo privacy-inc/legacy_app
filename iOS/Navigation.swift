@@ -40,7 +40,7 @@ struct Navigation: View {
         }
     }
     
-    private func history(_ id: Int) {
+    private func history(_ id: UInt16) {
         status[index].history = id
         
         Task {

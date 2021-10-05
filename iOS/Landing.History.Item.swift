@@ -4,7 +4,7 @@ import Specs
 extension Landing.History {
     struct Item: View {
         let item: Specs.History
-        let select: (Int) -> Void
+        let select: (UInt16) -> Void
         
         var body: some View {
             Button {

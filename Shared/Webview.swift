@@ -3,7 +3,7 @@ import Combine
 import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
-    let history: Int
+    let history: UInt16
     
     final var subs = Set<AnyCancellable>()
 //    final let id: UUID
@@ -13,7 +13,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     @MainActor required init?(coder: NSCoder) { nil }
 //    init(configuration: WKWebViewConfiguration, session: Session, id: UUID, browse: Int, settings: Sleuth.Settings) {
-    init(history: Int, settings: Specs.Settings) {
+    init(history: UInt16, settings: Specs.Settings) {
         self.history = history
 //        self.session = session
 //        self.id = id

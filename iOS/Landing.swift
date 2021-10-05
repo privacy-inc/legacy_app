@@ -4,7 +4,7 @@ import Specs
 struct Landing: View {
     let tabs: () -> Void
     let search: () -> Void
-    let history: (Int) -> Void
+    let history: (UInt16) -> Void
     let access: (AccessType) -> Void
     @State private var sidebar = false
     @State private var editing = false

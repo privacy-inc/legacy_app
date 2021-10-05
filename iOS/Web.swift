@@ -18,7 +18,7 @@ final class Web: Webview, UIViewRepresentable {
     weak var newTab: PassthroughSubject<URL, Never>!
     
     required init?(coder: NSCoder) { nil }
-    override init(history: Int, settings: Specs.Settings) {
+    override init(history: UInt16, settings: Specs.Settings) {
         print("web init")
         
 //            newTab = wrapper.session.newTab

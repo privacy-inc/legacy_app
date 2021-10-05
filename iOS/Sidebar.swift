@@ -4,7 +4,7 @@ import Specs
 struct Sidebar: View {
     @Binding var presented: Bool
     let access: (AccessType) -> Void
-    let history: (Int) -> Void
+    let history: (UInt16) -> Void
     @State private var forget = false
     
     var body: some View {

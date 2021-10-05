@@ -3,7 +3,7 @@ import Specs
 
 extension Landing {
     struct History: View {
-        let select: (Int) -> Void
+        let select: (UInt16) -> Void
         @State private var history = [Specs.History]()
         @State private var items = [[Specs.History]]()
         @Environment(\.verticalSizeClass) private var vertical

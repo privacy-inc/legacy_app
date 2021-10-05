@@ -3,7 +3,7 @@ import Specs
 
 struct History: View {
     @Binding var presented: Bool
-    let select: (Int) -> Void
+    let select: (UInt16) -> Void
     @State private var items = [Specs.History]()
     
     var body: some View {
