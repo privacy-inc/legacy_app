@@ -25,14 +25,14 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
                     search()
                 } label: {
                     Image(systemName: "magnifyingglass")
-                        .font(.title2)
+                        .font(vertical == .compact ? .body : .title2)
                         .foregroundStyle(.primary)
-                        .frame(width: 38, height: 38)
+                        .frame(width: 34, height: 34)
                 }
                 trailing
             }
             .padding(.horizontal)
-            .padding(.top, vertical == .compact ? 2 : 8)
+            .padding(.top, vertical == .compact ? 0 : 10)
             .padding(.bottom, 2)
         }
         .background(.ultraThinMaterial)

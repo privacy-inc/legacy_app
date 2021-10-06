@@ -78,6 +78,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             .store(in: &subs)
         
         publisher(for: \.themeColor)
+            .removeDuplicates()
             .sink { [weak self] in
                 self?.underPageBackgroundColor = $0 ?? .systemBackground
             }

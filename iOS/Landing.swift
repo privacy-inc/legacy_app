@@ -41,7 +41,6 @@ struct Landing: View {
                     sidebar = true
                 } label: {
                     Image(systemName: "line.3.horizontal")
-                        .font(.title3)
                         .symbolRenderingMode(.hierarchical)
                         .frame(width: 70)
                         .allowsHitTesting(false)
@@ -56,6 +55,7 @@ struct Landing: View {
                 Button(action: tabs) {
                     Image(systemName: "square.on.square.dashed")
                         .symbolRenderingMode(.hierarchical)
+                        .font(.callout)
                         .frame(width: 70)
                         .allowsHitTesting(false)
                 }

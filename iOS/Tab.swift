@@ -18,7 +18,7 @@ struct Tab: View {
                     } label: {
                         Image(systemName: "ellipsis")
                             .symbolRenderingMode(.hierarchical)
-                            .font(.title2)
+                            .font(.title3)
                             .frame(width: 70)
                             .allowsHitTesting(false)
                     }
@@ -34,6 +34,7 @@ struct Tab: View {
                     Button(action: tabs) {
                         Image(systemName: "square.on.square.dashed")
                             .symbolRenderingMode(.hierarchical)
+                            .font(.callout)
                             .frame(width: 70)
                             .allowsHitTesting(false)
                     }
@@ -42,8 +43,9 @@ struct Tab: View {
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 0) {
                     Loading(progress: progress)
-                        .stroke(Color.secondary, lineWidth: 2.5)
-                        .frame(height: 2.5)
+                        .stroke(Color(web.underPageBackgroundColor), lineWidth: 2)
+                        .frame(height: 2)
+                        .colorInvert()
                     Rectangle()
                         .fill(Color.secondary)
                         .frame(height: 0.5)
