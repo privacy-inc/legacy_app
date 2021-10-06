@@ -164,11 +164,12 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
         switch await cloud.policy(history: history, url: decidePolicyFor.request.url!) {
         case .allow:
-            print("allow \(decidePolicyFor.request.url!)")
-            preferences.allowsContentJavaScript = settings.javascript
-            if #available(macOS 12, iOS 14.5, *), decidePolicyFor.shouldPerformDownload {
+            if decidePolicyFor.shouldPerformDownload {
+                print("download \(decidePolicyFor.request.url!)")
                 return (.download, preferences)
             } else {
+                print("allow \(decidePolicyFor.request.url!)")
+                preferences.allowsContentJavaScript = settings.javascript
                 return (.allow, preferences)
             }
         case .external:

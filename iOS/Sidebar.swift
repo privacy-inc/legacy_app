@@ -67,7 +67,7 @@ struct Sidebar: View {
     
     private var report: some View {
         Section("Report") {
-            NavigationLink(destination: Circle()) {
+            NavigationLink(destination: Trackers()) {
                 Label("Trackers", systemImage: "shield.lefthalf.filled")
                     .allowsHitTesting(false)
             }

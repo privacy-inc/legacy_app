@@ -58,7 +58,7 @@ struct Tabs: View {
         
         DispatchQueue
             .main
-            .asyncAfter(deadline: .now() + 0.3) {
+            .asyncAfter(deadline: .now() + 0.2) {
                 tab(index)
             }
     }

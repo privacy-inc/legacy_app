@@ -76,7 +76,7 @@ struct Navigation: View {
     
     private func tab() {
         if status[index].history == nil {
-            withAnimation(.spring()) {
+            withAnimation(.easeInOut(duration: 0.35)) {
                 flow = .landing
             }
         } else {
