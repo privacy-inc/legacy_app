@@ -8,7 +8,9 @@ extension Search {
         var body: some View {
             VStack(spacing: 0) {
                 ZStack {
-                    Image(systemName: "magnifyingglass")
+                    Text("Search or enter website")
+                        .foregroundStyle(.tertiary)
+                        .font(.footnote)
                         .allowsHitTesting(false)
                     Group {
                         Button(role: .cancel) {
@@ -16,8 +18,8 @@ extension Search {
                             tab()
                         } label: {
                             Text("Cancel")
-                                .font(.callout)
-                                .foregroundStyle(.secondary)
+                                .font(.footnote)
+                                .foregroundStyle(.primary)
                                 .padding(.horizontal)
                                 .padding(.vertical, 6)
                         }

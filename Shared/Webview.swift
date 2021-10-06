@@ -153,7 +153,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                 await favicon.request(for: access),
                 let url = try? await (evaluateJavaScript(Script.favicon.method)) as? String
             else { return }
-            print(url)
             await favicon.received(url: url, for: access)
         }
         
@@ -203,16 +202,17 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         : .download
     }
     
-    final class func clear() {
+    final class func clear() async {
         URLCache.shared.removeAllCachedResponses()
         HTTPCookieStorage.shared.removeCookies(since: .distantPast)
-        [WKWebsiteDataStore.default(), WKWebsiteDataStore.nonPersistent()].forEach {
-            $0.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) {
-                $0.forEach {
-                    WKWebsiteDataStore.default().removeData(ofTypes: $0.dataTypes, for: [$0]) { }
-                }
-            }
-            $0.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: .distantPast) { }
+        await clear(store: .default())
+        await clear(store: .nonPersistent())
+    }
+    
+    private class func clear(store: WKWebsiteDataStore) async {
+        for record in await store.dataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) {
+            await store.removeData(ofTypes: record.dataTypes, for: [record])
         }
+        await store.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: .distantPast)
     }
 }

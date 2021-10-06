@@ -11,7 +11,7 @@ struct Navigation: View {
         case .landing:
             Landing(tabs: tabs, search: search, history: history, access: access)
         case .web:
-            Tab(web: status[index].web!, tabs: tabs, search: search)
+            Tab(web: status[index].web!, tabs: tabs, search: search, open: url)
         case .search:
             Search(tab: tab, searching: searching)
                 .equatable()
@@ -31,12 +31,17 @@ struct Navigation: View {
         }
     }
     
+    private func url(_ url: URL) {
+        Task {
+            status.append(.init())
+            index = status.count - 1
+            history(await cloud.open(url: url))
+        }
+    }
+    
     private func access(_ access: AccessType) {
         Task {
-            status[index].history = await cloud.open(access: access)
-            await prepare()
-            flow = .web
-            await load()
+            history(await cloud.open(access: access))
         }
     }
     
@@ -44,9 +49,7 @@ struct Navigation: View {
         status[index].history = id
         
         Task {
-            await prepare()
-            flow = .web
-            await load()
+            await web()
         }
     }
     
@@ -56,13 +59,10 @@ struct Navigation: View {
                 do {
                     if let id = status[index].history {
                         try await cloud.search(search, history: id)
+                        await web()
                     } else {
-                        status[index].history = try await cloud.search(search)
+                        history(try await cloud.search(search))
                     }
-                    
-                    await prepare()
-                    tab()
-                    await load()
                 } catch {
                     tab()
                 }
@@ -84,13 +84,13 @@ struct Navigation: View {
         }
     }
     
-    private func prepare() async {
+    private func web() async {
         if status[index].web == nil {
             status[index].web = await .init(history: status[index].history!, settings: cloud.model.settings.configuration)
         }
-    }
-    
-    private func load() async {
+        
+        flow = .web
+        
         await status[index].web!.load(cloud
                                         .model
                                         .history

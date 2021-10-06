@@ -1,14 +1,17 @@
 import SwiftUI
+import Specs
 
 struct Tab: View {
     let web: Web
     let tabs: () -> Void
     let search: () -> Void
+    let open: (URL) -> Void
     @State private var options = false
     @State private var progress = AnimatablePair(Double(), Double())
     
     var body: some View {
         web
+            .equatable()
             .background(Color(web.underPageBackgroundColor))
             .edgesIgnoringSafeArea(.horizontal)
             .safeAreaInset(edge: .bottom, spacing: 0) {
@@ -68,6 +71,15 @@ struct Tab: View {
                             }
                     }
                 }
+            }
+            .onReceive(web.tab) { url in
+                tabs()
+                
+                DispatchQueue
+                    .main
+                    .asyncAfter(deadline: .now() + 0.5) {
+                        open(url)
+                    }
             }
     }
 }
