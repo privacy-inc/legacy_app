@@ -31,6 +31,20 @@ extension Landing {
             .sheet(isPresented: $display) {
                 NavigationView {
                     Privacy.Trackers()
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button {
+                                    display = false
+                                } label: {
+                                    Text("Done")
+                                        .font(.callout)
+                                        .foregroundColor(.init("Shades"))
+                                        .padding(.leading)
+                                        .allowsHitTesting(false)
+                                        .contentShape(Rectangle())
+                                }
+                            }
+                        }
                 }
                 .navigationViewStyle(.stack)
             }

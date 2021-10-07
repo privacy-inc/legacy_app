@@ -28,7 +28,7 @@ struct Trackers: View {
         }
         .listStyle(.plain)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .navigationBarLeading) {
                 Text(count.formatted() + " prevented")
                     .monospacedDigit()
                     .font(.callout)
