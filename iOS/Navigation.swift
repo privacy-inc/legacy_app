@@ -92,12 +92,7 @@ struct Navigation: View {
         flow = .web
         
         await status[index].web!.load(cloud
-                                        .model
-                                        .history
-                                        .first {
-                                            $0.id == status[index].history
-                                        }!
-                                        .website
+                                        .website(history: status[index].history!)
                                         .access)
     }
 }

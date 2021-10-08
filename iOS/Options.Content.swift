@@ -61,9 +61,8 @@ extension Options {
             access = nil
             
             Task {
-                guard let access = await cloud.model.history.first(where: { $0.id == web.history })?.website.access else { return }
-                self.access = access
-                publisher = await favicon.publisher(for: access)
+                access = await cloud.website(history: web.history).access
+                publisher = await favicon.publisher(for: access!)
             }
         }
         

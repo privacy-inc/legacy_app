@@ -148,8 +148,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     final func webView(_: WKWebView, didFinish: WKNavigation!) {
         Task {
+            let access = await cloud.website(history: history).access
             guard
-                let access = await cloud.model.history.first(where: { $0.id == history })?.website.access,
                 await favicon.request(for: access),
                 let url = try? await (evaluateJavaScript(Script.favicon.method)) as? String
             else { return }

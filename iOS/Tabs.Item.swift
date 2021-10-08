@@ -50,13 +50,9 @@ extension Tabs {
                 }
             }
             .task {
-                guard
-                    let history = status.history,
-                    let access = await cloud.model.history.first(where: { $0.id == history })?.website.access
-                else { return }
-                
-                self.access = access
-                publisher = await favicon.publisher(for: access)
+                guard let history = status.history else { return }
+                access = await cloud.website(history: history).access
+                publisher = await favicon.publisher(for: access!)
             }
         }
     }
