@@ -1,6 +1,31 @@
 import SwiftUI
+import Combine
+import Specs
 
 final class Options: UIHostingController<Options.Content>, UIViewControllerRepresentable {
+    deinit {
+        print("options gone")
+    }
+    
+    private var sub: AnyCancellable?
+    
+    required init?(coder: NSCoder) { nil }
+    init(web: Web) {
+        print("options init")
+        
+        let share = PassthroughSubject<Void, Never>()
+        
+        super.init(rootView: .init(web: web, share: share))
+        
+        sub = share
+            .sink { [weak self] in
+                guard let self = self else { return }
+                Task {
+                    await self.share(history: web.history)
+                }
+            }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         sheetPresentationController
@@ -10,26 +35,35 @@ final class Options: UIHostingController<Options.Content>, UIViewControllerRepre
             }
     }
     
-    func share(history: Int) {
-        Task {
-//            guard let url = cloud.model.history.first
-        }
-//        UIActivityViewController(activityItems: [], applicationActivities: <#T##[UIActivity]?#>)
-    }
-    
-//    func share(_ any: Any) {
-//        let root = self.root
-//        let controller = UIActivityViewController(activityItems: [any], applicationActivities: nil)
-//        controller.popoverPresentationController?.sourceView = root?.view
-//        root?.present(controller, animated: true)
-//    }
-    
     func makeUIViewController(context: Context) -> Options {
         self
     }
     
     func updateUIViewController(_: Options, context: Context) {
 
+    }
+    
+    private func share(history: UInt16) async {
+        guard
+            let access = await cloud.website(history: history).access as? AccessURL,
+            let url = access.url
+        else { return }
+        
+        let controller = UIActivityViewController(activityItems: [url], applicationActivities: [Safari()])
+        controller.popoverPresentationController?.sourceView = view
+        present(controller, animated: true)
+    }
+}
+
+private final class Safari: UIActivity {
+    override var activityTitle: String? { "Open in Safari" }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        true
+    }
+    
+    override func perform() {
+        UIApplication.shared.open(URL(string: "x-web-open://www.google.com")!)
     }
 }
 

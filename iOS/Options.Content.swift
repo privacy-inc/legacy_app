@@ -1,9 +1,11 @@
 import SwiftUI
+import Combine
 import Specs
 
 extension Options {
     struct Content: View {
         let web: Web
+        let share: PassthroughSubject<Void, Never>
         @State private var loading = false
         @State private var title = ""
         @State private var url: URL?
@@ -174,7 +176,7 @@ extension Options {
                 Spacer()
                 
                 Control(title: "Share", symbol: "square.and.arrow.up") {
-                    
+                    share.send()
                 }
                 .padding(.trailing, 40)
             }

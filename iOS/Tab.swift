@@ -26,7 +26,7 @@ struct Tab: View {
                             .allowsHitTesting(false)
                     }
                     .sheet(isPresented: $options) {
-                        Options(rootView: .init(web: web))
+                        Options(web: web)
                             .edgesIgnoringSafeArea(.all)
                     }
                     
