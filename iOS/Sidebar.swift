@@ -72,7 +72,7 @@ struct Sidebar: View {
                     .allowsHitTesting(false)
             }
             
-            NavigationLink(destination: Circle()) {
+            NavigationLink(destination: Activity()) {
                 Label("Activity", systemImage: "chart.xyaxis.line")
                     .allowsHitTesting(false)
             }

@@ -45,6 +45,7 @@
 		CE8DFC1D2707424D00229E92 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DFC1C2707424D00229E92 /* History.swift */; };
 		CE91AA25270878E10061A512 /* Landing.Edit.Content.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91AA24270878E10061A512 /* Landing.Edit.Content.Item.swift */; };
 		CE91AA27270882790061A512 /* Landing.Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91AA26270882790061A512 /* Landing.Edit.swift */; };
+		CE9424EB270F4A06002225CE /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9424EA270F4A06002225CE /* Activity.swift */; };
 		CE9B637026FC8B6200CD4DCE /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B636F26FC8B6200CD4DCE /* Search.swift */; };
 		CE9B637226FC8BA700CD4DCE /* Search.Representable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B637126FC8BA700CD4DCE /* Search.Representable.swift */; };
 		CE9B637626FCA05800CD4DCE /* Search.Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B637526FCA05800CD4DCE /* Search.Header.swift */; };
@@ -56,6 +57,7 @@
 		CE9DFA0F27061D5400D69810 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA0E27061D5400D69810 /* Copy.swift */; };
 		CE9DFA112706275C00D69810 /* Landing.Bookmarks.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */; };
 		CE9DFA132706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */; };
+		CEA169E0271059CD00173AE7 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA169DF271059CD00173AE7 /* Chart.swift */; };
 		CEAAFB2327009BE100149F0C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2227009BE100149F0C /* StoreKit.framework */; };
 		CEAAFB2527009C1E00149F0C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2427009C1E00149F0C /* CloudKit.framework */; };
 		CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2627009E4000149F0C /* App.Delegate.swift */; };
@@ -110,6 +112,7 @@
 		CE8DFC1C2707424D00229E92 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		CE91AA24270878E10061A512 /* Landing.Edit.Content.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.Content.Item.swift; sourceTree = "<group>"; };
 		CE91AA26270882790061A512 /* Landing.Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.swift; sourceTree = "<group>"; };
+		CE9424EA270F4A06002225CE /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		CE9B636F26FC8B6200CD4DCE /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CE9B637126FC8BA700CD4DCE /* Search.Representable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Representable.swift; sourceTree = "<group>"; };
 		CE9B637526FCA05800CD4DCE /* Search.Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Header.swift; sourceTree = "<group>"; };
@@ -121,6 +124,7 @@
 		CE9DFA0E27061D5400D69810 /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
 		CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.swift; sourceTree = "<group>"; };
 		CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.Remote.swift; sourceTree = "<group>"; };
+		CEA169DF271059CD00173AE7 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		CEAAFB2027009BB900149F0C /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CEAAFB2227009BE100149F0C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		CEAAFB2427009C1E00149F0C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -174,6 +178,8 @@
 				CEAAFB2027009BB900149F0C /* iOS.entitlements */,
 				CE46B4EF26F79B2200A5B5BB /* Info.plist */,
 				CE4047E82707115800E101D1 /* Action.swift */,
+				CE9424EA270F4A06002225CE /* Activity.swift */,
+				CEA169DF271059CD00173AE7 /* Chart.swift */,
 				CEAAFB2627009E4000149F0C /* App.Delegate.swift */,
 				CE46B4DD26F797F600A5B5BB /* App.swift */,
 				CE470A6526FA0AEB002D560A /* Bar.swift */,
@@ -358,6 +364,7 @@
 				CE1D9C3226FB6883004F8B6B /* Status.swift in Sources */,
 				CE17244F26F9094700C2CED5 /* Landing.Bookmarks.swift in Sources */,
 				CE0816552705C56B00E2D44E /* Tab.Loading.swift in Sources */,
+				CE9424EB270F4A06002225CE /* Activity.swift in Sources */,
 				CE470A6F26FA2284002D560A /* Landing.Activity.swift in Sources */,
 				CE470A6426F9DE8F002D560A /* Landing.Section.swift in Sources */,
 				CE383746270DD0FC006A8FE7 /* Trackers.swift in Sources */,
@@ -365,6 +372,7 @@
 				CE6FE9A727031D9C00403ADA /* Icon.swift in Sources */,
 				CEAAFB2F27009ED400149F0C /* Transaction.swift in Sources */,
 				CE4047E727070BD800E101D1 /* Sidebar.swift in Sources */,
+				CEA169E0271059CD00173AE7 /* Chart.swift in Sources */,
 				CE91AA27270882790061A512 /* Landing.Edit.swift in Sources */,
 				CE8DFC1D2707424D00229E92 /* History.swift in Sources */,
 				CE4A6DAD2702289000458E9B /* Landing.History.Item.swift in Sources */,

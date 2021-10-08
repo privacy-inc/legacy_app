@@ -2,11 +2,12 @@ import SwiftUI
 
 extension Landing {
     struct Activity: View {
-        @State private var date = Date.now
+        @State private var date: Date?
+        @State private var display = false
         
         var body: some View {
             Button {
-                
+                display = true
             } label: {
                 Section("Activity") {
                     HStack {
@@ -15,10 +16,12 @@ extension Landing {
                             .foregroundStyle(Color.primary, Color("Dawn"))
                             .imageScale(.large)
                             .font(.callout)
-                        Text(verbatim: date.formatted(.relative(presentation: .named, unitsStyle: .wide)))
-                            .foregroundStyle(.secondary)
-                            .font(.footnote)
-                            .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                        if let date = date {
+                            Text(verbatim: date.formatted(.relative(presentation: .named, unitsStyle: .wide)))
+                                .foregroundStyle(.secondary)
+                                .font(.footnote)
+                                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                        }
                     }
                     .padding()
                     .modifier(Card())
@@ -27,12 +30,27 @@ extension Landing {
                 .allowsHitTesting(false)
             }
             .onReceive(cloud) {
-                date = $0
-                    .events
-                    .timestamps
-                    .first
-                    .map(Date.init(timestamp:))
-                ?? .now
+                date = $0.events.since
+            }
+            .sheet(isPresented: $display) {
+                NavigationView {
+                    Privacy.Activity()
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button {
+                                    display = false
+                                } label: {
+                                    Text("Done")
+                                        .font(.callout)
+                                        .foregroundColor(.init("Shades"))
+                                        .padding(.leading)
+                                        .allowsHitTesting(false)
+                                        .contentShape(Rectangle())
+                                }
+                            }
+                        }
+                }
+                .navigationViewStyle(.stack)
             }
         }
     }
