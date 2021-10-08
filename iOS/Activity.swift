@@ -9,10 +9,8 @@ struct Activity: View {
         ScrollView {
             VStack {
                 VStack {
-                    Chart(values: timeline)
+                    Timeline(values: timeline)
                         .frame(height: 180)
-                        .padding(.horizontal)
-                        .padding(.bottom)
                     if let date = date {
                         HStack {
                             Text(verbatim: date.formatted(.relative(presentation: .named, unitsStyle: .wide)))
@@ -21,6 +19,7 @@ struct Activity: View {
                         }
                         .foregroundStyle(.tertiary)
                         .font(.caption)
+                        .padding(.horizontal, 7)
                     }
                 }
                 .padding()

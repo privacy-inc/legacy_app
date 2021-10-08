@@ -57,7 +57,7 @@
 		CE9DFA0F27061D5400D69810 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA0E27061D5400D69810 /* Copy.swift */; };
 		CE9DFA112706275C00D69810 /* Landing.Bookmarks.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */; };
 		CE9DFA132706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */; };
-		CEA169E0271059CD00173AE7 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA169DF271059CD00173AE7 /* Chart.swift */; };
+		CEA169E0271059CD00173AE7 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA169DF271059CD00173AE7 /* Timeline.swift */; };
 		CEAAFB2327009BE100149F0C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2227009BE100149F0C /* StoreKit.framework */; };
 		CEAAFB2527009C1E00149F0C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2427009C1E00149F0C /* CloudKit.framework */; };
 		CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2627009E4000149F0C /* App.Delegate.swift */; };
@@ -124,7 +124,7 @@
 		CE9DFA0E27061D5400D69810 /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
 		CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.swift; sourceTree = "<group>"; };
 		CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.Remote.swift; sourceTree = "<group>"; };
-		CEA169DF271059CD00173AE7 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
+		CEA169DF271059CD00173AE7 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
 		CEAAFB2027009BB900149F0C /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CEAAFB2227009BE100149F0C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		CEAAFB2427009C1E00149F0C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -179,7 +179,6 @@
 				CE46B4EF26F79B2200A5B5BB /* Info.plist */,
 				CE4047E82707115800E101D1 /* Action.swift */,
 				CE9424EA270F4A06002225CE /* Activity.swift */,
-				CEA169DF271059CD00173AE7 /* Chart.swift */,
 				CEAAFB2627009E4000149F0C /* App.Delegate.swift */,
 				CE46B4DD26F797F600A5B5BB /* App.swift */,
 				CE470A6526FA0AEB002D560A /* Bar.swift */,
@@ -221,6 +220,7 @@
 				CE1D9C3326FB6C27004F8B6B /* Tabs.Minimize.swift */,
 				CE7DAB7B26FB649B00BEAA0F /* Tabs.Snap.swift */,
 				CE9B93F126F89E6D005E1D7F /* Tabs.swift */,
+				CEA169DF271059CD00173AE7 /* Timeline.swift */,
 				CE383745270DD0FC006A8FE7 /* Trackers.swift */,
 				CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */,
 				CE4047EE2707247400E101D1 /* UIImage.swift */,
@@ -372,7 +372,7 @@
 				CE6FE9A727031D9C00403ADA /* Icon.swift in Sources */,
 				CEAAFB2F27009ED400149F0C /* Transaction.swift in Sources */,
 				CE4047E727070BD800E101D1 /* Sidebar.swift in Sources */,
-				CEA169E0271059CD00173AE7 /* Chart.swift in Sources */,
+				CEA169E0271059CD00173AE7 /* Timeline.swift in Sources */,
 				CE91AA27270882790061A512 /* Landing.Edit.swift in Sources */,
 				CE8DFC1D2707424D00229E92 /* History.swift in Sources */,
 				CE4A6DAD2702289000458E9B /* Landing.History.Item.swift in Sources */,
