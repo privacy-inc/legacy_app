@@ -23,10 +23,12 @@ extension Landing {
                                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                         }
                     }
+                    .animation(.none, value: date)
                     .padding()
                     .modifier(Card())
                     .padding(.horizontal)
                 }
+                .animation(.none, value: date)
                 .allowsHitTesting(false)
             }
             .onReceive(cloud) {
