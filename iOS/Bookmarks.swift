@@ -8,34 +8,44 @@ struct Bookmarks: View {
     
     var body: some View {
         List {
-            ForEach(items) { item in
-                Listed(item: item) {
-                    presented = false
-                    select(item.access)
+            if items.isEmpty {
+                Text("No bookmarks")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+            } else {
+                ForEach(items) { item in
+                    Listed(item: item) {
+                        presented = false
+                        select(item.access)
+                    }
                 }
-            }
-            .onDelete {
-                guard let index = $0.first else { return }
-                
-                Task
-                    .detached(priority: .utility) {
-                        await cloud.delete(bookmark: index)
-                    }
-            }
-            .onMove { index, destination in
-                guard let index = index.first else { return }
-                
-                Task
-                    .detached(priority: .utility) {
-                        await cloud.move(bookmark: index, to: destination)
-                    }
+                .onDelete {
+                    guard let index = $0.first else { return }
+                    
+                    Task
+                        .detached(priority: .utility) {
+                            await cloud.delete(bookmark: index)
+                        }
+                }
+                .onMove { index, destination in
+                    guard let index = index.first else { return }
+                    
+                    Task
+                        .detached(priority: .utility) {
+                            await cloud.move(bookmark: index, to: destination)
+                        }
+                }
             }
         }
         .listStyle(.insetGrouped)
         .toolbar {
-            EditButton()
-                .font(.callout)
-                .foregroundStyle(.secondary)
+            if !items.isEmpty {
+                EditButton()
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
         }
         .navigationTitle("Bookmarks")
         .navigationBarTitleDisplayMode(.large)

@@ -8,12 +8,13 @@ extension Options.Content {
         
         var body: some View {
             Button(action: action) {
-                VStack(spacing: 4) {
+                VStack(spacing: 2) {
                     Image(systemName: symbol)
                         .font(.callout)
                     Text(title)
                         .font(.caption2)
                         .foregroundStyle(.secondary)
+                        .lineLimit(1)
                 }
                 .allowsHitTesting(false)
             }

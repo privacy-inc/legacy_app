@@ -8,26 +8,36 @@ struct History: View {
     
     var body: some View {
         List {
-            ForEach(items) { item in
-                Listed(item: item.website) {
-                    presented = false
-                    select(item.id)
-                }
-            }
-            .onDelete {
-                guard let index = $0.first else { return }
-                
-                Task
-                    .detached(priority: .utility) {
-                        await cloud.delete(history: items[index].id)
+            if items.isEmpty {
+                Text("No history")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+            } else {
+                ForEach(items) { item in
+                    Listed(item: item.website) {
+                        presented = false
+                        select(item.id)
                     }
+                }
+                .onDelete {
+                    guard let index = $0.first else { return }
+                    
+                    Task
+                        .detached(priority: .utility) {
+                            await cloud.delete(history: items[index].id)
+                        }
+                }
             }
         }
         .listStyle(.grouped)
         .toolbar {
-            EditButton()
-                .font(.callout)
-                .foregroundStyle(.secondary)
+            if !items.isEmpty {
+                EditButton()
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
         }
         .navigationTitle("History")
         .navigationBarTitleDisplayMode(.large)

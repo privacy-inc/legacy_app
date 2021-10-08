@@ -27,9 +27,10 @@ extension Options {
                 }
                 heading
                 Spacer()
-                options
-                Spacer()
                 controls
+            }
+            .safeAreaInset(edge: .bottom) {
+                options
             }
             .onReceive(web.publisher(for: \.isLoading)) { value in
                 withAnimation(.easeInOut(duration: 0.6)) {
@@ -76,17 +77,14 @@ extension Options {
             
                 switch url?.scheme?.lowercased() {
                 case "https":
-                    Text("\(Image(systemName: "lock.fill")) Secure connection")
-                        .font(.caption)
-                        .imageScale(.small)
+                    Label("Secure connection", systemImage: "lock.fill")
+                        .font(.footnote)
                         .foregroundStyle(.secondary)
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 case "http":
                     Text("\(Image(systemName: "exclamationmark.triangle.fill")) Connection not secure")
-                        .font(.caption)
+                        .font(.footnote)
                         .foregroundStyle(.primary)
                         .symbolRenderingMode(.hierarchical)
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 default:
                     EmptyView()
                 }
@@ -94,15 +92,13 @@ extension Options {
                 Text(verbatim: title)
                     .foregroundStyle(.primary)
                     .font(.callout)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                
                 Text(verbatim: url?.absoluteString ?? "")
-                    .foregroundStyle(.tertiary)
-                    .font(.footnote)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    .foregroundStyle(.secondary)
+                    .font(.caption)
             }
+            .multilineTextAlignment(.center)
             .fixedSize(horizontal: false, vertical: true)
-            .padding(.horizontal, 40)
+            .padding(.horizontal, 30)
             .allowsHitTesting(false)
         }
         
@@ -155,16 +151,17 @@ extension Options {
                 
                 Spacer()
             }
-            .padding(.bottom, 30)
+            .padding(.bottom, 50)
         }
         
         private var options: some View {
-            HStack(spacing: 60) {
-                Spacer()
-                
+            HStack {
                 Control(title: "Find", symbol: "rectangle.and.text.magnifyingglass") {
                     
                 }
+                .padding(.leading, 40)
+                
+                Spacer()
                 
                 Control(title: "Bookmark", symbol: "bookmark") {
                     dismiss()
@@ -175,11 +172,12 @@ extension Options {
                         }
                 }
                 
+                Spacer()
+                
                 Control(title: "Share", symbol: "square.and.arrow.up") {
                     
                 }
-                
-                Spacer()
+                .padding(.trailing, 40)
             }
             .symbolRenderingMode(.hierarchical)
         }
