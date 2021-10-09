@@ -16,6 +16,7 @@ final class Options: UIHostingController<Options.Content>, UIViewControllerRepre
         let share = PassthroughSubject<Void, Never>()
         
         super.init(rootView: .init(web: web, share: share))
+        modalPresentationStyle = .overCurrentContext
         
         sub = share
             .sink { [weak self] in
@@ -24,6 +25,13 @@ final class Options: UIHostingController<Options.Content>, UIViewControllerRepre
                     await self.share(history: web.history)
                 }
             }
+    }
+    
+    override func willMove(toParent: UIViewController?) {
+        super.willMove(toParent: toParent)
+        parent?.modalPresentationStyle = .overCurrentContext
+        parent?.view.backgroundColor = .clear
+        view.backgroundColor = .clear
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,7 +71,7 @@ private final class Safari: UIActivity {
     }
     
     override func perform() {
-        UIApplication.shared.open(URL(string: "x-web-open://www.google.com")!)
+        UIApplication.shared.open(URL(string: "safari-http://www.wikipedia.org")!)
     }
 }
 

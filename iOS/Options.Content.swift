@@ -18,19 +18,36 @@ extension Options {
         var body: some View {
             VStack {
                 HStack {
+                    switch url?.scheme?.lowercased() {
+                    case "https":
+                        Label("Secure connection", systemImage: "lock.fill")
+                            .font(.caption)
+                            .foregroundStyle(.primary)
+                    case "http":
+                        Text("\(Image(systemName: "exclamationmark.triangle.fill")) Connection not secure")
+                            .font(.footnote)
+                            .foregroundStyle(.primary)
+                            .symbolRenderingMode(.hierarchical)
+                    default:
+                        EmptyView()
+                    }
+                    
                     Spacer()
                     
-                    Button("Dismiss") {
+                    Button {
                         dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
                     }
-                    .font(.footnote)
-                    .foregroundStyle(.tertiary)
-                    .padding([.top, .trailing])
                 }
+                .padding([.top, .leading, .trailing])
                 heading
                 Spacer()
                 controls
             }
+            .background(.regularMaterial)
             .safeAreaInset(edge: .bottom) {
                 options
             }
@@ -74,20 +91,6 @@ extension Options {
                     Icon(access: access, publisher: publisher)
                         .padding(.bottom)
                         .id(access.value)
-                }
-            
-                switch url?.scheme?.lowercased() {
-                case "https":
-                    Label("Secure connection", systemImage: "lock.fill")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                case "http":
-                    Text("\(Image(systemName: "exclamationmark.triangle.fill")) Connection not secure")
-                        .font(.footnote)
-                        .foregroundStyle(.primary)
-                        .symbolRenderingMode(.hierarchical)
-                default:
-                    EmptyView()
                 }
                 
                 Text(verbatim: title)

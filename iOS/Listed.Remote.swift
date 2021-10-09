@@ -23,7 +23,7 @@ extension Listed {
         }
         
         private var domain: Text {
-            Text(verbatim: access.domain)
+            Text(verbatim: access.domain.minimal)
                 .foregroundColor(.secondary)
         }
     }

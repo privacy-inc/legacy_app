@@ -22,7 +22,7 @@ extension Landing.History.Item {
         }
         
         private var domain: Text {
-            Text(verbatim: access.domain)
+            Text(verbatim: access.domain.minimal)
                 .foregroundColor(.secondary)
         }
     }
