@@ -28,7 +28,6 @@ struct Landing: View {
             edit
         }
         .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
-        .clipped()
         .background(.ultraThickMaterial)
         .onReceive(cloud) {
             cards = $0

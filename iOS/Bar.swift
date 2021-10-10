@@ -15,7 +15,6 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
     var body: some View {
         VStack(spacing: 0) {
             Rectangle()
-                .fill(Color.secondary)
                 .frame(height: 0.5)
                 .edgesIgnoringSafeArea(.horizontal)
                 .allowsHitTesting(false)
@@ -26,7 +25,6 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .font(vertical == .compact ? .body : .title2)
-                        .foregroundStyle(.primary)
                         .frame(width: 34, height: 34)
                 }
                 trailing
@@ -35,6 +33,7 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
             .padding(.top, vertical == .compact ? 0 : 10)
             .padding(.bottom, 2)
         }
-        .background(.ultraThinMaterial)
+        .foregroundStyle(.secondary)
+        .background(.thinMaterial)
     }
 }

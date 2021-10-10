@@ -50,10 +50,10 @@ struct Tab: View {
                         .frame(height: 2)
                         .colorInvert()
                     Rectangle()
-                        .fill(Color.secondary)
                         .frame(height: 0.5)
                 }
-                .background(.ultraThinMaterial)
+                .foregroundStyle(.secondary)
+                .background(.thinMaterial)
                 .allowsHitTesting(false)
                 .edgesIgnoringSafeArea(.horizontal)
                 .onReceive(web.publisher(for: \.estimatedProgress)) { value in
