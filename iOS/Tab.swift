@@ -12,7 +12,6 @@ struct Tab: View {
     var body: some View {
         web
             .equatable()
-            .background(Color(web.underPageBackgroundColor))
             .edgesIgnoringSafeArea(.horizontal)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(search: search) {
@@ -42,18 +41,21 @@ struct Tab: View {
                             .allowsHitTesting(false)
                     }
                 }
+                .offset(y: options ? 85 : 0)
+                .animation(.easeInOut(duration: 0.3), value: options)
             }
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 0) {
                     Loading(progress: progress)
                         .stroke(Color(web.underPageBackgroundColor), lineWidth: 2)
-                        .frame(height: 2)
-                        .colorInvert()
+                        .frame(height: 2)        
                     Rectangle()
-                        .frame(height: 0.5)
+                        .foregroundStyle(Color(web.underPageBackgroundColor).opacity(0.1))
+                        .frame(height: 1)
                 }
+                .colorInvert()
                 .foregroundStyle(.secondary)
-                .background(.thinMaterial)
+                .background(Color(web.underPageBackgroundColor))
                 .allowsHitTesting(false)
                 .edgesIgnoringSafeArea(.horizontal)
                 .onReceive(web.publisher(for: \.estimatedProgress)) { value in

@@ -80,7 +80,13 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         publisher(for: \.themeColor)
             .removeDuplicates()
             .sink { [weak self] in
-                self?.underPageBackgroundColor = $0 ?? .systemBackground
+                guard let color = $0 else {
+                    self?.underPageBackgroundColor = .secondarySystemBackground
+                    return
+                }
+                var alpha = CGFloat()
+                color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
+                self?.underPageBackgroundColor = alpha == 0 ? .secondarySystemBackground : color
             }
             .store(in: &subs)
     }

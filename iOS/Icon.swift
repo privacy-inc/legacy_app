@@ -2,6 +2,7 @@ import SwiftUI
 import Specs
 
 struct Icon: View {
+    var size = CGFloat(32)
     let access: AccessType
     let publisher: Favicon.Pub
     @State private var image: UIImage?
@@ -20,7 +21,7 @@ struct Icon: View {
             }
         }
         .allowsHitTesting(false)
-        .frame(width: 32, height: 32)
+        .frame(width: size, height: size)
         .onReceive(publisher) {
             image = $0
         }

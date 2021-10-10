@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 import Specs
 
-final class Options: UIHostingController<Options.Content>, UIViewControllerRepresentable {
+final class Options: UIHostingController<Options.Content>, UIViewControllerRepresentable, UIViewControllerTransitioningDelegate {
     deinit {
         print("options gone")
     }
@@ -39,7 +39,7 @@ final class Options: UIHostingController<Options.Content>, UIViewControllerRepre
         sheetPresentationController
             .map {
                 $0.detents = [.medium()]
-                $0.preferredCornerRadius = 20
+                $0.preferredCornerRadius = 24
             }
     }
     
@@ -58,8 +58,18 @@ final class Options: UIHostingController<Options.Content>, UIViewControllerRepre
         else { return }
         
         let controller = UIActivityViewController(activityItems: [url], applicationActivities: [Safari()])
+        controller.transitioningDelegate = self
         controller.popoverPresentationController?.sourceView = view
         present(controller, animated: true)
+    }
+    
+    func animationController(forDismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        DispatchQueue
+            .main
+            .async { [weak self] in
+                self?.dismiss(animated: true)
+            }
+        return nil
     }
 }
 
