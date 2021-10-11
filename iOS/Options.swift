@@ -52,7 +52,7 @@ final class Options: UIHostingController<Options.Content>, UIViewControllerRepre
     }
     
     @MainActor private func share(web: Web) async {
-        let share = Share(web: web, content: try? await web.evaluateJavaScript(Script.content.script))
+        let share = Share(web: web)
         share.popoverPresentationController?.sourceView = view
         share.completionWithItemsHandler = { [weak self] _, completed, _, _ in
             self?.dismiss(animated: true)
