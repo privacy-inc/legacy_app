@@ -39,7 +39,7 @@ final class Options: UIHostingController<Options.Content>, UIViewControllerRepre
         sheetPresentationController
             .map {
                 $0.detents = [.medium()]
-                $0.preferredCornerRadius = 24
+                $0.preferredCornerRadius = 16
             }
     }
     

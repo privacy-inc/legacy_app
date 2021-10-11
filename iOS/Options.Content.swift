@@ -16,47 +16,25 @@ extension Options {
         @Environment(\.dismiss) private var dismiss
         
         var body: some View {
-            VStack(alignment: .leading, spacing: 0) {
-                ZStack(alignment: .topTrailing) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title3)
-                            .foregroundStyle(.quaternary)
-                    }
-                    
-                    navigation
+            VStack(alignment: .leading) {
+                navigation
+                
+                if !title.isEmpty {
+                    heading
                 }
-                heading
-                connection
+                
+                if let url = url {
+                    address(url: url)
+                }
                 
                 Spacer()
                 
-                Control(title: "Find on page", symbol: "rectangle.and.text.magnifyingglass") {
-                    
-                }
-                
-                Control(title: "Bookmark", symbol: "bookmark") {
-                    dismiss()
-                    Task
-                        .detached {
-                            await UNUserNotificationCenter.send(message: "Bookmark added!")
-                            await cloud.bookmark(history: web.history)
-                        }
-                }
-                
-                Control(title: "Share", symbol: "square.and.arrow.up") {
-                    share.send()
-                }
-                .padding(.bottom)
+                controls
             }
             .padding()
             .background(.regularMaterial)
             .onReceive(web.publisher(for: \.isLoading)) { value in
-                withAnimation(.easeInOut(duration: 0.6)) {
-                    loading = value
-                }
+                loading = value
             }
             .onReceive(web.publisher(for: \.url)) { value in
                 url = value
@@ -66,14 +44,10 @@ extension Options {
                 title = value ?? ""
             }
             .onReceive(web.publisher(for: \.canGoBack)) { value in
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    backwards = value
-                }
+                backwards = value
             }
             .onReceive(web.publisher(for: \.canGoForward)) { value in
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    forwards = value
-                }
+                forwards = value
             }
         }
         
@@ -83,40 +57,65 @@ extension Options {
             
             Task {
                 access = await cloud.website(history: web.history).access
-                if let access = access {
-                    publisher = await favicon.publisher(for: access)
+                if let access = access, let publisher = await favicon.publisher(for: access) {
+                    update(publisher: publisher)
                 }
             }
         }
         
+        private func update(publisher: Favicon.Pub) {
+            withAnimation(.easeInOut(duration: 0.5)) {
+                self.publisher = publisher
+            }
+        }
+        
         private var navigation: some View {
-            HStack {
-                if let publisher = publisher, let access = access {
-                    Icon(size: 48, access: access, publisher: publisher)
-                        .id(access.value)
+            ZStack {
+                HStack {
+                    if let publisher = publisher, let access = access {
+                        Icon(size: 48, access: access, publisher: publisher)
+                    }
+                    Spacer()
                 }
+                .frame(height: 58)
+                .allowsHitTesting(false)
                 
-                Action(symbol: loading ? "xmark" : "arrow.clockwise", active: true) {
-                    if loading {
-                        web.stopLoading()
-                    } else {
-                        web.reload()
+                HStack(alignment: .top) {
+                    Spacer()
+                    Button {
                         dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title3)
+                            .foregroundStyle(.quaternary)
+                            .allowsHitTesting(false)
                     }
                 }
-                .padding(.leading)
+                .frame(height: 58, alignment: .top)
                 
-                Action(symbol: "chevron.backward", active: backwards) {
-                    web.goBack()
-                    update()
+                HStack {
+                    Action(symbol: loading ? "xmark" : "arrow.clockwise", active: true) {
+                        if loading {
+                            web.stopLoading()
+                        } else {
+                            web.reload()
+                            dismiss()
+                        }
+                    }
+                    .padding(.leading, 74)
+                    
+                    Action(symbol: "chevron.backward", active: backwards) {
+                        web.goBack()
+                        update()
+                    }
+                    
+                    Action(symbol: "chevron.forward", active: forwards) {
+                        web.goForward()
+                        update()
+                    }
+                    
+                    Spacer()
                 }
-                
-                Action(symbol: "chevron.forward", active: forwards) {
-                    web.goForward()
-                    update()
-                }
-                
-                Spacer()
             }
         }
         
@@ -124,32 +123,56 @@ extension Options {
             Text(verbatim: title)
                 .foregroundStyle(.secondary)
                 .font(.callout)
-                .padding(.vertical, 4)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 .allowsHitTesting(false)
         }
         
-        private var connection: some View {
-            Group {
-                if let url = url {
-                    switch url.scheme?.lowercased() {
-                    case "https":
-                        Label(url.absoluteString, systemImage: "lock.fill")
-                    case "http":
-                        Label(url.absoluteString, systemImage: "exclamationmark.triangle.fill")
-                    default:
-                        Text(verbatim: url.absoluteString)
-                    }
-                }
+        @ViewBuilder private func address(url: URL) -> some View {
+            switch url.scheme?.lowercased() {
+            case "https":
+                connection(secure: true)
+            case "http":
+                connection(secure: false)
+            default:
+                EmptyView()
             }
-            .foregroundStyle(.tertiary)
-            .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-            .font(.footnote)
-            .symbolRenderingMode(.hierarchical)
-            .imageScale(.large)
-            .lineLimit(2)
-            .allowsHitTesting(false)
+            
+            Text(verbatim: url.absoluteString)
+                .foregroundStyle(.tertiary)
+                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                .font(.footnote)
+                .lineLimit(2)
+                .allowsHitTesting(false)
+        }
+        
+        private func connection(secure: Bool) -> some View {
+            Label(secure ? "Connection secure" : "Connection not secure", systemImage: secure ? "lock.fill" : "exclamationmark.triangle.fill")
+                .foregroundStyle(.secondary)
+                .font(.footnote)
+                .symbolRenderingMode(.hierarchical)
+                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                .allowsHitTesting(false)
+        }
+        
+        @ViewBuilder private var controls: some View {
+            Control(title: "Find on page", symbol: "rectangle.and.text.magnifyingglass") {
+                
+            }
+            
+            Control(title: "Bookmark", symbol: "bookmark") {
+                dismiss()
+                Task
+                    .detached {
+                        await UNUserNotificationCenter.send(message: "Bookmark added!")
+                        await cloud.bookmark(history: web.history)
+                    }
+            }
+            
+            Control(title: "Share", symbol: "square.and.arrow.up") {
+                share.send()
+            }
+            .padding(.bottom)
         }
     }
 }

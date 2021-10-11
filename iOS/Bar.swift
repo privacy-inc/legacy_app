@@ -17,23 +17,27 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
             Rectangle()
                 .frame(height: 0.5)
                 .edgesIgnoringSafeArea(.horizontal)
+                .foregroundStyle(.secondary)
                 .allowsHitTesting(false)
             HStack(spacing: 0) {
                 leading
+                    .foregroundStyle(.secondary)
                 Button {
                     search()
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .font(vertical == .compact ? .body : .title2)
                         .frame(width: 34, height: 34)
+                        .allowsHitTesting(false)
                 }
+                .foregroundStyle(.secondary)
                 trailing
+                    .foregroundStyle(.secondary)
             }
             .padding(.horizontal)
             .padding(.top, vertical == .compact ? 0 : 10)
             .padding(.bottom, 2)
         }
-        .foregroundStyle(.secondary)
         .background(.thinMaterial)
     }
 }

@@ -9,7 +9,7 @@ extension Options.Content {
         var body: some View {
             Button(action: action) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 6)
+                    RoundedRectangle(cornerRadius: 8)
                         .fill(Color(.systemBackground))
                     HStack {
                         Text(title)
@@ -19,13 +19,11 @@ extension Options.Content {
                             .symbolRenderingMode(.hierarchical)
                     }
                     .font(.callout)
-                    .padding(.horizontal)
-                    .padding(.vertical, 14)
-                    .foregroundStyle(.secondary)
+                    .padding()
+                    .foregroundStyle(.primary)
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 .allowsHitTesting(false)
-                .padding(.vertical, 6)
             }
         }
     }
