@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 import Specs
 
-final class Options: UIHostingController<Options.Content>, UIViewControllerRepresentable, UIViewControllerTransitioningDelegate {
+final class Options: UIHostingController<Options.Content>, UIViewControllerRepresentable {
     deinit {
         print("options gone")
     }
@@ -52,28 +52,88 @@ final class Options: UIHostingController<Options.Content>, UIViewControllerRepre
     }
     
     private func share(history: UInt16) async {
-        guard
-            let access = await cloud.website(history: history).access as? AccessURL,
-            let url = access.url
-        else { return }
+        let access = await cloud.website(history: history).access
         
-        let controller = UIActivityViewController(activityItems: [url], applicationActivities: [Safari()])
-        controller.transitioningDelegate = self
+        let controller = UIActivityViewController(
+            activityItems: [(access as? AccessURL)?.url ?? access.value],
+            applicationActivities: [Download(access: access), Print(), Snapshot(), PDF(), Archive(), Image()])
         controller.popoverPresentationController?.sourceView = view
+        controller.completionWithItemsHandler = { [weak self] _, _, _, _ in
+            self?.dismiss(animated: true)
+        }
+        
         present(controller, animated: true)
-    }
-    
-    func animationController(forDismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        DispatchQueue
-            .main
-            .async { [weak self] in
-                self?.dismiss(animated: true)
-            }
-        return nil
     }
 }
 
-private final class Safari: UIActivity {
+private final class Download: UIActivity {
+    override var activityTitle: String? { "Download" }
+    override var activityImage: UIImage? { .init(systemName: "square.and.arrow.down") }
+    private let access: AccessType
+    
+    init(access: AccessType) {
+        self.access = access
+        super.init()
+    }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        true
+    }
+    
+    override func perform() {
+        
+    }
+}
+
+private final class Print: UIActivity {
+    override var activityTitle: String? { "Open in Safari" }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        true
+    }
+    
+    override func perform() {
+        UIApplication.shared.open(URL(string: "safari-http://www.wikipedia.org")!)
+    }
+}
+
+private final class Snapshot: UIActivity {
+    override var activityTitle: String? { "Open in Safari" }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        true
+    }
+    
+    override func perform() {
+        UIApplication.shared.open(URL(string: "safari-http://www.wikipedia.org")!)
+    }
+}
+
+private final class PDF: UIActivity {
+    override var activityTitle: String? { "Open in Safari" }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        true
+    }
+    
+    override func perform() {
+        UIApplication.shared.open(URL(string: "safari-http://www.wikipedia.org")!)
+    }
+}
+
+private final class Archive: UIActivity {
+    override var activityTitle: String? { "Open in Safari" }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        true
+    }
+    
+    override func perform() {
+        UIApplication.shared.open(URL(string: "safari-http://www.wikipedia.org")!)
+    }
+}
+
+private final class Image: UIActivity {
     override var activityTitle: String? { "Open in Safari" }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
