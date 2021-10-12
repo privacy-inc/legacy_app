@@ -64,21 +64,19 @@ struct Navigation: View {
                         history(try await cloud.search(search))
                     }
                 } catch {
-                    tab()
+                    landing(search: false)
                 }
         }
     }
     
-    private func tab(_ index: Int) {
+    private func tab(_ index: Int, search: Bool) {
         self.index = index
-        tab()
+        landing(search: search)
     }
     
     private func tab() {
         if status[index].history == nil {
-            withAnimation(.easeInOut(duration: 0.35)) {
-                flow = .landing
-            }
+            landing(search: false)
         } else {
             flow = .web
         }
@@ -94,5 +92,11 @@ struct Navigation: View {
         await status[index].web!.load(cloud
                                         .website(history: status[index].history!)
                                         .access)
+    }
+    
+    private func landing(search: Bool) {
+        withAnimation(.easeInOut(duration: 0.35)) {
+            flow = search ? .search : .landing
+        }
     }
 }

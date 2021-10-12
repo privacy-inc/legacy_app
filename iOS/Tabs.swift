@@ -4,7 +4,7 @@ import Combine
 struct Tabs: View {
     @Binding var status: [Status]
     @State var transition: Transition?
-    let tab: (Int) -> Void
+    let tab: (Int, Bool) -> Void
     @State private var entering = true
     @Namespace private var animating
     private let scroll = PassthroughSubject<UUID, Never>()
@@ -40,7 +40,7 @@ struct Tabs: View {
         }
     }
     
-    private func open(_ id: UUID) {
+    private func open(id: UUID, search: Bool) {
         let index = status
             .firstIndex {
                 $0.id == id
@@ -59,7 +59,7 @@ struct Tabs: View {
         DispatchQueue
             .main
             .asyncAfter(deadline: .now() + 0.2) {
-                tab(index)
+                tab(index, search)
             }
     }
     
@@ -102,7 +102,7 @@ struct Tabs: View {
                             scroll.send(status.last!.id)
                         }
                         
-                        open(status.last!.id)
+                        open(id: status.last!.id, search: true)
                     }
             } label: {
                 Image(systemName: "plus.circle.fill")
@@ -146,7 +146,7 @@ struct Tabs: View {
     
     private func item(_ item: Status) -> some View {
         Item(status: item, animating: animating, entering: entering) {
-            open(item.id)
+            open(id: item.id, search: false)
         } close: {
             withAnimation(.easeInOut(duration: 0.3)) {
                 status
