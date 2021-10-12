@@ -9,60 +9,51 @@ struct Find: View {
     var body: some View {
         web
             .safeAreaInset(edge: .top) {
-                VStack(spacing: 0) {
-                    HStack {
-                        TextField("Find on page", text: $search, prompt: Text("\(Image(systemName: "magnifyingglass")) Find on page"))
+                VStack {
+                    HStack(spacing: 0) {
+                        Button {
+                            
+                        } label: {
+                            Text("Done")
+                                .font(.callout.weight(.medium))
+                                .frame(width: 76)
+                        }
+                        
+                        TextField("Find on page", text: $search, prompt: Text("\(Image(systemName: "magnifyingglass"))"))
                             .textFieldStyle(.roundedBorder)
                             .focused($focus)
                             .onSubmit {
                                 submit(forward: true)
                             }
-                        Button("Find") {
-                            submit(forward: true)
-                        }
-                        .font(.callout)
-                        .buttonStyle(.bordered)
-                        .tint(.init("Shades"))
-                        .disabled(search.isEmpty)
-                    }
-                    .padding([.leading, .trailing, .top])
-
-                    HStack {
-                        Button("Done") {
-                            
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .tint(.blue)
-                        
-                        Spacer()
                         
                         Button {
                             submit(forward: false)
                         } label: {
                             Image(systemName: "chevron.up")
-                                .padding(.top, 5)
+                                .padding(.leading, 6)
+                                .font(.title2.weight(.light))
                         }
                         .disabled(search.isEmpty)
-                        .frame(width: 46, height: 52)
+                        .frame(width: 46, height: 40)
                         
                         Button {
                             submit(forward: true)
                         } label: {
                             Image(systemName: "chevron.down")
-                                .padding(.top, 5)
+                                .padding(.trailing, 14)
+                                .font(.title2.weight(.light))
                         }
                         .disabled(search.isEmpty)
-                        .frame(width: 46, height: 52)
+                        .frame(width: 46, height: 40)
                     }
-                    .padding(.horizontal)
-                    .font(.callout)
+                    .padding(.top)
                     
                     Rectangle()
                         .foregroundStyle(.quaternary)
                         .frame(height: 1)
                         .edgesIgnoringSafeArea(.horizontal)
                 }
-                .background(.thinMaterial)
+                .background(.regularMaterial)
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
