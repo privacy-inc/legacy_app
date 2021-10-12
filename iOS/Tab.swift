@@ -5,6 +5,7 @@ struct Tab: View {
     let web: Web
     let tabs: () -> Void
     let search: () -> Void
+    let find: () -> Void
     let open: (URL) -> Void
     @State private var options = false
     @State private var progress = AnimatablePair(Double(), Double())
@@ -25,7 +26,7 @@ struct Tab: View {
                             .allowsHitTesting(false)
                     }
                     .sheet(isPresented: $options) {
-                        Options(web: web)
+                        Options(web: web, find: find)
                             .edgesIgnoringSafeArea(.all)
                     }
                     

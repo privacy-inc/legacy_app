@@ -6,6 +6,7 @@ extension Navigation {
         landing,
         web,
         tabs,
-        search
+        search,
+        find
     }
 }

@@ -10,12 +10,12 @@ final class Options: UIHostingController<Options.Content>, UIViewControllerRepre
     private var sub: AnyCancellable?
     
     required init?(coder: NSCoder) { nil }
-    init(web: Web) {
+    init(web: Web, find: @escaping () -> Void) {
         print("options init")
         
         let share = PassthroughSubject<Void, Never>()
         
-        super.init(rootView: .init(web: web, share: share))
+        super.init(rootView: .init(web: web, share: share, find: find))
         modalPresentationStyle = .overCurrentContext
         
         sub = share

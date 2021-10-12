@@ -11,12 +11,15 @@ struct Navigation: View {
         case .landing:
             Landing(tabs: tabs, search: search, history: history, access: access)
         case .web:
-            Tab(web: status[index].web!, tabs: tabs, search: search, open: url)
+//            Tab(web: status[index].web!, tabs: tabs, search: search, find: find, open: url)
+            Find(web: status[index].web!)
         case .search:
             Search(tab: tab, searching: searching)
                 .equatable()
         case .tabs:
             Tabs(status: $status, transition: .init(index: index), tab: tab)
+        case .find:
+            Find(web: status[index].web!)
         }
     }
     
@@ -98,5 +101,9 @@ struct Navigation: View {
         withAnimation(.easeInOut(duration: 0.35)) {
             flow = search ? .search : .landing
         }
+    }
+    
+    private func find() {
+        flow = .find
     }
 }

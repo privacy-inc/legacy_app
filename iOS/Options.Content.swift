@@ -6,6 +6,7 @@ extension Options {
     struct Content: View {
         let web: Web
         let share: PassthroughSubject<Void, Never>
+        let find: () -> Void
         @State private var loading = false
         @State private var title = ""
         @State private var url: URL?
@@ -157,7 +158,8 @@ extension Options {
         
         @ViewBuilder private var controls: some View {
             Control(title: "Find on page", symbol: "rectangle.and.text.magnifyingglass") {
-                
+                dismiss()
+                find()
             }
             
             Control(title: "Bookmark", symbol: "bookmark") {
