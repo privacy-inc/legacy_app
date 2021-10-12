@@ -16,7 +16,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.allowsAirPlayForMediaPlayback = true
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = settings.popups && settings.javascript
         configuration.preferences.isFraudulentWebsiteWarningEnabled = !settings.http
-        configuration.preferences.isTextInteractionEnabled = true
         configuration.defaultWebpagePreferences.allowsContentJavaScript = settings.popups && settings.javascript
         configuration.websiteDataStore = .nonPersistent()
         configuration.userContentController.addUserScript(.init(source: Script.favicon.script, injectionTime: .atDocumentStart, forMainFrameOnly: true))

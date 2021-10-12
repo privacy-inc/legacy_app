@@ -1,5 +1,6 @@
 import SwiftUI
 import WebKit
+import Specs
 
 struct Find: View {
     let web: Web
@@ -63,16 +64,22 @@ struct Find: View {
     }
     
     @MainActor private func submit(forward: Bool) {
+        web.scrollView.zoomScale = 1
         web.becomeFirstResponder()
         let config = WKFindConfiguration()
         config.backwards = !forward
         
         Task {
-            let result = try? await web.find(search, configuration: config)
-            print(result?.matchFound)
-            
-            if result?.matchFound == true {
-            }
+            guard
+                let result = try? await web.find(search, configuration: config),
+                result.matchFound,
+                let evaluated = try? await web.evaluateJavaScript(Script.find.script),
+                let string = evaluated as? String
+            else { return }
+            var rect = NSCoder.cgRect(for: string)
+            rect.origin.x += web.scrollView.contentOffset.x
+            rect.origin.y += web.scrollView.contentOffset.y
+            web.scrollView.scrollRectToVisible(rect, animated: true)
         }
     }
 }
