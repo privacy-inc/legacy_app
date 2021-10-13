@@ -27,7 +27,7 @@ struct Landing: View {
             .animation(.easeInOut(duration: 0.45), value: cards)
             edit
         }
-        .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
+        .frame(maxWidth: .greatestFiniteMagnitude)
         .background(.ultraThickMaterial)
         .onReceive(cloud) {
             cards = $0

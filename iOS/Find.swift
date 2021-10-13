@@ -10,6 +10,7 @@ struct Find: View {
     
     var body: some View {
         web
+            .equatable()
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack {
                     HStack(spacing: 0) {

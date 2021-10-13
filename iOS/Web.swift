@@ -5,6 +5,7 @@ import Specs
 
 final class Web: Webview, UIViewRepresentable {
     let tab = PassthroughSubject<URL, Never>()
+    let error = PassthroughSubject<Err, Never>()
     
     required init?(coder: NSCoder) { nil }
     init(history: UInt16, settings: Specs.Settings.Configuration) {
@@ -34,8 +35,8 @@ final class Web: Webview, UIViewRepresentable {
         UIApplication.shared.open(url)
     }
     
-    override func error(url: URL?, description: String) {
-        
+    override func error(error: Err) {
+        self.error.send(error)
     }
     
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
@@ -80,14 +81,6 @@ final class Web: Webview, UIViewRepresentable {
             load(data.temporal("image.png"))
         }
     }
-    
-//    private func found(_ offset: CGFloat) {
-//        scrollView.scrollRectToVisible(.init(x: 0,
-//                                             y: offset + scrollView.contentOffset.y - (offset > 0 ? 160 : -180),
-//                                             width: 320,
-//                                             height: 320),
-//                                       animated: true)
-//    }
     
     func makeUIView(context: Context) -> Web {
         self

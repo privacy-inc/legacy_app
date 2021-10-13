@@ -27,7 +27,7 @@ extension Tabs {
                         Snap(image: status.image, size: 150)
                             .matchedGeometryEffect(id: status.id, in: animating, properties: .position, isSource: entering)
                             .id(status.id)
-                        Text(verbatim: status.web?.title ?? "New")
+                        Text(verbatim: status.error?.description ?? status.web?.title ?? "New")
                             .font(.caption2)
                             .lineLimit(1)
                             .padding(.horizontal)

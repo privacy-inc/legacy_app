@@ -15,11 +15,11 @@ extension Landing.History {
                     Remote(title: item.website.title, access: remote)
                         .allowsHitTesting(false)
                 case let local as Access.Local:
-                    Circle()
+                    item(title: local.file)
                 case let deeplink as Access.Deeplink:
-                    Circle()
+                    item(title: deeplink.scheme)
                 case let embed as Access.Embed:
-                    Circle()
+                    item(title: embed.prefix)
                 default:
                     EmptyView()
                 }
@@ -28,6 +28,13 @@ extension Landing.History {
             .fixedSize(horizontal: false, vertical: true)
             .padding()
             .modifier(Card())
+        }
+        
+        private func item(title: String) -> some View {
+            Text(verbatim: title)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                .allowsHitTesting(false)
         }
     }
 }

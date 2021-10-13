@@ -7,6 +7,7 @@ extension Navigation {
         web,
         tabs,
         search,
-        find
+        find,
+        error
     }
 }

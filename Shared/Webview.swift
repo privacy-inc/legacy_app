@@ -95,12 +95,18 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         
     }
     
-    func error(url: URL?, description: String) {
+    func error(error: Err) {
+
+    }
+    
+    final func error(url: URL, description: String) {
+        error(error: .init(url: url, description: description))
+        
         Task
             .detached(priority: .utility) { [weak self] in
-                guard let self = self else { return }
-                await cloud.update(url: self.url ?? URL(string: "about:blank")!, history: self.history)
-                await cloud.update(title: description, history: self.history)
+                guard let history = self?.history else { return }
+                await cloud.update(url: url, history: history)
+                await cloud.update(title: description, history: history)
             }
     }
     
@@ -125,7 +131,9 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         case let local as Access.Local:
             local
                 .open { file, directory in
-                    loadFileURL(file, allowingReadAccessTo: directory)
+                    if loadFileURL(file, allowingReadAccessTo: directory) == nil {
+                        error(url: file, description: "File not found")
+                    }
                 }
         default:
             break
@@ -149,7 +157,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                 ?? url
                 ?? {
                     $0?["NSErrorFailingURLKey"] as? URL
-                } (withError._userInfo as? [String : Any]), description: withError.localizedDescription)
+                } (withError._userInfo as? [String : Any])
+                ?? URL(string: "about:blank")!, description: withError.localizedDescription)
     }
     
     final func webView(_: WKWebView, didFinish: WKNavigation!) {

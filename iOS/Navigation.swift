@@ -11,14 +11,16 @@ struct Navigation: View {
         case .landing:
             Landing(tabs: tabs, search: search, history: history, access: access)
         case .web:
-            Tab(web: status[index].web!, tabs: tabs, search: search, find: findStart, open: url)
+            Tab(web: status[index].web!, tabs: tabs, search: search, find: find, open: url, error: error)
         case .search:
             Search(tab: tab, searching: searching)
                 .equatable()
         case .tabs:
-            Tabs(status: $status, transition: .init(index: index), tab: tab)
+            Tabs(status: $status, transition: .init(index: index), tab: index)
         case .find:
-            Find(web: status[index].web!, end: findEnd)
+            Find(web: status[index].web!, end: end)
+        case .error:
+            Recover(url: status[index].error?.url.absoluteString ?? "", description: status[index].error?.description ?? "", tabs: tabs, search: search, dismiss: dismiss, retry: retry)
         }
     }
     
@@ -28,9 +30,57 @@ struct Navigation: View {
     }
     
     private func search() {
-        withAnimation(.spring()) {
-            flow = .search
+        animate(to: .search)
+    }
+    
+    private func find() {
+        animate(to: .find)
+    }
+    
+    private func end() {
+        animate(to: .web)
+    }
+    
+    private func tab() {
+        if status[index].error != nil {
+            animate(to: .error)
+        } else if status[index].history != nil {
+            flow = .web
+        } else {
+            animate(to: .landing)
         }
+    }
+    
+    private func web() async {
+        if status[index].web == nil {
+            status[index].web = await .init(history: status[index].history!, settings: cloud.model.settings.configuration)
+        }
+        
+        flow = .web
+        
+        await status[index].web!.load(cloud
+                                        .website(history: status[index].history!)
+                                        .access)
+    }
+    
+    private func dismiss() {
+        status[index].error = nil
+        
+        if status[index].web?.url == nil {
+            status[index].history = nil
+            status[index].web = nil
+        } else {
+            status[index].web?.reload()
+        }
+        
+        tab()
+    }
+    
+    private func retry() {
+        let url = status[index].error!.url
+        status[index].error = nil
+        status[index].web?.load(url)
+        tab()
     }
     
     private func url(_ url: URL) {
@@ -61,56 +111,34 @@ struct Navigation: View {
                 do {
                     if let id = status[index].history {
                         try await cloud.search(search, history: id)
+                        status[index].error = nil
                         await web()
                     } else {
                         history(try await cloud.search(search))
                     }
                 } catch {
-                    landing(search: false)
+                    animate(to: .landing)
                 }
         }
     }
     
-    private func tab(_ index: Int, search: Bool) {
-        self.index = index
-        landing(search: search)
+    private func error(_ error: Err) {
+        status[index].error = error
+        tab()
     }
     
-    private func tab() {
-        if status[index].history == nil {
-            landing(search: false)
-        } else {
-            flow = .web
-        }
-    }
-    
-    private func web() async {
-        if status[index].web == nil {
-            status[index].web = await .init(history: status[index].history!, settings: cloud.model.settings.configuration)
-        }
-        
-        flow = .web
-        
-        await status[index].web!.load(cloud
-                                        .website(history: status[index].history!)
-                                        .access)
-    }
-    
-    private func landing(search: Bool) {
+    private func animate(to: Flow) {
         withAnimation(.easeInOut(duration: 0.35)) {
-            flow = search ? .search : .landing
+            flow = to
         }
     }
     
-    private func findStart() {
-        withAnimation(.easeInOut(duration: 0.3)) {
-            flow = .find
-        }
-    }
-    
-    private func findEnd() {
-        withAnimation(.easeInOut(duration: 0.3)) {
-            flow = .web
+    private func index(_ index: Int, search: Bool) {
+        self.index = index
+        if search {
+            animate(to: .search)
+        } else {
+            tab()
         }
     }
 }

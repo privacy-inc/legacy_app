@@ -10,7 +10,8 @@ extension Webview: WKDownloadDelegate {
     }
     
     func download(_ download: WKDownload, didFailWithError: Error, resumeData: Data?) {
-        error(url: download.originalRequest?.url, description: (didFailWithError as NSError).localizedDescription)
+        error(url: download.originalRequest?.url ?? URL(string: "about:blank")!,
+              description: (didFailWithError as NSError).localizedDescription)
     }
     
     #if os(macOS)
