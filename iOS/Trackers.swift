@@ -16,7 +16,7 @@ struct Trackers: View {
             } header: {
                 VStack {
                     Text(verbatim: item.website)
-                        .font(.title3)
+                        .font(.body)
                         .foregroundColor(.primary)
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     Text(verbatim: item.date.formatted(.relative(presentation: .named, unitsStyle: .wide)))

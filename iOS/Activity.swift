@@ -33,23 +33,27 @@ struct Activity: View {
                 
                 Section("Events") {
                     VStack(alignment: .leading) {
-                        Text(stats.websites, format: .number)
-                            .font(.title3)
-                            .foregroundStyle(.primary)
                         Text("Total events")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
+                            .padding(.bottom, 1)
+                        Text(stats.websites, format: .number)
+                            .font(.body)
+                            .foregroundStyle(.primary)
                     }
+                    .padding(.vertical, 8)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     
                     VStack(alignment: .leading) {
-                        Text(prevented, format: .number)
-                            .font(.title3)
-                            .foregroundStyle(.primary)
                         Text("Trackers prevented")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
+                            .padding(.bottom, 1)
+                        Text(prevented, format: .number)
+                            .font(.body)
+                            .foregroundStyle(.primary)
                     }
+                    .padding(.vertical, 8)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
                 .listRowBackground(Color.clear)
@@ -57,23 +61,27 @@ struct Activity: View {
                 if let domains = stats.domains {
                     Section("Websites") {
                         VStack(alignment: .leading) {
-                            Text(domains.count, format: .number)
-                                .font(.title3)
-                                .foregroundStyle(.primary)
                             Text("Total websites")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
+                                .padding(.bottom, 1)
+                            Text(domains.count, format: .number)
+                                .font(.body)
+                                .foregroundStyle(.primary)
                         }
+                        .padding(.vertical, 8)
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                         
                         VStack(alignment: .leading) {
-                            Text(verbatim: domains.top)
-                                .font(.title3)
-                                .foregroundStyle(.primary)
                             Text("Most visited")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
+                                .padding(.bottom, 1)
+                            Text(verbatim: domains.top)
+                                .font(.body)
+                                .foregroundStyle(.primary)
                         }
+                        .padding(.vertical, 8)
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     }
                     .listRowBackground(Color.clear)
@@ -82,23 +90,27 @@ struct Activity: View {
                 if let trackers = stats.trackers {
                     Section("Trackers") {
                         VStack(alignment: .leading) {
-                            Text(trackers.count, format: .number)
-                                .font(.title3)
-                                .foregroundStyle(.primary)
                             Text("Total trackers")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
+                                .padding(.bottom, 1)
+                            Text(trackers.count, format: .number)
+                                .font(.body)
+                                .foregroundStyle(.primary)
                         }
+                        .padding(.vertical, 8)
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                         
                         VStack(alignment: .leading) {
-                            Text(verbatim: trackers.top)
-                                .font(.title3)
-                                .foregroundStyle(.primary)
                             Text("Most prevented")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
+                                .padding(.bottom, 1)
+                            Text(verbatim: trackers.top)
+                                .font(.body)
+                                .foregroundStyle(.primary)
                         }
+                        .padding(.vertical, 8)
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     }
                     .listRowBackground(Color.clear)
