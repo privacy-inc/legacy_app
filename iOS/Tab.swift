@@ -17,6 +17,7 @@ struct Tab: View {
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(search: search) {
                     Button {
+                        UIApplication.shared.hide()
                         options = true
                     } label: {
                         Image(systemName: "ellipsis")

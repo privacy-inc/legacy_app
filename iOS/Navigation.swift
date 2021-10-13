@@ -11,15 +11,14 @@ struct Navigation: View {
         case .landing:
             Landing(tabs: tabs, search: search, history: history, access: access)
         case .web:
-//            Tab(web: status[index].web!, tabs: tabs, search: search, find: find, open: url)
-            Find(web: status[index].web!)
+            Tab(web: status[index].web!, tabs: tabs, search: search, find: findStart, open: url)
         case .search:
             Search(tab: tab, searching: searching)
                 .equatable()
         case .tabs:
             Tabs(status: $status, transition: .init(index: index), tab: tab)
         case .find:
-            Find(web: status[index].web!)
+            Find(web: status[index].web!, end: findEnd)
         }
     }
     
@@ -103,7 +102,15 @@ struct Navigation: View {
         }
     }
     
-    private func find() {
-        flow = .find
+    private func findStart() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            flow = .find
+        }
+    }
+    
+    private func findEnd() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            flow = .web
+        }
     }
 }

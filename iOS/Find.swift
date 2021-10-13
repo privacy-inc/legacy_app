@@ -4,16 +4,18 @@ import Specs
 
 struct Find: View {
     let web: Web
+    let end: () -> Void
     @State private var search = ""
     @FocusState private var focus: Bool
     
     var body: some View {
         web
-            .safeAreaInset(edge: .top) {
+            .safeAreaInset(edge: .top, spacing: 0) {
                 VStack {
                     HStack(spacing: 0) {
                         Button {
-                            
+                            UIApplication.shared.hide()
+                            end()
                         } label: {
                             Text("Done")
                                 .font(.callout.weight(.medium))
@@ -21,7 +23,10 @@ struct Find: View {
                         }
                         
                         TextField("Find on page", text: $search, prompt: Text("\(Image(systemName: "magnifyingglass"))"))
+                            .textInputAutocapitalization(.none)
+                            .disableAutocorrection(true)
                             .textFieldStyle(.roundedBorder)
+                            .submitLabel(.search)
                             .focused($focus)
                             .onSubmit {
                                 submit(forward: true)
@@ -57,9 +62,11 @@ struct Find: View {
                 .background(.regularMaterial)
             }
             .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    focus = true
-                }
+                DispatchQueue
+                    .main
+                    .asyncAfter(deadline: .now() + 0.5) {
+                        focus = true
+                    }
             }
     }
     
