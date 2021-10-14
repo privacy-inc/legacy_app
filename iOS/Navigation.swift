@@ -66,11 +66,18 @@ struct Navigation: View {
     private func dismiss() {
         status[index].error = nil
         
-        if status[index].web?.url == nil {
+        if let history = status[index].history,
+           let url = status[index].web?.url,
+           let title = status[index].web?.title {
+            
+            Task
+                .detached(priority: .utility) {
+                    await cloud.update(url: url, history: history)
+                    await cloud.update(title: title, history: history)
+                }
+        } else {
             status[index].history = nil
             status[index].web = nil
-        } else {
-            status[index].web?.reload()
         }
         
         tab()
