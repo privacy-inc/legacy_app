@@ -29,11 +29,12 @@ extension Landing.Bookmarks {
         private func item(truncate: Text.TruncationMode) -> some View {
             Text(verbatim: item.access.value)
                 .truncationMode(truncate)
-                .font(.caption2)
+                .font(.caption2.weight(.light))
                 .multilineTextAlignment(.leading)
                 .lineLimit(4)
-                .foregroundStyle(.secondary)
                 .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
+                .padding(.horizontal)
+                .padding(.top, 5)
         }
     }
 }

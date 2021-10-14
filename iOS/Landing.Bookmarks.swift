@@ -28,7 +28,7 @@ extension Landing {
         }
         
         private func update(with vertical: UserInterfaceSizeClass?) {
-            items = (vertical == .compact ? 5 : 4)
+            items = (vertical == .compact ? 5 : 3)
                 .columns(with: 2)
                 .reduce(into: .init()) { result, position in
                     if bookmarks.count > position.index {

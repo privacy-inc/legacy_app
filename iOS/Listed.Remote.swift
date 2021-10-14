@@ -14,9 +14,8 @@ extension Listed {
                 }
                 Text("\(title) \(domain)")
                     .lineLimit(2)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             }
-            .padding(.vertical, 6)
+            .padding(.vertical, 8)
             .task {
                 publisher = await favicon.publisher(for: access)
             }

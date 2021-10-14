@@ -11,12 +11,22 @@ struct Listed: View {
             case let remote as Access.Remote:
                 Remote(title: item.title, access: remote)
                     .allowsHitTesting(false)
-            case let local as Access.Local:
-                Circle()
+            case is Access.Local:
+                item(truncate: .head)
             default:
-                EmptyView()
+                item(truncate: .tail)
             }
         }
         .font(.caption)
+    }
+    
+    private func item(truncate: Text.TruncationMode) -> some View {
+        Text(verbatim: item.access.value)
+            .truncationMode(truncate)
+            .lineLimit(1)
+            .foregroundStyle(.secondary)
+            .padding(.vertical, 12)
+            .padding(.trailing)
+            .allowsHitTesting(false)
     }
 }
