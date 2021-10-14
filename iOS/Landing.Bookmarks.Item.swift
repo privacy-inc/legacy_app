@@ -14,20 +14,26 @@ extension Landing.Bookmarks {
                     switch item.access {
                     case let remote as Access.Remote:
                         Remote(title: item.title, access: remote)
-                    case let local as Access.Local:
-                        Circle()
-                    case let deeplink as Access.Deeplink:
-                        Circle()
-                    case let embed as Access.Embed:
-                        Circle()
+                    case is Access.Local:
+                        item(truncate: .head)
                     default:
-                        EmptyView()
+                        item(truncate: .tail)
                     }
                 }
                 .frame(height: 100)
                 .frame(maxWidth: 120)
                 .allowsHitTesting(false)
             }
+        }
+        
+        private func item(truncate: Text.TruncationMode) -> some View {
+            Text(verbatim: item.access.value)
+                .truncationMode(truncate)
+                .font(.caption2)
+                .multilineTextAlignment(.leading)
+                .lineLimit(4)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
         }
     }
 }

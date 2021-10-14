@@ -13,10 +13,6 @@ struct Listed: View {
                     .allowsHitTesting(false)
             case let local as Access.Local:
                 Circle()
-            case let deeplink as Access.Deeplink:
-                Circle()
-            case let embed as Access.Embed:
-                Circle()
             default:
                 EmptyView()
             }

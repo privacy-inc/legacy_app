@@ -14,17 +14,18 @@ struct Trackers: View {
                         .foregroundStyle(.secondary)
                 }
             } header: {
-                VStack {
-                    Text(verbatim: item.website)
-                        .font(.body)
+                Group {
+                    Text(verbatim: item.website + " ")
                         .foregroundColor(.primary)
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                    Text(verbatim: item.date.formatted(.relative(presentation: .named, unitsStyle: .wide)))
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                        .font(.body)
+                    + Text(verbatim: item.date.formatted(.relative(presentation: .named, unitsStyle: .wide)))
+                        .foregroundColor(.secondary)
+                        .font(.caption)
                 }
+                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                .padding(.vertical, 8)
             }
+            .listSectionSeparator(.hidden)
         }
         .listStyle(.plain)
         .toolbar {

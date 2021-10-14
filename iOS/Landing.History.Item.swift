@@ -14,14 +14,10 @@ extension Landing.History {
                 case let remote as Access.Remote:
                     Remote(title: item.website.title, access: remote)
                         .allowsHitTesting(false)
-                case let local as Access.Local:
-                    item(title: local.file)
-                case let deeplink as Access.Deeplink:
-                    item(title: deeplink.scheme)
-                case let embed as Access.Embed:
-                    item(title: embed.prefix)
+                case is Access.Local:
+                    item(truncate: .head)
                 default:
-                    EmptyView()
+                    item(truncate: .tail)
                 }
             }
             .font(.caption)
@@ -30,9 +26,12 @@ extension Landing.History {
             .modifier(Card())
         }
         
-        private func item(title: String) -> some View {
-            Text(verbatim: title)
+        private func item(truncate: Text.TruncationMode) -> some View {
+            Text(verbatim: item.website.access.value)
+                .truncationMode(truncate)
                 .multilineTextAlignment(.leading)
+                .lineLimit(3)
+                .foregroundStyle(.secondary)
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 .allowsHitTesting(false)
         }

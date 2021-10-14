@@ -122,8 +122,14 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     @MainActor final func load(_ access: AccessType) {
         switch access {
-        case let url as AccessURL:
-            url
+        case let remote as Access.Remote:
+            remote
+                .url
+                .map {
+                    load($0)
+                }
+        case let other as Access.Other:
+            other
                 .url
                 .map {
                     load($0)
@@ -131,9 +137,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         case let local as Access.Local:
             local
                 .open { file, directory in
-                    if loadFileURL(file, allowingReadAccessTo: directory) == nil {
-                        error(url: file, description: "File not found")
-                    }
+                    loadFileURL(file, allowingReadAccessTo: directory)
                 }
         default:
             break
