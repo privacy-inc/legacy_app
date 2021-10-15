@@ -11,6 +11,7 @@ extension Settings {
                 Text(enabled ? Copy.deactivate : Copy.notifications)
                     .font(.footnote)
                     .foregroundStyle(.secondary)
+                    .padding(.vertical)
                     .allowsHitTesting(false)
                 Action(title: enabled ? "Open Settings" : "Activate notifications", symbol: "app.badge") {
                     if enabled || requested {
@@ -35,8 +36,11 @@ extension Settings {
             let settings = await UNUserNotificationCenter.current().notificationSettings()
             if settings.authorizationStatus == .notDetermined {
                 requested = false
+                enabled = false
             } else if settings.alertSetting == .disabled {
                 enabled = false
+            } else {
+                enabled = true
             }
         }
     }
