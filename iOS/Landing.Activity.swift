@@ -21,6 +21,8 @@ extension Landing {
                                 .foregroundStyle(.secondary)
                                 .font(.footnote)
                                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                        } else {
+                            Spacer()
                         }
                     }
                     .animation(.none, value: date)
