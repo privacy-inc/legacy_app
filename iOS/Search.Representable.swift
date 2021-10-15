@@ -1,7 +1,9 @@
 import SwiftUI
+import Combine
 
 extension Search {
     final class Representable: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate {
+        let autocomplete = PassthroughSubject<String, Never>()
         private var editable = true
         private let searching: (String) -> Void
         private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 52), inputViewStyle: .keyboard)
@@ -10,7 +12,7 @@ extension Search {
         override var canBecomeFirstResponder: Bool { editable }
         
         deinit {
-            print("rep gone")
+            print("search gone")
         }
         
         required init?(coder: NSCoder) { nil }
@@ -18,7 +20,7 @@ extension Search {
             self.searching = searching
             super.init(frame: .zero)
             
-            print("rep init")
+            print("search init")
             
             let background = UIView()
             background.backgroundColor = .init(named: "Input")
@@ -67,7 +69,7 @@ extension Search {
         }
         
         func textFieldDidChangeSelection(_: UITextField) {
-//            wrapper.filter = field.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            autocomplete.send(field.text!)
         }
         
         var hasText: Bool {

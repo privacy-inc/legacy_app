@@ -2,16 +2,24 @@ import SwiftUI
 
 extension Search {
     struct Header: View {
+        let count: Int
         let tab: () -> Void
         @Environment(\.verticalSizeClass) private var vertical
         
         var body: some View {
             VStack(spacing: 0) {
                 ZStack {
-                    Text("Search or enter website")
-                        .foregroundStyle(.tertiary)
-                        .font(.footnote)
-                        .allowsHitTesting(false)
+                    if count == 0 {
+                        Text("Search or enter website")
+                            .foregroundStyle(.tertiary)
+                            .font(.footnote)
+                            .allowsHitTesting(false)
+                    } else {
+                        Text("\(count.formatted()) found")
+                            .foregroundStyle(.secondary)
+                            .font(.footnote)
+                            .allowsHitTesting(false)
+                    }
                     Group {
                         Button(role: .cancel) {
                             UIApplication.shared.hide()

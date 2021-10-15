@@ -1,42 +1,28 @@
 import SwiftUI
+import Specs
 
 struct Search: View, Equatable {
     let tab: () -> Void
-    let searching: (String) -> Void
+    let representable: Representable
+    @State private var complete = [Complete]()
     
     var body: some View {
-        ScrollView {
-            Section("Bookmarks") {
-                VStack {
-                    ForEach(0 ..< 2) {
-                        if $0 > 0 {
-                            separator
-                        }
-                        Text("\($0)")
-                            .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                            .padding()
-                    }
-                }
-            }
-            Section("History") {
-                VStack {
-                    ForEach(0 ..< 2) {
-                        if $0 > 0 {
-                            separator
-                        }
-                        Text("\($0)")
-                            .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                            .padding()
-                    }
-                }
-            }
-            Representable(searching: searching)
+        List(complete) {
+            Text(verbatim: $0.title)
+        }
+        .listStyle(.grouped)
+        .safeAreaInset(edge: .top, spacing: 0) {
+            Header(count: complete.count, tab: tab)
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            representable
+                .equatable()
                 .frame(height: 1)
         }
-        .frame(maxWidth: .greatestFiniteMagnitude)
-        .background(.ultraThickMaterial)
-        .safeAreaInset(edge: .top, spacing: 0) {
-            Header(tab: tab)
+        .onReceive(representable.autocomplete) { complete in
+            Task {
+                await autocomplete(string: complete)
+            }
         }
     }
     
@@ -46,6 +32,10 @@ struct Search: View, Equatable {
             .frame(height: 1)
             .padding(.leading, 40)
             .padding(.trailing, 2)
+    }
+    
+    private func autocomplete(string: String) async {
+        complete = await cloud.autocomplete(search: string)
     }
     
     static func == (lhs: Self, rhs: Self) -> Bool {

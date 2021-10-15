@@ -13,7 +13,7 @@ struct Navigation: View {
         case .web:
             Tab(web: status[index].web!, tabs: tabs, search: search, find: find, open: url, error: error)
         case .search:
-            Search(tab: tab, searching: searching)
+            Search(tab: tab, representable: .init(searching: searching))
                 .equatable()
         case .tabs:
             Tabs(status: $status, transition: .init(index: index), tab: index)
