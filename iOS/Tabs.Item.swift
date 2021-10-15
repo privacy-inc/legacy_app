@@ -51,7 +51,7 @@ extension Tabs {
             }
             .task {
                 guard let history = status.history else { return }
-                access = await cloud.website(history: history).access
+                access = await cloud.website(history: history)?.access
                 if let access = access {
                     publisher = await favicon.publisher(for: access)
                 }

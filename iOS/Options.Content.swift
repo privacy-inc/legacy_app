@@ -57,7 +57,7 @@ extension Options {
             access = nil
             
             Task {
-                access = await cloud.website(history: web.history).access
+                access = await cloud.website(history: web.history)?.access
                 if let access = access, let publisher = await favicon.publisher(for: access) {
                     update(publisher: publisher)
                 }

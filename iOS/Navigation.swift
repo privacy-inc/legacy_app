@@ -59,9 +59,11 @@ struct Navigation: View {
         
         flow = .web
         
-        await status[index].web!.load(cloud
-                                        .website(history: status[index].history!)
-                                        .access)
+        if let access = await cloud
+            .website(history: status[index].history!)?
+            .access {
+            await status[index].web!.load(access)
+        }
     }
     
     private func dismiss() {
