@@ -13,8 +13,7 @@ struct Navigation: View {
         case .web:
             Tab(web: status[index].web!, tabs: tabs, search: search, find: find, open: url, error: error)
         case .search:
-            Search(tab: tab, representable: .init(searching: searching))
-                .equatable()
+            Search(representable: .init(searching: searching), tab: tab, access: access)
         case .tabs:
             Tabs(status: $status, transition: .init(index: index), tab: index)
         case .find:
@@ -52,6 +51,8 @@ struct Navigation: View {
     }
     
     private func web() async {
+        status[index].error = nil
+        
         if status[index].web == nil {
             status[index].web = await .init(history: status[index].history!, settings: cloud.model.settings.configuration)
         }
@@ -100,7 +101,12 @@ struct Navigation: View {
     
     private func access(_ access: AccessType) {
         Task {
-            history(await cloud.open(access: access))
+            if let id = status[index].history {
+                await cloud.open(access: access, history: id)
+                await web()
+            } else {
+                history(await cloud.open(access: access))
+            }
         }
     }
     
@@ -118,7 +124,6 @@ struct Navigation: View {
                 do {
                     if let id = status[index].history {
                         try await cloud.search(search, history: id)
-                        status[index].error = nil
                         await web()
                     } else {
                         history(try await cloud.search(search))

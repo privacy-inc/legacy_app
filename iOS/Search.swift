@@ -1,14 +1,18 @@
 import SwiftUI
 import Specs
 
-struct Search: View, Equatable {
-    let tab: () -> Void
+struct Search: View {
     let representable: Representable
+    let tab: () -> Void
+    let access: (AccessType) -> Void
     @State private var complete = [Complete]()
     
     var body: some View {
-        List(complete) {
-            Text(verbatim: $0.title)
+        List(complete) { item in
+            Item(complete: item) {
+                UIApplication.shared.hide()
+                access(item.access)
+            }
         }
         .listStyle(.grouped)
         .safeAreaInset(edge: .top, spacing: 0) {
@@ -36,9 +40,5 @@ struct Search: View, Equatable {
     
     private func autocomplete(string: String) async {
         complete = await cloud.autocomplete(search: string)
-    }
-    
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        true
     }
 }
