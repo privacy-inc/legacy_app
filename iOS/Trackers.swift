@@ -17,7 +17,7 @@ struct Trackers: View {
                 Group {
                     Text(verbatim: item.website + " ")
                         .foregroundColor(.primary)
-                        .font(.body)
+                        .font(.body.bold())
                     + Text(verbatim: item.date.formatted(.relative(presentation: .named, unitsStyle: .wide)))
                         .foregroundColor(.secondary)
                         .font(.caption)

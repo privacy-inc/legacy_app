@@ -23,7 +23,7 @@ struct Tab: View {
                     } label: {
                         Image(systemName: "ellipsis")
                             .symbolRenderingMode(.hierarchical)
-                            .font(.title2)
+                            .font(.title)
                             .frame(width: 70, height: 34)
                             .allowsHitTesting(false)
                     }
@@ -39,7 +39,7 @@ struct Tab: View {
                     Button(action: tabs) {
                         Image(systemName: "square.on.square.dashed")
                             .symbolRenderingMode(.hierarchical)
-                            .font(.body)
+                            .font(.title3)
                             .frame(width: 70, height: 34)
                             .allowsHitTesting(false)
                     }

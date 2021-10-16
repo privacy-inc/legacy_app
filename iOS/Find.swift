@@ -20,7 +20,7 @@ struct Find: View {
                         } label: {
                             Text("Done")
                                 .font(.callout.weight(.medium))
-                                .frame(width: 76)
+                                .frame(width: 76, height: 34)
                         }
                         
                         TextField("Find on page", text: $search, prompt: Text("\(Image(systemName: "magnifyingglass"))"))

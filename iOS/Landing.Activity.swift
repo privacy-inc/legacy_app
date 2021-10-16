@@ -48,6 +48,7 @@ extension Landing {
                                         .font(.callout)
                                         .foregroundColor(.init("Shades"))
                                         .padding(.leading)
+                                        .frame(height: 34)
                                         .allowsHitTesting(false)
                                         .contentShape(Rectangle())
                                 }

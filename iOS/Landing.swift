@@ -41,7 +41,7 @@ struct Landing: View {
                 } label: {
                     Image(systemName: "line.3.horizontal")
                         .symbolRenderingMode(.hierarchical)
-                        .font(.title3)
+                        .font(.title2)
                         .frame(width: 70, height: 34)
                         .allowsHitTesting(false)
                 }
@@ -55,7 +55,7 @@ struct Landing: View {
                 Button(action: tabs) {
                     Image(systemName: "square.on.square.dashed")
                         .symbolRenderingMode(.hierarchical)
-                        .font(.body)
+                        .font(.title3)
                         .frame(width: 70, height: 34)
                         .allowsHitTesting(false)
                 }
@@ -68,7 +68,7 @@ struct Landing: View {
             editing = true
         } label: {
             Label("Configure", systemImage: "slider.vertical.3")
-                .font(.footnote)
+                .font(.callout)
                 .imageScale(.large)
         }
         .foregroundStyle(.secondary)

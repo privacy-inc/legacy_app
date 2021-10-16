@@ -124,7 +124,7 @@ extension Options {
         @ViewBuilder private func address(url: URL) -> some View {
             Text(verbatim: title)
                 .foregroundStyle(.primary)
-                .font(.callout)
+                .font(.body)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding([.leading, .trailing, .top], 35)
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
@@ -140,7 +140,7 @@ extension Options {
                     Text(verbatim: url.absoluteString)
                 }
             }
-            .font(.footnote)
+            .font(.callout)
             .foregroundStyle(.secondary)
             .symbolRenderingMode(.hierarchical)
             .lineLimit(2)

@@ -52,8 +52,8 @@ extension Search {
             background.heightAnchor.constraint(equalToConstant: 36).isActive = true
             
             field.centerYAnchor.constraint(equalTo: input.centerYAnchor, constant: 3).isActive = true
-            field.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 16).isActive = true
-            field.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -8).isActive = true
+            field.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 12).isActive = true
+            field.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -6).isActive = true
             
             DispatchQueue
                 .main

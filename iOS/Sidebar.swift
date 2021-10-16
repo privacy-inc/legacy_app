@@ -29,11 +29,12 @@ struct Sidebar: View {
                             .font(.callout)
                             .foregroundColor(.init("Shades"))
                             .padding(.leading)
+                            .frame(height: 34)
                             .allowsHitTesting(false)
                             .contentShape(Rectangle())
                     }
                 }
-                ToolbarItem(placement: .bottomBar) {
+                ToolbarItemGroup(placement: .bottomBar) {
                     Button {
                         forget = true
                     } label: {

@@ -17,7 +17,7 @@ extension Search {
                     } else {
                         Text("\(count.formatted()) similar")
                             .monospacedDigit()
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(.primary)
                             .font(.callout)
                             .allowsHitTesting(false)
                     }
@@ -30,13 +30,12 @@ extension Search {
                                 .font(.callout)
                                 .foregroundStyle(.primary)
                                 .padding(.horizontal)
-                                .padding(.vertical, 10)
+                                .padding(.vertical, 14)
                         }
                     }
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .trailing)
                 }
-                .padding(.top, 2)
-                .padding(.bottom, vertical == .compact ? 0 : 6)
+                .animation(.easeInOut(duration: 0.3), value: count)
                 
                 Rectangle()
                     .fill(Color.secondary)

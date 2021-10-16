@@ -9,14 +9,14 @@ extension Options.Content {
         var body: some View {
             Button(action: action) {
                 Image(systemName: symbol)
-                    .font(.footnote.bold())
-                    .frame(width: 24, height: 16)
+                    .font(.callout.bold())
+                    .frame(width: 24, height: 18)
                     .foregroundStyle(active ? .primary : .quaternary)
                     .allowsHitTesting(false)
             }
             .allowsHitTesting(active)
             .buttonStyle(.bordered)
-            .tint(.blue)
+            .tint(.init("Shades"))
         }
     }
 }

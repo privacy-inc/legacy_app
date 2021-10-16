@@ -24,7 +24,7 @@ extension Landing.Edit {
                     }
                 }
                 .toggleStyle(SwitchToggleStyle(tint: .mint))
-                .font(.footnote)
+                .font(.callout)
                 .imageScale(.large)
                 .symbolRenderingMode(.multicolor)
                 .listStyle(.plain)
@@ -37,9 +37,10 @@ extension Landing.Edit {
                             dismiss()
                         } label: {
                             Text("Done")
-                                .foregroundStyle(.secondary)
-                                .font(.footnote)
+                                .font(.callout)
+                                .foregroundColor(.init("Shades"))
                                 .padding(.leading)
+                                .frame(height: 34)
                                 .allowsHitTesting(false)
                                 .contentShape(Rectangle())
                         }

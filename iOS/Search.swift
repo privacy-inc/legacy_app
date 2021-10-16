@@ -8,14 +8,26 @@ struct Search: View {
     @State private var complete = [Complete]()
     
     var body: some View {
-        List(complete) { item in
-            Item(complete: item) {
-                UIApplication.shared.hide()
-                access(item.access)
+        VStack {
+            Spacer()
+                .frame(height: 1)
+            if complete.isEmpty {
+                Image(systemName: "magnifyingglass")
+                    .foregroundStyle(.tertiary)
+                    .font(.largeTitle)
+                    .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .center)
+                    .allowsHitTesting(false)
+            } else {
+                List(complete) { item in
+                    Item(complete: item) {
+                        UIApplication.shared.hide()
+                        access(item.access)
+                    }
+                }
+                .listStyle(.grouped)
+                .animation(.easeInOut(duration: 0.3), value: complete.count)
             }
         }
-        .listStyle(.grouped)
-        .animation(.easeInOut(duration: 0.3), value: complete.count)
         .safeAreaInset(edge: .top, spacing: 0) {
             Header(count: complete.count, tab: tab)
         }

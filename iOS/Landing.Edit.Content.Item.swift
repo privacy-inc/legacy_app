@@ -9,6 +9,7 @@ extension Landing.Edit.Content {
         var body: some View {
             Toggle(isOn: $active) {
                 Label("\(id)".capitalized, systemImage: symbol)
+                    .padding([.trailing, .top, .bottom])
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .trailing)
             }
             .onChange(of: active) { active in

@@ -15,12 +15,13 @@ extension Options.Content {
                     HStack {
                         Text(title)
                             .lineLimit(1)
+                            .font(.callout)
                         Spacer()
                         Image(systemName: symbol)
                             .symbolRenderingMode(.hierarchical)
                             .frame(width: 22)
+                            .font(.body)
                     }
-                    .font(.callout)
                     .padding()
                     .foregroundStyle(.primary)
                 }
