@@ -1,6 +1,6 @@
 import Foundation
 
-extension Navigation {
+extension Status {
     enum Flow {
         case
         landing,

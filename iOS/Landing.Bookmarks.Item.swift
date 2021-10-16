@@ -15,25 +15,15 @@ extension Landing.Bookmarks {
                     case let remote as Access.Remote:
                         Remote(title: item.title, access: remote)
                     case is Access.Local:
-                        item(truncate: .head)
+                        Other(title: item.access.value, truncate: .head)
                     default:
-                        item(truncate: .tail)
+                        Other(title: item.access.value, truncate: .tail)
                     }
                 }
-                .frame(height: 70)
+                .frame(height: 105)
                 .frame(maxWidth: 120)
                 .allowsHitTesting(false)
             }
-        }
-        
-        private func item(truncate: Text.TruncationMode) -> some View {
-            Text(verbatim: item.access.value)
-                .truncationMode(truncate)
-                .font(.caption2.weight(.light))
-                .lineLimit(3)
-                .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
-                .padding(.horizontal)
-                .padding(.top, 5)
         }
     }
 }

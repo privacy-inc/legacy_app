@@ -5,16 +5,14 @@ import SwiftUI
     @UIApplicationDelegateAdaptor(Delegate.self) private var delegate
     
     var body: some Scene {
-        WindowGroup {
-            Navigation()
-        }
-        .onChange(of: phase) {
-            switch $0 {
-            case .active:
-                cloud.pull.send()
-            default:
-                break
+        WindowGroup(content: Window.init)
+            .onChange(of: phase) {
+                switch $0 {
+                case .active:
+                    cloud.pull.send()
+                default:
+                    break
+                }
             }
-        }
     }
 }

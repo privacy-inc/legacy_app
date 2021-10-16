@@ -10,6 +10,8 @@ extension Landing.Bookmarks.Item {
         var body: some View {
             if let publisher = publisher {
                 Icon(access: access, publisher: publisher)
+                    .padding(15)
+                    .modifier(Card())
             }
             Text(verbatim: title)
                 .font(.caption2)

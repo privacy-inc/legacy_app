@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 
 struct Tabs: View {
-    @Binding var status: [Status]
+    @Binding var items: [Status.Item]
     @State var transition: Transition?
     let tab: (Int, Bool) -> Void
     @State private var entering = true
@@ -19,14 +19,14 @@ struct Tabs: View {
             closeAll
             add
             if transition != nil {
-                Snap(image: status[transition!.index].image, size: transition!.size)
+                Snap(image: items[transition!.index].image, size: transition!.size)
                     .edgesIgnoringSafeArea(.all)
                     .allowsHitTesting(false)
-                    .matchedGeometryEffect(id: status[transition!.index].id, in: animating, properties: .position, isSource: !entering)
+                    .matchedGeometryEffect(id: items[transition!.index].id, in: animating, properties: .position, isSource: !entering)
             }
         }
         .task {
-            scroll.send(status[transition!.index].id)
+            scroll.send(items[transition!.index].id)
             
             withAnimation(.easeInOut(duration: 0.3)) {
                 transition!.size = 150
@@ -41,7 +41,7 @@ struct Tabs: View {
     }
     
     private func open(id: UUID, search: Bool) {
-        let index = status
+        let index = items
             .firstIndex {
                 $0.id == id
             }!
@@ -70,8 +70,8 @@ struct Tabs: View {
                     Spacer()
                         .frame(width: 20)
                         .frame(maxHeight: .greatestFiniteMagnitude)
-                    ForEach(status) {
-                        if transition != nil && $0.id == status[transition!.index].id {
+                    ForEach(items) {
+                        if transition != nil && $0.id == items[transition!.index].id {
                             item($0)
                         } else {
                             item($0)
@@ -92,17 +92,17 @@ struct Tabs: View {
     private var add: some View {
         Group {
             Button {
-                status.append(.init())
+                items.append(.init())
                 
                 DispatchQueue
                     .main
                     .asyncAfter(deadline: .now() + 0.1) {
                         
                         withAnimation(.easeInOut(duration: 0.2)) {
-                            scroll.send(status.last!.id)
+                            scroll.send(items.last!.id)
                         }
                         
-                        open(id: status.last!.id, search: true)
+                        open(id: items.last!.id, search: true)
                     }
             } label: {
                 Image(systemName: "plus.circle.fill")
@@ -119,7 +119,7 @@ struct Tabs: View {
     private var closeAll: some View {
         Group {
             Button {
-                status
+                items
                     .forEach {
                         $0
                             .web?
@@ -127,7 +127,7 @@ struct Tabs: View {
                     }
                 
                 withAnimation(.easeInOut(duration: 0.3)) {
-                    status = []
+                    items = []
                 }
             } label: {
                 Text("Close all")
@@ -139,17 +139,17 @@ struct Tabs: View {
             .buttonStyle(.bordered)
             .buttonBorderShape(.capsule)
             .padding(.top)
-            .disabled(status.isEmpty)
+            .disabled(items.isEmpty)
         }
         .frame(maxHeight: .greatestFiniteMagnitude, alignment: .top)
     }
     
-    private func item(_ item: Status) -> some View {
-        Item(status: item, animating: animating, entering: entering) {
+    private func item(_ item: Status.Item) -> some View {
+        Item(item: item, animating: animating, entering: entering) {
             open(id: item.id, search: false)
         } close: {
             withAnimation(.easeInOut(duration: 0.3)) {
-                status
+                items
                     .remove {
                         $0.id == item.id
                     }?

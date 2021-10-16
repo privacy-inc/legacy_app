@@ -3,7 +3,7 @@ import Specs
 
 extension Tabs {
     struct Item: View {
-        let status: Status
+        let item: Status.Item
         let animating: Namespace.ID
         let entering: Bool
         let open: () -> Void
@@ -24,10 +24,10 @@ extension Tabs {
                 
                 Button(action: open) {
                     VStack(spacing: 0) {
-                        Snap(image: status.image, size: 150)
-                            .matchedGeometryEffect(id: status.id, in: animating, properties: .position, isSource: entering)
-                            .id(status.id)
-                        Text(verbatim: status.error?.description ?? status.web?.title ?? "New")
+                        Snap(image: item.image, size: 150)
+                            .matchedGeometryEffect(id: item.id, in: animating, properties: .position, isSource: entering)
+                            .id(item.id)
+                        Text(verbatim: item.error?.description ?? item.web?.title ?? "New")
                             .font(.caption2)
                             .lineLimit(1)
                             .padding(.horizontal)
@@ -50,7 +50,7 @@ extension Tabs {
                 }
             }
             .task {
-                guard let history = status.history else { return }
+                guard let history = item.history else { return }
                 access = await cloud.website(history: history)?.access
                 if let access = access {
                     publisher = await favicon.publisher(for: access)

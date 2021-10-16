@@ -25,6 +25,7 @@ struct Trackers: View {
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 .padding(.vertical, 8)
             }
+            .listRowBackground(Color(.secondarySystemBackground))
             .listSectionSeparator(.hidden)
         }
         .listStyle(.plain)

@@ -57,6 +57,7 @@ struct Activity: View {
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
                 .listRowBackground(Color.clear)
+                .listSectionSeparatorTint(.primary)
                 
                 if let domains = stats.domains {
                     Section("Websites") {
@@ -85,6 +86,7 @@ struct Activity: View {
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     }
                     .listRowBackground(Color.clear)
+                    .listSectionSeparatorTint(.primary)
                 }
                 
                 if let trackers = stats.trackers {
@@ -114,6 +116,7 @@ struct Activity: View {
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     }
                     .listRowBackground(Color.clear)
+                    .listSectionSeparatorTint(.primary)
                 }
             }
         }

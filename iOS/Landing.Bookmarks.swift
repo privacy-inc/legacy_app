@@ -12,13 +12,14 @@ extension Landing {
             Section("Bookmarks") {
                 HStack(alignment: .top) {
                     ForEach(0 ..< items.count, id: \.self) { index in
-                        VStack {
+                        VStack(spacing: 15) {
                             ForEach(items[index]) {
                                 Item(item: $0, select: select)
                             }
                         }
                     }
                 }
+                .padding(.top, 10)
             }
             .animation(.none, value: items.count)
             .onChange(of: vertical, perform: update(with:))
