@@ -77,18 +77,22 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             }
             .store(in: &subs)
         
-        publisher(for: \.themeColor)
-            .removeDuplicates()
-            .sink { [weak self] in
-                guard let color = $0 else {
-                    self?.underPageBackgroundColor = .secondarySystemBackground
-                    return
+        if dark && settings.dark {
+            underPageBackgroundColor = .secondarySystemBackground
+        } else {
+            publisher(for: \.themeColor)
+                .removeDuplicates()
+                .sink { [weak self] in
+                    guard let color = $0 else {
+                        self?.underPageBackgroundColor = .secondarySystemBackground
+                        return
+                    }
+                    var alpha = CGFloat()
+                    color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
+                    self?.underPageBackgroundColor = alpha == 0 ? .secondarySystemBackground : color
                 }
-                var alpha = CGFloat()
-                color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
-                self?.underPageBackgroundColor = alpha == 0 ? .secondarySystemBackground : color
-            }
-            .store(in: &subs)
+                .store(in: &subs)
+        }
     }
     
     func external(_ url: URL) {

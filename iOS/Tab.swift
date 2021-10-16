@@ -53,7 +53,7 @@ struct Tab: View {
                         .stroke(Color(web.underPageBackgroundColor), lineWidth: 2)
                         .frame(height: 2)        
                     Rectangle()
-                        .foregroundStyle(Color(web.underPageBackgroundColor).opacity(0.1))
+                        .foregroundStyle(Color(web.underPageBackgroundColor).opacity(0.15))
                         .frame(height: 1)
                 }
                 .colorInvert()
