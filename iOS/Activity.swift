@@ -19,7 +19,7 @@ struct Activity: View {
                                 Spacer()
                                 Text("Now")
                             }
-                            .foregroundStyle(.tertiary)
+                            .foregroundStyle(.secondary)
                             .font(.caption)
                             .padding(.horizontal, 7)
                         }

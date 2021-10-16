@@ -23,8 +23,8 @@ struct Tab: View {
                     } label: {
                         Image(systemName: "ellipsis")
                             .symbolRenderingMode(.hierarchical)
-                            .font(.title3)
-                            .frame(width: 70)
+                            .font(.title2)
+                            .frame(width: 70, height: 34)
                             .allowsHitTesting(false)
                     }
                     .sheet(isPresented: $options) {
@@ -39,8 +39,8 @@ struct Tab: View {
                     Button(action: tabs) {
                         Image(systemName: "square.on.square.dashed")
                             .symbolRenderingMode(.hierarchical)
-                            .font(.callout)
-                            .frame(width: 70)
+                            .font(.body)
+                            .frame(width: 70, height: 34)
                             .allowsHitTesting(false)
                     }
                 }

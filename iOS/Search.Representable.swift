@@ -40,7 +40,7 @@ extension Search {
             field.autocapitalizationType = .none
             field.spellCheckingType = .no
             field.tintColor = .label
-            field.font = .preferredFont(forTextStyle: .callout)
+            field.font = .preferredFont(forTextStyle: .body)
             field.allowsEditingTextAttributes = false
             field.delegate = self
             input.addSubview(field)

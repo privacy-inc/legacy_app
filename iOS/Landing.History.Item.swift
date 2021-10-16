@@ -20,7 +20,7 @@ extension Landing.History {
                     item(truncate: .tail)
                 }
             }
-            .font(.caption)
+            .font(.body)
             .fixedSize(horizontal: false, vertical: true)
             .padding()
             .modifier(Card())

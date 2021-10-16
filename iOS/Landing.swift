@@ -41,7 +41,8 @@ struct Landing: View {
                 } label: {
                     Image(systemName: "line.3.horizontal")
                         .symbolRenderingMode(.hierarchical)
-                        .frame(width: 70)
+                        .font(.title3)
+                        .frame(width: 70, height: 34)
                         .allowsHitTesting(false)
                 }
                 .sheet(isPresented: $sidebar) {
@@ -54,8 +55,8 @@ struct Landing: View {
                 Button(action: tabs) {
                     Image(systemName: "square.on.square.dashed")
                         .symbolRenderingMode(.hierarchical)
-                        .font(.callout)
-                        .frame(width: 70)
+                        .font(.body)
+                        .frame(width: 70, height: 34)
                         .allowsHitTesting(false)
                 }
             }

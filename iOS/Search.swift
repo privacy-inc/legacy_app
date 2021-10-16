@@ -15,6 +15,7 @@ struct Search: View {
             }
         }
         .listStyle(.grouped)
+        .animation(.easeInOut(duration: 0.3), value: complete.count)
         .safeAreaInset(edge: .top, spacing: 0) {
             Header(count: complete.count, tab: tab)
         }

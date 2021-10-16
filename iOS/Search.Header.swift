@@ -11,11 +11,11 @@ extension Search {
                 ZStack {
                     if count == 0 {
                         Text("Search or enter website")
-                            .foregroundStyle(.tertiary)
-                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .font(.callout)
                             .allowsHitTesting(false)
                     } else {
-                        Text("\(count.formatted()) found")
+                        Text("\(count.formatted()) similar")
                             .monospacedDigit()
                             .foregroundStyle(.secondary)
                             .font(.callout)
@@ -27,10 +27,10 @@ extension Search {
                             tab()
                         } label: {
                             Text("Cancel")
-                                .font(.footnote)
+                                .font(.callout)
                                 .foregroundStyle(.primary)
                                 .padding(.horizontal)
-                                .padding(.vertical, 6)
+                                .padding(.vertical, 10)
                         }
                     }
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .trailing)

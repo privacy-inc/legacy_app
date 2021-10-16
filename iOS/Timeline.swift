@@ -9,7 +9,7 @@ struct Timeline: View {
             
             context
                 .stroke(road(size: size),
-                        with: .color(.primary.opacity(0.35)),
+                        with: .color(.primary.opacity(0.5)),
                         style: .init(lineWidth: 1, lineCap: .round, lineJoin: .round))
             
             for value in values.enumerated() {
@@ -29,7 +29,7 @@ struct Timeline: View {
                                  with: .backdrop)
                     context.blendMode = .normal
                     context.stroke(arc(center: center, radius: 3),
-                                   with: .color(.primary.opacity(0.25)),
+                                   with: .color(.primary.opacity(0.3)),
                                    lineWidth: 1)
                 }
             }
