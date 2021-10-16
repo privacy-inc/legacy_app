@@ -14,6 +14,7 @@ extension Listed {
                 }
                 Text("\(title) \(domain)")
                     .lineLimit(2)
+                    .truncationMode(.middle)
             }
             .padding(.vertical, 8)
             .task {

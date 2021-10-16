@@ -40,7 +40,7 @@ extension Search {
                 
                 Rectangle()
                     .fill(Color.secondary)
-                    .frame(height: 0.5)
+                    .frame(height: 1)
                     .edgesIgnoringSafeArea(.horizontal)
                     .allowsHitTesting(false)
             }
