@@ -11,6 +11,7 @@ struct Window: View {
                     status.flow = .search
                 default:
                     UIApplication.shared.hide()
+                    status.flow = .tabs
                     Task
                         .detached(priority: .utility) {
                             await status.url(url)
