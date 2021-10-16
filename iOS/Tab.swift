@@ -45,7 +45,7 @@ struct Tab: View {
                     }
                 }
                 .offset(y: options ? 85 : 0)
-                .animation(.easeInOut(duration: 0.3), value: options)
+                .animation(.easeInOut(duration: 0.2), value: options)
             }
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 0) {

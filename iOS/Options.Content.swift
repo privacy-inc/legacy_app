@@ -75,6 +75,11 @@ extension Options {
                 HStack {
                     if let publisher = publisher, let access = access {
                         Icon(size: 48, access: access, publisher: publisher)
+                    } else {
+                        Image(systemName: "app")
+                            .font(.title)
+                            .foregroundStyle(.quaternary)
+                            .frame(width: 48, height: 48)
                     }
                     Spacer()
                 }
@@ -87,8 +92,9 @@ extension Options {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill")
-                            .font(.title3)
-                            .foregroundStyle(.quaternary)
+                            .font(.title2)
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundStyle(.secondary)
                             .allowsHitTesting(false)
                     }
                 }
@@ -122,7 +128,7 @@ extension Options {
         
         private var heading: some View {
             Text(verbatim: title)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.primary)
                 .font(.callout)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
@@ -140,7 +146,7 @@ extension Options {
             }
             
             Text(verbatim: url.absoluteString)
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(.secondary)
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 .font(.footnote)
                 .lineLimit(2)
@@ -149,7 +155,7 @@ extension Options {
         
         private func connection(secure: Bool) -> some View {
             Label(secure ? "Connection secure" : "Connection not secure", systemImage: secure ? "lock.fill" : "exclamationmark.triangle.fill")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.tertiary)
                 .font(.footnote)
                 .symbolRenderingMode(.hierarchical)
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
