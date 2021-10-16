@@ -11,12 +11,14 @@ extension Options.Content {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(Color(.systemBackground))
+                        .shadow(color: .init(white: 0, opacity: 0.2), radius: 1, x: 0, y: 0)
                     HStack {
                         Text(title)
                             .lineLimit(1)
                         Spacer()
                         Image(systemName: symbol)
                             .symbolRenderingMode(.hierarchical)
+                            .frame(width: 22)
                     }
                     .font(.callout)
                     .padding()
@@ -25,6 +27,7 @@ extension Options.Content {
                 .fixedSize(horizontal: false, vertical: true)
                 .allowsHitTesting(false)
             }
+            .padding(.horizontal)
         }
     }
 }

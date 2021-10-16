@@ -17,23 +17,17 @@ extension Options {
         @Environment(\.dismiss) private var dismiss
         
         var body: some View {
-            VStack(alignment: .leading) {
+            ScrollView(showsIndicators: false) {
+                icon
                 navigation
-                
-                if !title.isEmpty {
-                    heading
-                }
                 
                 if let url = url {
                     address(url: url)
                 }
                 
-                Spacer()
-                
                 controls
             }
-            .padding()
-            .background(.regularMaterial)
+            .background(.thickMaterial)
             .onReceive(web.publisher(for: \.isLoading)) { value in
                 loading = value
             }
@@ -70,102 +64,94 @@ extension Options {
             }
         }
         
+        private var icon: some View {
+            HStack(alignment: .top) {
+                Spacer()
+                    .frame(width: 70)
+                
+                Spacer()
+                
+                if let publisher = publisher, let access = access {
+                    Icon(size: 48, access: access, publisher: publisher)
+                        .allowsHitTesting(false)
+                } else {
+                    Image(systemName: "globe")
+                        .font(.title)
+                        .foregroundStyle(.quaternary)
+                        .frame(width: 48, height: 48)
+                        .allowsHitTesting(false)
+                }
+                
+                Spacer()
+                
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.title2)
+                        .symbolRenderingMode(.hierarchical)
+                        .foregroundStyle(.secondary)
+                        .allowsHitTesting(false)
+                }
+                .frame(width: 70)
+            }
+            .frame(height: 90)
+        }
+        
         private var navigation: some View {
-            ZStack {
-                HStack {
-                    if let publisher = publisher, let access = access {
-                        Icon(size: 48, access: access, publisher: publisher)
+            HStack(spacing: 20) {
+                Action(symbol: "chevron.backward", active: backwards) {
+                    web.goBack()
+                    update()
+                }
+                
+                Action(symbol: loading ? "xmark" : "arrow.clockwise", active: true) {
+                    if loading {
+                        web.stopLoading()
                     } else {
-                        Image(systemName: "app")
-                            .font(.title)
-                            .foregroundStyle(.quaternary)
-                            .frame(width: 48, height: 48)
-                    }
-                    Spacer()
-                }
-                .frame(height: 58)
-                .allowsHitTesting(false)
-                
-                HStack(alignment: .top) {
-                    Spacer()
-                    Button {
+                        web.reload()
                         dismiss()
-                    } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title2)
-                            .symbolRenderingMode(.hierarchical)
-                            .foregroundStyle(.secondary)
-                            .allowsHitTesting(false)
                     }
                 }
-                .frame(height: 58, alignment: .top)
                 
-                HStack {
-                    Action(symbol: loading ? "xmark" : "arrow.clockwise", active: true) {
-                        if loading {
-                            web.stopLoading()
-                        } else {
-                            web.reload()
-                            dismiss()
-                        }
-                    }
-                    .padding(.leading, 74)
-                    
-                    Action(symbol: "chevron.backward", active: backwards) {
-                        web.goBack()
-                        update()
-                    }
-                    
-                    Action(symbol: "chevron.forward", active: forwards) {
-                        web.goForward()
-                        update()
-                    }
-                    
-                    Spacer()
+                Action(symbol: "chevron.forward", active: forwards) {
+                    web.goForward()
+                    update()
                 }
             }
         }
         
-        private var heading: some View {
+        @ViewBuilder private func address(url: URL) -> some View {
             Text(verbatim: title)
                 .foregroundStyle(.primary)
                 .font(.callout)
                 .fixedSize(horizontal: false, vertical: true)
+                .padding([.leading, .trailing, .top], 35)
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 .allowsHitTesting(false)
-        }
-        
-        @ViewBuilder private func address(url: URL) -> some View {
-            switch url.scheme?.lowercased() {
-            case "https":
-                connection(secure: true)
-            case "http":
-                connection(secure: false)
-            default:
-                EmptyView()
-            }
             
-            Text(verbatim: url.absoluteString)
-                .foregroundStyle(.secondary)
-                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                .font(.footnote)
-                .lineLimit(2)
-                .allowsHitTesting(false)
-        }
-        
-        private func connection(secure: Bool) -> some View {
-            Label(secure ? "Connection secure" : "Connection not secure", systemImage: secure ? "lock.fill" : "exclamationmark.triangle.fill")
-                .foregroundStyle(.tertiary)
-                .font(.footnote)
-                .symbolRenderingMode(.hierarchical)
-                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                .allowsHitTesting(false)
+            Group {
+                switch url.scheme?.lowercased() {
+                case "https":
+                    Label(url.absoluteString, systemImage: "lock.fill")
+                case "http":
+                    Label(url.absoluteString, systemImage: "exclamationmark.triangle.fill")
+                default:
+                    Text(verbatim: url.absoluteString)
+                }
+            }
+            .font(.footnote)
+            .foregroundStyle(.secondary)
+            .symbolRenderingMode(.hierarchical)
+            .lineLimit(2)
+            .padding([.leading, .trailing, .bottom], 35)
+            .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+            .allowsHitTesting(false)
         }
         
         @ViewBuilder private var controls: some View {
-            Control(title: "Find on page", symbol: "rectangle.and.text.magnifyingglass") {
-                dismiss()
-                find()
+            Control(title: "Share", symbol: "square.and.arrow.up") {
+                share.send()
             }
             
             Control(title: "Bookmark", symbol: "bookmark") {
@@ -177,10 +163,10 @@ extension Options {
                     }
             }
             
-            Control(title: "Share", symbol: "square.and.arrow.up") {
-                share.send()
+            Control(title: "Find on page", symbol: "rectangle.and.text.magnifyingglass") {
+                dismiss()
+                find()
             }
-            .padding(.bottom)
         }
     }
 }
