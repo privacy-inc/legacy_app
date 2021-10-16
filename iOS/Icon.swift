@@ -15,7 +15,7 @@ struct Icon: View {
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
             } else {
-                Image(systemName: "app")
+                Image(systemName: "globe")
                     .font(.title.weight(.light))
                     .foregroundStyle(.quaternary)
             }

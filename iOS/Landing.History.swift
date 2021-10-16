@@ -21,6 +21,7 @@ extension Landing {
                 }
                 .padding(.horizontal)
             }
+            .animation(.none, value: items.count)
             .onChange(of: vertical, perform: update(with:))
             .onReceive(cloud) {
                 history = $0.history

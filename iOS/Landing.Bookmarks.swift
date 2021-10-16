@@ -20,6 +20,7 @@ extension Landing {
                     }
                 }
             }
+            .animation(.none, value: items.count)
             .onChange(of: vertical, perform: update(with:))
             .onReceive(cloud) {
                 bookmarks = $0.bookmarks

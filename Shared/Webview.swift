@@ -22,7 +22,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.userContentController.addUserScript(.init(source: settings.scripts, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         
         if dark && settings.dark {
-            configuration.userContentController.addUserScript(.init(source: Script.dark.script, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+            configuration.userContentController.addUserScript(.init(source: Script.dark.script, injectionTime: .atDocumentStart, forMainFrameOnly: false))
         }
         
         switch settings.autoplay {

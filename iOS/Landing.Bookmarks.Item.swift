@@ -20,7 +20,7 @@ extension Landing.Bookmarks {
                         item(truncate: .tail)
                     }
                 }
-                .frame(height: 100)
+                .frame(height: 70)
                 .frame(maxWidth: 120)
                 .allowsHitTesting(false)
             }
@@ -30,8 +30,7 @@ extension Landing.Bookmarks {
             Text(verbatim: item.access.value)
                 .truncationMode(truncate)
                 .font(.caption2.weight(.light))
-                .multilineTextAlignment(.leading)
-                .lineLimit(4)
+                .lineLimit(3)
                 .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
                 .padding(.horizontal)
                 .padding(.top, 5)
