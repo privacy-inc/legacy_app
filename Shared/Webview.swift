@@ -220,17 +220,19 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         }
     }
     
-    final func webView(_: WKWebView, decidePolicyFor: WKNavigationResponse) async -> WKNavigationResponsePolicy {
-        decidePolicyFor.canShowMIMEType
-        ? .allow
-        : .download
+    final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction) async -> WKNavigationActionPolicy {
+        decidePolicyFor.shouldPerformDownload ? .download : .allow
     }
     
-    final class func clear() async {
-        URLCache.shared.removeAllCachedResponses()
-        HTTPCookieStorage.shared.removeCookies(since: .distantPast)
-        await clear(store: .default())
-        await clear(store: .nonPersistent())
+    final func webView(_: WKWebView, decidePolicyFor: WKNavigationResponse) async -> WKNavigationResponsePolicy {
+        guard
+            let response = decidePolicyFor.response as? HTTPURLResponse,
+            let contentType = response.value(forHTTPHeaderField: "Content-Type"),
+            contentType.range(of: "attachment", options: .caseInsensitive) != nil
+        else {
+            return decidePolicyFor.canShowMIMEType ? .allow : .download
+        }
+        return .download
     }
     
     final func webView(_: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
@@ -276,6 +278,13 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     }
 
     #endif
+    
+    final class func clear() async {
+        URLCache.shared.removeAllCachedResponses()
+        HTTPCookieStorage.shared.removeCookies(since: .distantPast)
+        await clear(store: .default())
+        await clear(store: .nonPersistent())
+    }
     
     private class func clear(store: WKWebsiteDataStore) async {
         for record in await store.dataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) {
