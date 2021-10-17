@@ -17,7 +17,7 @@ struct Sidebar: View {
             .symbolRenderingMode(.multicolor)
             .listStyle(.insetGrouped)
             .imageScale(.large)
-            .font(.footnote)
+            .font(.callout)
             .navigationTitle("Menu")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -39,7 +39,7 @@ struct Sidebar: View {
                         forget = true
                     } label: {
                         Text("Forget \(Image(systemName: "flame.fill"))")
-                            .font(.footnote)
+                            .font(.callout)
                             .imageScale(.large)
                             .allowsHitTesting(false)
                     }
