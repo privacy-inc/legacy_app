@@ -2,7 +2,7 @@ import WebKit
 import Combine
 import Specs
 
-class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
+class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate {
     final let history: UInt16
     private var subs = Set<AnyCancellable>()
     private let settings: Specs.Settings.Configuration
@@ -232,6 +232,50 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         await clear(store: .default())
         await clear(store: .nonPersistent())
     }
+    
+    final func webView(_: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
+        didBecome.delegate = self
+    }
+    
+    final func webView(_: WKWebView, navigationResponse: WKNavigationResponse, didBecome: WKDownload) {
+        didBecome.delegate = self
+    }
+    
+    final func download(_ download: WKDownload, didFailWithError: Error, resumeData: Data?) {
+        error(url: download.originalRequest?.url ?? URL(string: "about:blank")!,
+              description: (didFailWithError as NSError).localizedDescription)
+    }
+    
+    #if os(macOS)
+
+    final func download(_: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
+        FileManager.default.fileExists(atPath: downloads.appendingPathComponent(suggestedFilename).path)
+            ? downloads.appendingPathComponent(UUID().uuidString + "_" + suggestedFilename)
+            : downloads.appendingPathComponent(suggestedFilename)
+    }
+
+    final func downloadDidFinish(_: WKDownload) {
+        NSWorkspace.shared.activateFileViewerSelecting([downloads])
+    }
+
+    private var downloads: URL {
+        FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
+    }
+
+    #elseif os(iOS)
+
+    final func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
+        decideDestinationUsing
+            .url
+            .map {
+                try? UIApplication.shared.share(Data(contentsOf: $0).temporal(suggestedFilename))
+            }
+        
+        await download.cancel()
+        return nil
+    }
+
+    #endif
     
     private class func clear(store: WKWebsiteDataStore) async {
         for record in await store.dataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) {

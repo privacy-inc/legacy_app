@@ -34,6 +34,16 @@
 				<string>net.daringfireball.markdown</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>URL</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.url</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
