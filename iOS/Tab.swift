@@ -8,7 +8,6 @@ struct Tab: View {
     let find: () -> Void
     let open: (URL) -> Void
     let error: (Err) -> Void
-    @State private var options = false
     @State private var progress = AnimatablePair(Double(), Double())
     
     var body: some View {
@@ -17,20 +16,7 @@ struct Tab: View {
             .edgesIgnoringSafeArea(.horizontal)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(search: search) {
-                    Button {
-                        UIApplication.shared.hide()
-                        options = true
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .symbolRenderingMode(.hierarchical)
-                            .font(.title)
-                            .frame(width: 70, height: 34)
-                            .allowsHitTesting(false)
-                    }
-                    .sheet(isPresented: $options) {
-                        Options(web: web, find: find)
-                            .edgesIgnoringSafeArea(.all)
-                    }
+                    Options(web: web, find: find)
                     
                     Spacer()
                 } trailing: {
@@ -44,8 +30,6 @@ struct Tab: View {
                             .allowsHitTesting(false)
                     }
                 }
-                .offset(y: options ? 85 : 0)
-                .animation(.easeInOut(duration: 0.2), value: options)
             }
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 0) {

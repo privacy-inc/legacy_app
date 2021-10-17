@@ -45,7 +45,7 @@ struct Activity: View {
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     
                     VStack(alignment: .leading) {
-                        Text("Trackers prevented")
+                        Text("Tracker events")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                             .padding(.bottom, 1)

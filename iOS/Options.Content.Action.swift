@@ -16,7 +16,6 @@ extension Options.Content {
             }
             .allowsHitTesting(active)
             .buttonStyle(.bordered)
-            .tint(.init("Shades"))
         }
     }
 }

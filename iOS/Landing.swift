@@ -7,7 +7,6 @@ struct Landing: View {
     let history: (UInt16) -> Void
     let access: (AccessType) -> Void
     @State private var sidebar = false
-    @State private var editing = false
     @State private var cards = [Specs.Card]()
     
     var body: some View {
@@ -25,7 +24,7 @@ struct Landing: View {
                 }
             }
             .animation(.easeInOut(duration: 0.45), value: cards)
-            edit
+            Edit()
         }
         .frame(maxWidth: .greatestFiniteMagnitude)
         .background(.ultraThickMaterial)
@@ -60,21 +59,6 @@ struct Landing: View {
                         .allowsHitTesting(false)
                 }
             }
-        }
-    }
-    
-    private var edit: some View {
-        Button {
-            editing = true
-        } label: {
-            Label("Configure", systemImage: "slider.vertical.3")
-                .font(.callout)
-                .imageScale(.large)
-        }
-        .foregroundStyle(.secondary)
-        .padding(.vertical, 50)
-        .sheet(isPresented: $editing) {
-            Edit(rootView: .init())
         }
     }
 }
