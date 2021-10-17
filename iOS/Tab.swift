@@ -62,6 +62,7 @@ struct Tab: View {
                 .allowsHitTesting(false)
                 .edgesIgnoringSafeArea(.horizontal)
             }
+            .ignoresSafeArea(.keyboard)
             .onReceive(web.publisher(for: \.estimatedProgress), perform: progress(value:))
             .onReceive(web.tab) { url in
                 tabs()

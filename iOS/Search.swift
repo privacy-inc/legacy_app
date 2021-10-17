@@ -8,14 +8,18 @@ struct Search: View {
     @State private var complete = [Complete]()
     
     var body: some View {
-        VStack {
-            Spacer()
+        VStack(spacing: 0) {
+            Rectangle()
+                .foregroundStyle(.tertiary)
                 .frame(height: 1)
+                .edgesIgnoringSafeArea(.horizontal)
+                .allowsHitTesting(false)
             if complete.isEmpty {
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(.tertiary)
                     .font(.largeTitle)
                     .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .center)
+                    .background(Color(.secondarySystemBackground))
                     .allowsHitTesting(false)
             } else {
                 List(complete) { item in

@@ -15,10 +15,10 @@ extension Landing {
                             .monospacedDigit()
                         Text("Trackers prevented")
                             .foregroundStyle(.secondary)
-                            .font(.footnote)
                             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     }
                     .animation(.none, value: count)
+                    .font(.callout)
                     .padding()
                     .modifier(Card())
                     .padding(.horizontal)

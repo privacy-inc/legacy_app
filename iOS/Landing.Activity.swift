@@ -15,16 +15,15 @@ extension Landing {
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(Color.primary, Color("Dawn"))
                             .imageScale(.large)
-                            .font(.callout)
                         if let date = date {
                             Text(verbatim: date.formatted(.relative(presentation: .named, unitsStyle: .wide)))
                                 .foregroundStyle(.secondary)
-                                .font(.footnote)
                                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                         } else {
                             Spacer()
                         }
                     }
+                    .font(.callout)
                     .animation(.none, value: date)
                     .padding()
                     .modifier(Card())

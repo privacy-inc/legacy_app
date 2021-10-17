@@ -106,9 +106,10 @@ struct Tabs: View {
                     }
             } label: {
                 Image(systemName: "plus.circle.fill")
-                    .font(.largeTitle)
+                    .font(.largeTitle.weight(.light))
                     .symbolRenderingMode(.hierarchical)
                     .foregroundColor(.init("Shades"))
+                    .shadow(color: .init("Shades"), radius: 10)
                     .allowsHitTesting(false)
             }
             .padding(.bottom)

@@ -10,19 +10,20 @@ struct Trackers: View {
             Section {
                 ForEach(item.trackers, id: \.self) {
                     Text(verbatim: $0)
-                        .font(.footnote)
+                        .font(.callout)
                         .foregroundStyle(.secondary)
                 }
             } header: {
-                Group {
+                HStack {
                     Text(verbatim: item.website + " ")
                         .foregroundColor(.primary)
                         .font(.body.bold())
-                    + Text(verbatim: item.date.formatted(.relative(presentation: .named, unitsStyle: .wide)))
+                    Spacer()
+                    Text(verbatim: item.description)
                         .foregroundColor(.secondary)
-                        .font(.caption)
+                        .font(.footnote)
+                        .monospacedDigit()
                 }
-                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 .padding(.vertical, 8)
             }
             .listRowBackground(Color(.secondarySystemBackground))
@@ -48,5 +49,19 @@ struct Trackers: View {
                     !$0.trackers.isEmpty
                 }
         }
+    }
+}
+
+private extension Events.Report {
+    var description: String {
+         count + " — " + time
+    }
+    
+    private var count: String {
+        trackers.count.formatted() + (trackers.count == 1 ? " tracker" : " trackers")
+    }
+    
+    private var time: String {
+        date.formatted(.relative(presentation: .named, unitsStyle: .wide))
     }
 }

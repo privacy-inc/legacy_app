@@ -27,7 +27,7 @@ extension Tabs {
                         Snap(image: item.image, size: 150)
                             .matchedGeometryEffect(id: item.id, in: animating, properties: .position, isSource: entering)
                             .id(item.id)
-                        Text(verbatim: item.error?.description ?? item.web?.title ?? "New")
+                        Text(verbatim: item.error?.description ?? item.web?.title ?? "")
                             .font(.caption2)
                             .lineLimit(1)
                             .padding(.horizontal)
@@ -39,8 +39,8 @@ extension Tabs {
                             } else {
                                 Image(systemName: "bolt.circle.fill")
                                     .symbolRenderingMode(.hierarchical)
-                                    .foregroundColor(.init("Shades"))
-                                    .font(.title3)
+                                    .foregroundColor(.init("Dawn"))
+                                    .font(.title)
                             }
                         }
                         .frame(width: 32, height: 32)
