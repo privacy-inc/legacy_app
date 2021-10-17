@@ -7,13 +7,8 @@ extension Options {
         let web: Web
         let share: PassthroughSubject<Void, Never>
         let find: () -> Void
-        @State private var loading = false
-        @State private var title = ""
-        @State private var url: URL?
         @State private var access: AccessType?
         @State private var publisher: Favicon.Pub?
-        @State private var backwards = false
-        @State private var forwards = false
         @Environment(\.dismiss) private var dismiss
         
         var body: some View {
@@ -21,28 +16,16 @@ extension Options {
                 icon
                 navigation
                 
-                if let url = url {
+                if let url = web.url {
                     address(url: url)
                 }
                 
                 controls
+                    .toggleStyle(SwitchToggleStyle(tint: .init("Shades")))
             }
             .background(.thickMaterial)
-            .onReceive(web.publisher(for: \.isLoading)) { value in
-                loading = value
-            }
-            .onReceive(web.publisher(for: \.url)) { value in
-                url = value
+            .onReceive(web.publisher(for: \.url)) { _ in
                 update()
-            }
-            .onReceive(web.publisher(for: \.title)) { value in
-                title = value ?? ""
-            }
-            .onReceive(web.publisher(for: \.canGoBack)) { value in
-                backwards = value
-            }
-            .onReceive(web.publisher(for: \.canGoForward)) { value in
-                forwards = value
             }
         }
         
@@ -100,13 +83,13 @@ extension Options {
         
         private var navigation: some View {
             HStack(spacing: 20) {
-                Action(symbol: "chevron.backward", active: backwards) {
+                Action(symbol: "chevron.backward", active: web.canGoBack) {
                     web.goBack()
                     update()
                 }
                 
-                Action(symbol: loading ? "xmark" : "arrow.clockwise", active: true) {
-                    if loading {
+                Action(symbol: web.isLoading ? "xmark" : "arrow.clockwise", active: true) {
+                    if web.isLoading {
                         web.stopLoading()
                     } else {
                         web.reload()
@@ -114,7 +97,7 @@ extension Options {
                     }
                 }
                 
-                Action(symbol: "chevron.forward", active: forwards) {
+                Action(symbol: "chevron.forward", active: web.canGoForward) {
                     web.goForward()
                     update()
                 }
@@ -122,7 +105,7 @@ extension Options {
         }
         
         @ViewBuilder private func address(url: URL) -> some View {
-            Text(verbatim: title)
+            Text(verbatim: web.title ?? "")
                 .foregroundStyle(.primary)
                 .font(.body)
                 .fixedSize(horizontal: false, vertical: true)
@@ -167,6 +150,26 @@ extension Options {
                 dismiss()
                 find()
             }
+            
+            Control(title: "Pause all media", symbol: "pause.circle.fill") {
+                dismiss()
+                Task {
+                    await MainActor
+                        .run {
+                            Task {
+                                await web.pauseAllMediaPlayback()
+                            }
+                        }
+                }
+            }
+            
+            Toggle("Text is selectable", isOn: .init(get: {
+                web.configuration.preferences.isTextInteractionEnabled
+            }, set: {
+                web.configuration.preferences.isTextInteractionEnabled = $0
+            }))
+                .padding(.horizontal)
+                .padding()
         }
     }
 }
