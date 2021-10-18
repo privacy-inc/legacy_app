@@ -7,9 +7,9 @@ extension UIApplication {
             .rootViewController?
             .view
             .map { view in
-                UIGraphicsImageRenderer(size: view.frame.size)
+                UIGraphicsImageRenderer(size: view.bounds.size)
                     .image { _ in
-                        view.drawHierarchy(in: view.frame, afterScreenUpdates: false)
+                        view.drawHierarchy(in: view.bounds, afterScreenUpdates: false)
                     }
             }
     }

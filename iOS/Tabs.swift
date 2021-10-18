@@ -5,9 +5,8 @@ struct Tabs: View {
     @Binding var status: Status
     let tab: () -> Void
     let add: () -> Void
+    @State private var animate = true
     @State private var size: CGFloat?
-    @State private var transition = Transition.enter
-    @Namespace private var animating
     private let scroll = PassthroughSubject<UUID, Never>()
     
     var body: some View {
@@ -17,26 +16,30 @@ struct Tabs: View {
                 .ignoresSafeArea(edges: .all)
                 .allowsHitTesting(false)
             scrollView
-            closeAll
-            adding
-            if transition != .none {
+            controls
+            if animate {
                 Snap(image: status.item.image, size: size)
-                    .allowsHitTesting(false)
-                    .matchedGeometryEffect(id: status.item.id, in: animating)
-                    .animation(.easeInOut(duration: 2))
-                    
+                    .ignoresSafeArea(edges: .all)
             }
         }
-        
         .task {
             scroll.send(status.item.id)
-            transition = .none
-//            withAnimation(.easeInOut(duration: 2)) {
-//
-//                size = 150
-//
-//
-//            }
+            withAnimation(.easeInOut(duration: 0.3)) {
+                size = 150
+            }
+            
+            DispatchQueue
+                .main
+                .asyncAfter(deadline: .now() + 0.3) {
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        animate = false
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                        scroll.send(status.item.id)
+                    }
+                }
+            
 //            withAnimation(.easeInOut(duration: 0.3)) {
 //                transition!.size = 150
 //            }
@@ -58,44 +61,25 @@ struct Tabs: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
                     Spacer()
-                        .frame(width: 20)
+                        .frame(width: padding)
                         .frame(maxHeight: .greatestFiniteMagnitude)
                     ForEach(status.items) {
-                        if transition == .none || (transition != .none && $0.id != status.item.id) {
-                            item($0)
-                        }
+                        item($0)
                     }
                     Spacer()
-                        .frame(width: 20)
+                        .frame(width: padding)
                         .frame(maxHeight: .greatestFiniteMagnitude)
                 }
             }
-            .frame(maxWidth: .greatestFiniteMagnitude)
+            .ignoresSafeArea(edges: .all)
             .onReceive(scroll) {
                 proxy.scrollTo($0, anchor: .center)
             }
         }
     }
     
-    private var adding: some View {
-        Group {
-            Button {
-                add()
-            } label: {
-                Image(systemName: "plus.circle.fill")
-                    .font(.largeTitle.weight(.light))
-                    .symbolRenderingMode(.hierarchical)
-                    .foregroundColor(.init("Shades"))
-                    .shadow(color: .init("Shades"), radius: 10)
-                    .allowsHitTesting(false)
-            }
-            .padding(.bottom)
-        }
-        .frame(maxHeight: .greatestFiniteMagnitude, alignment: .bottom)
-    }
-    
-    private var closeAll: some View {
-        Group {
+    private var controls: some View {
+        VStack {
             Button {
                 status
                     .items
@@ -119,26 +103,39 @@ struct Tabs: View {
             .buttonBorderShape(.capsule)
             .padding(.top)
             .disabled(status.items.isEmpty)
+            
+            Spacer()
+            
+            Button {
+                add()
+            } label: {
+                Image(systemName: "plus.circle.fill")
+                    .font(.largeTitle.weight(.light))
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundColor(.init("Shades"))
+                    .shadow(color: .init("Shades"), radius: 10)
+                    .allowsHitTesting(false)
+            }
+            .padding(.bottom)
         }
-        .frame(maxHeight: .greatestFiniteMagnitude, alignment: .top)
     }
     
     private func item(_ item: Status.Item) -> some View {
-        Item(item: item, animating: animating, transition: transition) {
+        Item(item: item) {
             status.index = status
                 .items
                 .firstIndex {
                     $0.id == item.id
                 }!
             
-            DispatchQueue
-                .main
-                .asyncAfter(deadline: .now() + 0.1) {
-                    withAnimation(.easeInOut(duration: 2)) {
-                        transition = .leave
-                    }
-                }
-            
+//            DispatchQueue
+//                .main
+//                .asyncAfter(deadline: .now() + 0.1) {
+//                    withAnimation(.easeInOut(duration: 2)) {
+//                        transition = .leave
+//                    }
+//                }
+//
 //            withAnimation(.easeInOut(duration: 0.2)) {
 //                transition = .init(size: 150, index: status.index)
 //            }
@@ -163,5 +160,9 @@ struct Tabs: View {
                     .clear()
             }
         }
+    }
+    
+    private var padding: CGFloat {
+        (UIScreen.main.bounds.width - 170) / 2
     }
 }

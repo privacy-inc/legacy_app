@@ -27,6 +27,7 @@ extension Tabs {
                         .font(.largeTitle)
                 }
             }
+            .allowsHitTesting(false)
         }
     }
 }
