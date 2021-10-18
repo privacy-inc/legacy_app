@@ -18,7 +18,7 @@ struct Options: View {
         }
         .sheet(isPresented: $options) {
             Representable(web: web, find: find)
-                .edgesIgnoringSafeArea(.all)
+                .ignoresSafeArea(edges: .all)
         }
     }
 }

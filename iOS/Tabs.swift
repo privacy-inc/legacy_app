@@ -2,10 +2,11 @@ import SwiftUI
 import Combine
 
 struct Tabs: View {
-    @Binding var items: [Status.Item]
-    @State var transition: Transition?
-    let tab: (Int, Bool) -> Void
-    @State private var entering = true
+    @Binding var status: Status
+    let tab: () -> Void
+    let add: () -> Void
+    @State private var size: CGFloat?
+    @State private var transition = Transition.enter
     @Namespace private var animating
     private let scroll = PassthroughSubject<UUID, Never>()
     
@@ -13,54 +14,43 @@ struct Tabs: View {
         ZStack {
             LinearGradient(gradient: .init(colors: [.init(.systemFill), .init(.secondarySystemFill)]),
                                        startPoint: .bottom, endPoint: .top)
-                .edgesIgnoringSafeArea(.all)
+                .ignoresSafeArea(edges: .all)
                 .allowsHitTesting(false)
             scrollView
             closeAll
-            add
-            if transition != nil {
-                Snap(image: items[transition!.index].image, size: transition!.size)
-                    .edgesIgnoringSafeArea(.all)
+            adding
+            if transition != .none {
+                Snap(image: status.item.image, size: size)
                     .allowsHitTesting(false)
-                    .matchedGeometryEffect(id: items[transition!.index].id, in: animating, properties: .position, isSource: !entering)
+                    .matchedGeometryEffect(id: status.item.id, in: animating)
+                    .animation(.easeInOut(duration: 2))
+                    
             }
         }
+        
         .task {
-            scroll.send(items[transition!.index].id)
+            scroll.send(status.item.id)
+            transition = .none
+//            withAnimation(.easeInOut(duration: 2)) {
+//
+//                size = 150
+//
+//
+//            }
+//            withAnimation(.easeInOut(duration: 0.3)) {
+//                transition!.size = 150
+//            }
             
-            withAnimation(.easeInOut(duration: 0.3)) {
-                transition!.size = 150
-            }
+//            withAnimation(.easeInOut(duration: 2)) {
+//                transition = nil
+//            }
             
-            DispatchQueue
-                .main
-                .asyncAfter(deadline: .now() + 0.3) {
-                    transition = nil
-                }
+//            DispatchQueue
+//                .main
+//                .asyncAfter(deadline: .now() + 0.3) {
+//                    transition = nil
+//                }
         }
-    }
-    
-    private func open(id: UUID, search: Bool) {
-        let index = items
-            .firstIndex {
-                $0.id == id
-            }!
-        
-        entering = false
-        
-        withAnimation(.easeInOut(duration: 0.1)) {
-            transition = .init(size: 150, index: index)
-        }
-        
-        withAnimation(.easeInOut(duration: 0.3)) {
-            transition?.size = nil
-        }
-        
-        DispatchQueue
-            .main
-            .asyncAfter(deadline: .now() + 0.2) {
-                tab(index, search)
-            }
     }
     
     private var scrollView: some View {
@@ -70,10 +60,8 @@ struct Tabs: View {
                     Spacer()
                         .frame(width: 20)
                         .frame(maxHeight: .greatestFiniteMagnitude)
-                    ForEach(items) {
-                        if transition != nil && $0.id == items[transition!.index].id {
-                            item($0)
-                        } else {
+                    ForEach(status.items) {
+                        if transition == .none || (transition != .none && $0.id != status.item.id) {
                             item($0)
                         }
                     }
@@ -89,21 +77,10 @@ struct Tabs: View {
         }
     }
     
-    private var add: some View {
+    private var adding: some View {
         Group {
             Button {
-                items.append(.init())
-                
-                DispatchQueue
-                    .main
-                    .asyncAfter(deadline: .now() + 0.1) {
-                        
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            scroll.send(items.last!.id)
-                        }
-                        
-                        open(id: items.last!.id, search: true)
-                    }
+                add()
             } label: {
                 Image(systemName: "plus.circle.fill")
                     .font(.largeTitle.weight(.light))
@@ -120,7 +97,8 @@ struct Tabs: View {
     private var closeAll: some View {
         Group {
             Button {
-                items
+                status
+                    .items
                     .forEach {
                         $0
                             .web?
@@ -128,7 +106,7 @@ struct Tabs: View {
                     }
                 
                 withAnimation(.easeInOut(duration: 0.3)) {
-                    items = []
+                    status.items = []
                 }
             } label: {
                 Text("Close all")
@@ -140,17 +118,44 @@ struct Tabs: View {
             .buttonStyle(.bordered)
             .buttonBorderShape(.capsule)
             .padding(.top)
-            .disabled(items.isEmpty)
+            .disabled(status.items.isEmpty)
         }
         .frame(maxHeight: .greatestFiniteMagnitude, alignment: .top)
     }
     
     private func item(_ item: Status.Item) -> some View {
-        Item(item: item, animating: animating, entering: entering) {
-            open(id: item.id, search: false)
+        Item(item: item, animating: animating, transition: transition) {
+            status.index = status
+                .items
+                .firstIndex {
+                    $0.id == item.id
+                }!
+            
+            DispatchQueue
+                .main
+                .asyncAfter(deadline: .now() + 0.1) {
+                    withAnimation(.easeInOut(duration: 2)) {
+                        transition = .leave
+                    }
+                }
+            
+//            withAnimation(.easeInOut(duration: 0.2)) {
+//                transition = .init(size: 150, index: status.index)
+//            }
+//
+//            withAnimation(.easeInOut(duration: 0.5)) {
+//                transition?.size = nil
+//            }
+            
+//            DispatchQueue
+//                .main
+//                .asyncAfter(deadline: .now() + 0.4) {
+//                    tab()
+//                }
         } close: {
             withAnimation(.easeInOut(duration: 0.3)) {
-                items
+                status
+                    .items
                     .remove {
                         $0.id == item.id
                     }?

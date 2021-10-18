@@ -13,7 +13,7 @@ struct Tab: View {
     var body: some View {
         web
             .equatable()
-            .edgesIgnoringSafeArea(.horizontal)
+            .ignoresSafeArea(edges: .horizontal)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(search: search) {
                     Options(web: web, find: find)
@@ -44,7 +44,7 @@ struct Tab: View {
                 .foregroundStyle(.secondary)
                 .background(Color(web.underPageBackgroundColor))
                 .allowsHitTesting(false)
-                .edgesIgnoringSafeArea(.horizontal)
+                .ignoresSafeArea(edges: .horizontal)
             }
             .ignoresSafeArea(.keyboard)
             .onReceive(web.publisher(for: \.estimatedProgress), perform: progress(value:))

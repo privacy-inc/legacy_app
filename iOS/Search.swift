@@ -12,7 +12,7 @@ struct Search: View {
             Rectangle()
                 .foregroundStyle(.tertiary)
                 .frame(height: 1)
-                .edgesIgnoringSafeArea(.horizontal)
+                .ignoresSafeArea(edges: .horizontal)
                 .allowsHitTesting(false)
             if complete.isEmpty {
                 Image(systemName: "magnifyingglass")

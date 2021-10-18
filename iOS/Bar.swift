@@ -16,7 +16,7 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
         VStack(spacing: 0) {
             Rectangle()
                 .frame(height: 1)
-                .edgesIgnoringSafeArea(.horizontal)
+                .ignoresSafeArea(edges: .horizontal)
                 .foregroundStyle(.secondary)
                 .allowsHitTesting(false)
             HStack(spacing: 0) {

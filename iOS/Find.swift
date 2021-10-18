@@ -58,7 +58,7 @@ struct Find: View {
                     Rectangle()
                         .foregroundStyle(.quaternary)
                         .frame(height: 1)
-                        .edgesIgnoringSafeArea(.horizontal)
+                        .ignoresSafeArea(edges: .horizontal)
                 }
                 .background(.regularMaterial)
             }

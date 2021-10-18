@@ -13,7 +13,7 @@ struct Navigation: View {
         case .search:
             Search(representable: .init(searching: searching), tab: tab, access: access)
         case .tabs:
-            Tabs(items: $status.items, transition: .init(index: status.index), tab: index)
+            Tabs(status: $status, tab: tab, add: add)
         case .find:
             Find(web: status.item.web!, end: end)
         case .error:
@@ -54,13 +54,8 @@ struct Navigation: View {
         status.tab()
     }
     
-    private func index(_ index: Int, search: Bool) {
-        status.index = index
-        if search {
-            status.animate(to: .search)
-        } else {
-            status.tab()
-        }
+    private func add() {
+        status.add()
     }
     
     private func url(_ url: URL) {

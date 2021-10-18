@@ -64,7 +64,7 @@ extension Options {
         private var separator: some View {
             Rectangle()
                 .frame(height: 1)
-                .edgesIgnoringSafeArea(.horizontal)
+                .ignoresSafeArea(edges: .horizontal)
                 .foregroundStyle(.quaternary)
                 .allowsHitTesting(false)
         }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Tabs {
-    struct Snap: View {
+    struct Snap: View {        
         let image: UIImage?
         let size: CGFloat?
         private let container = RoundedRectangle(cornerRadius: 10, style: .continuous)

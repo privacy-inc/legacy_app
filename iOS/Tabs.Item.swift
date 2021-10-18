@@ -5,7 +5,7 @@ extension Tabs {
     struct Item: View {
         let item: Status.Item
         let animating: Namespace.ID
-        let entering: Bool
+        let transition: Transition
         let open: () -> Void
         let close: () -> Void
         @State private var access: AccessType?
@@ -25,7 +25,8 @@ extension Tabs {
                 Button(action: open) {
                     VStack(spacing: 0) {
                         Snap(image: item.image, size: 150)
-                            .matchedGeometryEffect(id: item.id, in: animating, properties: .position, isSource: entering)
+                            .matchedGeometryEffect(id: item.id, in: animating)
+                            .animation(.easeInOut(duration: 2))
                             .id(item.id)
                         Text(verbatim: item.error?.description ?? item.web?.title ?? "")
                             .font(.caption2)
