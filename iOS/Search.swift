@@ -18,7 +18,7 @@ struct Search: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(.tertiary)
                     .font(.largeTitle)
-                    .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .center)
+                    .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
                     .background(Color(.secondarySystemBackground))
                     .allowsHitTesting(false)
             } else {

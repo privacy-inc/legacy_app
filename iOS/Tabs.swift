@@ -3,6 +3,8 @@ import Combine
 
 struct Tabs: View {
     @Binding var status: Status
+    @State private var offset = CGFloat()
+    @State private var create = false
     private let scroll = PassthroughSubject<Void, Never>()
     
     var body: some View {
@@ -90,9 +92,20 @@ struct Tabs: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            if status.index == nil {
+            if status.index == nil && !create {
                 Button {
-                    status.add()
+                    offset = UIScreen.main.bounds.height
+                    create = true
+                    
+                    withAnimation(.easeInOut(duration: 0.45)) {
+                        offset = 0
+                    }
+                    
+                    DispatchQueue
+                        .main
+                        .asyncAfter(deadline: .now() + 0.45) {
+                            status.add()
+                        }
                 } label: {
                     Image(systemName: "plus.circle.fill")
                         .font(.largeTitle.weight(.light))
@@ -102,6 +115,18 @@ struct Tabs: View {
                         .allowsHitTesting(false)
                 }
                 .padding(.bottom)
+            }
+            if create {
+                Image(systemName: "magnifyingglass")
+                    .foregroundStyle(.tertiary)
+                    .font(.largeTitle)
+                    .frame(height: UIScreen.main.bounds.height)
+                    .frame(maxWidth: .greatestFiniteMagnitude)
+                    .ignoresSafeArea(edges: .all)
+                    .background(Color(.secondarySystemBackground))
+                    .shadow(color: .primary.opacity(0.4), radius: 30)
+                    .offset(y: offset)
+                    .allowsHitTesting(false)
             }
         }
         .task {
