@@ -9,20 +9,20 @@ struct Navigation: View {
         case .landing:
             Landing(tabs: tabs, search: search, history: history, access: access)
         case .web:
-            Tab(web: status.item.web!, tabs: tabs, search: search, find: find, open: url, error: error)
+            Tab(web: status.item!.web!, tabs: tabs, search: search, find: find, open: url, error: error)
         case .search:
             Search(representable: .init(searching: searching), tab: tab, access: access)
         case .tabs:
-            Tabs(status: $status, tab: tab, add: add)
+            Tabs(status: $status)
         case .find:
-            Find(web: status.item.web!, end: end)
+            Find(web: status.item!.web!, end: end)
         case .error:
-            Recover(url: status.item.error?.url.absoluteString ?? "", description: status.item.error?.description ?? "", tabs: tabs, search: search, dismiss: dismiss, retry: retry)
+            Recover(url: status.item!.error?.url.absoluteString ?? "", description: status.item!.error?.description ?? "", tabs: tabs, search: search, dismiss: dismiss, retry: retry)
         }
     }
     
     private func tabs() {
-        status.item.image = UIApplication.shared.snapshot
+        status.item!.image = UIApplication.shared.snapshot
         status.flow = .tabs
     }
     
@@ -43,19 +43,15 @@ struct Navigation: View {
     }
     
     private func retry() {
-        let url = status.item.error!.url
-        status.item.error = nil
-        status.item.web?.load(url)
+        let url = status.item!.error!.url
+        status.item!.error = nil
+        status.item!.web?.load(url)
         status.tab()
     }
     
     private func error(_ error: Err) {
-        status.item.error = error
+        status.item!.error = error
         status.tab()
-    }
-    
-    private func add() {
-        status.add()
     }
     
     private func url(_ url: URL) {

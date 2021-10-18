@@ -5,6 +5,6 @@ struct Card: ViewModifier {
         content
             .background(RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .fill(Color(.systemBackground))
-                            .shadow(color: .primary.opacity(0.15), radius: 4))
+                            .shadow(color: .primary.opacity(0.2), radius: 4))
     }
 }

@@ -2,23 +2,30 @@ import SwiftUI
 import Specs
 
 struct Status {
+    var index: Int? = 0
     var flow = Flow.landing
-    var index = 0
     var items = [Item()]
     
-    var item: Item {
+    var item: Item? {
         get {
-            items[index]
+            index
+                .map {
+                    items[$0]
+                }
         }
         set {
-            items[index] = newValue
+            guard
+                let index = index,
+                let item = newValue
+            else { return }
+            items[index] = item
         }
     }
     
     mutating func tab() {
-        if item.error != nil {
+        if item!.error != nil {
             animate(to: .error)
-        } else if item.history != nil {
+        } else if item!.history != nil {
             flow = .web
         } else {
             animate(to: .landing)
@@ -32,34 +39,34 @@ struct Status {
     }
     
     mutating func web() async {
-        item.error = nil
+        item!.error = nil
         
-        if item.web == nil {
-            item.web = await .init(history: item.history!, settings: cloud.model.settings.configuration)
+        if item!.web == nil {
+            item!.web = await .init(history: item!.history!, settings: cloud.model.settings.configuration)
         }
         
         flow = .web
         
         if let access = await cloud
-            .website(history: item.history!)?
+            .website(history: item!.history!)?
             .access {
             
-            await item.web!.load(access)
+            await item!.web!.load(access)
         }
     }
     
     mutating func dismiss() async {
-        item.error = nil
+        item!.error = nil
         
-        if let history = item.history,
-           let url = await item.web?.url,
-           let title = await item.web?.title {
+        if let history = item!.history,
+           let url = await item!.web?.url,
+           let title = await item!.web?.title {
             
             await cloud.update(url: url, history: history)
             await cloud.update(title: title, history: history)
         } else {
-            item.history = nil
-            item.web = nil
+            item!.history = nil
+            item!.web = nil
         }
         
         tab()
@@ -72,12 +79,12 @@ struct Status {
     }
     
     mutating func history(_ id: UInt16) async {
-        item.history = id
+        item!.history = id
         await web()
     }
     
     mutating func access(_ access: AccessType) async {
-        if let id = item.history {
+        if let id = item!.history {
             await cloud.open(access: access, history: id)
             await web()
         } else {
@@ -87,7 +94,7 @@ struct Status {
     
     mutating func searching(search: String) async {
         do {
-            if let id = item.history {
+            if let id = item!.history {
                 try await cloud.search(search, history: id)
                 await web()
             } else {
