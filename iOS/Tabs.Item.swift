@@ -21,6 +21,8 @@ extension Tabs {
                                 .symbolRenderingMode(.hierarchical)
                                 .foregroundStyle(.quaternary)
                                 .font(.title)
+                                .zIndex(-1)
+                                .allowsHitTesting(false)
                         }
                     }
                     
@@ -60,6 +62,7 @@ extension Tabs {
                             .lineLimit(1)
                             .frame(width: 135)
                             .padding(.bottom, 100)
+                            .zIndex(-1)
                             .allowsHitTesting(false)
                     }
                 }
