@@ -7,7 +7,7 @@ struct Navigation: View {
     var body: some View {
         switch status.flow {
         case .landing:
-            Landing(tabs: tabs, search: search, history: history, access: access)
+            Landing(tabs: tabs, search: search, clear: clear, history: history, access: access)
         case .web:
             Tab(web: status.item!.web!, tabs: tabs, search: search, find: find, open: url, error: error)
         case .search:
@@ -84,5 +84,20 @@ struct Navigation: View {
             .detached(priority: .utility) {
                 await status.searching(search: search)
             }
+    }
+    
+    private func clear() {
+        status
+            .items
+            .filter {
+                $0.id != status.item!.id
+            }
+            .forEach {
+                $0
+                    .web?
+                    .clear()
+            }
+        status.items = [status.item!]
+        status.index = 0
     }
 }

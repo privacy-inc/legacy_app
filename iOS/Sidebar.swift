@@ -3,6 +3,7 @@ import Specs
 
 struct Sidebar: View {
     @Binding var presented: Bool
+    let clear: () -> Void
     let access: (AccessType) -> Void
     let history: (UInt16) -> Void
     @State private var forget = false
@@ -44,20 +45,15 @@ struct Sidebar: View {
                             .allowsHitTesting(false)
                     }
                     .confirmationDialog("Forget", isPresented: $forget) {
-                        Button("Cache") {
-                            
-                        }
+                        Button("Cache", action: Forget.cache)
                         Button("History") {
-                            
+                            Forget.history()
+                            clear()
                         }
-                        Button("Activity") {
-                            
-                        }
-                        Button("Trackers") {
-                            
-                        }
+                        Button("Activity", action: Forget.activity)
                         Button("Everything", role: .destructive) {
-
+                            Forget.everything()
+                            clear()
                         }
                     }
                 }

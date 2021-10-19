@@ -282,14 +282,14 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
 
     #endif
     
-    final class func clear() async {
+    @MainActor final class func clear() async {
         URLCache.shared.removeAllCachedResponses()
         HTTPCookieStorage.shared.removeCookies(since: .distantPast)
         await clear(store: .default())
         await clear(store: .nonPersistent())
     }
     
-    private class func clear(store: WKWebsiteDataStore) async {
+    @MainActor private class func clear(store: WKWebsiteDataStore) async {
         for record in await store.dataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) {
             await store.removeData(ofTypes: record.dataTypes, for: [record])
         }

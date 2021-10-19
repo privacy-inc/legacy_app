@@ -4,6 +4,7 @@ import Specs
 struct Landing: View {
     let tabs: () -> Void
     let search: () -> Void
+    let clear: () -> Void
     let history: (UInt16) -> Void
     let access: (AccessType) -> Void
     @State private var sidebar = false
@@ -45,7 +46,7 @@ struct Landing: View {
                         .allowsHitTesting(false)
                 }
                 .sheet(isPresented: $sidebar) {
-                    Sidebar(presented: $sidebar, access: access, history: history)
+                    Sidebar(presented: $sidebar, clear: clear, access: access, history: history)
                 }
                 
                 Spacer()
