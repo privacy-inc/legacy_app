@@ -1,22 +1,24 @@
 import SwiftUI
-import Combine
 
 struct Tabs: View {
     @Binding var status: Status
     @State private var offset = CGFloat()
     @State private var create = false
-    private let scroll = PassthroughSubject<Void, Never>()
+    @State private var hide = false
     
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
-                    Spacer()
-                        .frame(width: 30)
-                        .frame(maxHeight: .greatestFiniteMagnitude)
-                    ForEach(status.items) { item in
+                    if !hide {
+                        Spacer()
+                            .frame(width: 30)
+                            .frame(maxHeight: .greatestFiniteMagnitude)
+                    }
+                    ForEach(hide ? [status.item!] : status.items) { item in
                         Item(item: item, selected: item.id == status.item?.id) {
-                            withAnimation(.easeInOut(duration: 0.3)) {
+                            withAnimation(.easeInOut(duration: 0.4)) {
+                                hide = true
                                 status.index = status
                                     .items
                                     .firstIndex {
@@ -26,15 +28,7 @@ struct Tabs: View {
                             
                             DispatchQueue
                                 .main
-                                .asyncAfter(deadline: .now() + 0.2) {
-                                    withAnimation(.easeInOut(duration: 0.15)) {
-                                        scroll.send()
-                                    }
-                                }
-                            
-                            DispatchQueue
-                                .main
-                                .asyncAfter(deadline: .now() + 0.35) {
+                                .asyncAfter(deadline: .now() + 0.4) {
                                     status.tab()
                                 }
                         } close: {
@@ -49,14 +43,16 @@ struct Tabs: View {
                             }
                         }
                     }
-                    Spacer()
-                        .frame(width: 30)
-                        .frame(maxHeight: .greatestFiniteMagnitude)
+                    if !hide {
+                        Spacer()
+                            .frame(width: 30)
+                            .frame(maxHeight: .greatestFiniteMagnitude)
+                    }
                 }
             }
             .background(LinearGradient(gradient: .init(colors: [.clear, .primary.opacity(0.2)]), startPoint: .bottom, endPoint: .top))
             .ignoresSafeArea(edges: .all)
-            .onReceive(scroll) {
+            .task {
                 status
                     .item
                     .map {
@@ -130,8 +126,7 @@ struct Tabs: View {
             }
         }
         .task {
-            scroll.send()
-            withAnimation(.easeInOut(duration: 0.35)) {
+            withAnimation(.easeInOut(duration: 0.4)) {
                 status.index = nil
             }
         }
