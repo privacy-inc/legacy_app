@@ -34,19 +34,13 @@ extension Tabs {
                             .stroke(Color(.systemBackground), style: .init(lineWidth: 2))
                             .frame(width: size, height: size)
                             .allowsHitTesting(false)
-                        if let image = item.image {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: size, height: size)
-                                .clipShape(container)
-                                .allowsHitTesting(false)
-                        } else {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundStyle(.tertiary)
-                                .font(.largeTitle)
-                                .allowsHitTesting(false)
-                        }
+                        
+                        Image(uiImage: item.image ?? .blank)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: size, height: size)
+                            .clipShape(container)
+                            .allowsHitTesting(false)
                         
                         if size != nil {
                             Button(action: close) {

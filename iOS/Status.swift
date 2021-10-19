@@ -73,8 +73,10 @@ struct Status {
     }
     
     @MainActor mutating func url(_ url: URL) async {
-        items.append(.init())
-        index = items.count - 1
+        if item?.web != nil || item?.history != nil {
+            items.append(.init())
+            index = items.count - 1
+        }
         await history(cloud.open(url: url))
     }
     
