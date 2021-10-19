@@ -11,7 +11,7 @@ extension Options.Content {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(Color(.systemBackground))
-                        .shadow(color: .init(white: 0, opacity: 0.2), radius: 1)
+                        .shadow(color: .init(white: 0, opacity: 0.2), radius: 2)
                     HStack {
                         Text(title)
                             .lineLimit(1)
@@ -25,7 +25,7 @@ extension Options.Content {
                     .padding(.horizontal)
                     .foregroundStyle(.primary)
                 }
-                .frame(height: 44)
+                .frame(height: 50)
                 .allowsHitTesting(false)
             }
             .padding(.horizontal)

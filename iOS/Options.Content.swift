@@ -153,7 +153,7 @@ extension Options {
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color(.systemBackground))
-                    .shadow(color: .init(white: 0, opacity: 0.2), radius: 1)
+                    .shadow(color: .init(white: 0, opacity: 0.2), radius: 2)
                 Toggle("Disable text selection", isOn: .init(get: {
                     !web.configuration.preferences.isTextInteractionEnabled
                 }, set: {
@@ -164,8 +164,8 @@ extension Options {
                 .padding(.horizontal)
             }
             .padding(.horizontal)
-            .frame(height: 44)
-            .padding(.top)
+            .frame(height: 50)
+            .padding(.top, 30)
             
             Control(title: "Share", symbol: "square.and.arrow.up") {
                 share.send()
