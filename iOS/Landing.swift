@@ -10,7 +10,7 @@ struct Landing: View {
     @State private var cards = [Specs.Card]()
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             ForEach(cards) {
                 switch $0.id {
                 case .trackers:

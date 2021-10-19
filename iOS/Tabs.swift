@@ -60,57 +60,62 @@ struct Tabs: View {
                     }
             }
         }
-        .safeAreaInset(edge: .top) {
-            if status.index == nil {
-                Button {
-                    status
-                        .items
-                        .forEach {
-                            $0
-                                .web?
-                                .clear()
-                        }
-                    
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        status.items = []
-                    }
-                } label: {
-                    Text("Close all")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                        .padding(.horizontal, 5)
-                        .allowsHitTesting(false)
-                }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.capsule)
-                .disabled(status.items.isEmpty)
-                .padding(.top)
-            }
-        }
         .safeAreaInset(edge: .bottom) {
             if status.index == nil && !create {
-                Button {
-                    offset = UIScreen.main.bounds.height
-                    create = true
-                    
-                    withAnimation(.easeInOut(duration: 0.45)) {
-                        offset = 0
-                    }
-
-                    DispatchQueue
-                        .main
-                        .asyncAfter(deadline: .now() + 0.45) {
-                            status.add()
+                ZStack {
+                    HStack {
+                        Button {
+                            status
+                                .items
+                                .forEach {
+                                    $0
+                                        .web?
+                                        .clear()
+                                }
+                            
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                status.items = []
+                            }
+                        } label: {
+                            Text("Close all")
+                                .foregroundStyle(status.items.isEmpty ? .tertiary : .primary)
+                                .frame(height: 34)
+                                .contentShape(Rectangle())
+                                .allowsHitTesting(false)
                         }
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.largeTitle.weight(.light))
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundColor(.init("Shades"))
-                        .shadow(color: .init("Shades"), radius: 10)
-                        .allowsHitTesting(false)
+                        .disabled(status.items.isEmpty)
+                        
+                        Spacer()
+                        
+                        Text(verbatim: "\(status.items.count.formatted()) tab" + (status.items.count == 1 ? "" : "s"))
+                            .foregroundStyle(status.items.isEmpty ? .tertiary : .secondary)
+                            .allowsHitTesting(false)
+                    }
+                    .font(.callout.monospacedDigit())
+                    .padding(.horizontal)
+                    Button {
+                        offset = UIScreen.main.bounds.height
+                        create = true
+                        
+                        withAnimation(.easeInOut(duration: 0.45)) {
+                            offset = 0
+                        }
+
+                        DispatchQueue
+                            .main
+                            .asyncAfter(deadline: .now() + 0.45) {
+                                status.add()
+                            }
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.largeTitle.weight(.light))
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundColor(.init("Shades"))
+                            .shadow(color: .init("Shades"), radius: 10)
+                            .allowsHitTesting(false)
+                    }
                 }
-                .padding(.bottom)
+                .padding([.leading, .trailing, .bottom])
             }
             if create {
                 Image(systemName: "magnifyingglass")

@@ -21,8 +21,7 @@ struct Trackers: View {
                     Spacer()
                     Text(verbatim: item.description)
                         .foregroundColor(.secondary)
-                        .font(.footnote)
-                        .monospacedDigit()
+                        .font(.footnote.monospacedDigit())
                 }
                 .padding(.vertical, 8)
             }
@@ -33,8 +32,7 @@ struct Trackers: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Text(count.formatted() + " prevented")
-                    .monospacedDigit()
-                    .font(.callout)
+                    .font(.callout.monospacedDigit())
                     .foregroundStyle(.secondary)
             }
         }

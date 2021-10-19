@@ -42,15 +42,15 @@ extension Tabs {
                             .clipShape(container)
                             .allowsHitTesting(false)
                         
-                        if size != nil {
-                            Button(action: close) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .font(.title.weight(.light))
-                                    .foregroundStyle(Color(.systemBackground), Color.secondary)
-                                    .symbolRenderingMode(.palette)
-                                    .allowsHitTesting(false)
-                            }
+                        Button(action: close) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title.weight(.light))
+                                .foregroundStyle(Color(.systemBackground), Color.secondary)
+                                .symbolRenderingMode(.palette)
+                                .allowsHitTesting(false)
                         }
+                        .opacity(selected ? 0 : 1)
+                        .disabled(selected)
                     }
                     .id(item.id)
                     
@@ -59,6 +59,7 @@ extension Tabs {
                             .font(.caption2.weight(.light))
                             .lineLimit(1)
                             .frame(width: 135)
+                            .padding(.bottom, 100)
                             .allowsHitTesting(false)
                     }
                 }

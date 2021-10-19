@@ -15,8 +15,7 @@ extension Search {
                         .allowsHitTesting(false)
                 } else {
                     Text("\(count.formatted()) found")
-                        .font(.callout)
-                        .monospacedDigit()
+                        .font(.callout.monospacedDigit())
                         .foregroundStyle(.primary)
                         .allowsHitTesting(false)
                 }
