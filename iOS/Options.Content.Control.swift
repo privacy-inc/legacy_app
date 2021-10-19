@@ -11,7 +11,7 @@ extension Options.Content {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(Color(.systemBackground))
-                        .shadow(color: .init(white: 0, opacity: 0.2), radius: 2)
+                        .shadow(color: .init(white: 0, opacity: 0.1), radius: 2)
                     HStack {
                         Text(title)
                             .lineLimit(1)
