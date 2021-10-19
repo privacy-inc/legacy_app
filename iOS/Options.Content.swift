@@ -127,7 +127,7 @@ extension Options {
         
         private func address(url: URL) -> some View {
             VStack(alignment: .leading) {
-                Text(verbatim: web.title ?? "")
+                Text(verbatim: web.title ?? url.host ?? "")
                     .foregroundStyle(.primary)
                     .font(.footnote)
                 Group {

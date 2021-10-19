@@ -40,12 +40,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
     #endif
 
-        WKContentRuleListStore
-            .default()!
-            .compileContentRuleList(forIdentifier: "rules", encodedContentRuleList: settings.blockers) { rules, _ in
-                rules.map(configuration.userContentController.add)
-            }
-
         super.init(frame: .zero, configuration: configuration)
         navigationDelegate = self
         uiDelegate = self
@@ -92,6 +86,15 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                     self?.underPageBackgroundColor = alpha == 0 ? .secondarySystemBackground : color
                 }
                 .store(in: &subs)
+        }
+        
+        Task {
+            guard
+                let rules = try? await WKContentRuleListStore.default().compileContentRuleList(
+                    forIdentifier: "rules",
+                    encodedContentRuleList: settings.blockers)
+            else { return }
+            configuration.userContentController.add(rules)
         }
     }
     
