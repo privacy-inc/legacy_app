@@ -16,6 +16,7 @@ extension Tabs {
                     if !selected {
                         if let publisher = publisher {
                             Icon(access: access!, publisher: publisher)
+                                .zIndex(-1)
                         } else {
                             Image(systemName: "globe")
                                 .symbolRenderingMode(.hierarchical)
