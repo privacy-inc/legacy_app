@@ -54,6 +54,7 @@ struct Tabs: View {
                         .frame(maxHeight: .greatestFiniteMagnitude)
                 }
             }
+            .background(LinearGradient(gradient: .init(colors: [.clear, .primary.opacity(0.2)]), startPoint: .bottom, endPoint: .top))
             .ignoresSafeArea(edges: .all)
             .onReceive(scroll) {
                 status
@@ -63,7 +64,6 @@ struct Tabs: View {
                     }
             }
         }
-        .background(LinearGradient(gradient: .init(colors: [.clear, .primary.opacity(0.2)]), startPoint: .bottom, endPoint: .top))
         .safeAreaInset(edge: .top) {
             if status.index == nil {
                 Button {
@@ -100,7 +100,7 @@ struct Tabs: View {
                     withAnimation(.easeInOut(duration: 0.45)) {
                         offset = 0
                     }
-                    
+
                     DispatchQueue
                         .main
                         .asyncAfter(deadline: .now() + 0.45) {
