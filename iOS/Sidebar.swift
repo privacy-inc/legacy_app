@@ -36,14 +36,18 @@ struct Sidebar: View {
                             .contentShape(Rectangle())
                     }
                 }
-                ToolbarItemGroup(placement: .bottomBar) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         forget = true
                     } label: {
-                        Text("Forget \(Image(systemName: "flame.fill"))")
-                            .font(.callout)
-                            .imageScale(.large)
-                            .allowsHitTesting(false)
+                        HStack {
+                            Image(systemName: "flame.fill")
+                                .font(.callout)
+                                .foregroundColor(.init("Dawn"))
+                            Text("Forget")
+                                .font(.footnote)
+                        }
+                        .allowsHitTesting(false)
                     }
                     .confirmationDialog("Forget", isPresented: $forget) {
                         Button("Cache", action: Forget.cache)
@@ -100,7 +104,7 @@ struct Sidebar: View {
                     .allowsHitTesting(false)
             }
             
-            NavigationLink(destination: Circle()) {
+            NavigationLink(destination: Plus()) {
                 Label("Privacy +", systemImage: "plus.viewfinder")
                     .allowsHitTesting(false)
             }
