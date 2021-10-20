@@ -1,4 +1,5 @@
 import UIKit
+import StoreKit
 
 extension UIApplication {
     var snapshot: UIImage? {
@@ -28,6 +29,11 @@ extension UIApplication {
     
     func hide() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
+    func review() {
+        scene
+            .map(SKStoreReviewController.requestReview(in:))
     }
     
     func share(_ any: Any) {

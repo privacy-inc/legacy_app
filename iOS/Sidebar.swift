@@ -14,6 +14,7 @@ struct Sidebar: View {
                 report
                 websites
                 app
+                help
             }
             .symbolRenderingMode(.multicolor)
             .listStyle(.insetGrouped)
@@ -104,8 +105,23 @@ struct Sidebar: View {
                     .allowsHitTesting(false)
             }
             
-            NavigationLink(destination: Circle()) {
+            NavigationLink(destination: About()) {
                 Label("About", systemImage: "eyeglasses")
+                    .allowsHitTesting(false)
+            }
+        }
+        .headerProminence(.increased)
+    }
+    
+    private var help: some View {
+        Section("Help") {
+            NavigationLink(destination: Info(title: "Policy", text: Copy.policy)) {
+                Label("Privacy policy", systemImage: "hand.raised")
+                    .allowsHitTesting(false)
+            }
+            
+            NavigationLink(destination: Info(title: "Terms and conditions", text: Copy.terms)) {
+                Label("Terms and conditions", systemImage: "doc.plaintext")
                     .allowsHitTesting(false)
             }
         }

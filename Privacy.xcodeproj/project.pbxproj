@@ -15,6 +15,8 @@
 		CE17245126F909AC00C2CED5 /* Landing.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17245026F909AC00C2CED5 /* Landing.History.swift */; };
 		CE1D9C3226FB6883004F8B6B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D9C3126FB6883004F8B6B /* Status.swift */; };
 		CE1ECE42271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1ECE41271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift */; };
+		CE22EAF82720224F00A9B29B /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE22EAF72720224E00A9B29B /* About.swift */; };
+		CE22EAFA27202EAF00A9B29B /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE22EAF927202EAF00A9B29B /* Info.swift */; };
 		CE383746270DD0FC006A8FE7 /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE383745270DD0FC006A8FE7 /* Trackers.swift */; };
 		CE398B702715893200029FFC /* Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE398B6F2715893200029FFC /* Find.swift */; };
 		CE3B64FE27199CD10040AD0A /* Search.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B64FD27199CD10040AD0A /* Search.Item.swift */; };
@@ -94,6 +96,8 @@
 		CE17245026F909AC00C2CED5 /* Landing.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.swift; sourceTree = "<group>"; };
 		CE1D9C3126FB6883004F8B6B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		CE1ECE41271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.Other.swift; sourceTree = "<group>"; };
+		CE22EAF72720224E00A9B29B /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
+		CE22EAF927202EAF00A9B29B /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		CE383745270DD0FC006A8FE7 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CE398B6F2715893200029FFC /* Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Find.swift; sourceTree = "<group>"; };
 		CE3B64FD27199CD10040AD0A /* Search.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Item.swift; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 			children = (
 				CEAAFB2027009BB900149F0C /* iOS.entitlements */,
 				CE46B4EF26F79B2200A5B5BB /* Info.plist */,
+				CE22EAF72720224E00A9B29B /* About.swift */,
 				CE4047E82707115800E101D1 /* Action.swift */,
 				CE9424EA270F4A06002225CE /* Activity.swift */,
 				CEAAFB2627009E4000149F0C /* App.Delegate.swift */,
@@ -213,6 +218,7 @@
 				CE398B6F2715893200029FFC /* Find.swift */,
 				CE8DFC1C2707424D00229E92 /* History.swift */,
 				CE6FE9A627031D9C00403ADA /* Icon.swift */,
+				CE22EAF927202EAF00A9B29B /* Info.swift */,
 				CE7DAB7526FB42DF00BEAA0F /* Int.swift */,
 				CE470A6E26FA2284002D560A /* Landing.Activity.swift */,
 				CE1ECE41271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift */,
@@ -430,10 +436,12 @@
 				CE3B65022719B23A0040AD0A /* Settings.Features.swift in Sources */,
 				CE8AF27C26FF698A00F6655F /* Global.swift in Sources */,
 				CE17244926F8E9B300C2CED5 /* Status.Flow.swift in Sources */,
+				CE22EAFA27202EAF00A9B29B /* Info.swift in Sources */,
 				CED63AEC27048150001C8183 /* Options.Content.swift in Sources */,
 				CE53276A271B13FA005C55D5 /* Status.Item.swift in Sources */,
 				CE17244B26F8EEA500C2CED5 /* Landing.swift in Sources */,
 				CE9DFA0D2706136500D69810 /* Settings.swift in Sources */,
+				CE22EAF82720224F00A9B29B /* About.swift in Sources */,
 				CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */,
 				CE4047EB270721C000E101D1 /* Bookmarks.swift in Sources */,
 				CE6FE9AB2703345C00403ADA /* Tabs.Item.swift in Sources */,
