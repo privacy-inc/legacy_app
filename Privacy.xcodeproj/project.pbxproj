@@ -87,6 +87,7 @@
 		CED63AEC27048150001C8183 /* Options.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED63AEB27048150001C8183 /* Options.Content.swift */; };
 		CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
 		CEF5548926FDD4FA00FE0E9C /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548726FDD4FA00FE0E9C /* Web.swift */; };
+		CEFEAAAD272069210073149D /* Plus.Banner.Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEAAAC272069210073149D /* Plus.Banner.Particle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -172,6 +173,7 @@
 		CED63AEB27048150001C8183 /* Options.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.swift; sourceTree = "<group>"; };
 		CEF5548226FDD4F000FE0E9C /* Webview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
 		CEF5548726FDD4FA00FE0E9C /* Web.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
+		CEFEAAAC272069210073149D /* Plus.Banner.Particle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Banner.Particle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 				CED63AE927047E5A001C8183 /* Options.Representable.swift */,
 				CE63F093271453CC00918E54 /* Options.Share.swift */,
 				CE480E35271C835000774E5C /* Options.swift */,
+				CEFEAAAC272069210073149D /* Plus.Banner.Particle.swift */,
 				CE22EAFD2720390400A9B29B /* Plus.Banner.swift */,
 				CE22EAFB272037BE00A9B29B /* Plus.swift */,
 				CE8422C627171D83007D7A0B /* Recover.swift */,
@@ -451,6 +454,7 @@
 				CE22EAF82720224F00A9B29B /* About.swift in Sources */,
 				CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */,
 				CE4047EB270721C000E101D1 /* Bookmarks.swift in Sources */,
+				CEFEAAAD272069210073149D /* Plus.Banner.Particle.swift in Sources */,
 				CE6FE9AB2703345C00403ADA /* Tabs.Item.swift in Sources */,
 				CE9B93F426F89F1E005E1D7F /* Navigation.swift in Sources */,
 				CE9B637026FC8B6200CD4DCE /* Search.swift in Sources */,
