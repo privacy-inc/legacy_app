@@ -4,7 +4,7 @@ extension Plus {
     struct Banner: View {
         @State private var particles = [Particle]()
         @State private var shines = [Shine]()
-        private let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
+        private let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
         private let shining = GraphicsContext.Shading.color(.primary.opacity(0.1))
         private let gradient = GraphicsContext.Shading.linearGradient(.init(colors: [.init("Shades"), .init("Dawn")]),
                                                                       startPoint: .init(x: -30, y: -30),
@@ -63,11 +63,11 @@ extension Plus {
                                 context
                                     .stroke(.init {
                                         $0.addArc(center: .init(x: shine.x, y: shine.y),
-                                                  radius: 33,
+                                                  radius: 34,
                                                   startAngle: .radians(shine.start),
                                                   endAngle: .radians(shine.start + shine.length),
                                                   clockwise: shine.clockwise)
-                                    }, with: shining, style: .init(lineWidth: 2, lineCap: .square))
+                                    }, with: shining, style: .init(lineWidth: 3, lineCap: .square))
                             }
                     }
                 }
@@ -78,7 +78,7 @@ extension Plus {
                     .compactMap {
                         $0.tick()
                     }
-                if Int.random(in: 0 ..< 20) == 0 {
+                if Int.random(in: 0 ..< 15) == 0 {
                     particles.append(.new())
                 }
                 
@@ -86,7 +86,7 @@ extension Plus {
                     .compactMap {
                         $0.tick()
                     }
-                if Int.random(in: 0 ..< 15) == 0 {
+                if Int.random(in: 0 ..< 10) == 0 {
                     shines.append(.new())
                 }
             }

@@ -29,7 +29,7 @@ extension Plus.Banner {
             remain = .random(in: 300 ..< 2000)
             clockwise = .random()
             length = clockwise ? -Double.random(in: 0.02 ..< 0.7) : .random(in: 0.02 ..< 0.7)
-            step = clockwise ? .random(in: 0.0002 ..< 0.007) : -Double.random(in: 0.0002 ..< 0.007)
+            step = clockwise ? .random(in: 0.001 ..< 0.035) : -Double.random(in: 0.001 ..< 0.035)
         }
         
         private init(x: Double, y: Double, start: Double, length: Double, clockwise: Bool, step: Double, remain: Int) {
