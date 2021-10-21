@@ -10,10 +10,10 @@ extension Plus.Banner {
         private let decrease: Double
         
         static func new() -> Self {
-            .init(radius: .random(in: 1 ... 20),
+            .init(radius: .random(in: 0.1 ... 20),
                   x: .random(in: 20 ..< 230),
                   y: .random(in: 20 ..< 230),
-                  opacity: .random(in: 0.02 ..< 0.9),
+                  opacity: .random(in: 0.01 ..< 0.95),
                   blue: .random(),
                   decrease: .random(in: 1.0002 ..< 1.035))
         }
