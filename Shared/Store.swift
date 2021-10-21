@@ -63,11 +63,8 @@ struct Store {
         await load()
     }
     
-    func purchase(legacy: SKProduct) {
-        Task
-            .detached {
-                guard let product = try? await Product.products(for: [legacy.productIdentifier]).first else { return }
-                await purchase(product)
-            }
+    func purchase(legacy: SKProduct) async {
+        guard let product = try? await Product.products(for: [legacy.productIdentifier]).first else { return }
+        await purchase(product)
     }
 }
