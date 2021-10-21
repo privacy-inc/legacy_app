@@ -37,7 +37,7 @@ struct Store {
     
     @MainActor func purchase(_ product: Product) async {
         status.send(.loading)
-        
+
         do {
             switch try await product.purchase() {
             case let .success(verification):
@@ -56,6 +56,11 @@ struct Store {
         } catch let error {
             status.send(.error(error.localizedDescription))
         }
+    }
+    
+    @MainActor func restore() async {
+        try? await AppStore.sync()
+        await load()
     }
     
     func purchase(legacy: SKProduct) {

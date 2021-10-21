@@ -36,16 +36,6 @@
 		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
-			<string>URL</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.url</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeName</key>
 			<string>Webarchive</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
@@ -62,16 +52,6 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.adobe.pdf</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeName</key>
-			<string>File URL</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>public.file-url</string>
 			</array>
 		</dict>
 	</array>

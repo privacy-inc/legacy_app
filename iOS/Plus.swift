@@ -104,7 +104,9 @@ struct Plus: View {
         
         Section("Already supporting Privacy?") {
             Button {
-                
+                Task {
+                    await store.restore()
+                }
             } label: {
                 HStack {
                     Text("Restore purchases")
