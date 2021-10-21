@@ -120,7 +120,7 @@ struct Sidebar: View {
     private var help: some View {
         Section("Help") {
             NavigationLink(destination: Info(title: "Policy", text: Copy.policy)) {
-                Label("Privacy policy", systemImage: "hand.raised")
+                Label("Policy", systemImage: "hand.raised")
                     .allowsHitTesting(false)
             }
             

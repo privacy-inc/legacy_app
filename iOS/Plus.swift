@@ -120,10 +120,10 @@ struct Plus: View {
     
     private var disclaimer: some View {
         Section {
-            NavigationLink(destination: Circle()) {
+            NavigationLink(destination: Info(title: "Why Purchases", text: Copy.why)) {
                 Label("Why In-App Purchases", systemImage: "questionmark.app.dashed")
             }
-            NavigationLink(destination: Circle()) {
+            NavigationLink(destination: Info(title: "Alternatives", text: Copy.alternatives)) {
                 Label("Alternatives", systemImage: "arrow.triangle.branch")
             }
         }
