@@ -35,7 +35,7 @@ struct About: View {
                 
                 Button {
                     UIApplication.shared.review()
-                    Defaults.rated = true
+                    Defaults.hasRated = true
                 } label: {
                     HStack {
                         Text("Rate on the App Store")

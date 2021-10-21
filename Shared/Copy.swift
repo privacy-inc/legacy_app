@@ -52,4 +52,8 @@ The data stored locally is protected by the operative system's *sandbox*, meanin
 
 By using this app you are accepting these terms.
 """
+    
+    static let noPurchases = """
+No In-App Purchases available at the moment, try again later.
+"""
 }

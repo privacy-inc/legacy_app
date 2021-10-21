@@ -19,10 +19,9 @@ struct Store {
     
     @MainActor func load() async {
         do {
-            //let products = try await Product.products(for: Purchase.allCases.map(\.rawValue))
-            let products = try await Product.products(for: [])
+            let products = try await Product.products(for: Item.allCases.map(\.rawValue))
             if products.isEmpty {
-                status.send(.error("No In-App Purchases available at the moment, try again later."))
+                status.send(.error(Copy.noPurchases))
             } else {
                 status.send(
                     .products(
