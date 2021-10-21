@@ -11,6 +11,7 @@ struct Info: View {
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 .padding()
                 .padding(.bottom)
+                .allowsHitTesting(false)
         }
         .frame(maxWidth: .greatestFiniteMagnitude)
         .background(.ultraThickMaterial)

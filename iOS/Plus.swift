@@ -19,6 +19,7 @@ struct Plus: View {
             .listRowSeparator(.hidden)
             .listSectionSeparator(.hidden)
             .listRowBackground(Color.clear)
+            .allowsHitTesting(false)
             
             title
             
@@ -53,6 +54,7 @@ struct Plus: View {
         .listRowSeparator(.hidden)
         .listSectionSeparator(.hidden)
         .listRowBackground(Color.clear)
+        .allowsHitTesting(false)
     }
     
     private var isPremium: some View {
@@ -73,6 +75,7 @@ struct Plus: View {
         .listRowSeparator(.hidden)
         .listSectionSeparator(.hidden)
         .listRowBackground(Color.clear)
+        .allowsHitTesting(false)
     }
     
     @ViewBuilder private var notPremium: some View {
@@ -83,11 +86,13 @@ struct Plus: View {
                     .font(.largeTitle.weight(.light))
                     .symbolRenderingMode(.multicolor)
                     .frame(maxWidth: .greatestFiniteMagnitude)
+                    .allowsHitTesting(false)
             case let .error(error):
                 Text(verbatim: error)
                     .foregroundColor(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding()
+                    .allowsHitTesting(false)
             case let .products(products):
                 if let product = products.first {
                     item(product: product)
@@ -95,6 +100,7 @@ struct Plus: View {
                     Text(Copy.noPurchases)
                         .foregroundColor(.secondary)
                         .padding()
+                        .allowsHitTesting(false)
                 }
             }
         }
@@ -113,6 +119,7 @@ struct Plus: View {
                     Spacer()
                     Image(systemName: "leaf.arrow.triangle.circlepath")
                 }
+                .allowsHitTesting(false)
             }
         }
         .font(.footnote)
@@ -122,9 +129,11 @@ struct Plus: View {
         Section {
             NavigationLink(destination: Info(title: "Why Purchases", text: Copy.why)) {
                 Label("Why In-App Purchases", systemImage: "questionmark.app.dashed")
+                    .allowsHitTesting(false)
             }
             NavigationLink(destination: Info(title: "Alternatives", text: Copy.alternatives)) {
                 Label("Alternatives", systemImage: "arrow.triangle.branch")
+                    .allowsHitTesting(false)
             }
         }
         .font(.footnote)
@@ -139,11 +148,12 @@ struct Plus: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: 240)
                 .padding(.bottom)
-            HStack {
-                Text(verbatim: product.displayPrice)
-                    .font(.body.monospacedDigit())
-            }
-            .padding(.top)
+                .allowsHitTesting(false)
+            Text(verbatim: product.displayPrice)
+                .font(.body.monospacedDigit())
+                .padding(.top)
+                .frame(maxWidth: .greatestFiniteMagnitude)
+                .allowsHitTesting(false)
             Button {
                 Task {
                     await store.purchase(product)
@@ -153,6 +163,7 @@ struct Plus: View {
                     .font(.callout)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 2)
+                    .allowsHitTesting(false)
             }
             .buttonStyle(.borderedProminent)
             .buttonBorderShape(.capsule)
