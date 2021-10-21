@@ -1,7 +1,7 @@
 import StoreKit
 
 extension Store {
-    enum Status {
+    enum Status: Equatable {
         case
         loading,
         error(String),

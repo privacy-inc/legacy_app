@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Plus {
-    struct Banner: View {
+    struct Banner: View, Equatable {
         private let model = Model()
         private let gradient = GraphicsContext.Shading.linearGradient(.init(colors: [.init("Shades"), .init("Dawn")]),
                                                                       startPoint: .init(x: -30, y: -30),
@@ -45,6 +45,10 @@ extension Plus {
                 }
             }
             .accessibilityLabel("Privacy Plus logo animating")
+        }
+        
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            true
         }
     }
 }

@@ -4,13 +4,16 @@ import Specs
 
 extension Transaction {
     func process() async {
-//        guard let purchase = Purchase(rawValue: productID) else { return }
-//        if revocationDate == nil {
-//            await cloud.add(purchase: purchase)
-//            await UNUserNotificationCenter.send(message: "Purchase successful!")
-//        } else {
-//            await cloud.remove(purchase: purchase)
-//        }
-//        await finish()
+        guard let item = Store.Item(rawValue: productID) else { return }
+        switch item {
+        case .plus:
+            if revocationDate == nil {
+                Defaults.isPremium = true
+                await UNUserNotificationCenter.send(message: "Privacy + purchase successful!")
+            } else {
+                Defaults.isPremium = false
+            }
+        }
+        await finish()
     }
 }
