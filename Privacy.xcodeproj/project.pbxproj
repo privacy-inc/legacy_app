@@ -1157,7 +1157,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "watchOS WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = "watchOS Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
 				INFOPLIST_KEY_LSApplicationCategoryType = Privacy;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2021 Privacy Inc";
@@ -1224,7 +1224,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "watchOS WatchKit Extension/Info.plist";
+				INFOPLIST_FILE = "watchOS Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
 				INFOPLIST_KEY_LSApplicationCategoryType = Privacy;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2021 Privacy Inc";
