@@ -31,15 +31,15 @@ struct Navigation: View {
     }
     
     private func search() {
-        status.animate(to: .search)
+        status.flow = .search
     }
     
     private func find() {
-        status.animate(to: .find)
+        status.flow = .find
     }
     
     private func end() {
-        status.animate(to: .web)
+        status.flow = .web
     }
     
     private func retry() {

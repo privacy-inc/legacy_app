@@ -24,18 +24,18 @@ struct Status {
     
     mutating func tab() {
         if item!.error != nil {
-            animate(to: .error)
+            flow = .error
         } else if item!.history != nil {
             flow = .web
         } else {
-            animate(to: .landing)
+            flow = .landing
         }
     }
     
     mutating func add() {
         items.append(.init())
         index = items.count - 1
-        animate(to: .search)
+        flow = .search
     }
     
     mutating func web() async {
@@ -73,7 +73,7 @@ struct Status {
     }
     
     @MainActor mutating func url(_ url: URL) async {
-        if item?.web != nil || item?.history != nil {
+        if item == nil || (item != nil && (item!.web != nil || item!.history != nil)) {
             items.append(.init())
             index = items.count - 1
         }
@@ -103,13 +103,7 @@ struct Status {
                 try await history(cloud.search(search))
             }
         } catch {
-            animate(to: .landing)
-        }
-    }
-    
-    mutating func animate(to: Flow) {
-        withAnimation(.easeInOut(duration: 0.35)) {
-            flow = to
+            flow = .landing
         }
     }
 }

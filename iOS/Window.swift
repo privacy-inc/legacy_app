@@ -7,6 +7,7 @@ struct Window: View {
     
     var body: some View {
         Navigation(status: $status)
+            .animation(.none, value: status.flow)
             .sheet(isPresented: $froob, content: Froob.init)
             .onOpenURL { url in
                 switch url.scheme {
