@@ -34,7 +34,7 @@ struct Timeline: View {
                 }
             }
         }
-        .accessibilityLabel("Timeline")
+        .accessibilityLabel("Activity timeline")
     }
     
     private func road(size: CGSize) -> Path {

@@ -52,6 +52,11 @@
 		CE54E13B27133A390013541F /* Options.Content.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE54E13A27133A390013541F /* Options.Content.Action.swift */; };
 		CE54EDBA2722E1FA006588DA /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
 		CE54EDBB2722E1FB006588DA /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
+		CE54EDC72722F6D9006588DA /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE54EDBE2722F6D9006588DA /* App.swift */; };
+		CE54EDCC2722F6D9006588DA /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE54EDC32722F6D9006588DA /* App.Delegate.swift */; };
+		CE54EDCE2722F731006588DA /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8AF27B26FF698A00F6655F /* Global.swift */; };
+		CE54EDD02722FFA3006588DA /* Specs in Frameworks */ = {isa = PBXBuildFile; productRef = CE54EDCF2722FFA3006588DA /* Specs */; };
+		CE54EDD3272301F8006588DA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE54EDD2272301F8006588DA /* CloudKit.framework */; };
 		CE571DD12705DC270032C8A8 /* Options.Content.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE571DD02705DC270032C8A8 /* Options.Content.Control.swift */; };
 		CE5F70C52721A41100C7203B /* Froob.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F70C42721A41100C7203B /* Froob.swift */; };
 		CE63A0B02719C34D00756E02 /* Settings.Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63A0AF2719C34D00756E02 /* Settings.Navigation.swift */; };
@@ -86,6 +91,11 @@
 		CE9DFA112706275C00D69810 /* Landing.Bookmarks.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */; };
 		CE9DFA132706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */; };
 		CEA169E0271059CD00173AE7 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA169DF271059CD00173AE7 /* Timeline.swift */; };
+		CEA73CBA2723052300AB65CB /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA73CB92723052300AB65CB /* Activity.swift */; };
+		CEA73CBB2723056B00AB65CB /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA169DF271059CD00173AE7 /* Timeline.swift */; };
+		CEA73CBD2723084900AB65CB /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA73CBC2723084900AB65CB /* Trackers.swift */; };
+		CEA73CBF2723128200AB65CB /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA73CBE2723128200AB65CB /* Forget.swift */; };
+		CEA73CC12723249500AB65CB /* Forget.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA73CC02723249500AB65CB /* Forget.Item.swift */; };
 		CEAAFB2327009BE100149F0C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2227009BE100149F0C /* StoreKit.framework */; };
 		CEAAFB2527009C1E00149F0C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2427009C1E00149F0C /* CloudKit.framework */; };
 		CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2627009E4000149F0C /* App.Delegate.swift */; };
@@ -99,8 +109,6 @@
 		CEEE59CA2721B13A0038952A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE470A6C26FA1DB2002D560A /* Images.xcassets */; };
 		CEEE59D02721B6780038952A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEEE59CF2721B6780038952A /* Assets.xcassets */; };
 		CEEE59D62721B6790038952A /* Privacy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CEEE59D52721B6790038952A /* Privacy.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		CEEE59DB2721B6790038952A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEE59DA2721B6790038952A /* ContentView.swift */; };
-		CEEE59DD2721B6790038952A /* PrivacyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEE59DC2721B6790038952A /* PrivacyApp.swift */; };
 		CEEE59E12721B67A0038952A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEEE59E02721B67A0038952A /* Assets.xcassets */; };
 		CEEE59E82721B67A0038952A /* Privacy.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CEEE59CD2721B6770038952A /* Privacy.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
@@ -215,6 +223,10 @@
 		CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Item.swift; sourceTree = "<group>"; };
 		CE532769271B13FA005C55D5 /* Status.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.Item.swift; sourceTree = "<group>"; };
 		CE54E13A27133A390013541F /* Options.Content.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.Action.swift; sourceTree = "<group>"; };
+		CE54EDBE2722F6D9006588DA /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		CE54EDC32722F6D9006588DA /* App.Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.Delegate.swift; sourceTree = "<group>"; };
+		CE54EDD1272301F6006588DA /* watchOS Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "watchOS Extension.entitlements"; sourceTree = "<group>"; };
+		CE54EDD2272301F8006588DA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		CE571DD02705DC270032C8A8 /* Options.Content.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.Control.swift; sourceTree = "<group>"; };
 		CE5F70C42721A41100C7203B /* Froob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.swift; sourceTree = "<group>"; };
 		CE63A0AF2719C34D00756E02 /* Settings.Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Navigation.swift; sourceTree = "<group>"; };
@@ -250,6 +262,10 @@
 		CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.swift; sourceTree = "<group>"; };
 		CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.Remote.swift; sourceTree = "<group>"; };
 		CEA169DF271059CD00173AE7 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
+		CEA73CB92723052300AB65CB /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		CEA73CBC2723084900AB65CB /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
+		CEA73CBE2723128200AB65CB /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
+		CEA73CC02723249500AB65CB /* Forget.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.Item.swift; sourceTree = "<group>"; };
 		CEAAFB2027009BB900149F0C /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CEAAFB2227009BE100149F0C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		CEAAFB2427009C1E00149F0C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -263,8 +279,6 @@
 		CEEE59CD2721B6770038952A /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEE59CF2721B6780038952A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEEE59D52721B6790038952A /* Privacy.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Privacy.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEEE59DA2721B6790038952A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		CEEE59DC2721B6790038952A /* PrivacyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyApp.swift; sourceTree = "<group>"; };
 		CEEE59E02721B67A0038952A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEEE59E52721B67A0038952A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF5548226FDD4F000FE0E9C /* Webview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
@@ -297,6 +311,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE54EDD02722FFA3006588DA /* Specs in Frameworks */,
+				CE54EDD3272301F8006588DA /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,7 +421,6 @@
 				CE9B93EF26F89BA6005E1D7F /* Tab.swift */,
 				CE6FE9AA2703345C00403ADA /* Tabs.Item.swift */,
 				CE9B93F126F89E6D005E1D7F /* Tabs.swift */,
-				CEA169DF271059CD00173AE7 /* Timeline.swift */,
 				CE383745270DD0FC006A8FE7 /* Trackers.swift */,
 				CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */,
 				CE4047EE2707247400E101D1 /* UIImage.swift */,
@@ -426,6 +441,7 @@
 				CE99B053272178360077BAC6 /* Store.Item.swift */,
 				CEAAFB2827009E9600149F0C /* Store.State.swift */,
 				CEAAFB2A27009E9600149F0C /* Store.swift */,
+				CEA169DF271059CD00173AE7 /* Timeline.swift */,
 				CEAAFB2E27009ED400149F0C /* Transaction.swift */,
 				CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */,
 				CE862AA6270C869F0039630B /* Webview.Code.swift */,
@@ -439,6 +455,7 @@
 		CEAAFB2127009BE100149F0C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE54EDD2272301F8006588DA /* CloudKit.framework */,
 				CEAAFB2427009C1E00149F0C /* CloudKit.framework */,
 				CEAAFB2227009BE100149F0C /* StoreKit.framework */,
 				CE12DAFB2721AEF7005870BF /* WidgetKit.framework */,
@@ -458,9 +475,14 @@
 		CEEE59D92721B6790038952A /* watchOS Extension */ = {
 			isa = PBXGroup;
 			children = (
+				CE54EDD1272301F6006588DA /* watchOS Extension.entitlements */,
 				CEEE59E52721B67A0038952A /* Info.plist */,
-				CEEE59DA2721B6790038952A /* ContentView.swift */,
-				CEEE59DC2721B6790038952A /* PrivacyApp.swift */,
+				CEA73CB92723052300AB65CB /* Activity.swift */,
+				CE54EDC32722F6D9006588DA /* App.Delegate.swift */,
+				CE54EDBE2722F6D9006588DA /* App.swift */,
+				CEA73CC02723249500AB65CB /* Forget.Item.swift */,
+				CEA73CBE2723128200AB65CB /* Forget.swift */,
+				CEA73CBC2723084900AB65CB /* Trackers.swift */,
 				CEEE59E02721B67A0038952A /* Assets.xcassets */,
 			);
 			path = "watchOS Extension";
@@ -540,6 +562,9 @@
 			dependencies = (
 			);
 			name = "watchOS Extension";
+			packageProductDependencies = (
+				CE54EDCF2722FFA3006588DA /* Specs */,
+			);
 			productName = "watchOS WatchKit Extension";
 			productReference = CEEE59D52721B6790038952A /* Privacy.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
@@ -732,8 +757,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEEE59DD2721B6790038952A /* PrivacyApp.swift in Sources */,
-				CEEE59DB2721B6790038952A /* ContentView.swift in Sources */,
+				CEA73CC12723249500AB65CB /* Forget.Item.swift in Sources */,
+				CE54EDC72722F6D9006588DA /* App.swift in Sources */,
+				CEA73CBF2723128200AB65CB /* Forget.swift in Sources */,
+				CE54EDCC2722F6D9006588DA /* App.Delegate.swift in Sources */,
+				CEA73CBA2723052300AB65CB /* Activity.swift in Sources */,
+				CEA73CBB2723056B00AB65CB /* Timeline.swift in Sources */,
+				CEA73CBD2723084900AB65CB /* Trackers.swift in Sources */,
+				CE54EDCE2722F731006588DA /* Global.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1128,6 +1159,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "watchOS Extension/watchOS Extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1159,7 +1192,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = incognit.watch.extension;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)watchextension";
-				PROVISIONING_PROFILE_SPECIFIER = "Incognit watch extension dev";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1200,6 +1232,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "watchOS Extension/watchOS Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1225,7 +1260,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = incognit.watch.extension;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)watchextension";
-				PROVISIONING_PROFILE_SPECIFIER = "Incognit watch extension store";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1268,7 +1302,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1295,7 +1330,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = incognit.watch;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)watch";
-				PROVISIONING_PROFILE_SPECIFIER = "Incognit watch dev";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1338,7 +1372,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1359,7 +1394,6 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = incognit.watch;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)watch";
-				PROVISIONING_PROFILE_SPECIFIER = "Incognit watch store";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1431,6 +1465,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		CE46B4ED26F7993A00A5B5BB /* Specs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE46B4EC26F7993A00A5B5BB /* XCRemoteSwiftPackageReference "specs" */;
+			productName = Specs;
+		};
+		CE54EDCF2722FFA3006588DA /* Specs */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CE46B4EC26F7993A00A5B5BB /* XCRemoteSwiftPackageReference "specs" */;
 			productName = Specs;
