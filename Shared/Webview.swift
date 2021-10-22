@@ -73,6 +73,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         
         if dark && settings.dark {
             underPageBackgroundColor = .secondarySystemBackground
+            isOpaque = false
         } else {
             publisher(for: \.themeColor)
                 .removeDuplicates()
