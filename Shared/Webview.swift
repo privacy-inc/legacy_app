@@ -93,7 +93,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
             guard
                 let rules = try? await WKContentRuleListStore.default().compileContentRuleList(
                     forIdentifier: "rules",
-                    encodedContentRuleList: settings.blockers)
+                    encodedContentRuleList: settings.blockers(dark: dark))
             else { return }
             configuration.userContentController.add(rules)
         }
