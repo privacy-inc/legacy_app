@@ -15,17 +15,20 @@ private struct Content: View {
     
     var body: some View {
         ZStack {
-            Image("Logo")
-                
+            Image("Plus")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .padding(.horizontal)
             Image(systemName: "magnifyingglass")
                 .font(.title2.weight(.light))
+                .foregroundStyle(.tertiary)
                 .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .bottomTrailing)
                 .padding()
         }
         .symbolRenderingMode(.hierarchical)
         .widgetURL(URL(string: "privacy://search")!)
         .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
-        .background(Color(.secondarySystemBackground))
+        .background(LinearGradient(gradient: .init(colors: [.init("Shades"), .init("Dawn")]), startPoint: .bottom, endPoint: .top))
     }
 }
 
