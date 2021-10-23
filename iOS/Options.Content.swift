@@ -16,7 +16,8 @@ extension Options {
             ScrollView(showsIndicators: false) {
                 icon
                 navigation
-                separator
+                Divider()
+                    .padding(.horizontal)
                 font
                 controls
                 Spacer()
@@ -59,14 +60,6 @@ extension Options {
             withAnimation(.easeInOut(duration: 0.5)) {
                 self.publisher = publisher
             }
-        }
-        
-        private var separator: some View {
-            Rectangle()
-                .frame(height: 1)
-                .ignoresSafeArea(edges: .horizontal)
-                .foregroundStyle(.quaternary)
-                .allowsHitTesting(false)
         }
         
         private var icon: some View {

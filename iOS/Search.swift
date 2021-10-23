@@ -9,11 +9,8 @@ struct Search: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Rectangle()
-                .foregroundStyle(.tertiary)
-                .frame(height: 1)
+            Divider()
                 .ignoresSafeArea(edges: .horizontal)
-                .allowsHitTesting(false)
             if complete.isEmpty {
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(.tertiary)
@@ -45,14 +42,6 @@ struct Search: View {
                 await autocomplete(string: complete)
             }
         }
-    }
-    
-    private var separator: some View {
-        Rectangle()
-            .fill(Color.primary.opacity(0.05))
-            .frame(height: 1)
-            .padding(.leading, 40)
-            .padding(.trailing, 2)
     }
     
     private func autocomplete(string: String) async {

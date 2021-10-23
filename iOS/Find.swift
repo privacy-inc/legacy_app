@@ -55,9 +55,7 @@ struct Find: View {
                     }
                     .padding(.top)
                     
-                    Rectangle()
-                        .foregroundStyle(.quaternary)
-                        .frame(height: 1)
+                    Divider()
                         .ignoresSafeArea(edges: .horizontal)
                 }
                 .background(.regularMaterial)
