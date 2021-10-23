@@ -39,7 +39,8 @@ final class Web: Webview, UIViewRepresentable {
         self.error.send(error)
     }
     
-    func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
+    override func webView(_ webView: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
+        super.webView(webView, didStartProvisionalNavigation: didStartProvisionalNavigation)
         UIApplication.shared.hide()
     }
 

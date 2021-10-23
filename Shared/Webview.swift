@@ -41,6 +41,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     #endif
 
         super.init(frame: .zero, configuration: configuration)
+        isOpaque = false
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
@@ -73,7 +74,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         
         if dark && settings.dark {
             underPageBackgroundColor = .secondarySystemBackground
-            isOpaque = false
         } else {
             publisher(for: \.themeColor)
                 .removeDuplicates()
@@ -105,6 +105,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     
     func error(error: Err) {
 
+    }
+    
+    func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
+        isOpaque = false
     }
     
     final func error(url: URL, description: String) {
@@ -171,6 +175,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                     $0?["NSErrorFailingURLKey"] as? URL
                 } (withError._userInfo as? [String : Any])
                 ?? URL(string: "about:blank")!, description: withError.localizedDescription)
+        
+        isOpaque = true
     }
     
     final func webView(_: WKWebView, didFinish: WKNavigation!) {
@@ -186,6 +192,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         if !settings.timers {
             evaluateJavaScript(Script.unpromise.script)
         }
+        
+        isOpaque = true
     }
     
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
