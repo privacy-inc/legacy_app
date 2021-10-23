@@ -53,7 +53,7 @@ struct Tab: View {
                 
                 DispatchQueue
                     .main
-                    .asyncAfter(deadline: .now() + 0.5) {
+                    .asyncAfter(deadline: .now() + 0.4) {
                         open(url)
                     }
             }

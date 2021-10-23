@@ -17,7 +17,7 @@ struct Navigation: View {
         case .find:
             Find(web: status.item!.web!, end: end)
         case .error:
-            Recover(url: status.item!.error?.url.absoluteString ?? "", description: status.item!.error?.description ?? "", tabs: tabs, search: search, dismiss: dismiss, retry: retry)
+            Recover(error: status.item!.error, tabs: tabs, search: search, dismiss: dismiss, retry: retry)
         }
     }
     

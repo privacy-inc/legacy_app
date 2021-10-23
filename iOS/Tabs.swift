@@ -17,7 +17,7 @@ struct Tabs: View {
                     }
                     ForEach(hide ? [status.item!] : status.items) { item in
                         Item(item: item, selected: item.id == status.item?.id) {
-                            withAnimation(.easeInOut(duration: 0.4)) {
+                            withAnimation(.easeInOut(duration: 0.35)) {
                                 hide = true
                                 status.index = status
                                     .items
@@ -28,7 +28,7 @@ struct Tabs: View {
                             
                             DispatchQueue
                                 .main
-                                .asyncAfter(deadline: .now() + 0.35) {
+                                .asyncAfter(deadline: .now() + 0.3) {
                                     status.tab()
                                 }
                         } close: {
@@ -131,7 +131,7 @@ struct Tabs: View {
             }
         }
         .task {
-            withAnimation(.easeInOut(duration: 0.4)) {
+            withAnimation(.easeInOut(duration: 0.35)) {
                 status.index = nil
             }
         }

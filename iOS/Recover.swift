@@ -2,8 +2,7 @@ import SwiftUI
 import Specs
 
 struct Recover: View {
-    let url: String
-    let description: String
+    let error: Err?
     let tabs: () -> Void
     let search: () -> Void
     let dismiss: () -> Void
@@ -16,13 +15,13 @@ struct Recover: View {
                 .font(.largeTitle)
                 .symbolRenderingMode(.hierarchical)
                 .foregroundColor(.pink)
-            Text(verbatim: url)
+            Text(verbatim: error?.url.absoluteString ?? "")
                 .font(.callout)
                 .foregroundColor(.secondary)
                 .frame(maxWidth: 320)
                 .lineLimit(1)
                 .padding(.top)
-            Text(verbatim: description)
+            Text(verbatim: error?.description ?? "")
                 .font(.body)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.center)
