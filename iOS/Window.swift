@@ -34,6 +34,8 @@ struct Window: View {
                 } else {
                     Defaults.wasCreated = .init()
                 }
+                
+                await cloud.migrate()
             }
     }
 }
