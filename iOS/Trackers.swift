@@ -15,25 +15,27 @@ struct Trackers: View {
                 }
             } header: {
                 HStack {
-                    Text(verbatim: item.website + " ")
+                    Icon(icon: item.website)
+                    Text(verbatim: item.time + "\n")
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                    + Text(verbatim: item.website)
                         .foregroundColor(.primary)
                         .font(.body.bold())
                     Spacer()
-                    Text(verbatim: item.description)
-                        .foregroundColor(.secondary)
-                        .font(.footnote.monospacedDigit())
+                    Text(verbatim: item.count)
+                        .foregroundColor(.primary)
+                        .font(.callout.monospacedDigit())
                 }
-                .padding(.vertical, 8)
+                .padding(.vertical, 10)
             }
-            .listRowBackground(Color(.secondarySystemBackground))
-            .listSectionSeparator(.hidden)
         }
         .listStyle(.plain)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Text(count.formatted() + " prevented")
+                Text(count.formatted() + " trackers")
                     .font(.callout.monospacedDigit())
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.primary)
             }
         }
         .navigationTitle("Trackers")
@@ -51,15 +53,11 @@ struct Trackers: View {
 }
 
 private extension Events.Report {
-    var description: String {
-         count + " — " + time
-    }
-    
-    private var count: String {
+    var count: String {
         trackers.count.formatted() + (trackers.count == 1 ? " tracker" : " trackers")
     }
     
-    private var time: String {
+    var time: String {
         date.formatted(.relative(presentation: .named, unitsStyle: .wide))
     }
 }
