@@ -5,16 +5,11 @@ extension Search {
     struct Item: View {
         let complete: Complete
         let action: () -> Void
-        @State private var publisher: Favicon.Pub?
         
         var body: some View {
             Button(action: action) {
                 HStack {
-                    if let publisher = publisher {
-                        ZStack(alignment: .topLeading) {
-                            Icon(access: complete.access, publisher: publisher)
-                        }
-                    }
+                    Icon(icon: complete.access.icon)
                     Text("\(title) \(domain): \(complete.location.rawValue)")
                         .lineLimit(2)
                         .truncationMode(.middle)
@@ -25,9 +20,6 @@ extension Search {
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
                 .padding(.vertical, 5)
-            }
-            .task {
-                publisher = await favicon.publisher(for: complete.access)
             }
         }
         

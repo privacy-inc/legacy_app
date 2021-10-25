@@ -8,7 +8,6 @@ extension Options {
         let share: PassthroughSubject<Void, Never>
         let find: () -> Void
         @State private var access: AccessType?
-        @State private var publisher: Favicon.Pub?
         @State private var size = CGFloat(1)
         @Environment(\.dismiss) private var dismiss
         
@@ -25,14 +24,10 @@ extension Options {
             }
             .background(.thickMaterial)
             .onReceive(web.publisher(for: \.url)) { _ in
-                publisher = nil
                 access = nil
                 
                 Task {
-                    access = await cloud.website(history: web.history)?.access
-                    if let access = access, let publisher = await favicon.publisher(for: access) {
-                        update(publisher: publisher)
-                    }
+                    update(access: await cloud.website(history: web.history)?.access)
                 }
                 
                 DispatchQueue
@@ -56,24 +51,15 @@ extension Options {
             size = .init(int) / 100
         }
         
-        private func update(publisher: Favicon.Pub) {
+        private func update(access: AccessType?) {
             withAnimation(.easeInOut(duration: 0.5)) {
-                self.publisher = publisher
+                self.access = access
             }
         }
         
         private var icon: some View {
             HStack {
-                if let publisher = publisher, let access = access {
-                    Icon(size: 48, access: access, publisher: publisher)
-                        .allowsHitTesting(false)
-                } else {
-                    Image(systemName: "globe")
-                        .font(.title)
-                        .foregroundStyle(.quaternary)
-                        .frame(width: 48, height: 48)
-                        .allowsHitTesting(false)
-                }
+                Icon(size: 48, icon: access?.icon)
                 
                 if let url = web.url {
                     address(url: url)

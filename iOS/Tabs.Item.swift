@@ -8,23 +8,13 @@ extension Tabs {
         let open: () -> Void
         let close: () -> Void
         @State private var access: AccessType?
-        @State private var publisher: Favicon.Pub?
         
         var body: some View {
             Button(action: open) {
                 VStack(spacing: 12) {
                     if !selected {
-                        if let publisher = publisher {
-                            Icon(access: access!, publisher: publisher)
-                                .zIndex(-1)
-                        } else {
-                            Image(systemName: "globe")
-                                .symbolRenderingMode(.hierarchical)
-                                .foregroundStyle(.quaternary)
-                                .font(.title)
-                                .zIndex(-1)
-                                .allowsHitTesting(false)
-                        }
+                        Icon(icon: access?.icon)
+                            .zIndex(-1)
                     }
                     
                     ZStack(alignment: .topTrailing) {
@@ -71,9 +61,6 @@ extension Tabs {
             .task {
                 guard let history = item.history else { return }
                 access = await cloud.website(history: history)?.access
-                if let access = access {
-                    publisher = await favicon.publisher(for: access)
-                }
             }
         }
         

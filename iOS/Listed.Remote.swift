@@ -5,21 +5,15 @@ extension Listed {
     struct Remote: View {
         let title: String
         let access: Access.Remote
-        @State private var publisher: Favicon.Pub?
         
         var body: some View {
             HStack {
-                if let publisher = publisher {
-                    Icon(access: access, publisher: publisher)
-                }
+                Icon(icon: access.icon)
                 Text("\(title) \(domain)")
                     .lineLimit(2)
                     .truncationMode(.middle)
             }
             .padding(.vertical, 8)
-            .task {
-                publisher = await favicon.publisher(for: access)
-            }
         }
         
         private var domain: Text {
