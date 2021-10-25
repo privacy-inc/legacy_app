@@ -8,6 +8,12 @@ extension Options {
         let share: PassthroughSubject<Void, Never>
         let find: () -> Void
         @State private var access: AccessType?
+        @State private var url: URL?
+        @State private var title: String?
+        @State private var back = false
+        @State private var forward = false
+        @State private var loading = false
+        @State private var interaction = false
         @State private var size = CGFloat(1)
         @Environment(\.dismiss) private var dismiss
         
@@ -23,7 +29,8 @@ extension Options {
                     .frame(height: 30)
             }
             .background(.thickMaterial)
-            .onReceive(web.publisher(for: \.url)) { _ in
+            .onReceive(web.publisher(for: \.url)) {
+                url = $0
                 access = nil
                 
                 Task {
@@ -37,6 +44,21 @@ extension Options {
                             await update()
                         }
                     }
+            }
+            .onReceive(web.publisher(for: \.title)) {
+                title = $0
+            }
+            .onReceive(web.publisher(for: \.canGoBack)) {
+                back = $0
+            }
+            .onReceive(web.publisher(for: \.canGoForward)) {
+                forward = $0
+            }
+            .onReceive(web.publisher(for: \.isLoading)) {
+                loading = $0
+            }
+            .onReceive(web.publisher(for: \.configuration.preferences.isTextInteractionEnabled)) {
+                interaction = $0
             }
         }
         
@@ -52,16 +74,14 @@ extension Options {
         }
         
         private func update(access: AccessType?) {
-            withAnimation(.easeInOut(duration: 0.5)) {
-                self.access = access
-            }
+            self.access = access
         }
         
         private var icon: some View {
             HStack {
                 Icon(size: 48, icon: access?.icon)
                 
-                if let url = web.url {
+                if let url = url {
                     address(url: url)
                 }
                 
@@ -83,12 +103,12 @@ extension Options {
         
         private var navigation: some View {
             HStack(spacing: 20) {
-                Action(symbol: "chevron.backward", active: web.canGoBack) {
+                Action(symbol: "chevron.backward", active: back) {
                     web.goBack()
                 }
                 
-                Action(symbol: web.isLoading ? "xmark" : "arrow.clockwise", active: true) {
-                    if web.isLoading {
+                Action(symbol: loading ? "xmark" : "arrow.clockwise", active: true) {
+                    if loading {
                         web.stopLoading()
                     } else {
                         web.reload()
@@ -96,7 +116,7 @@ extension Options {
                     }
                 }
                 
-                Action(symbol: "chevron.forward", active: web.canGoForward) {
+                Action(symbol: "chevron.forward", active: forward) {
                     web.goForward()
                 }
             }
@@ -106,7 +126,7 @@ extension Options {
         
         private func address(url: URL) -> some View {
             VStack(alignment: .leading) {
-                Text(verbatim: web.title ?? url.host ?? "")
+                Text(verbatim: title ?? url.host ?? "")
                     .foregroundStyle(.primary)
                     .font(.footnote)
                 Group {
@@ -134,7 +154,7 @@ extension Options {
                     .fill(Color(.systemBackground))
                     .shadow(color: .init(white: 0, opacity: 0.1), radius: 2)
                 Toggle("Disable text selection", isOn: .init(get: {
-                    !web.configuration.preferences.isTextInteractionEnabled
+                    !interaction
                 }, set: {
                     web.configuration.preferences.isTextInteractionEnabled = !$0
                 }))
@@ -212,7 +232,7 @@ extension Options {
         }
         
         @MainActor private func resize() async {
-            _ = try? await web.evaluateJavaScript("document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='\(Int(size * 100))%'")
+            _ = try? await web.evaluateJavaScript(Script.text(size: size))
         }
     }
 }
