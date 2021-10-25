@@ -9,8 +9,6 @@ final class Web: Webview, UIViewRepresentable {
     
     required init?(coder: NSCoder) { nil }
     init(history: UInt16, settings: Specs.Settings.Configuration) {
-        print("web init")
-    
         let configuration = WKWebViewConfiguration()
         configuration.dataDetectorTypes = [.link]
         configuration.defaultWebpagePreferences.preferredContentMode = .mobile
@@ -28,7 +26,6 @@ final class Web: Webview, UIViewRepresentable {
     
     deinit {
         scrollView.delegate = nil
-        print("web gone")
     }
     
     override func external(_ url: URL) {

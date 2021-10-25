@@ -200,15 +200,15 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         switch await cloud.policy(history: history, url: decidePolicyFor.request.url!) {
         case .allow:
             if decidePolicyFor.shouldPerformDownload {
-                print("download \(decidePolicyFor.request.url!)")
                 return (.download, preferences)
             } else {
+#if DEBUG
                 print("allow \(decidePolicyFor.request.url!)")
+#endif
                 preferences.allowsContentJavaScript = settings.javascript
                 return (.allow, preferences)
             }
         case .external:
-            print("external \(decidePolicyFor.request.url!)")
             external(decidePolicyFor.request.url!)
             return (.cancel, preferences)
         case .ignore:

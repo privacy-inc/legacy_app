@@ -4,16 +4,10 @@ import Specs
 
 extension Options {
     final class Representable: UIHostingController<Content>, UIViewControllerRepresentable {
-        deinit {
-            print("options gone")
-        }
-        
         private var sub: AnyCancellable?
         
         required init?(coder: NSCoder) { nil }
         init(web: Web, find: @escaping () -> Void) {
-            print("options init")
-            
             let share = PassthroughSubject<Void, Never>()
             
             super.init(rootView: .init(web: web, share: share, find: find))

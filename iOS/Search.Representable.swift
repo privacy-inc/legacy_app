@@ -11,16 +11,10 @@ extension Search {
         override var inputAccessoryView: UIView? { input }
         override var canBecomeFirstResponder: Bool { editable }
         
-        deinit {
-            print("search gone")
-        }
-        
         required init?(coder: NSCoder) { nil }
         init(searching: @escaping (String) -> Void) {
             self.searching = searching
             super.init(frame: .zero)
-            
-            print("search init")
             
             let background = UIView()
             background.backgroundColor = .init(named: "Input")
