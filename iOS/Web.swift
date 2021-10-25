@@ -17,7 +17,7 @@ final class Web: Webview, UIViewRepresentable {
         configuration.allowsInlineMediaPlayback = true
         configuration.ignoresViewportScaleLimits = true
         
-        let dark = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+        let dark = UIScreen.main.traitCollection.userInterfaceStyle == .dark || UIApplication.shared.dark
         
         super.init(configuration: configuration, history: history, settings: settings, dark: dark)
         scrollView.keyboardDismissMode = .none
