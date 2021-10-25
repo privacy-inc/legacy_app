@@ -78,9 +78,13 @@ struct Activity: View {
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                                 .padding(.bottom, 1)
-                            Text(verbatim: domains.top)
-                                .font(.body)
-                                .foregroundStyle(.primary)
+                            HStack {
+                                Icon(icon: domains.top)
+                                Text(verbatim: domains.top)
+                                    .font(.body)
+                                    .foregroundStyle(.primary)
+                                Spacer()
+                            }
                         }
                         .padding(.vertical, 8)
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
