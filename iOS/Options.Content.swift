@@ -29,6 +29,13 @@ extension Options {
                     .frame(height: 30)
             }
             .background(.thickMaterial)
+            .onChange(of: interaction) {
+                guard interaction == web.configuration.preferences.isTextInteractionEnabled else { return }
+                web.configuration.preferences.isTextInteractionEnabled = !$0
+            }
+            .task {
+                interaction = !web.configuration.preferences.isTextInteractionEnabled
+            }
             .onReceive(web.publisher(for: \.url)) {
                 url = $0
                 access = nil
@@ -56,9 +63,6 @@ extension Options {
             }
             .onReceive(web.publisher(for: \.isLoading)) {
                 loading = $0
-            }
-            .onReceive(web.publisher(for: \.configuration.preferences.isTextInteractionEnabled)) {
-                interaction = $0
             }
         }
         
@@ -153,14 +157,10 @@ extension Options {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color(.systemBackground))
                     .shadow(color: .init(white: 0, opacity: 0.1), radius: 2)
-                Toggle("Disable text selection", isOn: .init(get: {
-                    !interaction
-                }, set: {
-                    web.configuration.preferences.isTextInteractionEnabled = !$0
-                }))
-                .toggleStyle(SwitchToggleStyle(tint: .init("Shades")))
-                .font(.callout)
-                .padding(.horizontal)
+                Toggle("Disable text selection", isOn: $interaction)
+                    .toggleStyle(SwitchToggleStyle(tint: .init("Shades")))
+                    .font(.callout)
+                    .padding(.horizontal)
             }
             .padding(.horizontal)
             .frame(height: 50)
