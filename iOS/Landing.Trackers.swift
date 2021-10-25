@@ -29,25 +29,7 @@ extension Landing {
                 count = $0.events.prevented
             }
             .sheet(isPresented: $display) {
-                NavigationView {
-                    Privacy.Trackers()
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button {
-                                    display = false
-                                } label: {
-                                    Text("Done")
-                                        .font(.callout)
-                                        .foregroundColor(.init("Shades"))
-                                        .padding(.leading)
-                                        .frame(height: 34)
-                                        .allowsHitTesting(false)
-                                        .contentShape(Rectangle())
-                                }
-                            }
-                        }
-                }
-                .navigationViewStyle(.stack)
+                Privacy.Trackers.Stand(display: $display)
             }
         }
     }

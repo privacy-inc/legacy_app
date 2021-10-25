@@ -3,16 +3,28 @@ import Specs
 
 struct Window: View {
     @State private var status = Status()
-    @State private var froob = false
+    @State private var modal: Modal?
     
     var body: some View {
         Navigation(status: $status)
             .animation(.none, value: status.flow)
-            .sheet(isPresented: $froob, content: Froob.init)
+            .sheet(item: $modal) {
+                switch $0 {
+                case .froob:
+                    Froob()
+                case .report:
+                    Report()
+                }
+            }
             .onOpenURL { url in
                 switch url.scheme {
                 case "privacy":
-                    status.flow = .search
+                    switch url.host {
+                    case "report":
+                        modal = .report
+                    default:
+                        status.flow = .search
+                    }
                 default:
                     UIApplication.shared.hide()
                     status.flow = .tabs
@@ -29,7 +41,7 @@ struct Window: View {
                         UIApplication.shared.review()
                         Defaults.hasRated = true
                     } else if Defaults.hasRated && !Defaults.isPremium && days > 8 {
-                        froob = true
+                        modal = .froob
                     }
                 } else {
                     Defaults.wasCreated = .init()
