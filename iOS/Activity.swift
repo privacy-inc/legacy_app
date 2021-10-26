@@ -79,7 +79,7 @@ struct Activity: View {
                                 .foregroundStyle(.secondary)
                                 .padding(.bottom, 1)
                             HStack {
-                                Icon(icon: domains.top)
+                                Icon(icon: domains.top.lowercased())
                                 Text(verbatim: domains.top)
                                     .font(.body)
                                     .foregroundStyle(.primary)

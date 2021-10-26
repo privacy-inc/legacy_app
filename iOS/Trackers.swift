@@ -15,7 +15,7 @@ struct Trackers: View {
                 }
             } header: {
                 HStack {
-                    Icon(icon: item.website)
+                    Icon(icon: item.website.lowercased())
                     Text(verbatim: item.time + "\n")
                         .foregroundColor(.secondary)
                         .font(.caption)
