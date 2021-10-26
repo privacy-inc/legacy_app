@@ -15,6 +15,14 @@ extension UIApplication {
             }
     }
     
+    var dark: Bool {
+        scene?
+            .keyWindow?
+            .rootViewController?
+            .traitCollection
+            .userInterfaceStyle == .dark
+    }
+    
     func settings() {
         open(URL(string: Self.openSettingsURLString)!)
     }
