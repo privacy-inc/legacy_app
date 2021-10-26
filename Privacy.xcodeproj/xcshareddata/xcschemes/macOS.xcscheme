@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CEEE59CC2721B6770038952A"
+               BlueprintIdentifier = "CE1936AC272804CF00476227"
                BuildableName = "Privacy.app"
-               BlueprintName = "watchOS"
-               ReferencedContainer = "container:Privacy.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CE46B4D926F797F600A5B5BB"
-               BuildableName = "Privacy.app"
-               BlueprintName = "iOS"
+               BlueprintName = "macOS"
                ReferencedContainer = "container:Privacy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -54,18 +40,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/Privacy">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CEEE59CC2721B6770038952A"
+            BlueprintIdentifier = "CE1936AC272804CF00476227"
             BuildableName = "Privacy.app"
-            BlueprintName = "watchOS"
+            BlueprintName = "macOS"
             ReferencedContainer = "container:Privacy.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -73,27 +57,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/Privacy">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CEEE59CC2721B6770038952A"
+            BlueprintIdentifier = "CE1936AC272804CF00476227"
             BuildableName = "Privacy.app"
-            BlueprintName = "watchOS"
+            BlueprintName = "macOS"
             ReferencedContainer = "container:Privacy.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CEEE59CC2721B6770038952A"
-            BuildableName = "Privacy.app"
-            BlueprintName = "watchOS"
-            ReferencedContainer = "container:Privacy.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
