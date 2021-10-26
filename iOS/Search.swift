@@ -25,7 +25,7 @@ struct Search: View {
                         access(item.access)
                     }
                 }
-                .listStyle(.grouped)
+                .listStyle(.plain)
                 .animation(.easeInOut(duration: 0.3), value: complete.count)
             }
         }
