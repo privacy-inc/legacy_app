@@ -2,13 +2,17 @@ import WebKit
 import Combine
 import Specs
 
-class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate {
+class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     final let history: UInt16
     private var subs = Set<AnyCancellable>()
     private let settings: Specs.Settings.Configuration
     
     required init?(coder: NSCoder) { nil }
-    @MainActor init(configuration: WKWebViewConfiguration, history: UInt16, settings: Specs.Settings.Configuration, dark: Bool) {
+    @MainActor init(configuration: WKWebViewConfiguration,
+                    history: UInt16,
+                    settings: Specs.Settings.Configuration,
+                    dark: Bool) {
+        
         self.history = history
         self.settings = settings
         
@@ -41,7 +45,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     #endif
 
         super.init(frame: .zero, configuration: configuration)
-        isOpaque = false
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
@@ -73,18 +76,18 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
             .store(in: &subs)
         
         if dark && settings.dark {
-            underPageBackgroundColor = .secondarySystemBackground
+            underPageBackgroundColor = defaultBackground
         } else {
             publisher(for: \.themeColor)
                 .removeDuplicates()
                 .sink { [weak self] in
                     guard let color = $0 else {
-                        self?.underPageBackgroundColor = .secondarySystemBackground
+                        self?.underPageBackgroundColor = self?.defaultBackground
                         return
                     }
                     var alpha = CGFloat()
                     color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
-                    self?.underPageBackgroundColor = alpha == 0 ? .secondarySystemBackground : color
+                    self?.underPageBackgroundColor = alpha == 0 ? self?.defaultBackground : color
                 }
                 .store(in: &subs)
         }
@@ -107,8 +110,19 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
 
     }
     
-    func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
-        isOpaque = false
+    func webView(_: WKWebView, didFinish: WKNavigation!) {
+        Task {
+            guard
+                let access = await cloud.website(history: history)?.access,
+                await favicon.request(for: access),
+                let url = try? await (evaluateJavaScript(Script.favicon.method)) as? String
+            else { return }
+            await favicon.received(url: url, for: access)
+        }
+        
+        if !settings.timers {
+            evaluateJavaScript(Script.unpromise.script)
+        }
     }
     
     final func error(url: URL, description: String) {
@@ -175,25 +189,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                     $0?["NSErrorFailingURLKey"] as? URL
                 } (withError._userInfo as? [String : Any])
                 ?? URL(string: "about:blank")!, description: withError.localizedDescription)
-        
-        isOpaque = true
-    }
-    
-    final func webView(_: WKWebView, didFinish: WKNavigation!) {
-        Task {
-            guard
-                let access = await cloud.website(history: history)?.access,
-                await favicon.request(for: access),
-                let url = try? await (evaluateJavaScript(Script.favicon.method)) as? String
-            else { return }
-            await favicon.received(url: url, for: access)
-        }
-        
-        if !settings.timers {
-            evaluateJavaScript(Script.unpromise.script)
-        }
-        
-        isOpaque = true
     }
     
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
@@ -259,37 +254,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         error(url: download.originalRequest?.url ?? URL(string: "about:blank")!,
               description: (didFailWithError as NSError).localizedDescription)
     }
-    
-    #if os(macOS)
-
-    final func download(_: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
-        FileManager.default.fileExists(atPath: downloads.appendingPathComponent(suggestedFilename).path)
-            ? downloads.appendingPathComponent(UUID().uuidString + "_" + suggestedFilename)
-            : downloads.appendingPathComponent(suggestedFilename)
-    }
-
-    final func downloadDidFinish(_: WKDownload) {
-        NSWorkspace.shared.activateFileViewerSelecting([downloads])
-    }
-
-    private var downloads: URL {
-        FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
-    }
-
-    #elseif os(iOS)
-
-    final func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
-        decideDestinationUsing
-            .url
-            .map {
-                try? UIApplication.shared.share(Data(contentsOf: $0).temporal(suggestedFilename))
-            }
-        
-        await download.cancel()
-        return nil
-    }
-
-    #endif
     
     @MainActor final class func clear() async {
         URLCache.shared.removeAllCachedResponses()

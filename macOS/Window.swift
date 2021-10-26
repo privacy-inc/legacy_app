@@ -1,11 +1,6 @@
 import AppKit
-//import Sleuth
 
 final class Window: NSWindow {
-//    let session: Session
-    
-//    init(tab: Tab) {
-//        self.session = .init(tab: tab)
     init() {
         super.init(contentRect: .init(x: 0,
                                       y: 0,
@@ -21,8 +16,7 @@ final class Window: NSWindow {
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
         
-//        let content = Content(session: session)
-//        contentView = content
+        contentView = Content()
 //        
 //        let accessory = NSTitlebarAccessoryViewController()
 //        accessory.view = Bar(session: session)

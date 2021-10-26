@@ -18,6 +18,7 @@ final class Web: Webview, UIViewRepresentable {
         let dark = UIScreen.main.traitCollection.userInterfaceStyle == .dark || UIApplication.shared.dark
         
         super.init(configuration: configuration, history: history, settings: settings, dark: dark)
+        isOpaque = false
         scrollView.keyboardDismissMode = .none
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.clipsToBounds = false
@@ -36,8 +37,13 @@ final class Web: Webview, UIViewRepresentable {
         self.error.send(error)
     }
     
-    override func webView(_ webView: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
-        super.webView(webView, didStartProvisionalNavigation: didStartProvisionalNavigation)
+    override func webView(_ webView: WKWebView, didFinish: WKNavigation!) {
+        super.webView(webView, didFinish: didFinish)
+        isOpaque = true
+    }
+    
+    func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
+        isOpaque = false
         UIApplication.shared.hide()
     }
 
