@@ -38,7 +38,7 @@ struct Activity: View {
                             .foregroundStyle(.secondary)
                             .padding(.bottom, 1)
                         Text(stats.websites, format: .number)
-                            .font(.body)
+                            .font(.body.monospaced())
                             .foregroundStyle(.primary)
                     }
                     .padding(.vertical, 8)
@@ -50,7 +50,7 @@ struct Activity: View {
                             .foregroundStyle(.secondary)
                             .padding(.bottom, 1)
                         Text(prevented, format: .number)
-                            .font(.body)
+                            .font(.body.monospaced())
                             .foregroundStyle(.primary)
                     }
                     .padding(.vertical, 8)
@@ -67,7 +67,7 @@ struct Activity: View {
                                 .foregroundStyle(.secondary)
                                 .padding(.bottom, 1)
                             Text(domains.count, format: .number)
-                                .font(.body)
+                                .font(.body.monospaced())
                                 .foregroundStyle(.primary)
                         }
                         .padding(.vertical, 8)
@@ -101,7 +101,7 @@ struct Activity: View {
                                 .foregroundStyle(.secondary)
                                 .padding(.bottom, 1)
                             Text(trackers.count, format: .number)
-                                .font(.body)
+                                .font(.body.monospaced())
                                 .foregroundStyle(.primary)
                         }
                         .padding(.vertical, 8)

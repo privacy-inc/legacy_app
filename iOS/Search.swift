@@ -24,8 +24,10 @@ struct Search: View {
                         UIApplication.shared.hide()
                         access(item.access)
                     }
+                    .listRowBackground(Color(.tertiarySystemBackground))
                 }
                 .listStyle(.plain)
+                
                 .animation(.easeInOut(duration: 0.3), value: complete.count)
             }
         }

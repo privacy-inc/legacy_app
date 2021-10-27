@@ -15,7 +15,7 @@ extension Search {
                         .allowsHitTesting(false)
                 } else {
                     Group {
-                        Text(verbatim: count.formatted())
+                        Text(count, format: .number)
                             .font(.callout.monospaced())
                         + Text(" found")
                             .font(.callout)

@@ -88,7 +88,7 @@ struct Tabs: View {
                         Spacer()
                         
                         Group {
-                            Text(verbatim: status.items.count.formatted())
+                            Text(status.items.count, format: .number)
                                 .font(.callout.monospaced())
                             Text(status.items.count == 1 ? "tab" : "tabs")
                         }

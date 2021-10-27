@@ -23,7 +23,7 @@ struct Trackers: View {
                         .foregroundColor(.primary)
                         .font(.body.bold())
                     Spacer()
-                    Text(verbatim: item.trackers.count.formatted())
+                    Text(item.trackers.count, format: .number)
                         .foregroundColor(.primary)
                         .font(.callout.monospaced())
                     + Text(item.trackers.count == 1 ? " tracker" : " trackers")
@@ -37,7 +37,7 @@ struct Trackers: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Group {
-                    Text(verbatim: count.formatted())
+                    Text(count, format: .number)
                         .foregroundColor(.primary)
                         .font(.callout.monospaced())
                     + Text(count == 1 ? " tracker" : " trackers")

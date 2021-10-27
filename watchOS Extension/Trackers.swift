@@ -15,7 +15,7 @@ struct Trackers: View {
                 .allowsHitTesting(false)
             
             Group {
-                Text(verbatim: count.formatted())
+                Text(count, format: .number)
                     .font(.caption2.monospaced())
                 + Text(" prevented")
                     .font(.caption2)
@@ -30,7 +30,7 @@ struct Trackers: View {
                         .foregroundColor(.primary)
                         .font(.callout.bold())
                     
-                    Text(verbatim: item.trackers.count.formatted())
+                    Text(item.trackers.count, format: .number)
                         .foregroundColor(.secondary)
                         .font(.caption2.monospaced())
                     + Text(verbatim: item.trackers.count == 1 ? " tracker" : " trackers")
