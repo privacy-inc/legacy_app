@@ -9,7 +9,7 @@ extension Options.Content {
         var body: some View {
             Button(action: action) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: 9)
                         .fill(Color(.systemBackground))
                     HStack {
                         Text(title)

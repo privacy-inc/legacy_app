@@ -157,7 +157,7 @@ extension Options {
                 Divider()
                 
                 ZStack {
-                    RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: 9)
                         .fill(Color(.systemBackground))
                     Toggle("Disable text selection", isOn: $interaction)
                         .toggleStyle(SwitchToggleStyle(tint: .init("Shades")))
