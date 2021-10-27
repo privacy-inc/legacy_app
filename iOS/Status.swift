@@ -5,6 +5,7 @@ struct Status {
     var index: Int? = 0
     var flow = Flow.landing
     var items = [Item()]
+    var dark = false
     
     var item: Item? {
         get {
@@ -42,7 +43,7 @@ struct Status {
         item!.error = nil
         
         if item!.web == nil {
-            item!.web = await .init(history: item!.history!, settings: cloud.model.settings.configuration)
+            item!.web = await .init(history: item!.history!, settings: cloud.model.settings.configuration, dark: dark)
         }
         
         flow = .web
