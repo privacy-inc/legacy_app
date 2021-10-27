@@ -89,6 +89,15 @@
 		CE6FE9A927031FCB00403ADA /* Landing.History.Item.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6FE9A827031FCB00403ADA /* Landing.History.Item.Remote.swift */; };
 		CE6FE9AB2703345C00403ADA /* Tabs.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6FE9AA2703345C00403ADA /* Tabs.Item.swift */; };
 		CE742FFE2729759900F5F5B8 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE742FFD2729759900F5F5B8 /* Landing.swift */; };
+		CE743005272981EA00F5F5B8 /* CollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE742FFF272981EA00F5F5B8 /* CollectionItem.swift */; };
+		CE743006272981EA00F5F5B8 /* CollectionCellText.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE743000272981EA00F5F5B8 /* CollectionCellText.swift */; };
+		CE743007272981EA00F5F5B8 /* CollectionCellState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE743001272981EA00F5F5B8 /* CollectionCellState.swift */; };
+		CE743008272981EA00F5F5B8 /* CollectionItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE743002272981EA00F5F5B8 /* CollectionItemInfo.swift */; };
+		CE743009272981EA00F5F5B8 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE743003272981EA00F5F5B8 /* CollectionCell.swift */; };
+		CE74300A272981EA00F5F5B8 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE743004272981EA00F5F5B8 /* Collection.swift */; };
+		CE74300D2729825500F5F5B8 /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE74300B2729825500F5F5B8 /* Layer.swift */; };
+		CE74300E2729825500F5F5B8 /* Flip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE74300C2729825500F5F5B8 /* Flip.swift */; };
+		CE743010272983CB00F5F5B8 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE74300F272983CB00F5F5B8 /* CGRect.swift */; };
 		CE7DAB7626FB42DF00BEAA0F /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7526FB42DF00BEAA0F /* Int.swift */; };
 		CE7DAB7826FB49CE00BEAA0F /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */; };
 		CE80B8B8271EDE5E001A7BEC /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE80B8B7271EDE5E001A7BEC /* Forget.swift */; };
@@ -280,6 +289,15 @@
 		CE6FE9A827031FCB00403ADA /* Landing.History.Item.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Item.Remote.swift; sourceTree = "<group>"; };
 		CE6FE9AA2703345C00403ADA /* Tabs.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Item.swift; sourceTree = "<group>"; };
 		CE742FFD2729759900F5F5B8 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
+		CE742FFF272981EA00F5F5B8 /* CollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionItem.swift; sourceTree = "<group>"; };
+		CE743000272981EA00F5F5B8 /* CollectionCellText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCellText.swift; sourceTree = "<group>"; };
+		CE743001272981EA00F5F5B8 /* CollectionCellState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCellState.swift; sourceTree = "<group>"; };
+		CE743002272981EA00F5F5B8 /* CollectionItemInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionItemInfo.swift; sourceTree = "<group>"; };
+		CE743003272981EA00F5F5B8 /* CollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
+		CE743004272981EA00F5F5B8 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		CE74300B2729825500F5F5B8 /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
+		CE74300C2729825500F5F5B8 /* Flip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flip.swift; sourceTree = "<group>"; };
+		CE74300F272983CB00F5F5B8 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		CE7DAB7526FB42DF00BEAA0F /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CE80B8B7271EDE5E001A7BEC /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
@@ -392,7 +410,16 @@
 				CE1936B8272804D100476227 /* macOS.entitlements */,
 				CE3576AB2728096E005854B5 /* Info.plist */,
 				CE1936AF272804CF00476227 /* App.swift */,
+				CE74300F272983CB00F5F5B8 /* CGRect.swift */,
+				CE743004272981EA00F5F5B8 /* Collection.swift */,
+				CE743003272981EA00F5F5B8 /* CollectionCell.swift */,
+				CE743001272981EA00F5F5B8 /* CollectionCellState.swift */,
+				CE743000272981EA00F5F5B8 /* CollectionCellText.swift */,
+				CE742FFF272981EA00F5F5B8 /* CollectionItem.swift */,
+				CE743002272981EA00F5F5B8 /* CollectionItemInfo.swift */,
+				CE74300C2729825500F5F5B8 /* Flip.swift */,
 				CE742FFD2729759900F5F5B8 /* Landing.swift */,
+				CE74300B2729825500F5F5B8 /* Layer.swift */,
 				CE3576AF27281C25005854B5 /* NSApplication.swift */,
 				CE3F56D02728361300A022CC /* Webview.macOS.swift */,
 				CEBDD5512728219600F2F493 /* Window.Content.swift */,
@@ -792,17 +819,26 @@
 				CE742FFE2729759900F5F5B8 /* Landing.swift in Sources */,
 				CE3576B527281CFD005854B5 /* Store.State.swift in Sources */,
 				CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */,
+				CE74300D2729825500F5F5B8 /* Layer.swift in Sources */,
 				CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */,
 				CE3576B027281C25005854B5 /* NSApplication.swift in Sources */,
 				CE3576AE27281689005854B5 /* Global.swift in Sources */,
+				CE74300E2729825500F5F5B8 /* Flip.swift in Sources */,
 				CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */,
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
+				CE743005272981EA00F5F5B8 /* CollectionItem.swift in Sources */,
+				CE743009272981EA00F5F5B8 /* CollectionCell.swift in Sources */,
+				CE743008272981EA00F5F5B8 /* CollectionItemInfo.swift in Sources */,
+				CE743010272983CB00F5F5B8 /* CGRect.swift in Sources */,
 				CE1936B0272804CF00476227 /* App.swift in Sources */,
 				CE3F56D12728361300A022CC /* Webview.macOS.swift in Sources */,
 				CEBB8BDF2728258300016F2C /* Window.Status.swift in Sources */,
 				CEBDD5562728232600F2F493 /* Window.Status.Flow.swift in Sources */,
+				CE743007272981EA00F5F5B8 /* CollectionCellState.swift in Sources */,
 				CE3576B327281CE4005854B5 /* Copy.swift in Sources */,
+				CE743006272981EA00F5F5B8 /* CollectionCellText.swift in Sources */,
 				CE3576B227281C3F005854B5 /* Window.swift in Sources */,
+				CE74300A272981EA00F5F5B8 /* Collection.swift in Sources */,
 				CE3576B427281CF7005854B5 /* Store.Item.swift in Sources */,
 				CEBB8BE12728320000016F2C /* Webview.Code.swift in Sources */,
 				CE3576B727281D20005854B5 /* Transaction.swift in Sources */,
