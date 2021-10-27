@@ -5,6 +5,7 @@ struct Tabs: View {
     @State private var offset = CGFloat()
     @State private var create = false
     @State private var hide = false
+    @Environment(\.colorScheme) private var scheme
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -101,13 +102,13 @@ struct Tabs: View {
                         offset = UIScreen.main.bounds.height
                         create = true
                         
-                        withAnimation(.easeInOut(duration: 0.35)) {
-                            offset = 0
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            offset = -100
                         }
 
                         DispatchQueue
                             .main
-                            .asyncAfter(deadline: .now() + 0.35) {
+                            .asyncAfter(deadline: .now() + 0.4) {
                                 status.add()
                             }
                     } label: {
@@ -129,7 +130,7 @@ struct Tabs: View {
                     .frame(maxWidth: .greatestFiniteMagnitude)
                     .ignoresSafeArea(edges: .all)
                     .background(Color(.secondarySystemBackground))
-                    .shadow(color: .primary.opacity(0.4), radius: 30)
+                    .shadow(color: .black.opacity(scheme == .dark ? 1 : 0.2), radius: 40)
                     .offset(y: offset)
                     .allowsHitTesting(false)
             }

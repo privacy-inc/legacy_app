@@ -22,7 +22,13 @@ extension Window {
                 }
                 .removeDuplicates()
                 .sink { [weak self] flow in
-                    
+                    print("flow")
+                    switch flow {
+                    case .landing:
+                        self?.update(display: Landing())
+                    default:
+                        break
+                    }
                 }
             
 //            
@@ -68,17 +74,25 @@ extension Window {
 //            separator.bottomAnchor.constraint(equalTo: bar.bottomAnchor).isActive = true
 //            separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
 //            separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            
+            addTab()
         }
         
-//        private func update(display: NSView) {
-//            self.display?.removeFromSuperview()
-//            addSubview(display)
-//
-//            display.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 1).isActive = true
-//            display.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-//            display.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-//            display.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-//            self.display = display
-//        }
+        private func addTab() {
+            let id = UUID()
+            status.flows.value[id] = .landing
+            status.current.send(id)
+        }
+        
+        private func update(display: NSView) {
+            subviews.first?.removeFromSuperview()
+            display.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(display)
+
+            display.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            display.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            display.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            display.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        }
     }
 }

@@ -8,6 +8,7 @@ extension Tabs {
         let open: () -> Void
         let close: () -> Void
         @State private var access: AccessType?
+        @Environment(\.colorScheme) private var scheme
         
         var body: some View {
             Button(action: open) {
@@ -21,7 +22,7 @@ extension Tabs {
                         container
                             .fill(.ultraThickMaterial)
                             .frame(width: size, height: size)
-                            .shadow(color: .primary.opacity(0.1), radius: 5)
+                            .shadow(color: .black.opacity(scheme == .dark ? 1 : 0.2), radius: scheme == .dark ? 7 : 5)
                             .allowsHitTesting(false)
                         container
                             .stroke(Color(.systemBackground), style: .init(lineWidth: 2))

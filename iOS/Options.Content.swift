@@ -152,49 +152,55 @@ extension Options {
             .allowsHitTesting(false)
         }
         
-        @ViewBuilder private var controls: some View {
-            ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(.systemBackground))
-                    .shadow(color: .init(white: 0, opacity: 0.1), radius: 2)
-                Toggle("Disable text selection", isOn: $interaction)
-                    .toggleStyle(SwitchToggleStyle(tint: .init("Shades")))
-                    .font(.callout)
-                    .padding(.horizontal)
-            }
-            .padding(.horizontal)
-            .frame(height: 50)
-            .padding(.top, 30)
-            
-            Control(title: "Share", symbol: "square.and.arrow.up") {
-                share.send()
-            }
-            
-            Control(title: "Bookmark", symbol: "bookmark") {
-                dismiss()
-                Task
-                    .detached {
-                        await UNUserNotificationCenter.send(message: "Bookmark added!")
-                        await cloud.bookmark(history: web.history)
-                    }
-            }
-            
-            Control(title: "Find on page", symbol: "rectangle.and.text.magnifyingglass") {
-                dismiss()
-                find()
-            }
-            
-            Control(title: "Pause all media", symbol: "pause.circle.fill") {
-                dismiss()
-                Task {
-                    await MainActor
-                        .run {
-                            Task {
-                                await web.pauseAllMediaPlayback()
-                            }
+        private var controls: some View {
+            VStack {
+                Divider()
+                
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color(.systemBackground))
+                    Toggle("Disable text selection", isOn: $interaction)
+                        .toggleStyle(SwitchToggleStyle(tint: .init("Shades")))
+                        .font(.callout)
+                        .padding(.horizontal)
+                }
+                .frame(height: 50)
+                .padding([.leading, .trailing, .top])
+                
+                Control(title: "Share", symbol: "square.and.arrow.up") {
+                    share.send()
+                }
+                
+                Control(title: "Bookmark", symbol: "bookmark") {
+                    dismiss()
+                    Task
+                        .detached {
+                            await UNUserNotificationCenter.send(message: "Bookmark added!")
+                            await cloud.bookmark(history: web.history)
                         }
                 }
+                
+                Control(title: "Find on page", symbol: "rectangle.and.text.magnifyingglass") {
+                    dismiss()
+                    find()
+                }
+                
+                Control(title: "Pause all media", symbol: "pause.circle.fill") {
+                    dismiss()
+                    Task {
+                        await MainActor
+                            .run {
+                                Task {
+                                    await web.pauseAllMediaPlayback()
+                                }
+                            }
+                    }
+                }
+                .padding(.bottom)
+                
+                Divider()
             }
+            .background(Color(.secondarySystemBackground))
         }
         
         private var font: some View {
