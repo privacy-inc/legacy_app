@@ -16,16 +16,19 @@ struct Trackers: View {
             } header: {
                 HStack {
                     Icon(icon: item.website.lowercased())
-                    Text(verbatim: item.time + "\n")
+                    Text(verbatim: item.date.formatted(.relative(presentation: .named, unitsStyle: .wide)) + "\n")
                         .foregroundColor(.secondary)
                         .font(.caption)
                     + Text(verbatim: item.website)
                         .foregroundColor(.primary)
                         .font(.body.bold())
                     Spacer()
-                    Text(verbatim: item.count)
+                    Text(verbatim: item.trackers.count.formatted())
                         .foregroundColor(.primary)
-                        .font(.callout.monospacedDigit())
+                        .font(.callout.monospaced())
+                    + Text(item.trackers.count == 1 ? " tracker" : " trackers")
+                        .foregroundColor(.secondary)
+                        .font(.callout)
                 }
                 .padding(.vertical, 10)
             }
@@ -33,9 +36,14 @@ struct Trackers: View {
         .listStyle(.plain)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Text(count.formatted() + " trackers")
-                    .font(.callout.monospacedDigit())
-                    .foregroundStyle(.primary)
+                Group {
+                    Text(verbatim: count.formatted())
+                        .foregroundColor(.primary)
+                        .font(.callout.monospaced())
+                    + Text(count == 1 ? " tracker" : " trackers")
+                        .foregroundColor(.secondary)
+                        .font(.callout)
+                }
             }
         }
         .navigationTitle("Trackers")
@@ -49,15 +57,5 @@ struct Trackers: View {
                     !$0.trackers.isEmpty
                 }
         }
-    }
-}
-
-private extension Events.Report {
-    var count: String {
-        trackers.count.formatted() + (trackers.count == 1 ? " tracker" : " trackers")
-    }
-    
-    var time: String {
-        date.formatted(.relative(presentation: .named, unitsStyle: .wide))
     }
 }

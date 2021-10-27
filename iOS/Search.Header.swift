@@ -14,10 +14,14 @@ extension Search {
                         .foregroundStyle(.secondary)
                         .allowsHitTesting(false)
                 } else {
-                    Text("\(count.formatted()) found")
-                        .font(.callout.monospacedDigit())
-                        .foregroundStyle(.primary)
-                        .allowsHitTesting(false)
+                    Group {
+                        Text(verbatim: count.formatted())
+                            .font(.callout.monospaced())
+                        + Text(" found")
+                            .font(.callout)
+                    }
+                    .foregroundStyle(.primary)
+                    .allowsHitTesting(false)
                 }
                 Group {
                     Button(role: .cancel) {

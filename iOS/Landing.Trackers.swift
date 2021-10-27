@@ -12,7 +12,7 @@ extension Landing {
                 Section("Trackers") {
                     HStack {
                         Label(count.formatted(), systemImage: "shield.lefthalf.filled")
-                            .monospacedDigit()
+                            .font(.body.monospaced())
                         Text("Trackers prevented")
                             .foregroundStyle(.secondary)
                             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)

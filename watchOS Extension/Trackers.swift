@@ -7,16 +7,20 @@ struct Trackers: View {
     
     var body: some View {
         List {
-            VStack(alignment: .leading) {
-                Label("\(Text("Trackers").foregroundColor(.primary))", systemImage: "shield.lefthalf.filled")
-                    .font(.headline)
-                    .foregroundStyle(Color("Shades"))
-                    .symbolRenderingMode(.palette)
-                Text(count.formatted() + " prevented")
-                    .font(.caption2.monospacedDigit())
-                    .foregroundStyle(.secondary)
+            Label("\(Text("Trackers").foregroundColor(.primary))", systemImage: "shield.lefthalf.filled")
+                .font(.headline)
+                .foregroundStyle(Color("Shades"))
+                .symbolRenderingMode(.palette)
+                .listRowBackground(Color.clear)
+                .allowsHitTesting(false)
+            
+            Group {
+                Text(verbatim: count.formatted())
+                    .font(.caption2.monospaced())
+                + Text(" prevented")
+                    .font(.caption2)
             }
-            .padding(.vertical)
+            .foregroundStyle(.secondary)
             .listRowBackground(Color.clear)
             .allowsHitTesting(false)
             
@@ -26,9 +30,16 @@ struct Trackers: View {
                         .foregroundColor(.primary)
                         .font(.callout.bold())
                     
-                    Text(verbatim: item.description)
+                    Text(verbatim: item.trackers.count.formatted())
                         .foregroundColor(.secondary)
-                        .font(.caption2.monospacedDigit())
+                        .font(.caption2.monospaced())
+                    + Text(verbatim: item.trackers.count == 1 ? " tracker" : " trackers")
+                        .foregroundColor(.secondary)
+                        .font(.caption2)
+                    
+                    Text(verbatim: item.date.formatted(.relative(presentation: .named, unitsStyle: .narrow)))
+                        .foregroundColor(.secondary)
+                        .font(.caption2)
                 }
                 .allowsHitTesting(false)
                 
@@ -51,19 +62,5 @@ struct Trackers: View {
                     !$0.trackers.isEmpty
                 }
         }
-    }
-}
-
-private extension Events.Report {
-    var description: String {
-         count + " — " + time
-    }
-    
-    private var count: String {
-        trackers.count.formatted() + (trackers.count == 1 ? " tracker" : " trackers")
-    }
-    
-    private var time: String {
-        date.formatted(.relative(presentation: .named, unitsStyle: .narrow))
     }
 }

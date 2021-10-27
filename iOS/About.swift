@@ -12,7 +12,7 @@ struct About: View {
                         Text(verbatim: "Privacy")
                             .foregroundStyle(.primary)
                         Text(verbatim: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")
-                            .font(.callout.monospacedDigit().bold())
+                            .font(.body.monospaced().bold())
                             .foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 70)

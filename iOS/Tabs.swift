@@ -87,11 +87,15 @@ struct Tabs: View {
                         
                         Spacer()
                         
-                        Text(verbatim: "\(status.items.count.formatted()) tab" + (status.items.count == 1 ? "" : "s"))
-                            .foregroundStyle(status.items.isEmpty ? .tertiary : .secondary)
-                            .allowsHitTesting(false)
+                        Group {
+                            Text(verbatim: status.items.count.formatted())
+                                .font(.callout.monospaced())
+                            Text(status.items.count == 1 ? "tab" : "tabs")
+                        }
+                        .foregroundStyle(status.items.isEmpty ? .tertiary : .secondary)
+                        .allowsHitTesting(false)
                     }
-                    .font(.callout.monospacedDigit())
+                    .font(.callout)
                     .padding(.horizontal)
                     Button {
                         offset = UIScreen.main.bounds.height
