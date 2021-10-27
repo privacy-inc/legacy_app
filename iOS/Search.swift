@@ -6,6 +6,7 @@ struct Search: View {
     let tab: () -> Void
     let access: (AccessType) -> Void
     @State private var complete = [Complete]()
+    @Environment(\.colorScheme) private var scheme
     
     var body: some View {
         VStack(spacing: 0) {
@@ -24,10 +25,9 @@ struct Search: View {
                         UIApplication.shared.hide()
                         access(item.access)
                     }
-                    .listRowBackground(Color(.tertiarySystemBackground))
+                    .listRowSeparatorTint(.primary.opacity(scheme == .dark ? 0.4 : 0.2))
                 }
                 .listStyle(.plain)
-                
                 .animation(.easeInOut(duration: 0.3), value: complete.count)
             }
         }
