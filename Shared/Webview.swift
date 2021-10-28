@@ -76,6 +76,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             .store(in: &subs)
         
         if dark && settings.dark {
+            self.overrideUserInterfaceStyle = .dark
             underPageBackgroundColor = defaultBackground
         } else {
             publisher(for: \.themeColor)

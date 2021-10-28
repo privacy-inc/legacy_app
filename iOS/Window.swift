@@ -4,14 +4,10 @@ import Specs
 struct Window: View {
     @State private var status = Status()
     @State private var modal: Modal?
-    @Environment(\.colorScheme) private var scheme
     
     var body: some View {
         Navigation(status: $status)
             .animation(.none, value: status.flow)
-            .onChange(of: scheme) {
-                status.dark = $0 == .dark
-            }
             .sheet(item: $modal) {
                 switch $0 {
                 case .froob:
@@ -39,7 +35,6 @@ struct Window: View {
                 }
             }
             .task {
-                status.dark = scheme == .dark
                 if let created = Defaults.wasCreated {
                     let days = Calendar.current.dateComponents([.day], from: created, to: .init()).day!
                     if !Defaults.hasRated && days > 6 {

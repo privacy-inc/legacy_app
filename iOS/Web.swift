@@ -8,12 +8,14 @@ final class Web: Webview, UIViewRepresentable {
     let error = PassthroughSubject<Err, Never>()
     
     required init?(coder: NSCoder) { nil }
-    init(history: UInt16, settings: Specs.Settings.Configuration, dark: Bool) {
+    init(history: UInt16, settings: Specs.Settings.Configuration) {
         let configuration = WKWebViewConfiguration()
         configuration.dataDetectorTypes = [.link]
         configuration.defaultWebpagePreferences.preferredContentMode = .mobile
         configuration.allowsInlineMediaPlayback = true
         configuration.ignoresViewportScaleLimits = true
+        
+        let dark = UIScreen.main.traitCollection.userInterfaceStyle == .dark
         
         super.init(configuration: configuration, history: history, settings: settings, dark: dark)
         isOpaque = false
