@@ -8,6 +8,25 @@ struct Tabs: View {
     @Environment(\.colorScheme) private var scheme
     
     var body: some View {
+        ZStack {
+            scroll
+            if create {
+                new
+            }
+        }
+        .safeAreaInset(edge: .bottom) {
+            if status.index == nil && !create {
+                bar
+            }
+        }
+        .task {
+            withAnimation(.easeInOut(duration: 0.35)) {
+                status.index = nil
+            }
+        }
+    }
+    
+    private var scroll: some View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 20) {
@@ -51,7 +70,11 @@ struct Tabs: View {
                     }
                 }
             }
-            .background(LinearGradient(gradient: .init(colors: [.clear, .primary.opacity(0.2)]), startPoint: .bottom, endPoint: .top))
+            .background(LinearGradient(gradient: .init(colors: scheme == .dark
+                                                       ? [.primary.opacity(0.1), .init(.tertiarySystemBackground)]
+                                                       : [.primary.opacity(0.2), .clear]),
+                                       startPoint: .bottom,
+                                       endPoint: .top))
             .ignoresSafeArea(edges: .all)
             .task {
                 status
@@ -61,84 +84,78 @@ struct Tabs: View {
                     }
             }
         }
-        .safeAreaInset(edge: .bottom) {
-            if status.index == nil && !create {
-                ZStack {
-                    HStack {
-                        Button {
-                            status
-                                .items
-                                .forEach {
-                                    $0
-                                        .web?
-                                        .clear()
-                                }
-                            
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                status.items = []
-                            }
-                        } label: {
-                            Text("Close all")
-                                .foregroundStyle(status.items.isEmpty ? .tertiary : .primary)
-                                .frame(height: 34)
-                                .contentShape(Rectangle())
-                                .allowsHitTesting(false)
+    }
+    
+    private var bar: some View {
+        ZStack {
+            HStack {
+                Button {
+                    status
+                        .items
+                        .forEach {
+                            $0
+                                .web?
+                                .clear()
                         }
-                        .disabled(status.items.isEmpty)
-                        
-                        Spacer()
-                        
-                        Group {
-                            Text(status.items.count, format: .number)
-                                .font(.callout.monospaced())
-                            Text(status.items.count == 1 ? "tab" : "tabs")
-                        }
-                        .foregroundStyle(status.items.isEmpty ? .tertiary : .secondary)
+                    
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        status.items = []
+                    }
+                } label: {
+                    Text("Close all")
+                        .foregroundStyle(status.items.isEmpty ? .tertiary : .primary)
+                        .frame(height: 34)
+                        .contentShape(Rectangle())
                         .allowsHitTesting(false)
-                    }
-                    .font(.callout)
-                    .padding(.horizontal)
-                    Button {
-                        offset = UIScreen.main.bounds.height
-                        create = true
-                        
-                        withAnimation(.easeInOut(duration: 0.4)) {
-                            offset = -100
-                        }
-
-                        DispatchQueue
-                            .main
-                            .asyncAfter(deadline: .now() + 0.4) {
-                                status.add()
-                            }
-                    } label: {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.largeTitle.weight(.light))
-                            .symbolRenderingMode(.hierarchical)
-                            .foregroundColor(.init("Shades"))
-                            .shadow(color: .init("Shades"), radius: 10)
-                            .allowsHitTesting(false)
-                    }
                 }
-                .padding([.leading, .trailing, .bottom])
+                .disabled(status.items.isEmpty)
+                
+                Spacer()
+                
+                Group {
+                    Text(status.items.count, format: .number)
+                        .font(.callout.monospaced())
+                    Text(status.items.count == 1 ? "tab" : "tabs")
+                }
+                .foregroundStyle(status.items.isEmpty ? .tertiary : .secondary)
+                .allowsHitTesting(false)
             }
-            if create {
-                Image(systemName: "magnifyingglass")
-                    .foregroundStyle(.tertiary)
-                    .font(.largeTitle)
-                    .frame(height: UIScreen.main.bounds.height)
-                    .frame(maxWidth: .greatestFiniteMagnitude)
-                    .ignoresSafeArea(edges: .all)
-                    .background(Color(.secondarySystemBackground))
-                    .shadow(color: .black.opacity(scheme == .dark ? 1 : 0.2), radius: 40)
-                    .offset(y: offset)
+            .font(.callout)
+            .padding(.horizontal)
+            Button {
+                offset = UIScreen.main.bounds.height
+                create = true
+                
+                withAnimation(.easeInOut(duration: 0.45)) {
+                    offset = 0
+                }
+
+                DispatchQueue
+                    .main
+                    .asyncAfter(deadline: .now() + 0.45) {
+                        status.add()
+                    }
+            } label: {
+                Image(systemName: "plus.circle.fill")
+                    .font(.largeTitle.weight(.light))
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(Color("Shades"), .primary)
                     .allowsHitTesting(false)
             }
         }
-        .task {
-            withAnimation(.easeInOut(duration: 0.35)) {
-                status.index = nil
-            }
-        }
+        .padding([.leading, .trailing, .bottom])
+    }
+    
+    private var new: some View {
+        Image(systemName: "magnifyingglass")
+            .foregroundStyle(.tertiary)
+            .font(.largeTitle)
+            .frame(height: UIScreen.main.bounds.height)
+            .frame(maxWidth: .greatestFiniteMagnitude)
+            .ignoresSafeArea(edges: .all)
+            .background(Color(.secondarySystemBackground))
+            .shadow(color: .black.opacity(scheme == .dark ? 1 : 0.2), radius: 40)
+            .offset(y: offset)
+            .allowsHitTesting(false)
     }
 }
