@@ -68,7 +68,7 @@ final class Landing: NSScrollView {
                         case .bookmarks:
                             section = Bookmarks()
                         case .history:
-                            section = Activity()
+                            section = History()
                         }
                         
                         flip.addSubview(section)

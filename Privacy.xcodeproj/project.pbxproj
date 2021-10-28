@@ -145,6 +145,8 @@
 		CEABD1F5272AE07100F56852 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F4272AE07100F56852 /* Icon.swift */; };
 		CEABD1F7272AE70700F56852 /* Landing.Bookmarks.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F6272AE70700F56852 /* Landing.Bookmarks.Remote.swift */; };
 		CEABD1F9272AE8C600F56852 /* Landing.Bookmarks.Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F8272AE8C600F56852 /* Landing.Bookmarks.Other.swift */; };
+		CEABD1FB272AED7A00F56852 /* Landing.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1FA272AED7A00F56852 /* Landing.History.swift */; };
+		CEABD1FD272AF0E000F56852 /* Landing.History.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1FC272AF0E000F56852 /* Landing.History.Remote.swift */; };
 		CEBB8BDF2728258300016F2C /* Window.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB8BDE2728258300016F2C /* Window.Status.swift */; };
 		CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
 		CEBB8BE12728320000016F2C /* Webview.Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE862AA6270C869F0039630B /* Webview.Code.swift */; };
@@ -357,6 +359,8 @@
 		CEABD1F4272AE07100F56852 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		CEABD1F6272AE70700F56852 /* Landing.Bookmarks.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Remote.swift; sourceTree = "<group>"; };
 		CEABD1F8272AE8C600F56852 /* Landing.Bookmarks.Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Other.swift; sourceTree = "<group>"; };
+		CEABD1FA272AED7A00F56852 /* Landing.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.swift; sourceTree = "<group>"; };
+		CEABD1FC272AF0E000F56852 /* Landing.History.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Remote.swift; sourceTree = "<group>"; };
 		CEBB8BDE2728258300016F2C /* Window.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Status.swift; sourceTree = "<group>"; };
 		CEBB8BE22728353900016F2C /* Webview.iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.iOS.swift; sourceTree = "<group>"; };
 		CEBDD5512728219600F2F493 /* Window.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Content.swift; sourceTree = "<group>"; };
@@ -444,10 +448,12 @@
 				CEABD1EA272AC01500F56852 /* Image.swift */,
 				CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */,
 				CEABD1F2272AD91900F56852 /* Landing.Bookmarks.Item.swift */,
-				CEABD1F6272AE70700F56852 /* Landing.Bookmarks.Remote.swift */,
 				CEABD1F8272AE8C600F56852 /* Landing.Bookmarks.Other.swift */,
+				CEABD1F6272AE70700F56852 /* Landing.Bookmarks.Remote.swift */,
 				CEABD1F0272ACEFA00F56852 /* Landing.Bookmarks.swift */,
 				CEABD1EC272AC22F00F56852 /* Landing.Card.swift */,
+				CEABD1FC272AF0E000F56852 /* Landing.History.Remote.swift */,
+				CEABD1FA272AED7A00F56852 /* Landing.History.swift */,
 				CE7430112729874200F5F5B8 /* Landing.Section.swift */,
 				CE742FFD2729759900F5F5B8 /* Landing.swift */,
 				CE74301527299A0900F5F5B8 /* Landing.Trackers.swift */,
@@ -858,6 +864,7 @@
 				CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */,
 				CE3576B027281C25005854B5 /* NSApplication.swift in Sources */,
 				CE3576AE27281689005854B5 /* Global.swift in Sources */,
+				CEABD1FB272AED7A00F56852 /* Landing.History.swift in Sources */,
 				CE74300E2729825500F5F5B8 /* Flip.swift in Sources */,
 				CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */,
 				CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */,
@@ -865,6 +872,7 @@
 				CE743014272987E700F5F5B8 /* Text.swift in Sources */,
 				CE743005272981EA00F5F5B8 /* CollectionItem.swift in Sources */,
 				CE743009272981EA00F5F5B8 /* CollectionCell.swift in Sources */,
+				CEABD1FD272AF0E000F56852 /* Landing.History.Remote.swift in Sources */,
 				CE743008272981EA00F5F5B8 /* CollectionItemInfo.swift in Sources */,
 				CE743010272983CB00F5F5B8 /* CGRect.swift in Sources */,
 				CE1936B0272804CF00476227 /* App.swift in Sources */,
