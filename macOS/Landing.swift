@@ -13,21 +13,22 @@ final class Landing: NSScrollView {
         drawsBackground = false
         hasVerticalScroller = true
         verticalScroller!.controlSize = .mini
+        scrollerInsets.top = 12
+        scrollerInsets.bottom = 12
+        automaticallyAdjustsContentInsets = false
         
         let guide = NSView()
         guide.translatesAutoresizingMaskIntoConstraints = false
-        guide.wantsLayer = true
-        guide.layer?.backgroundColor = NSColor.red.cgColor
         flip.addSubview(guide)
         
         flip.translatesAutoresizingMaskIntoConstraints = false
         flip.topAnchor.constraint(equalTo: topAnchor).isActive = true
         flip.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        flip.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor).isActive = true
         flip.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        
-        guide.topAnchor.constraint(greaterThanOrEqualTo: flip.safeAreaLayoutGuide.topAnchor).isActive = true
-        guide.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        flip.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor).isActive = true
+
+        guide.topAnchor.constraint(equalTo: flip.topAnchor).isActive = true
+        guide.heightAnchor.constraint(equalToConstant: 0).isActive = true
         guide.leftAnchor.constraint(greaterThanOrEqualTo: flip.leftAnchor, constant: 60).isActive = true
         guide.rightAnchor.constraint(lessThanOrEqualTo: flip.rightAnchor, constant: -60).isActive = true
         guide.widthAnchor.constraint(lessThanOrEqualToConstant: 600).isActive = true
@@ -65,14 +66,14 @@ final class Landing: NSScrollView {
                         case .activity:
                             section = Activity()
                         case .bookmarks:
-                            section = .init()
+                            section = Bookmarks()
                         case .history:
-                            section = .init()
+                            section = Activity()
                         }
                         
                         flip.addSubview(section)
                         
-                        section.topAnchor.constraint(equalTo: top, constant: 60).isActive = true
+                        section.topAnchor.constraint(equalTo: top, constant: top == guide.topAnchor ? 100 : 60).isActive = true
                         section.leftAnchor.constraint(equalTo: guide.leftAnchor).isActive = true
                         section.rightAnchor.constraint(equalTo: guide.rightAnchor).isActive = true
                         top = section.bottomAnchor

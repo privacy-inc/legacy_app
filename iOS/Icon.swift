@@ -49,7 +49,7 @@ struct Icon: View {
     }
     
     private var globe: some View {
-        Image(systemName: "globe")
+        Image(systemName: "network")
             .font(.title.weight(.light))
             .foregroundStyle(.quaternary)
             .frame(width: size, height: size)

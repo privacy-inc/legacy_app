@@ -126,13 +126,13 @@ struct Tabs: View {
                 offset = UIScreen.main.bounds.height
                 create = true
                 
-                withAnimation(.easeInOut(duration: 0.45)) {
+                withAnimation(.easeInOut(duration: 0.4)) {
                     offset = 0
                 }
 
                 DispatchQueue
                     .main
-                    .asyncAfter(deadline: .now() + 0.45) {
+                    .asyncAfter(deadline: .now() + 0.4) {
                         status.add()
                     }
             } label: {

@@ -13,6 +13,7 @@ extension Landing {
             
             let card = NSView()
             card.translatesAutoresizingMaskIntoConstraints = false
+            card.layer = Layer()
             card.wantsLayer = true
             card.layer!.cornerCurve = .continuous
             card.layer!.cornerRadius = 14

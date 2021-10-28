@@ -8,7 +8,7 @@ extension Landing.Bookmarks.Item {
         var body: some View {
             Image(systemName: "globe")
                 .font(.title.weight(.light))
-                .foregroundStyle(.quaternary)
+                .foregroundStyle(.tertiary)
                 .padding(15)
                 .modifier(Card())
             Text(verbatim: title)

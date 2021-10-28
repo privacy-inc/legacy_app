@@ -140,6 +140,8 @@
 		CEABD1EB272AC01500F56852 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1EA272AC01500F56852 /* Image.swift */; };
 		CEABD1ED272AC22F00F56852 /* Landing.Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1EC272AC22F00F56852 /* Landing.Card.swift */; };
 		CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */; };
+		CEABD1F1272ACEFA00F56852 /* Landing.Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F0272ACEFA00F56852 /* Landing.Bookmarks.swift */; };
+		CEABD1F3272AD91900F56852 /* Landing.Bookmarks.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F2272AD91900F56852 /* Landing.Bookmarks.Item.swift */; };
 		CEBB8BDF2728258300016F2C /* Window.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB8BDE2728258300016F2C /* Window.Status.swift */; };
 		CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
 		CEBB8BE12728320000016F2C /* Webview.Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE862AA6270C869F0039630B /* Webview.Code.swift */; };
@@ -347,6 +349,8 @@
 		CEABD1EA272AC01500F56852 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		CEABD1EC272AC22F00F56852 /* Landing.Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Card.swift; sourceTree = "<group>"; };
 		CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Activity.swift; sourceTree = "<group>"; };
+		CEABD1F0272ACEFA00F56852 /* Landing.Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.swift; sourceTree = "<group>"; };
+		CEABD1F2272AD91900F56852 /* Landing.Bookmarks.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.swift; sourceTree = "<group>"; };
 		CEBB8BDE2728258300016F2C /* Window.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Status.swift; sourceTree = "<group>"; };
 		CEBB8BE22728353900016F2C /* Webview.iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.iOS.swift; sourceTree = "<group>"; };
 		CEBDD5512728219600F2F493 /* Window.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Content.swift; sourceTree = "<group>"; };
@@ -432,6 +436,8 @@
 				CE74300C2729825500F5F5B8 /* Flip.swift */,
 				CEABD1EA272AC01500F56852 /* Image.swift */,
 				CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */,
+				CEABD1F2272AD91900F56852 /* Landing.Bookmarks.Item.swift */,
+				CEABD1F0272ACEFA00F56852 /* Landing.Bookmarks.swift */,
 				CEABD1EC272AC22F00F56852 /* Landing.Card.swift */,
 				CE7430112729874200F5F5B8 /* Landing.Section.swift */,
 				CE742FFD2729759900F5F5B8 /* Landing.swift */,
@@ -838,6 +844,7 @@
 				CE3576B527281CFD005854B5 /* Store.State.swift in Sources */,
 				CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */,
 				CE74300D2729825500F5F5B8 /* Layer.swift in Sources */,
+				CEABD1F3272AD91900F56852 /* Landing.Bookmarks.Item.swift in Sources */,
 				CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */,
 				CE3576B027281C25005854B5 /* NSApplication.swift in Sources */,
 				CE3576AE27281689005854B5 /* Global.swift in Sources */,
@@ -853,6 +860,7 @@
 				CE1936B0272804CF00476227 /* App.swift in Sources */,
 				CE3F56D12728361300A022CC /* Webview.macOS.swift in Sources */,
 				CE74301627299A0900F5F5B8 /* Landing.Trackers.swift in Sources */,
+				CEABD1F1272ACEFA00F56852 /* Landing.Bookmarks.swift in Sources */,
 				CEBB8BDF2728258300016F2C /* Window.Status.swift in Sources */,
 				CEABD1EB272AC01500F56852 /* Image.swift in Sources */,
 				CEBDD5562728232600F2F493 /* Window.Status.Flow.swift in Sources */,
