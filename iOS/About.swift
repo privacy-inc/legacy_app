@@ -10,9 +10,10 @@ struct About: View {
                     VStack {
                         Image("Logo")
                         Text(verbatim: "Privacy")
+                            .font(.title3.weight(.medium))
                             .foregroundStyle(.primary)
                         Text(verbatim: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")
-                            .font(.body.monospaced().bold())
+                            .font(.body.monospaced().weight(.medium))
                             .foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 70)

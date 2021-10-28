@@ -45,9 +45,9 @@ struct Plus: View {
     
     private var title: some View {
         Section {
-            Text("Privacy \(Image(systemName: "plus"))")
+            Text("\(Text("Privacy").font(.title.weight(.medium))) \(Image(systemName: "plus"))")
                 .foregroundColor(.primary)
-                .font(.largeTitle)
+                .font(.largeTitle.weight(.ultraLight))
                 .imageScale(.large)
                 .frame(maxWidth: .greatestFiniteMagnitude)
         }
@@ -64,13 +64,17 @@ struct Plus: View {
                 .symbolRenderingMode(.multicolor)
                 .frame(maxWidth: .greatestFiniteMagnitude)
                 
-            Text("Thank you\nyou already supported Privacy")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: .greatestFiniteMagnitude)
-                .padding(.bottom)
+            Group {
+                Text("We received your support\n")
+                    .foregroundColor(.secondary)
+                + Text("Thank you!")
+                    .foregroundColor(.primary)
+            }
+            .font(.footnote)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .greatestFiniteMagnitude)
+            .padding(.bottom)
         }
         .listRowSeparator(.hidden)
         .listSectionSeparator(.hidden)
