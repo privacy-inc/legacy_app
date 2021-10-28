@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Specs
 
 extension Landing {
     final class Bookmarks: Section {
@@ -20,7 +21,7 @@ extension Landing {
             stack.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 10).isActive = true
             stack.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
             stack.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            stack.heightAnchor.constraint(equalToConstant: 140).isActive = true
+            stack.heightAnchor.constraint(equalToConstant: 120).isActive = true
             
             cloud
                 .map {
@@ -34,7 +35,14 @@ extension Landing {
                 .sink { bookmarks in
                     stack
                         .setViews(bookmarks
-                                    .map(Item.init(bookmark:)),
+                                    .map { bookmark in
+                            switch bookmark.access {
+                            case is Access.Remote:
+                                return Remote(bookmark: bookmark)
+                            default:
+                                return Other(title: bookmark.access.value)
+                            }
+                        },
                                   in: .center)
                 }
                 .store(in: &subs)

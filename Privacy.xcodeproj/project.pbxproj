@@ -142,6 +142,9 @@
 		CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */; };
 		CEABD1F1272ACEFA00F56852 /* Landing.Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F0272ACEFA00F56852 /* Landing.Bookmarks.swift */; };
 		CEABD1F3272AD91900F56852 /* Landing.Bookmarks.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F2272AD91900F56852 /* Landing.Bookmarks.Item.swift */; };
+		CEABD1F5272AE07100F56852 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F4272AE07100F56852 /* Icon.swift */; };
+		CEABD1F7272AE70700F56852 /* Landing.Bookmarks.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F6272AE70700F56852 /* Landing.Bookmarks.Remote.swift */; };
+		CEABD1F9272AE8C600F56852 /* Landing.Bookmarks.Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F8272AE8C600F56852 /* Landing.Bookmarks.Other.swift */; };
 		CEBB8BDF2728258300016F2C /* Window.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB8BDE2728258300016F2C /* Window.Status.swift */; };
 		CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
 		CEBB8BE12728320000016F2C /* Webview.Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE862AA6270C869F0039630B /* Webview.Code.swift */; };
@@ -351,6 +354,9 @@
 		CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Activity.swift; sourceTree = "<group>"; };
 		CEABD1F0272ACEFA00F56852 /* Landing.Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.swift; sourceTree = "<group>"; };
 		CEABD1F2272AD91900F56852 /* Landing.Bookmarks.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.swift; sourceTree = "<group>"; };
+		CEABD1F4272AE07100F56852 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		CEABD1F6272AE70700F56852 /* Landing.Bookmarks.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Remote.swift; sourceTree = "<group>"; };
+		CEABD1F8272AE8C600F56852 /* Landing.Bookmarks.Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Other.swift; sourceTree = "<group>"; };
 		CEBB8BDE2728258300016F2C /* Window.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Status.swift; sourceTree = "<group>"; };
 		CEBB8BE22728353900016F2C /* Webview.iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.iOS.swift; sourceTree = "<group>"; };
 		CEBDD5512728219600F2F493 /* Window.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Content.swift; sourceTree = "<group>"; };
@@ -434,9 +440,12 @@
 				CE742FFF272981EA00F5F5B8 /* CollectionItem.swift */,
 				CE743002272981EA00F5F5B8 /* CollectionItemInfo.swift */,
 				CE74300C2729825500F5F5B8 /* Flip.swift */,
+				CEABD1F4272AE07100F56852 /* Icon.swift */,
 				CEABD1EA272AC01500F56852 /* Image.swift */,
 				CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */,
 				CEABD1F2272AD91900F56852 /* Landing.Bookmarks.Item.swift */,
+				CEABD1F6272AE70700F56852 /* Landing.Bookmarks.Remote.swift */,
+				CEABD1F8272AE8C600F56852 /* Landing.Bookmarks.Other.swift */,
 				CEABD1F0272ACEFA00F56852 /* Landing.Bookmarks.swift */,
 				CEABD1EC272AC22F00F56852 /* Landing.Card.swift */,
 				CE7430112729874200F5F5B8 /* Landing.Section.swift */,
@@ -843,6 +852,7 @@
 				CE742FFE2729759900F5F5B8 /* Landing.swift in Sources */,
 				CE3576B527281CFD005854B5 /* Store.State.swift in Sources */,
 				CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */,
+				CEABD1F7272AE70700F56852 /* Landing.Bookmarks.Remote.swift in Sources */,
 				CE74300D2729825500F5F5B8 /* Layer.swift in Sources */,
 				CEABD1F3272AD91900F56852 /* Landing.Bookmarks.Item.swift in Sources */,
 				CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */,
@@ -863,6 +873,7 @@
 				CEABD1F1272ACEFA00F56852 /* Landing.Bookmarks.swift in Sources */,
 				CEBB8BDF2728258300016F2C /* Window.Status.swift in Sources */,
 				CEABD1EB272AC01500F56852 /* Image.swift in Sources */,
+				CEABD1F5272AE07100F56852 /* Icon.swift in Sources */,
 				CEBDD5562728232600F2F493 /* Window.Status.Flow.swift in Sources */,
 				CE743007272981EA00F5F5B8 /* CollectionCellState.swift in Sources */,
 				CE3576B327281CE4005854B5 /* Copy.swift in Sources */,
@@ -872,6 +883,7 @@
 				CEABD1ED272AC22F00F56852 /* Landing.Card.swift in Sources */,
 				CE74300A272981EA00F5F5B8 /* Collection.swift in Sources */,
 				CE3576B427281CF7005854B5 /* Store.Item.swift in Sources */,
+				CEABD1F9272AE8C600F56852 /* Landing.Bookmarks.Other.swift in Sources */,
 				CEBB8BE12728320000016F2C /* Webview.Code.swift in Sources */,
 				CE3576B727281D20005854B5 /* Transaction.swift in Sources */,
 			);
