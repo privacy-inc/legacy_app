@@ -1,13 +1,25 @@
 import AppKit
+import Combine
 
 extension Landing {
-    final class Trackers: Section {
+    final class Trackers: Card {
+        private var subs = Set<AnyCancellable>()
+        
         required init?(coder: NSCoder) { nil }
-        override init() {
-            super.init()
-            header.stringValue = "Trackers"
+        init() {
+            super.init(title: "Trackers", icon: "shield.lefthalf.filled")
+            first.font = .monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .regular)
             
-            bottomAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
+            cloud
+                .map {
+                    $0.events.prevented
+                }
+                .removeDuplicates()
+                .sink { [weak self] in
+                    self?.first.stringValue = $0.formatted()
+                    self?.second.stringValue = $0 == 1 ? "Tracker prevented" : "Trackers prevented"
+                }
+                .store(in: &subs)
         }
     }
 }

@@ -11,7 +11,7 @@ extension Landing {
             
             let header = Text(vibrancy: true)
             header.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .medium)
-            header.textColor = .secondaryLabelColor
+            header.textColor = .tertiaryLabelColor
             self.header = header
             addSubview(header)
             

@@ -11,9 +11,13 @@ final class Landing: NSScrollView {
         let flip = Flip()
         documentView = flip
         drawsBackground = false
+        hasVerticalScroller = true
+        verticalScroller!.controlSize = .mini
         
         let guide = NSView()
         guide.translatesAutoresizingMaskIntoConstraints = false
+        guide.wantsLayer = true
+        guide.layer?.backgroundColor = NSColor.red.cgColor
         flip.addSubview(guide)
         
         flip.translatesAutoresizingMaskIntoConstraints = false
@@ -22,11 +26,13 @@ final class Landing: NSScrollView {
         flip.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor).isActive = true
         flip.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
-        guide.leftAnchor.constraint(greaterThanOrEqualTo: flip.leftAnchor, constant: 20).isActive = true
-        guide.rightAnchor.constraint(lessThanOrEqualTo: flip.rightAnchor, constant: -20).isActive = true
+        guide.topAnchor.constraint(greaterThanOrEqualTo: flip.safeAreaLayoutGuide.topAnchor).isActive = true
+        guide.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        guide.leftAnchor.constraint(greaterThanOrEqualTo: flip.leftAnchor, constant: 60).isActive = true
+        guide.rightAnchor.constraint(lessThanOrEqualTo: flip.rightAnchor, constant: -60).isActive = true
         guide.widthAnchor.constraint(lessThanOrEqualToConstant: 600).isActive = true
         guide.centerXAnchor.constraint(equalTo: flip.centerXAnchor).isActive = true
-        let width = guide.widthAnchor.constraint(equalTo: flip.widthAnchor, constant: -40)
+        let width = guide.widthAnchor.constraint(equalTo: flip.widthAnchor, constant: -120)
         width.priority = .defaultLow
         width.isActive = true
         
@@ -47,27 +53,34 @@ final class Landing: NSScrollView {
                         $0.removeFromSuperview()
                     }
                 
-                var top = flip.safeAreaLayoutGuide.topAnchor
+                var top = guide.topAnchor
                 
                 cards
                     .forEach {
+                        let section: Section
+                        
                         switch $0.id {
                         case .trackers:
-                            let trackers = Trackers()
-                            flip.addSubview(trackers)
-                            
-                            trackers.topAnchor.constraint(equalTo: top).isActive = true
-                            trackers.leftAnchor.constraint(equalTo: guide.leftAnchor).isActive = true
-                            trackers.rightAnchor.constraint(equalTo: guide.rightAnchor).isActive = true
-                            top = trackers.bottomAnchor
+                            section = Trackers()
                         case .activity:
-                            break
+                            section = Activity()
                         case .bookmarks:
-                            break
+                            section = .init()
                         case .history:
-                            break
+                            section = .init()
                         }
+                        
+                        flip.addSubview(section)
+                        
+                        section.topAnchor.constraint(equalTo: top, constant: 60).isActive = true
+                        section.leftAnchor.constraint(equalTo: guide.leftAnchor).isActive = true
+                        section.rightAnchor.constraint(equalTo: guide.rightAnchor).isActive = true
+                        top = section.bottomAnchor
                     }
+                
+                if !cards.isEmpty {
+                    flip.bottomAnchor.constraint(greaterThanOrEqualTo: top, constant: 60).isActive = true
+                }
             }
             .store(in: &subs)
     }

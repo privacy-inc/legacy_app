@@ -137,6 +137,9 @@
 		CEAAFB2C27009E9600149F0C /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */; };
 		CEAAFB2D27009E9600149F0C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2A27009E9600149F0C /* Store.swift */; };
 		CEAAFB2F27009ED400149F0C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2E27009ED400149F0C /* Transaction.swift */; };
+		CEABD1EB272AC01500F56852 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1EA272AC01500F56852 /* Image.swift */; };
+		CEABD1ED272AC22F00F56852 /* Landing.Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1EC272AC22F00F56852 /* Landing.Card.swift */; };
+		CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */; };
 		CEBB8BDF2728258300016F2C /* Window.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB8BDE2728258300016F2C /* Window.Status.swift */; };
 		CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
 		CEBB8BE12728320000016F2C /* Webview.Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE862AA6270C869F0039630B /* Webview.Code.swift */; };
@@ -341,6 +344,9 @@
 		CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		CEAAFB2A27009E9600149F0C /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		CEAAFB2E27009ED400149F0C /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		CEABD1EA272AC01500F56852 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		CEABD1EC272AC22F00F56852 /* Landing.Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Card.swift; sourceTree = "<group>"; };
+		CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Activity.swift; sourceTree = "<group>"; };
 		CEBB8BDE2728258300016F2C /* Window.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Status.swift; sourceTree = "<group>"; };
 		CEBB8BE22728353900016F2C /* Webview.iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.iOS.swift; sourceTree = "<group>"; };
 		CEBDD5512728219600F2F493 /* Window.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Content.swift; sourceTree = "<group>"; };
@@ -424,6 +430,9 @@
 				CE742FFF272981EA00F5F5B8 /* CollectionItem.swift */,
 				CE743002272981EA00F5F5B8 /* CollectionItemInfo.swift */,
 				CE74300C2729825500F5F5B8 /* Flip.swift */,
+				CEABD1EA272AC01500F56852 /* Image.swift */,
+				CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */,
+				CEABD1EC272AC22F00F56852 /* Landing.Card.swift */,
 				CE7430112729874200F5F5B8 /* Landing.Section.swift */,
 				CE742FFD2729759900F5F5B8 /* Landing.swift */,
 				CE74301527299A0900F5F5B8 /* Landing.Trackers.swift */,
@@ -834,6 +843,7 @@
 				CE3576AE27281689005854B5 /* Global.swift in Sources */,
 				CE74300E2729825500F5F5B8 /* Flip.swift in Sources */,
 				CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */,
+				CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */,
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
 				CE743014272987E700F5F5B8 /* Text.swift in Sources */,
 				CE743005272981EA00F5F5B8 /* CollectionItem.swift in Sources */,
@@ -844,12 +854,14 @@
 				CE3F56D12728361300A022CC /* Webview.macOS.swift in Sources */,
 				CE74301627299A0900F5F5B8 /* Landing.Trackers.swift in Sources */,
 				CEBB8BDF2728258300016F2C /* Window.Status.swift in Sources */,
+				CEABD1EB272AC01500F56852 /* Image.swift in Sources */,
 				CEBDD5562728232600F2F493 /* Window.Status.Flow.swift in Sources */,
 				CE743007272981EA00F5F5B8 /* CollectionCellState.swift in Sources */,
 				CE3576B327281CE4005854B5 /* Copy.swift in Sources */,
 				CE7430122729874200F5F5B8 /* Landing.Section.swift in Sources */,
 				CE743006272981EA00F5F5B8 /* CollectionCellText.swift in Sources */,
 				CE3576B227281C3F005854B5 /* Window.swift in Sources */,
+				CEABD1ED272AC22F00F56852 /* Landing.Card.swift in Sources */,
 				CE74300A272981EA00F5F5B8 /* Collection.swift in Sources */,
 				CE3576B427281CF7005854B5 /* Store.Item.swift in Sources */,
 				CEBB8BE12728320000016F2C /* Webview.Code.swift in Sources */,
