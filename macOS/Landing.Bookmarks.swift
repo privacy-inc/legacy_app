@@ -21,13 +21,13 @@ extension Landing {
             stack.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 10).isActive = true
             stack.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
             stack.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            stack.heightAnchor.constraint(equalToConstant: 120).isActive = true
+            stack.heightAnchor.constraint(equalToConstant: 110).isActive = true
             
             cloud
                 .map {
                     $0
                         .bookmarks
-                        .suffix(6)
+                        .prefix(4)
                 }
                 .removeDuplicates {
                     $0.map(\.access.value) == $1.map(\.access.value)

@@ -31,7 +31,7 @@ final class Landing: NSScrollView {
         guide.heightAnchor.constraint(equalToConstant: 0).isActive = true
         guide.leftAnchor.constraint(greaterThanOrEqualTo: flip.leftAnchor, constant: 60).isActive = true
         guide.rightAnchor.constraint(lessThanOrEqualTo: flip.rightAnchor, constant: -60).isActive = true
-        guide.widthAnchor.constraint(lessThanOrEqualToConstant: 600).isActive = true
+        guide.widthAnchor.constraint(lessThanOrEqualToConstant: 400).isActive = true
         guide.centerXAnchor.constraint(equalTo: flip.centerXAnchor).isActive = true
         let width = guide.widthAnchor.constraint(equalTo: flip.widthAnchor, constant: -120)
         width.priority = .defaultLow
@@ -45,6 +45,8 @@ final class Landing: NSScrollView {
             }
             .removeDuplicates()
             .sink { cards in
+                print("cards")
+                
                 flip
                     .subviews
                     .filter {

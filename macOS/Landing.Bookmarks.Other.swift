@@ -6,7 +6,7 @@ extension Landing.Bookmarks {
         init(title: String) {
             let icon = Image(icon: "globe")
             icon.symbolConfiguration = .init(textStyle: .largeTitle, scale: .large)
-                .applying(.init(hierarchicalColor: .secondaryLabelColor))
+            icon.contentTintColor = .tertiaryLabelColor
             
             super.init(icon: icon)
             self.title.stringValue = title

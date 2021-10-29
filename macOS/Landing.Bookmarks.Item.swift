@@ -9,19 +9,12 @@ extension Landing.Bookmarks {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
-            let card = NSView()
-            card.translatesAutoresizingMaskIntoConstraints = false
-            card.layer = Layer()
-            card.wantsLayer = true
-            card.layer!.cornerCurve = .continuous
-            card.layer!.cornerRadius = 14
-            card.layer!.borderColor = NSColor.quaternaryLabelColor.cgColor
-            card.layer!.borderWidth = 1
+            let card = Card()
             card.addSubview(icon)
             addSubview(card)
             
             let title = Text(vibrancy: true)
-            title.font = .preferredFont(forTextStyle: .caption1)
+            title.font = .preferredFont(forTextStyle: .footnote)
             title.alignment = .center
             title.maximumNumberOfLines = 2
             title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)

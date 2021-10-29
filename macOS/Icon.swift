@@ -13,11 +13,15 @@ final class Icon: NSImageView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         image = empty
+        contentTintColor = .tertiaryLabelColor
         symbolConfiguration = .init(textStyle: .largeTitle, scale: .large)
-            .applying(.init(hierarchicalColor: .tertiaryLabelColor))
         
         widthAnchor.constraint(equalToConstant: size).isActive = true
         heightAnchor.constraint(equalToConstant: size).isActive = true
+    }
+    
+    override var allowsVibrancy: Bool {
+        true
     }
     
     override func hitTest(_: NSPoint) -> NSView? {

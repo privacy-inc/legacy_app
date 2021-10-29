@@ -1,7 +1,7 @@
 import AppKit
 
 extension Landing {
-    class Card: Section {
+    class Simple: Section {
         private(set) weak var icon: Image!
         private(set) weak var first: Text!
         private(set) weak var second: Text!
@@ -11,14 +11,7 @@ extension Landing {
             super.init()
             header.stringValue = title
             
-            let card = NSView()
-            card.translatesAutoresizingMaskIntoConstraints = false
-            card.layer = Layer()
-            card.wantsLayer = true
-            card.layer!.cornerCurve = .continuous
-            card.layer!.cornerRadius = 14
-            card.layer!.borderColor = NSColor.quaternaryLabelColor.cgColor
-            card.layer!.borderWidth = 1
+            let card = Card()
             addSubview(card)
             
             let icon = Image(icon: icon)

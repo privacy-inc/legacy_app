@@ -2,7 +2,7 @@ import AppKit
 import Combine
 
 extension Landing {
-    final class Activity: Card {
+    final class Activity: Simple {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }

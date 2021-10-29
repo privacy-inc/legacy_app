@@ -37,12 +37,12 @@ struct Report: View {
                 } label: {
                     HStack {
                         Text("Check it out")
-                            .padding(.vertical, 5)
+                            .padding(.vertical, 7)
                         Spacer()
                         Image(systemName: "shield.lefthalf.filled")
                             .symbolRenderingMode(.hierarchical)
                     }
-                    .font(.callout)
+                    .font(.body)
                     .allowsHitTesting(false)
                 }
                 .buttonStyle(.borderedProminent)
@@ -50,25 +50,20 @@ struct Report: View {
                 .sheet(isPresented: $display) {
                     Trackers.Stand(display: $display)
                 }
-            }
-            .listRowBackground(Color.clear)
-            .listRowSeparator(.hidden)
-            .listSectionSeparator(.hidden)
-            
-            Section {
+                
                 Button {
                     dismiss()
                 } label: {
                     HStack {
                         Spacer()
                         Text("Dismiss")
-                            .padding(.vertical, 5)
-                            .foregroundStyle(.secondary)
+                            .padding(.vertical, 20)
                         Spacer()
                     }
                     .font(.callout)
                     .allowsHitTesting(false)
                 }
+                .tint(.secondary)
             }
             .listRowBackground(Color.clear)
             .listRowSeparator(.hidden)
