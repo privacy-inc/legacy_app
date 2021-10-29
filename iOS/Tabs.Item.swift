@@ -11,13 +11,13 @@ extension Tabs {
         @Environment(\.colorScheme) private var scheme
         
         var body: some View {
-            Button(action: open) {
-                VStack(spacing: 12) {
-                    if !selected {
-                        Icon(icon: access?.icon)
-                            .zIndex(-1)
-                    }
-                    
+            VStack(spacing: 12) {
+                if !selected {
+                    Icon(icon: access?.icon)
+                        .zIndex(-1)
+                }
+                
+                Button(action: open) {
                     ZStack(alignment: .topTrailing) {
                         container
                             .fill(.ultraThickMaterial)
@@ -47,16 +47,16 @@ extension Tabs {
                         .disabled(selected)
                     }
                     .id(item.id)
-                    
-                    if !selected {
-                        Text(verbatim: item.error?.description ?? item.web?.title ?? "")
-                            .font(.caption2.weight(.light))
-                            .lineLimit(1)
-                            .frame(width: 135)
-                            .padding(.bottom, 100)
-                            .zIndex(-1)
-                            .allowsHitTesting(false)
-                    }
+                }
+                
+                if !selected {
+                    Text(verbatim: item.error?.description ?? item.web?.title ?? "")
+                        .font(.caption2.weight(.light))
+                        .lineLimit(1)
+                        .frame(width: 135)
+                        .padding(.bottom, 100)
+                        .zIndex(-1)
+                        .allowsHitTesting(false)
                 }
             }
             .task {
