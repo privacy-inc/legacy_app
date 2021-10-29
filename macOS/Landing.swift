@@ -13,7 +13,6 @@ final class Landing: NSScrollView {
         drawsBackground = false
         hasVerticalScroller = true
         verticalScroller!.controlSize = .mini
-        scrollerInsets.top = 12
         scrollerInsets.bottom = 12
         automaticallyAdjustsContentInsets = false
         
@@ -29,11 +28,11 @@ final class Landing: NSScrollView {
 
         guide.topAnchor.constraint(equalTo: flip.topAnchor).isActive = true
         guide.heightAnchor.constraint(equalToConstant: 0).isActive = true
-        guide.leftAnchor.constraint(greaterThanOrEqualTo: flip.leftAnchor, constant: 60).isActive = true
-        guide.rightAnchor.constraint(lessThanOrEqualTo: flip.rightAnchor, constant: -60).isActive = true
-        guide.widthAnchor.constraint(lessThanOrEqualToConstant: 400).isActive = true
+        guide.leftAnchor.constraint(greaterThanOrEqualTo: flip.leftAnchor, constant: 150).isActive = true
+        guide.rightAnchor.constraint(lessThanOrEqualTo: flip.rightAnchor, constant: -150).isActive = true
+        guide.widthAnchor.constraint(lessThanOrEqualToConstant: 500).isActive = true
         guide.centerXAnchor.constraint(equalTo: flip.centerXAnchor).isActive = true
-        let width = guide.widthAnchor.constraint(equalTo: flip.widthAnchor, constant: -120)
+        let width = guide.widthAnchor.constraint(equalTo: flip.widthAnchor, constant: -300)
         width.priority = .defaultLow
         width.isActive = true
         
@@ -75,7 +74,7 @@ final class Landing: NSScrollView {
                         
                         flip.addSubview(section)
                         
-                        section.topAnchor.constraint(equalTo: top, constant: top == guide.topAnchor ? 100 : 60).isActive = true
+                        section.topAnchor.constraint(equalTo: top, constant: top == guide.topAnchor ? 40 : 60).isActive = true
                         section.leftAnchor.constraint(equalTo: guide.leftAnchor).isActive = true
                         section.rightAnchor.constraint(equalTo: guide.rightAnchor).isActive = true
                         top = section.bottomAnchor

@@ -16,12 +16,15 @@ final class Window: NSWindow {
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
         
-        contentView = Content()
-//        
-//        let accessory = NSTitlebarAccessoryViewController()
-//        accessory.view = Bar(session: session)
-//        accessory.layoutAttribute = .top
-//        addTitlebarAccessoryViewController(accessory)
+        let status = Status()
+        contentView = Content(status: status)
+
+        let accessory = NSTitlebarAccessoryViewController()
+        accessory.view = Bar(status: status)
+        accessory.layoutAttribute = .top
+        addTitlebarAccessoryViewController(accessory)
+        
+        status.addTab()
     }/*
     
     override func close() {

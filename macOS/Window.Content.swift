@@ -3,15 +3,22 @@ import Combine
 
 extension Window {
     final class Content: NSVisualEffectView {
-        let status = Status()
         private var sub: AnyCancellable?
         
         required init?(coder: NSCoder) { nil }
-        init() {
+        init(status: Status) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             state = .active
             material = .menu
+            
+            let separator = Separator(mode: .horizontal)
+            separator.alphaValue = 0
+            addSubview(separator)
+            
+            separator.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+            separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
             
             sub = status
                 .flows
@@ -22,13 +29,35 @@ extension Window {
                 }
                 .removeDuplicates()
                 .sink { [weak self] flow in
+                    guard let self = self else { return }
+                    
+                    self
+                        .subviews
+                        .filter {
+                            $0 != separator
+                        }
+                        .forEach {
+                            $0.removeFromSuperview()
+                        }
+                    
                     print("flow")
+                    
+                    let view: NSView
+                    
                     switch flow {
                     case .landing:
-                        self?.update(display: Landing())
+                        view = Landing()
                     default:
-                        break
+                        view = .init()
                     }
+                    
+                    view.translatesAutoresizingMaskIntoConstraints = false
+                    self.addSubview(view)
+
+                    view.topAnchor.constraint(equalTo: separator.bottomAnchor).isActive = true
+                    view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+                    view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+                    view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
                 }
             
 //            
@@ -74,25 +103,6 @@ extension Window {
 //            separator.bottomAnchor.constraint(equalTo: bar.bottomAnchor).isActive = true
 //            separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
 //            separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            
-            addTab()
-        }
-        
-        private func addTab() {
-            let id = UUID()
-            status.flows.value[id] = .landing
-            status.current.send(id)
-        }
-        
-        private func update(display: NSView) {
-            subviews.first?.removeFromSuperview()
-            display.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(display)
-
-            display.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            display.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-            display.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            display.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         }
     }
 }

@@ -1,7 +1,7 @@
 import Foundation
 import Specs
 
-extension Window.Status {
+extension Status {
     enum Flow: Equatable {
         case
         landing,
