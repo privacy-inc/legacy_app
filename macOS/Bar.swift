@@ -10,6 +10,20 @@ final class Bar: NSVisualEffectView {
         state = .active
         material = .menu
         
+        let plus = Option(icon: "plus", size: 15)
+        plus.toolTip = "New tab"
+        plus
+            .click
+            .sink {
+                status.addTab()
+            }
+            .store(in: &subs)
+        
+        addSubview(plus)
+        
+        plus.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        plus.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        
         status
             .flows
             .map {
@@ -39,13 +53,14 @@ final class Bar: NSVisualEffectView {
                         let tab = Tab(id: $0)
                         self.addSubview(tab)
                         
+                        tabs.first?.left = tab
                         tab.right = tabs.first
                         tab.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 1).isActive = true
                         
                         tabs.insert(tab, at: 0)
                     }
                 
-                tabs.first?.align(left: self.safeAreaLayoutGuide.leftAnchor)
+                tabs.first?.align(left: plus.rightAnchor)
             }
             .store(in: &subs)
         
@@ -63,6 +78,8 @@ final class Bar: NSVisualEffectView {
                     }
             }
             .store(in: &subs)
+        
+        
 
 //        let plus = Squircle(icon: "plus", size: 18)
 //        plus
@@ -195,6 +212,8 @@ final class Bar: NSVisualEffectView {
 //                $0 as? Tab
 //            }
 //    }
+    
+    
 }
 
 

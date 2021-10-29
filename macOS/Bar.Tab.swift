@@ -5,6 +5,7 @@ extension Bar {
     final class Tab: NSView {
         var current = false {
             didSet {
+                guard current != oldValue else { return }
                 layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(current ? 0.2 : 0.05).cgColor
             }
         }
@@ -27,13 +28,6 @@ extension Bar {
             didSet {
                 oldValue?.isActive = false
                 leftGuide?.isActive = true
-            }
-        }
-        
-        private weak var rightGuide: NSLayoutConstraint? {
-            didSet {
-                oldValue?.isActive = false
-                rightGuide?.isActive = true
             }
         }
         
