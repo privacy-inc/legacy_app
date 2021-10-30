@@ -23,8 +23,6 @@ final class Window: NSWindow {
         accessory.view = Bar(status: status)
         accessory.layoutAttribute = .top
         addTitlebarAccessoryViewController(accessory)
-        
-        status.addTab()
     }/*
     
     override func close() {

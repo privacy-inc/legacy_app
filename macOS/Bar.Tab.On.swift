@@ -13,7 +13,59 @@ extension Bar.Tab {
             wantsLayer = true
             layer!.cornerRadius = 8
             layer!.cornerCurve = .continuous
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor   
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
+            
+            let prompt = Image(icon: "magnifyingglass")
+            prompt.symbolConfiguration = .init(pointSize: 12, weight: .regular)
+            prompt.contentTintColor = .tertiaryLabelColor
+            addSubview(prompt)
+            
+            let search = Search()
+            addSubview(search)
+            
+            let close = Option(icon: "xmark.app.fill")
+            close
+                .click
+                .sink {
+                    status.close(id: item.id)
+                }
+                .store(in: &subs)
+            addSubview(close)
+            
+            let options = Option(icon: "ellipsis")
+            options
+                .click
+                .sink {
+                    
+                }
+                .store(in: &subs)
+            options.state = .hidden
+            addSubview(options)
+            
+            status
+                .flows
+                .map {
+                    $0.count
+                }
+                .removeDuplicates()
+                .sink {
+                    close.state = $0 == 1 ? .hidden : .on
+                    prompt.isHidden = $0 != 1
+                }
+                .store(in: &subs)
+            
+            prompt.centerXAnchor.constraint(equalTo: close.centerXAnchor).isActive = true
+            prompt.centerYAnchor.constraint(equalTo: close.centerYAnchor).isActive = true
+            
+            close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
+            close.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            
+            options.rightAnchor.constraint(equalTo: rightAnchor, constant: -3).isActive = true
+            options.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            
+            search.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            search.leftAnchor.constraint(equalTo: close.rightAnchor).isActive = true
+            search.rightAnchor.constraint(equalTo: options.leftAnchor).isActive = true
         }
     }
 }

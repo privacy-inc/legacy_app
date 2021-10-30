@@ -4,6 +4,7 @@ import Combine
 class Control: NSView {
     final var state = Control.State.on {
         didSet {
+            guard state != oldValue else { return }
             update()
         }
     }

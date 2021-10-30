@@ -11,6 +11,11 @@ extension Bar.Tab {
             super.init(layer: true)
             layer!.cornerRadius = 8
             layer!.cornerCurve = .continuous
+            click
+                .sink {
+                    status.current.send(item.id)
+                }
+                .store(in: &subs)
             
             let close = Option(icon: "xmark.app.fill")
             close
@@ -23,13 +28,7 @@ extension Bar.Tab {
             close.state = .hidden
             self.close = close
             
-            click
-                .sink {
-                    status.current.send(item.id)
-                }
-                .store(in: &subs)
-            
-            close.leftAnchor.constraint(equalTo: leftAnchor, constant: 2).isActive = true
+            close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
             close.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         }
         
