@@ -1,16 +1,17 @@
 import AppKit
 
-extension Bar {
+extension Bar.Tab {
     final class Option: Control {
+        private weak var image: Image!
+        
         required init?(coder: NSCoder) { nil }
         init(icon: String) {
             let image = Image(icon: icon)
             image.symbolConfiguration = .init(pointSize: 15, weight: .regular)
             image.contentTintColor = .secondaryLabelColor
+            self.image = image
             
-            super.init(layer: true)
-            layer!.cornerRadius = 8
-            layer!.cornerCurve = .continuous
+            super.init(layer: false)
             
             addSubview(image)
             widthAnchor.constraint(equalToConstant: 28).isActive = true
@@ -23,12 +24,10 @@ extension Bar {
             super.update()
             
             switch state {
-            case .pressed:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-            case .highlighted:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+            case .pressed, .highlighted:
+                image.contentTintColor = .labelColor
             default:
-                layer!.backgroundColor = .clear
+                image.contentTintColor = .secondaryLabelColor
             }
         }
         

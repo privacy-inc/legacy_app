@@ -5,11 +5,29 @@ extension Bar {
         var current = false {
             didSet {
                 guard current != oldValue else { return }
-                width.constant = current ? 300 : 150
+                subviews
+                    .forEach {
+                        $0.removeFromSuperview()
+                    }
+                
+                let view: NSView
+                if current {
+                    view = On(status: status, item: item)
+                    width.constant = 300
+                } else {
+                    view = Off(status: status, item: item)
+                    width.constant = 150
+                }
+                addSubview(view)
+                
+                view.topAnchor.constraint(equalTo: topAnchor).isActive = true
+                view.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+                view.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+                view.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             }
         }
         
-        let status: Status.Item
+        let item: Status.Item
         
         weak var right: Tab?
         weak var left: Tab? {
@@ -29,9 +47,12 @@ extension Bar {
             }
         }
         
+        private weak var status: Status!
+        
         required init?(coder: NSCoder) { nil }
-        init(status: Status.Item) {
+        init(status: Status, item: Status.Item) {
             self.status = status
+            self.item = item
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             layer = Layer()

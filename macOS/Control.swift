@@ -11,13 +11,18 @@ class Control: NSView {
     final let click = PassthroughSubject<Void, Never>()
     
     required init?(coder: NSCoder) { nil }
-    init() {
+    init(layer: Bool) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         setAccessibilityElement(true)
         setAccessibilityRole(.button)
         addTrackingArea(.init(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self))
-
+        
+        if layer {
+            self.layer = Layer()
+            wantsLayer = layer
+        }
+        
         update()
     }
     
@@ -26,18 +31,18 @@ class Control: NSView {
         alphaValue = state == .off ? 0.25 : 1
     }
     
-    final override func resetCursorRects() {
-        addCursorRect(bounds, cursor: .arrow)
-    }
-    
-    final override func mouseEntered(with: NSEvent) {
+    override func mouseEntered(with: NSEvent) {
         guard state == .on || state == .pressed else { return }
         state = .highlighted
     }
     
-    final override func mouseExited(with: NSEvent) {
+    override func mouseExited(with: NSEvent) {
         guard state == .highlighted || state == .pressed else { return }
         state = .on
+    }
+    
+    final override func resetCursorRects() {
+        addCursorRect(bounds, cursor: .arrow)
     }
     
     final override func mouseDown(with: NSEvent) {
