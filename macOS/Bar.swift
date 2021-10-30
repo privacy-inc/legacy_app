@@ -10,7 +10,9 @@ final class Bar: NSVisualEffectView {
         state = .active
         material = .menu
         
-        let plus = Option(icon: "plus", size: 15)
+        var tabs = [Tab]()
+        
+        let plus = Option(icon: "plus")
         plus.toolTip = "New tab"
         plus
             .click
@@ -26,21 +28,13 @@ final class Bar: NSVisualEffectView {
         
         status
             .flows
-            .map {
-                Array($0
-                        .keys)
-            }
             .removeDuplicates()
             .sink { [weak self] in
                 guard let self = self else { return }
                 var flows = $0
-                var tabs = self
-                    .subviews
-                    .compactMap {
-                        $0 as? Tab
-                    }
+                tabs = tabs
                     .filter { tab in
-                        guard flows.remove(where: { $0 == tab.id }) == nil else { return true }
+                        guard flows.remove(where: { $0.id == tab.status.id }) == nil else { return true }
                         tab.left?.right = tab.right
                         tab.right?.left = tab.left
                         tab.removeFromSuperview()
@@ -50,7 +44,7 @@ final class Bar: NSVisualEffectView {
                 flows
                     .reversed()
                     .forEach {
-                        let tab = Tab(id: $0)
+                        let tab = Tab(status: $0)
                         self.addSubview(tab)
                         
                         tabs.first?.left = tab
@@ -61,6 +55,8 @@ final class Bar: NSVisualEffectView {
                     }
                 
                 tabs.first?.align(left: plus.rightAnchor)
+                
+                
             }
             .store(in: &subs)
         
@@ -74,7 +70,14 @@ final class Bar: NSVisualEffectView {
                         $0 as? Tab
                     }
                     .forEach { tab in
-                        tab.current = tab.id == current
+                        tab.current = tab.status.id == current
+                    }
+                
+                NSAnimationContext
+                    .runAnimationGroup {
+                        $0.allowsImplicitAnimation = true
+                        $0.duration = 0.5
+                        self.layoutSubtreeIfNeeded()
                     }
             }
             .store(in: &subs)

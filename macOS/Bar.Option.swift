@@ -3,14 +3,16 @@ import AppKit
 extension Bar {
     final class Option: Control {
         required init?(coder: NSCoder) { nil }
-        init(icon: String, size: CGFloat = 14) {
+        init(icon: String) {
             let image = Image(icon: icon)
-            image.symbolConfiguration = .init(pointSize: size, weight: .regular)
+            image.symbolConfiguration = .init(pointSize: 15, weight: .regular)
             image.contentTintColor = .secondaryLabelColor
             
-            super.init(layer: true)
+            super.init()
+            layer = Layer()
+            wantsLayer = true
             layer!.cornerRadius = 8
-            layer?.cornerCurve = .continuous
+            layer!.cornerCurve = .continuous
             
             addSubview(image)
             widthAnchor.constraint(equalToConstant: 28).isActive = true

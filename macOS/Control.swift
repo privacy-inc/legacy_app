@@ -11,18 +11,13 @@ class Control: NSView {
     final let click = PassthroughSubject<Void, Never>()
     
     required init?(coder: NSCoder) { nil }
-    init(layer: Bool) {
+    init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         setAccessibilityElement(true)
         setAccessibilityRole(.button)
         addTrackingArea(.init(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self))
-        
-        if layer {
-            self.layer = Layer()
-            wantsLayer = layer
-        }
-        
+
         update()
     }
     

@@ -24,11 +24,17 @@ extension Window {
                 .flows
                 .combineLatest(status
                                 .current)
-                .compactMap {
-                    $0[$1]
+                .compactMap { flows, current in
+                    flows
+                        .first {
+                            $0.id == current
+                        }
                 }
                 .removeDuplicates()
-                .sink { [weak self] flow in
+                .removeDuplicates {
+                    $0.flow == .landing && $1.flow == .landing
+                }
+                .sink { [weak self] item in
                     guard let self = self else { return }
                     
                     self
@@ -44,7 +50,7 @@ extension Window {
                     
                     let view: NSView
                     
-                    switch flow {
+                    switch item.flow {
                     case .landing:
                         view = Landing()
                     default:

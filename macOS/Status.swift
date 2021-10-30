@@ -3,11 +3,11 @@ import Combine
 
 struct Status {
     let current = PassthroughSubject<UUID, Never>()
-    let flows = CurrentValueSubject<[UUID : Flow], Never>([:])
+    let flows = CurrentValueSubject<[Item], Never>([])
 
     func addTab() {
-        let id = UUID()
-        flows.value[id] = .landing
-        current.send(id)
+        let item = Item(flow: .landing)
+        flows.value.append(item)
+        current.send(item.id)
     }
 }
