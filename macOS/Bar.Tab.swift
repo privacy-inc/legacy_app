@@ -47,7 +47,7 @@ extension Bar {
             }
         }
         
-        private weak var status: Status!
+        private let status: Status
         
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: Status.Item) {

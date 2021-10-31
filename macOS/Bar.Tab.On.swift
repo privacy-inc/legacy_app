@@ -24,6 +24,7 @@ extension Bar.Tab {
             addSubview(search)
             
             let close = Option(icon: "xmark.app.fill")
+            close.toolTip = "Close tab"
             close
                 .click
                 .sink {
@@ -51,6 +52,30 @@ extension Bar.Tab {
                 .sink {
                     close.state = $0 == 1 ? .hidden : .on
                     prompt.isHidden = $0 != 1
+                }
+                .store(in: &subs)
+            
+            status
+                .flows
+                .first()
+                .delay(for: .milliseconds(100), scheduler: DispatchQueue.main)
+                .compactMap {
+                    $0
+                        .first {
+                            $0.id == item.id
+                        }
+                }
+                .filter {
+                    if case .landing = $0.flow {
+                        return true
+                    }
+                    return false
+                }
+                .sink { [weak self] _ in
+                    guard self?.window?.firstResponder is Search.Cell.Editor else {
+                        self?.window?.makeFirstResponder(search)
+                        return
+                    }
                 }
                 .store(in: &subs)
             

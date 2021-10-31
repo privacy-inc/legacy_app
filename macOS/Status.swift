@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-final class Status {
+struct Status {
     let current: CurrentValueSubject<UUID, Never>
     let flows: CurrentValueSubject<[Item], Never>
 

@@ -18,6 +18,7 @@ extension Bar.Tab {
                 .store(in: &subs)
             
             let close = Option(icon: "xmark.app.fill")
+            close.toolTip = "Close tab"
             close
                 .click
                 .sink {
