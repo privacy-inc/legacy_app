@@ -13,16 +13,15 @@ extension Bar {
                 let view: NSView
                 if current {
                     view = On(status: status, item: item)
-                    width.constant = 300
                 } else {
                     view = Off(status: status, item: item)
-                    width.constant = 150
                 }
                 addSubview(view)
                 
+                rightGuide = rightAnchor.constraint(equalTo: view.rightAnchor)
+                
                 view.topAnchor.constraint(equalTo: topAnchor).isActive = true
                 view.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-                view.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
                 view.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             }
         }
@@ -39,7 +38,13 @@ extension Bar {
             }
         }
         
-        private weak var width: NSLayoutConstraint!
+        private weak var rightGuide: NSLayoutConstraint? {
+            didSet {
+                oldValue?.isActive = false
+                rightGuide?.isActive = true
+            }
+        }
+        
         private weak var leftGuide: NSLayoutConstraint? {
             didSet {
                 oldValue?.isActive = false
@@ -59,8 +64,6 @@ extension Bar {
             wantsLayer = true
             
             heightAnchor.constraint(equalToConstant: 28).isActive = true
-            width = widthAnchor.constraint(equalToConstant: 0)
-            width.isActive = true
         }
         
         func align(left: NSLayoutXAxisAnchor) {

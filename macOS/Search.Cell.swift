@@ -44,7 +44,6 @@ private extension NSRect {
     }
     
     var ring: Self {
-        insetBy(dx: -30.5, dy: 1)
-            .offsetBy(dx: 0, dy: -0.5)
+        .init(x: minX - 30.5, y: minY + 0.25, width: 351, height: height - 1.5)
     }
 }

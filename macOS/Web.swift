@@ -5,6 +5,10 @@ import Specs
 final class Web: Webview {
 //    private var destination = Destination.window
     
+    deinit {
+        print("web gone")
+    }
+    
     required init?(coder: NSCoder) { nil }
     init(history: UInt16, settings: Specs.Settings.Configuration) {
         let configuration = WKWebViewConfiguration()

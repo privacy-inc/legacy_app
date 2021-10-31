@@ -4,6 +4,7 @@ import Combine
 extension Bar.Tab {
     final class On: NSView, NSTextFieldDelegate {
         private var subs = Set<AnyCancellable>()
+        private weak var stack: NSStackView!
         private let status: Status
         
         required init?(coder: NSCoder) { nil }
@@ -17,14 +18,12 @@ extension Bar.Tab {
             layer!.cornerCurve = .continuous
             layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
             
+            let search = Search()
+            search.delegate = self
+            
             let prompt = Image(icon: "magnifyingglass")
             prompt.symbolConfiguration = .init(pointSize: 12, weight: .regular)
             prompt.contentTintColor = .tertiaryLabelColor
-            addSubview(prompt)
-            
-            let search = Search()
-            search.delegate = self
-            addSubview(search)
             
             let close = Option(icon: "xmark.app.fill")
             close.toolTip = "Close tab"
@@ -34,30 +33,48 @@ extension Bar.Tab {
                     status.close(id: item)
                 }
                 .store(in: &subs)
-            addSubview(close)
             
-            let options = Option(icon: "ellipsis")
-            options
-                .click
-                .sink {
-                    
-                }
-                .store(in: &subs)
+            let secure = Option(icon: "lock.fill", size: 14)
+            secure.toolTip = "Secure connection"
+            secure.state = .hidden
+            
+            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 15)
+            insercure.toolTip = "Insecure"
+            insercure.state = .hidden
+            
+            let options = Option(icon: "ellipsis.circle.fill", size: 15)
+            options.toolTip = "Options"
             options.state = .hidden
-            addSubview(options)
             
-            prompt.centerXAnchor.constraint(equalTo: close.centerXAnchor).isActive = true
-            prompt.centerYAnchor.constraint(equalTo: close.centerYAnchor).isActive = true
+            let back = Option(icon: "chevron.backward", size: 14)
+            back.toolTip = "Back"
+            back.state = .hidden
             
-            close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
-            close.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            let forward = Option(icon: "chevron.forward", size: 14)
+            forward.toolTip = "Forward"
+            forward.state = .hidden
             
-            options.rightAnchor.constraint(equalTo: rightAnchor, constant: -3).isActive = true
-            options.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            let reload = Option(icon: "arrow.clockwise", size: 14)
+            reload.toolTip = "Reload"
+            reload.state = .hidden
             
-            search.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            search.leftAnchor.constraint(equalTo: close.rightAnchor).isActive = true
-            search.rightAnchor.constraint(equalTo: options.leftAnchor).isActive = true
+            let stop = Option(icon: "xmark", size: 14)
+            stop.toolTip = "Stop"
+            stop.state = .hidden
+            
+            let stack = NSStackView(views: [prompt, close, search, secure, insercure, back, forward, reload, stop, options])
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            stack.spacing = 0
+            addSubview(stack)
+            
+            widthAnchor.constraint(equalToConstant: 350).isActive = true
+            
+            prompt.widthAnchor.constraint(equalToConstant: 28).isActive = true
+            
+            stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
+            stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -3).isActive = true
+            stack.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            stack.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             
             status
                 .flows
@@ -112,8 +129,16 @@ extension Bar.Tab {
                     }
                 }
                 .first()
-                .sink { [weak self] in
-                    self?.web(web: $0, search: search)
+                .sink { [weak self] (web: Web) in
+                    self?.web(web: web,
+                              search: search,
+                              secure: secure,
+                              insecure: insercure,
+                              back: back,
+                              forward: forward,
+                              reload: reload,
+                              stop: stop)
+                    options.state = .on
                 }
                 .store(in: &subs)
         }
@@ -184,13 +209,95 @@ extension Bar.Tab {
             return true
         }
         
-        private func web(web: Web, search: Search) {
+        private func web(web: Web,
+                         search: Search,
+                         secure: Option,
+                         insecure: Option,
+                         back: Option,
+                         forward: Option,
+                         reload: Option,
+                         stop: Option) {
             web
                 .publisher(for: \.url)
-                .compactMap(\.?.absoluteString)
+                .compactMap {
+                    $0
+                }
+                .removeDuplicates()
+                .sink { url in
+                    switch url.scheme?.lowercased() {
+                    case "https":
+                        secure.state = .on
+                        insecure.state = .hidden
+                    case "http":
+                        secure.state = .hidden
+                        insecure.state = .on
+                    default:
+                        secure.state = .hidden
+                        insecure.state = .hidden
+                    }
+                    
+                    var string = url
+                        .absoluteString
+                        .replacingOccurrences(of: "https://", with: "")
+                    
+                    if string.last == "/" {
+                        string.removeLast()
+                    }
+                    
+                    search.stringValue = string
+                }
+                .store(in: &subs)
+            
+            web
+                .publisher(for: \.isLoading)
                 .removeDuplicates()
                 .sink {
-                    search.stringValue = $0
+                    stop.state = $0 ? .on : .hidden
+                    reload.state = $0 ? .hidden : .on
+                }
+                .store(in: &subs)
+            
+            web
+                .publisher(for: \.canGoBack)
+                .removeDuplicates()
+                .sink {
+                    back.state = $0 ? .on : .hidden
+                }
+                .store(in: &subs)
+            
+            web
+                .publisher(for: \.canGoForward)
+                .removeDuplicates()
+                .sink {
+                    forward.state = $0 ? .on : .hidden
+                }
+                .store(in: &subs)
+            
+            reload
+                .click
+                .sink {
+                    web.reload()
+                }
+                .store(in: &subs)
+            
+            stop
+                .click
+                .sink {
+                    web.stopLoading()
+                }
+                .store(in: &subs)
+            
+            back
+                .click
+                .sink {
+                    web.goBack()
+                }
+                .store(in: &subs)
+            
+            forward
+                .click
+                .sink {
+                    web.goForward()
                 }
                 .store(in: &subs)
         }

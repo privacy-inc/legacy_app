@@ -5,7 +5,7 @@ extension Landing.Bookmarks {
         private(set) weak var title: Text!
         
         required init?(coder: NSCoder) { nil }
-        init(icon: NSImageView) {
+        init(icon: NSView) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             

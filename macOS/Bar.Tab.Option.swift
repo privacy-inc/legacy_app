@@ -5,9 +5,9 @@ extension Bar.Tab {
         private weak var image: Image!
         
         required init?(coder: NSCoder) { nil }
-        init(icon: String) {
+        init(icon: String, size: CGFloat = 16) {
             let image = Image(icon: icon)
-            image.symbolConfiguration = .init(pointSize: 16, weight: .regular)
+            image.symbolConfiguration = .init(pointSize: size, weight: .regular)
             image.contentTintColor = .secondaryLabelColor
             self.image = image
             

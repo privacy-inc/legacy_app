@@ -14,6 +14,7 @@ extension Bar.Tab {
             super.init(layer: true)
             layer!.cornerRadius = 8
             layer!.cornerCurve = .continuous
+            
             click
                 .sink {
                     status.current.send(item)
@@ -46,6 +47,9 @@ extension Bar.Tab {
             close.state = .hidden
             self.close = close
             
+            let width = widthAnchor.constraint(equalToConstant: 70)
+            width.isActive = true
+            
             close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
             close.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
@@ -54,7 +58,7 @@ extension Bar.Tab {
             
             title.leftAnchor.constraint(equalTo: close.rightAnchor).isActive = true
             title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -3).isActive = true
-            title.centerYAnchor.constraint(equalTo: close.centerYAnchor).isActive = true
+            title.centerYAnchor.constraint(equalTo: close.centerYAnchor, constant: -1).isActive = true
             
             status
                 .flows
@@ -73,8 +77,9 @@ extension Bar.Tab {
                     }
                 }
                 .first()
-                .sink { [weak self] in
-                    self?.web(web: $0)
+                .sink { [weak self] (web: Web) in
+                    self?.web(web: web)
+                    width.constant = 150
                 }
                 .store(in: &subs)
         }

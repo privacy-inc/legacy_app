@@ -17,7 +17,13 @@ final class Bar: NSVisualEffectView {
         plus.toolTip = "New tab"
         plus
             .click
-            .sink {
+            .map {
+                Date.now
+            }
+            .removeDuplicates {
+                $1.timeIntervalSince1970 - $0.timeIntervalSince1970 < 0.3
+            }
+            .sink { _ in
                 status.addTab()
             }
             .store(in: &subs)
@@ -79,7 +85,7 @@ final class Bar: NSVisualEffectView {
         
         animate
             .removeDuplicates {
-                $1.timeIntervalSince1970 - $0.timeIntervalSince1970 < 1
+                $1.timeIntervalSince1970 - $0.timeIntervalSince1970 < 0.3
             }
             .sink { [weak self] _ in
                 NSAnimationContext

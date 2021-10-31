@@ -15,7 +15,6 @@ extension Search.Cell {
             isContinuousSpellCheckingEnabled = false
             isAutomaticTextCompletionEnabled = false
             insertionPointColor = .labelColor
-            typingAttributes[.kern] = 1
         }
         
         override func drawInsertionPoint(in rect: NSRect, color: NSColor, turnedOn: Bool) {
@@ -46,6 +45,11 @@ extension Search.Cell {
         
         override func performTextFinderAction(_ sender: Any?) {
             window?.performTextFinderAction(sender)
+        }
+        
+        override func becomeFirstResponder() -> Bool {
+            selectedTextAttributes[.backgroundColor] = NSColor.tertiaryLabelColor
+            return super.becomeFirstResponder()
         }
     }
 }

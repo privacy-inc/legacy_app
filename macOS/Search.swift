@@ -9,10 +9,9 @@ final class Search: NSTextField {
         translatesAutoresizingMaskIntoConstraints = false
         font = .preferredFont(forTextStyle: .body)
         controlSize = .large
-        lineBreakMode = .byTruncatingMiddle
+        lineBreakMode = .byTruncatingTail
         textColor = .labelColor
         isAutomaticTextCompletionEnabled = false
-        
         
 //        cloud
 //            .archive
