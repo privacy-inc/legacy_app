@@ -8,11 +8,18 @@ final class Icon: NSImageView {
         .init(systemSymbolName: "network", accessibilityDescription: nil)
     }
     
+    override var wantsDefaultClipping: Bool {
+        false
+    }
+    
     required init?(coder: NSCoder) { nil }
     init(size: CGFloat = 32) {
         super.init(frame: .zero)
+        wantsLayer = true
+        layer!.cornerRadius = 6
+        layer!.cornerCurve = .continuous
+        imageScaling = .scaleProportionallyUpOrDown
         translatesAutoresizingMaskIntoConstraints = false
-        image = empty
         contentTintColor = .tertiaryLabelColor
         symbolConfiguration = .init(textStyle: .largeTitle, scale: .large)
         

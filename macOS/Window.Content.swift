@@ -53,6 +53,8 @@ extension Window {
                     switch item.flow {
                     case .landing:
                         view = Landing()
+                    case let .web(web):
+                        view = web
                     default:
                         view = .init()
                     }

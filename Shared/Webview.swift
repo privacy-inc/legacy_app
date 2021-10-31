@@ -125,14 +125,11 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         }
     }
     
-    final func error(url: URL, description: String) {
-        error(error: .init(url: url, description: description))
-        
-        Task
-            .detached(priority: .utility) { [weak self] in
-                guard let history = self?.history else { return }
-                await cloud.update(url: url, history: history)
-                await cloud.update(title: description, history: history)
+    @MainActor final func access() async {
+        await cloud
+            .website(history: history)
+            .map {
+                load($0.access)
             }
     }
     
@@ -144,6 +141,17 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     final func load(_ url: URL) {
         load(.init(url: url))
+    }
+        
+    final func error(url: URL, description: String) {
+        error(error: .init(url: url, description: description))
+        
+        Task
+            .detached(priority: .utility) { [weak self] in
+                guard let history = self?.history else { return }
+                await cloud.update(url: url, history: history)
+                await cloud.update(title: description, history: history)
+            }
     }
     
     @MainActor final func load(_ access: AccessType) {

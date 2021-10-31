@@ -21,18 +21,12 @@ struct Status {
         guard flows.value.count > 1 else { return }
         
         if current.value == id {
-            flows
-                .value
-                .firstIndex {
-                    $0.id == id
-                }
-                .map {
-                    if $0 > 0 {
-                        current.value = flows.value[$0 - 1].id
-                    } else {
-                        current.value = flows.value[$0 + 1].id
-                    }
-                }
+            let index = self.index
+            if index > 0 {
+                current.value = flows.value[index - 1].id
+            } else {
+                current.value = flows.value[index + 1].id
+            }
         }
         
         flows
@@ -40,5 +34,45 @@ struct Status {
             .remove {
                 $0.id == id
             }
+    }
+    
+    @MainActor func searching(search: String) async {
+        do {
+            switch item.flow {
+            case .landing:
+                try await history(cloud.search(search))
+            case let .web(web), let .error(web, _):
+                try await cloud.search(search, history: web.history)
+                await web.access()
+            }
+        } catch {
+            fatalError()
+        }
+    }
+    
+    private func history(_ id: UInt16) async {
+        let web = await Web(history: id, settings: cloud.model.settings.configuration)
+        change(flow: .web(web))
+        await web.access()
+    }
+    
+    private var item: Item {
+        flows
+            .value
+            .first {
+                $0.id == current.value
+            }!
+    }
+    
+    private var index: Int {
+        flows
+            .value
+            .firstIndex {
+                $0.id == current.value
+            }!
+    }
+    
+    private func change(flow: Flow) {
+        flows.value[index].flow = flow
     }
 }

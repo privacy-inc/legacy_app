@@ -47,12 +47,7 @@ struct Status {
         
         flow = .web
         
-        if let access = await cloud
-            .website(history: item!.history!)?
-            .access {
-            
-            await item!.web!.load(access)
-        }
+        await item!.web!.access()
     }
     
     mutating func dismiss() async {

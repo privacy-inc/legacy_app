@@ -5,7 +5,7 @@ extension Status {
     enum Flow: Equatable {
         case
         landing,
-        web(UInt16),
-        error(UInt16, Err)
+        web(Web),
+        error(Web, Err)
     }
 }
