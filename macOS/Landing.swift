@@ -44,8 +44,6 @@ final class Landing: NSScrollView {
             }
             .removeDuplicates()
             .sink { cards in
-                print("cards")
-                
                 flip
                     .subviews
                     .filter {

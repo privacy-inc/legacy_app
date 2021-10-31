@@ -35,7 +35,7 @@ final class Bar: NSVisualEffectView {
                 var flows = $0
                 tabs = tabs
                     .filter { tab in
-                        guard flows.remove(where: { $0.id == tab.item.id }) == nil else { return true }
+                        guard flows.remove(where: { $0.id == tab.item }) == nil else { return true }
                         tab.left?.right = tab.right
                         tab.right?.left = tab.left
                         tab.removeFromSuperview()
@@ -45,7 +45,7 @@ final class Bar: NSVisualEffectView {
                 flows
                     .reversed()
                     .forEach {
-                        let tab = Tab(status: status, item: $0)
+                        let tab = Tab(status: status, item: $0.id)
                         self.addSubview(tab)
                         
                         tabs.first?.left = tab
@@ -70,7 +70,7 @@ final class Bar: NSVisualEffectView {
                         $0 as? Tab
                     }
                     .forEach { tab in
-                        tab.current = tab.item.id == current
+                        tab.current = tab.item == current
                     }
                 
                 animate.send(.now)

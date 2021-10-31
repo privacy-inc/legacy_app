@@ -27,7 +27,7 @@ extension Bar {
             }
         }
         
-        let item: Status.Item
+        let item: UUID
         
         weak var right: Tab?
         weak var left: Tab? {
@@ -50,7 +50,7 @@ extension Bar {
         private let status: Status
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, item: Status.Item) {
+        init(status: Status, item: UUID) {
             self.status = status
             self.item = item
             super.init(frame: .zero)

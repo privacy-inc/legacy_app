@@ -7,7 +7,7 @@ extension Bar.Tab {
         private let status: Status
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, item: Status.Item) {
+        init(status: Status, item: UUID) {
             self.status = status
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +31,7 @@ extension Bar.Tab {
             close
                 .click
                 .sink {
-                    status.close(id: item.id)
+                    status.close(id: item)
                 }
                 .store(in: &subs)
             addSubview(close)
@@ -45,6 +45,19 @@ extension Bar.Tab {
                 .store(in: &subs)
             options.state = .hidden
             addSubview(options)
+            
+            prompt.centerXAnchor.constraint(equalTo: close.centerXAnchor).isActive = true
+            prompt.centerYAnchor.constraint(equalTo: close.centerYAnchor).isActive = true
+            
+            close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
+            close.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            
+            options.rightAnchor.constraint(equalTo: rightAnchor, constant: -3).isActive = true
+            options.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            
+            search.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            search.leftAnchor.constraint(equalTo: close.rightAnchor).isActive = true
+            search.rightAnchor.constraint(equalTo: options.leftAnchor).isActive = true
             
             status
                 .flows
@@ -65,7 +78,7 @@ extension Bar.Tab {
                 .compactMap {
                     $0
                         .first {
-                            $0.id == item.id
+                            $0.id == item
                         }
                 }
                 .filter {
@@ -82,18 +95,27 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            prompt.centerXAnchor.constraint(equalTo: close.centerXAnchor).isActive = true
-            prompt.centerYAnchor.constraint(equalTo: close.centerYAnchor).isActive = true
-            
-            close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
-            close.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            
-            options.rightAnchor.constraint(equalTo: rightAnchor, constant: -3).isActive = true
-            options.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            
-            search.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            search.leftAnchor.constraint(equalTo: close.rightAnchor).isActive = true
-            search.rightAnchor.constraint(equalTo: options.leftAnchor).isActive = true
+            status
+                .flows
+                .compactMap {
+                    $0
+                        .first {
+                            $0.id == item
+                        }
+                }
+                .compactMap {
+                    switch $0.flow {
+                    case let .web(web), let .error(web, _):
+                        return web
+                    default:
+                        return nil
+                    }
+                }
+                .first()
+                .sink { [weak self] in
+                    self?.web(web: $0, search: search)
+                }
+                .store(in: &subs)
         }
         
         func controlTextDidChange(_: Notification) {
@@ -160,6 +182,17 @@ extension Bar.Tab {
                 return false
             }
             return true
+        }
+        
+        private func web(web: Web, search: Search) {
+            web
+                .publisher(for: \.url)
+                .compactMap(\.?.absoluteString)
+                .removeDuplicates()
+                .sink {
+                    search.stringValue = $0
+                }
+                .store(in: &subs)
         }
     }
 }

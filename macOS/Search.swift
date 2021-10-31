@@ -13,7 +13,6 @@ final class Search: NSTextField {
         textColor = .labelColor
         isAutomaticTextCompletionEnabled = false
         
-        let responder = (cell!.fieldEditor(for: self) as! Cell.Editor).responder
         
 //        cloud
 //            .archive

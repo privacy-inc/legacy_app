@@ -4,13 +4,6 @@ import Specs
 
 final class Icon: NSImageView {
     private var sub: AnyCancellable?
-    private var empty: NSImage? {
-        .init(systemSymbolName: "network", accessibilityDescription: nil)
-    }
-    
-    override var wantsDefaultClipping: Bool {
-        false
-    }
     
     required init?(coder: NSCoder) { nil }
     init(size: CGFloat = 32) {
@@ -43,7 +36,7 @@ final class Icon: NSImageView {
     }
     
     @MainActor private func update(icon: String?) async {
-        image = empty
+        image = .init(systemSymbolName: "network", accessibilityDescription: nil)
         sub?.cancel()
         guard
             let icon = icon,

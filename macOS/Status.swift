@@ -34,6 +34,14 @@ struct Status {
             .remove {
                 $0.id == id
             }
+            .map {
+                switch $0.flow {
+                case let .web(web), let .error(web, _):
+                    web.clear()
+                default:
+                    break
+                }
+            }
     }
     
     @MainActor func searching(search: String) async {

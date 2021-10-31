@@ -7,7 +7,7 @@ extension Bar.Tab {
         required init?(coder: NSCoder) { nil }
         init(icon: String) {
             let image = Image(icon: icon)
-            image.symbolConfiguration = .init(pointSize: 15, weight: .regular)
+            image.symbolConfiguration = .init(pointSize: 16, weight: .regular)
             image.contentTintColor = .secondaryLabelColor
             self.image = image
             

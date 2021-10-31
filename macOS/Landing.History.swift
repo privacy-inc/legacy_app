@@ -6,10 +6,6 @@ extension Landing {
     final class History: Section {
         private var subs = Set<AnyCancellable>()
         
-        deinit {
-            print("deinit history")
-        }
-        
         required init?(coder: NSCoder) { nil }
         override init() {
             super.init()

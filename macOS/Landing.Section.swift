@@ -4,10 +4,6 @@ extension Landing {
     class Section: NSView {
         private(set) weak var header: Text!
         
-        deinit {
-            print("deinit section")
-        }
-        
         required init?(coder: NSCoder) { nil }
         init() {
             super.init(frame: .zero)
