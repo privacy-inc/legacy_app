@@ -88,6 +88,7 @@
 		CE5D41BD272C5CDC00AEBE0F /* Bar.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D41BA272C5CDC00AEBE0F /* Bar.Option.swift */; };
 		CE5D41BE272C5CDC00AEBE0F /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D41BB272C5CDC00AEBE0F /* Control.swift */; };
 		CE5D41BF272C5CDC00AEBE0F /* Control.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D41BC272C5CDC00AEBE0F /* Control.State.swift */; };
+		CE5F1279272EB93E002D0AD2 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F1278272EB93E002D0AD2 /* Web.swift */; };
 		CE5F70C52721A41100C7203B /* Froob.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F70C42721A41100C7203B /* Froob.swift */; };
 		CE63A0B02719C34D00756E02 /* Settings.Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63A0AF2719C34D00756E02 /* Settings.Navigation.swift */; };
 		CE63A0B42719CCB800756E02 /* Settings.Javascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63A0B32719CCB800756E02 /* Settings.Javascript.swift */; };
@@ -318,6 +319,7 @@
 		CE5D41BA272C5CDC00AEBE0F /* Bar.Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bar.Option.swift; sourceTree = "<group>"; };
 		CE5D41BB272C5CDC00AEBE0F /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		CE5D41BC272C5CDC00AEBE0F /* Control.State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.State.swift; sourceTree = "<group>"; };
+		CE5F1278272EB93E002D0AD2 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CE5F70C42721A41100C7203B /* Froob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.swift; sourceTree = "<group>"; };
 		CE63A0AF2719C34D00756E02 /* Settings.Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Navigation.swift; sourceTree = "<group>"; };
 		CE63A0B32719CCB800756E02 /* Settings.Javascript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Javascript.swift; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 				CE8BA2EE272D741900E2D73F /* Status.Item.swift */,
 				CEBB8BDE2728258300016F2C /* Status.swift */,
 				CE743013272987E700F5F5B8 /* Text.swift */,
+				CE5F1278272EB93E002D0AD2 /* Web.swift */,
 				CE3F56D02728361300A022CC /* Webview.macOS.swift */,
 				CEBDD5512728219600F2F493 /* Window.Content.swift */,
 				CE3576B127281C3F005854B5 /* Window.swift */,
@@ -927,6 +930,7 @@
 				CE743014272987E700F5F5B8 /* Text.swift in Sources */,
 				CE8BA2F5272D8BE600E2D73F /* Bar.Tab.Option.swift in Sources */,
 				CE743005272981EA00F5F5B8 /* CollectionItem.swift in Sources */,
+				CE5F1279272EB93E002D0AD2 /* Web.swift in Sources */,
 				CE5D41AD272C2ED400AEBE0F /* Separator.swift in Sources */,
 				CE8BA2F9272D9B6300E2D73F /* Search.Cell.swift in Sources */,
 				CE743009272981EA00F5F5B8 /* CollectionCell.swift in Sources */,
