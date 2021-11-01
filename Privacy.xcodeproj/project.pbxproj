@@ -176,6 +176,7 @@
 		CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C2272FFA540079928E /* NSMenu.swift */; };
 		CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C3272FFA540079928E /* NSMenuItem.swift */; };
 		CEEBA5C727301E280079928E /* Bar.Tab.Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */; };
+		CEEBA5C927302A1C0079928E /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C827302A1C0079928E /* Menu.swift */; };
 		CEEE59C92721B11C0038952A /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
 		CEEE59CA2721B13A0038952A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE470A6C26FA1DB2002D560A /* Images.xcassets */; };
 		CEEE59D02721B6780038952A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEEE59CF2721B6780038952A /* Assets.xcassets */; };
@@ -409,6 +410,7 @@
 		CEEBA5C2272FFA540079928E /* NSMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
 		CEEBA5C3272FFA540079928E /* NSMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
 		CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.Connection.swift; sourceTree = "<group>"; };
+		CEEBA5C827302A1C0079928E /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		CEEE59CD2721B6770038952A /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEE59CF2721B6780038952A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEEE59D52721B6790038952A /* Privacy.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Privacy.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -513,6 +515,7 @@
 				CE742FFD2729759900F5F5B8 /* Landing.swift */,
 				CE74301527299A0900F5F5B8 /* Landing.Trackers.swift */,
 				CE74300B2729825500F5F5B8 /* Layer.swift */,
+				CEEBA5C827302A1C0079928E /* Menu.swift */,
 				CE3576AF27281C25005854B5 /* NSApplication.swift */,
 				CEEBA5C2272FFA540079928E /* NSMenu.swift */,
 				CEEBA5C3272FFA540079928E /* NSMenuItem.swift */,
@@ -944,6 +947,7 @@
 				CE743005272981EA00F5F5B8 /* CollectionItem.swift in Sources */,
 				CE5F1279272EB93E002D0AD2 /* Web.swift in Sources */,
 				CE5D41AD272C2ED400AEBE0F /* Separator.swift in Sources */,
+				CEEBA5C927302A1C0079928E /* Menu.swift in Sources */,
 				CE8BA2F9272D9B6300E2D73F /* Search.Cell.swift in Sources */,
 				CE743009272981EA00F5F5B8 /* CollectionCell.swift in Sources */,
 				CE5D41BF272C5CDC00AEBE0F /* Control.State.swift in Sources */,

@@ -71,10 +71,10 @@ extension NSApplication {
 //    }
 //
     
-//    @objc func showPreferencesWindow(_ sender: Any?) {
+    @objc func showPreferencesWindow(_ sender: Any?) {
 //        (anyWindow() ?? Settings())
 //            .makeKeyAndOrderFront(nil)
-//    }
+    }
     
     func anyWindow<T>() -> T? {
         windows
