@@ -70,10 +70,6 @@ extension NSApplication {
 //        window.plus()
 //    }
 //
-    @objc func newWindow() {
-        let window = Window()
-        window.makeKeyAndOrderFront(nil)
-    }
     
 //    @objc func showPreferencesWindow(_ sender: Any?) {
 //        (anyWindow() ?? Settings())

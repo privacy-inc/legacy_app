@@ -3,45 +3,65 @@ import Combine
 
 struct Status {
     let current: CurrentValueSubject<UUID, Never>
-    let flows: CurrentValueSubject<[Item], Never>
+    let items: CurrentValueSubject<[Item], Never>
 
     init() {
-        let item = Item(flow: .landing)
-        flows = .init([item])
+        self.init(item: .init(flow: .landing))
+    }
+    
+    init(item: Item) {
+        items = .init([item])
         current = .init(item.id)
     }
     
     func addTab() {
         let item = Item(flow: .landing)
-        flows.value.append(item)
+        items.value.append(item)
         current.send(item.id)
     }
     
     func close(id: UUID) {
-        guard flows.value.count > 1 else { return }
+        guard items.value.count > 1 else { return }
         
         if current.value == id {
             let index = self.index
             if index > 0 {
-                current.value = flows.value[index - 1].id
+                current.value = items.value[index - 1].id
             } else {
-                current.value = flows.value[index + 1].id
+                current.value = items.value[index + 1].id
             }
         }
         
-        flows
+        items
             .value
             .remove {
                 $0.id == id
             }
             .map {
-                switch $0.flow {
-                case let .web(web), let .error(web, _):
-                    web.clear()
-                default:
-                    break
-                }
+                $0.clear()
             }
+    }
+    
+    func close(except: UUID) {
+        current.value = except
+        
+        items
+            .value
+            .removeAll {
+                guard $0.id == except else {
+                    $0.clear()
+                    return true
+                }
+                return false
+            }
+    }
+    
+    func moveToNewWindow(id: UUID) {
+        Window.new(status: .init(item: items
+                                    .value
+                                    .remove {
+                                        $0.id == id
+                                    }!))
     }
     
     @MainActor func searching(search: String) async {
@@ -65,7 +85,7 @@ struct Status {
     }
     
     private var item: Item {
-        flows
+        items
             .value
             .first {
                 $0.id == current.value
@@ -73,7 +93,7 @@ struct Status {
     }
     
     private var index: Int {
-        flows
+        items
             .value
             .firstIndex {
                 $0.id == current.value
@@ -81,6 +101,6 @@ struct Status {
     }
     
     private func change(flow: Flow) {
-        flows.value[index].flow = flow
+        items.value[index].flow = flow
     }
 }

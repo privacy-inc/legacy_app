@@ -77,7 +77,7 @@ extension Bar.Tab {
             stack.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             
             status
-                .flows
+                .items
                 .map {
                     $0.count
                 }
@@ -89,7 +89,7 @@ extension Bar.Tab {
                 .store(in: &subs)
             
             status
-                .flows
+                .items
                 .first()
                 .delay(for: .milliseconds(100), scheduler: DispatchQueue.main)
                 .compactMap {
@@ -113,7 +113,7 @@ extension Bar.Tab {
                 .store(in: &subs)
             
             status
-                .flows
+                .items
                 .compactMap {
                     $0
                         .first {

@@ -8,12 +8,29 @@ extension Bar.Tab {
         private weak var close: Option!
         private weak var icon: Icon!
         private weak var title: Text!
+        private let status: Status
+        private let item: UUID
         
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {
+            self.status = status
+            self.item = item
             super.init(layer: true)
             layer!.cornerRadius = 8
             layer!.cornerCurve = .continuous
+            
+            menu = NSMenu()
+            menu!.items = [
+                .child("Close Tab", #selector(closeTab)) {
+                    $0.target = self
+                },
+                .child("Close Other Tabs", #selector(closeOthers)) {
+                    $0.target = self
+                },
+                .separator(),
+                .child("Move Tab to New Window", #selector(moveToWindow)) {
+                    $0.target = self
+                }]
             
             click
                 .sink {
@@ -39,8 +56,8 @@ extension Bar.Tab {
             close.toolTip = "Close tab"
             close
                 .click
-                .sink {
-                    status.close(id: item)
+                .sink { [weak self] in
+                    self?.closeTab()
                 }
                 .store(in: &subs)
             addSubview(close)
@@ -61,7 +78,7 @@ extension Bar.Tab {
             title.centerYAnchor.constraint(equalTo: close.centerYAnchor, constant: -1).isActive = true
             
             status
-                .flows
+                .items
                 .compactMap {
                     $0
                         .first {
@@ -135,6 +152,18 @@ extension Bar.Tab {
                     }
                 }
                 .store(in: &subs)
+        }
+        
+        @objc private func closeTab() {
+            status.close(id: item)
+        }
+        
+        @objc private func closeOthers() {
+            status.close(except: item)
+        }
+        
+        @objc private func moveToWindow() {
+            status.moveToNewWindow(id: item)
         }
     }
 }

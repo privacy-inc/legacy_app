@@ -98,8 +98,4 @@ final class Search: NSTextField {
     override func mouseDown(with: NSEvent) {
         selectText(nil)
     }
-    
-    override func viewDidMoveToWindow() {
-        window?.initialFirstResponder = self
-    }
 }

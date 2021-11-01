@@ -21,11 +21,11 @@ extension Window {
             separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
             
             sub = status
-                .flows
+                .items
                 .combineLatest(status
                                 .current)
-                .compactMap { flows, current in
-                    flows
+                .compactMap { items, current in
+                    items
                         .first {
                             $0.id == current
                         }

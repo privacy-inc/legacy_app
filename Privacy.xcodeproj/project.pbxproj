@@ -173,6 +173,8 @@
 		CEBDD5562728232600F2F493 /* Status.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDD5552728232600F2F493 /* Status.Flow.swift */; };
 		CED63AEA27047E5A001C8183 /* Options.Representable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED63AE927047E5A001C8183 /* Options.Representable.swift */; };
 		CED63AEC27048150001C8183 /* Options.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED63AEB27048150001C8183 /* Options.Content.swift */; };
+		CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C2272FFA540079928E /* NSMenu.swift */; };
+		CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C3272FFA540079928E /* NSMenuItem.swift */; };
 		CEEE59C92721B11C0038952A /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
 		CEEE59CA2721B13A0038952A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE470A6C26FA1DB2002D560A /* Images.xcassets */; };
 		CEEE59D02721B6780038952A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEEE59CF2721B6780038952A /* Assets.xcassets */; };
@@ -403,6 +405,8 @@
 		CEBDD5552728232600F2F493 /* Status.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.Flow.swift; sourceTree = "<group>"; };
 		CED63AE927047E5A001C8183 /* Options.Representable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Representable.swift; sourceTree = "<group>"; };
 		CED63AEB27048150001C8183 /* Options.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.swift; sourceTree = "<group>"; };
+		CEEBA5C2272FFA540079928E /* NSMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
+		CEEBA5C3272FFA540079928E /* NSMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
 		CEEE59CD2721B6770038952A /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEE59CF2721B6780038952A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEEE59D52721B6790038952A /* Privacy.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Privacy.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -507,6 +511,8 @@
 				CE74301527299A0900F5F5B8 /* Landing.Trackers.swift */,
 				CE74300B2729825500F5F5B8 /* Layer.swift */,
 				CE3576AF27281C25005854B5 /* NSApplication.swift */,
+				CEEBA5C2272FFA540079928E /* NSMenu.swift */,
+				CEEBA5C3272FFA540079928E /* NSMenuItem.swift */,
 				CE8BA2FA272D9B7700E2D73F /* Search.Cell.Editor.swift */,
 				CE8BA2F8272D9B6300E2D73F /* Search.Cell.swift */,
 				CE8BA2F6272D9B3E00E2D73F /* Search.swift */,
@@ -914,6 +920,7 @@
 				CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */,
 				CEABD1F7272AE70700F56852 /* Landing.Bookmarks.Remote.swift in Sources */,
 				CE74300D2729825500F5F5B8 /* Layer.swift in Sources */,
+				CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */,
 				CEABD1F3272AD91900F56852 /* Landing.Bookmarks.Item.swift in Sources */,
 				CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */,
 				CE5D41A9272C1DAD00AEBE0F /* Card.swift in Sources */,
@@ -926,6 +933,7 @@
 				CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */,
 				CE5D41B1272C3D8800AEBE0F /* Bar.swift in Sources */,
 				CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */,
+				CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */,
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
 				CE743014272987E700F5F5B8 /* Text.swift in Sources */,
 				CE8BA2F5272D8BE600E2D73F /* Bar.Tab.Option.swift in Sources */,

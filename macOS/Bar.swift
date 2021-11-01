@@ -34,21 +34,23 @@ final class Bar: NSVisualEffectView {
         plus.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         
         status
-            .flows
+            .items
             .removeDuplicates()
             .sink { [weak self] in
+                
+                print("items")
                 guard let self = self else { return }
-                var flows = $0
+                var items = $0
                 tabs = tabs
                     .filter { tab in
-                        guard flows.remove(where: { $0.id == tab.item }) == nil else { return true }
+                        guard items.remove(where: { $0.id == tab.item }) == nil else { return true }
                         tab.left?.right = tab.right
                         tab.right?.left = tab.left
                         tab.removeFromSuperview()
                         return false
                     }
                 
-                flows
+                items
                     .reversed()
                     .forEach {
                         let tab = Tab(status: status, item: $0.id)

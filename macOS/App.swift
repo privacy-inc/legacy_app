@@ -19,7 +19,7 @@ import StoreKit
     
     func applicationWillFinishLaunching(_: Notification) {
 //        mainMenu = Menu()
-        newWindow()
+        Window.new()
     }
     
     func applicationDidFinishLaunching(_: Notification) {

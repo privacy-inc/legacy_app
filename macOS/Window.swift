@@ -1,7 +1,16 @@
 import AppKit
 
 final class Window: NSWindow {
-    init() {
+    class func new() {
+        new(status: .init())
+    }
+    
+    class func new(status: Status) {
+        let window = Window(status: status)
+        window.makeKeyAndOrderFront(nil)
+    }
+    
+    private init(status: Status) {
         super.init(contentRect: .init(x: 0,
                                       y: 0,
                                       width: NSScreen.main!.frame.width * 0.5,
@@ -15,8 +24,6 @@ final class Window: NSWindow {
         setFrameAutosaveName("Window")
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
-        
-        let status = Status()
         contentView = Content(status: status)
 
         let accessory = NSTitlebarAccessoryViewController()
