@@ -175,6 +175,7 @@
 		CED63AEC27048150001C8183 /* Options.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED63AEB27048150001C8183 /* Options.Content.swift */; };
 		CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C2272FFA540079928E /* NSMenu.swift */; };
 		CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C3272FFA540079928E /* NSMenuItem.swift */; };
+		CEEBA5C727301E280079928E /* Bar.Tab.Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */; };
 		CEEE59C92721B11C0038952A /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
 		CEEE59CA2721B13A0038952A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE470A6C26FA1DB2002D560A /* Images.xcassets */; };
 		CEEE59D02721B6780038952A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEEE59CF2721B6780038952A /* Assets.xcassets */; };
@@ -407,6 +408,7 @@
 		CED63AEB27048150001C8183 /* Options.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.swift; sourceTree = "<group>"; };
 		CEEBA5C2272FFA540079928E /* NSMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
 		CEEBA5C3272FFA540079928E /* NSMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
+		CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.Connection.swift; sourceTree = "<group>"; };
 		CEEE59CD2721B6770038952A /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEE59CF2721B6780038952A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEEE59D52721B6790038952A /* Privacy.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Privacy.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -479,6 +481,7 @@
 				CE5D41AE272C3A8300AEBE0F /* AttributedString.swift */,
 				CE5D41BA272C5CDC00AEBE0F /* Bar.Option.swift */,
 				CE5D41B0272C3D8800AEBE0F /* Bar.swift */,
+				CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */,
 				CE8BA2F0272D7DBD00E2D73F /* Bar.Tab.Layer.swift */,
 				CE8BA2EC272D72E500E2D73F /* Bar.Tab.Off.swift */,
 				CE8BA2F2272D843900E2D73F /* Bar.Tab.On.swift */,
@@ -934,6 +937,7 @@
 				CE5D41B1272C3D8800AEBE0F /* Bar.swift in Sources */,
 				CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */,
 				CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */,
+				CEEBA5C727301E280079928E /* Bar.Tab.Connection.swift in Sources */,
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
 				CE743014272987E700F5F5B8 /* Text.swift in Sources */,
 				CE8BA2F5272D8BE600E2D73F /* Bar.Tab.Option.swift in Sources */,

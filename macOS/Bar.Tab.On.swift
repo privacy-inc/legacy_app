@@ -34,11 +34,11 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            let secure = Option(icon: "lock.fill", size: 14)
+            let secure = Option(icon: "lock.fill", size: 11, color: .tertiaryLabelColor)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
             
-            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 15)
+            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 11, color: .tertiaryLabelColor)
             insercure.toolTip = "Insecure"
             insercure.state = .hidden
             
@@ -298,6 +298,22 @@ extension Bar.Tab {
                 .click
                 .sink {
                     web.goForward()
+                }
+                .store(in: &subs)
+            
+            secure
+                .click
+                .sink {
+                    Connection(history: web.history)
+                        .show(relativeTo: secure.bounds, of: secure, preferredEdge: .minY)
+                }
+                .store(in: &subs)
+            
+            insecure
+                .click
+                .sink {
+                    Connection(history: web.history)
+                        .show(relativeTo: insecure.bounds, of: insecure, preferredEdge: .minY)
                 }
                 .store(in: &subs)
         }
