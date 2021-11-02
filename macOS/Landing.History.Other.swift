@@ -2,12 +2,10 @@ import AppKit
 import Specs
 
 extension Landing.History {
-    final class Other: NSView {
+    final class Other: Item {
         required init?(coder: NSCoder) { nil }
         init(item: History) {
-            super.init(frame: .zero)
-            translatesAutoresizingMaskIntoConstraints = false
-            
+            super.init()
             let title = Text(vibrancy: true)
             title.stringValue = item.website.access.value
             title.textColor = .tertiaryLabelColor
@@ -16,11 +14,11 @@ extension Landing.History {
             title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             addSubview(title)
             
-            bottomAnchor.constraint(equalTo: title.bottomAnchor, constant: 15).isActive = true
+            bottomAnchor.constraint(equalTo: title.bottomAnchor, constant: 16).isActive = true
             
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
-            title.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
+            title.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
+            title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16).isActive = true
         }
     }
 }

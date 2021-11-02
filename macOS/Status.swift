@@ -69,7 +69,7 @@ struct Status {
         do {
             switch item.flow {
             case .landing:
-                try await history(cloud.search(search))
+                try await history(id: cloud.search(search))
             case let .web(web), let .error(web, _):
                 try await cloud.search(search, history: web.history)
                 await web.access()
@@ -82,14 +82,14 @@ struct Status {
     @MainActor func access(access: AccessType) async {
         switch item.flow {
         case .landing:
-            await history(cloud.open(access: access))
+            await history(id: cloud.open(access: access))
         case let .web(web), let .error(web, _):
             await cloud.open(access: access, history: web.history)
             await web.access()
         }
     }
     
-    private func history(_ id: UInt16) async {
+    @MainActor func history(id: UInt16) async {
         let web = await Web(history: id, settings: cloud.model.settings.configuration)
         change(flow: .web(web))
         await web.access()

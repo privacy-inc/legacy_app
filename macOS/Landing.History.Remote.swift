@@ -2,12 +2,10 @@ import AppKit
 import Specs
 
 extension Landing.History {
-    final class Remote: NSView {
+    final class Remote: Item {
         required init?(coder: NSCoder) { nil }
         init(item: History, remote: Access.Remote) {
-            super.init(frame: .zero)
-            translatesAutoresizingMaskIntoConstraints = false
-            
+            super.init()
             let icon = Icon()
             icon.icon(icon: item.website.access.icon)
             addSubview(icon)
@@ -26,11 +24,11 @@ extension Landing.History {
             bottomAnchor.constraint(equalTo: icon.bottomAnchor, constant: 10).isActive = true
 
             icon.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-            icon.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
             
             title.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             title.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 10).isActive = true
-            title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
+            title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16).isActive = true
         }
     }
 }

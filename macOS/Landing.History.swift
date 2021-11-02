@@ -7,7 +7,7 @@ extension Landing {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        override init() {
+        init(status: Status) {
             super.init()
             header.stringValue = "History"
             
@@ -38,7 +38,8 @@ extension Landing {
 
                     history
                         .forEach { item in
-                            let view: NSView
+                            
+                            let view: Item
                             switch item.website.access {
                             case let remote as Access.Remote:
                                 view = Remote(item: item, remote: remote)
@@ -52,20 +53,33 @@ extension Landing {
                                 let separator = Separator(mode: .horizontal)
                                 self.addSubview(separator)
                                 
-                                separator.topAnchor.constraint(equalTo: top).isActive = true
-                                separator.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-                                separator.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+                                separator.topAnchor.constraint(equalTo: top, constant: 1).isActive = true
+                                separator.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20).isActive = true
+                                separator.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20).isActive = true
                                 top = separator.bottomAnchor
                             }
                             
-                            view.topAnchor.constraint(equalTo: top, constant: top == self.header.bottomAnchor ? 10 : 0).isActive = true
+                            view.topAnchor.constraint(equalTo: top, constant: top == self.header.bottomAnchor ? 10 : 1).isActive = true
                             view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
                             view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
                             top = view.bottomAnchor
+                            
+                            self.listen(item: view, history: item.id, status: status)
                         }
                     
                     if !history.isEmpty {
                         self.bottomAnchor.constraint(equalTo: top).isActive = true
+                    }
+                }
+                .store(in: &subs)
+        }
+        
+        private func listen(item: Item, history: UInt16, status: Status) {
+            item
+                .click
+                .sink {
+                    Task {
+                        await status.history(id: history)
                     }
                 }
                 .store(in: &subs)
