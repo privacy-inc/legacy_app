@@ -2,6 +2,7 @@ import AppKit
 
 extension Landing.Bookmarks {
     class Item: NSView {
+        private(set) weak var card: Card!
         private(set) weak var title: Text!
         
         required init?(coder: NSCoder) { nil }
@@ -11,6 +12,7 @@ extension Landing.Bookmarks {
             
             let card = Card()
             card.addSubview(icon)
+            self.card = card
             addSubview(card)
             
             let title = Text(vibrancy: true)

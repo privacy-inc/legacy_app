@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import Specs
 
 struct Status {
     let current: CurrentValueSubject<UUID, Never>
@@ -75,6 +76,16 @@ struct Status {
             }
         } catch {
             fatalError()
+        }
+    }
+    
+    @MainActor func access(access: AccessType) async {
+        switch item.flow {
+        case .landing:
+            await history(cloud.open(access: access))
+        case let .web(web), let .error(web, _):
+            await cloud.open(access: access, history: web.history)
+            await web.access()
         }
     }
     

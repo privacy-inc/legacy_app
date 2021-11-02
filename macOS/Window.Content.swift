@@ -52,7 +52,7 @@ extension Window {
                     
                     switch item.flow {
                     case .landing:
-                        view = Landing()
+                        view = Landing(status: status)
                     case let .web(web):
                         view = web
                     default:

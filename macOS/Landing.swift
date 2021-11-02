@@ -6,7 +6,7 @@ final class Landing: NSScrollView {
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
-    init() {
+    init(status: Status) {
         super.init(frame: .zero)
         let flip = Flip()
         documentView = flip
@@ -65,7 +65,7 @@ final class Landing: NSScrollView {
                         case .activity:
                             section = Activity()
                         case .bookmarks:
-                            section = Bookmarks()
+                            section = Bookmarks(status: status)
                         case .history:
                             section = History()
                         }

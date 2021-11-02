@@ -34,7 +34,7 @@ struct Window: View {
                     status.flow = .tabs
                     Task
                         .detached(priority: .utility) {
-                            await status.url(url)
+                            await status.url(url: url)
                         }
                 }
             }

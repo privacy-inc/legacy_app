@@ -1,15 +1,21 @@
 import AppKit
 
-final class Card: NSView {
+final class Card: Control {
     required init?(coder: NSCoder) { nil }
     init() {
-        super.init(frame: .zero)
-        translatesAutoresizingMaskIntoConstraints = false
-        layer = Layer()
-        wantsLayer = true
+        super.init(layer: true)
         layer!.cornerCurve = .continuous
-        layer!.cornerRadius = 14
-        layer!.borderColor = NSColor.quaternaryLabelColor.cgColor
-        layer!.borderWidth = 1
+        layer!.cornerRadius = 12
+    }
+    
+    override func update() {
+        super.update()
+        
+        switch state {
+        case .pressed, .highlighted:
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
+        default:
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+        }
     }
 }

@@ -68,25 +68,25 @@ struct Status {
         tab()
     }
     
-    @MainActor mutating func url(_ url: URL) async {
+    @MainActor mutating func url(url: URL) async {
         if item == nil || (item != nil && (item!.web != nil || item!.history != nil)) {
             items.append(.init())
             index = items.count - 1
         }
-        await history(cloud.open(url: url))
+        await history(id: cloud.open(url: url))
     }
     
-    mutating func history(_ id: UInt16) async {
+    mutating func history(id: UInt16) async {
         item!.history = id
         await web()
     }
     
-    mutating func access(_ access: AccessType) async {
+    mutating func access(access: AccessType) async {
         if let id = item!.history {
             await cloud.open(access: access, history: id)
             await web()
         } else {
-            await history(cloud.open(access: access))
+            await history(id: cloud.open(access: access))
         }
     }
     
@@ -96,7 +96,7 @@ struct Status {
                 try await cloud.search(search, history: id)
                 await web()
             } else {
-                try await history(cloud.search(search))
+                try await history(id: cloud.search(search))
             }
         } catch {
             flow = .landing

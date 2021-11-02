@@ -7,7 +7,7 @@ extension Landing {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        override init() {
+        init(status: Status) {
             super.init()
             header.stringValue = "Bookmarks"
             
@@ -32,18 +32,37 @@ extension Landing {
                 .removeDuplicates {
                     $0.map(\.access.value) == $1.map(\.access.value)
                 }
-                .sink { bookmarks in
+                .sink { [weak self] bookmarks in
                     stack
                         .setViews(bookmarks
                                     .map { bookmark in
+                            
+                            
+                            let item: Item
                             switch bookmark.access {
-                            case is Access.Remote:
-                                return Remote(bookmark: bookmark)
+                            case let remote as Access.Remote:
+                                item = Remote(title: bookmark.title, favicon: remote.domain.minimal)
                             default:
-                                return Other(title: bookmark.access.value)
+                                item = Other(title: bookmark.access.value)
                             }
+                            
+                            self?.listen(item: item, bookmark: bookmark, status: status)
+                            
+                            return item
                         },
                                   in: .center)
+                }
+                .store(in: &subs)
+        }
+        
+        private func listen(item: Item, bookmark: Website, status: Status) {
+            item
+                .card
+                .click
+                .sink {
+                    Task {
+                        await status.access(access: bookmark.access)
+                    }
                 }
                 .store(in: &subs)
         }

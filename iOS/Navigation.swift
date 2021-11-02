@@ -54,21 +54,21 @@ struct Navigation: View {
         status.tab()
     }
     
-    private func url(_ url: URL) {
+    private func url(url: URL) {
         Task {
-            await status.url(url)
+            await status.url(url: url)
         }
     }
     
-    private func access(_ access: AccessType) {
+    private func access(access: AccessType) {
         Task {
-            await status.access(access)
+            await status.access(access: access)
         }
     }
     
-    private func history(_ id: UInt16) {
+    private func history(id: UInt16) {
         Task {
-            await status.history(id)
+            await status.history(id: id)
         }
     }
     
