@@ -25,12 +25,7 @@ struct Status {
         guard items.value.count > 1 else { return }
         
         if current.value == id {
-            let index = self.index
-            if index > 0 {
-                current.value = items.value[index - 1].id
-            } else {
-                current.value = items.value[index + 1].id
-            }
+            shift()
         }
         
         items
@@ -58,6 +53,10 @@ struct Status {
     }
     
     func moveToNewWindow(id: UUID) {
+        if current.value == id {
+            shift()
+        }
+        
         Window.new(status: .init(item: items
                                     .value
                                     .remove {
@@ -113,5 +112,14 @@ struct Status {
     
     private func change(flow: Flow) {
         items.value[index].flow = flow
+    }
+    
+    private func shift() {
+        let index = self.index
+        if index > 0 {
+            current.value = items.value[index - 1].id
+        } else {
+            current.value = items.value[index + 1].id
+        }
     }
 }

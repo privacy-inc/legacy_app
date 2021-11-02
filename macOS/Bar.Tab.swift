@@ -1,7 +1,7 @@
 import AppKit
 
 extension Bar {
-    final class Tab: NSView {
+    final class Tab: NSView, NSMenuDelegate {
         var current = false {
             didSet {
                 guard current != oldValue else { return }
@@ -59,6 +59,9 @@ extension Bar {
             self.status = status
             self.item = item
             super.init(frame: .zero)
+            menu = NSMenu()
+            menu!.delegate = self
+            menu!.autoenablesItems = false
             translatesAutoresizingMaskIntoConstraints = false
             
             heightAnchor.constraint(equalToConstant: 28).isActive = true
@@ -66,6 +69,35 @@ extension Bar {
         
         func align(left: NSLayoutXAxisAnchor) {
             leftGuide = leftAnchor.constraint(equalTo: left, constant: 10)
+        }
+        
+        func menuNeedsUpdate(_ menu: NSMenu) {
+            menu.items = [
+                .child("Close Tab", #selector(closeTab)) {
+                    $0.target = self
+                    $0.isEnabled = status.items.value.count > 1
+                },
+                .child("Close Other Tabs", #selector(closeOthers)) {
+                    $0.target = self
+                    $0.isEnabled = status.items.value.count > 1
+                },
+                .separator(),
+                .child("Move Tab to New Window", #selector(moveToWindow)) {
+                    $0.target = self
+                    $0.isEnabled = status.items.value.count > 1
+                }]
+        }
+        
+        @objc private func closeTab() {
+            status.close(id: item)
+        }
+        
+        @objc private func closeOthers() {
+            status.close(except: item)
+        }
+        
+        @objc private func moveToWindow() {
+            status.moveToNewWindow(id: item)
         }
     }
 }
