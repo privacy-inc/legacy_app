@@ -3,7 +3,7 @@ import WebKit
 
 extension Webview: WKDownloadDelegate {
     var defaultBackground: UIColor {
-        .secondarySystemBackground.resolvedColor(with: .init(userInterfaceStyle: .dark))
+        .secondarySystemBackground.resolvedColor(with: traitCollection)
     }
     
     final func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
