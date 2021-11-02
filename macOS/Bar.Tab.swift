@@ -69,9 +69,5 @@ extension Bar {
         func align(left: NSLayoutXAxisAnchor) {
             leftGuide = leftAnchor.constraint(equalTo: left, constant: 10)
         }
-
-        override var allowsVibrancy: Bool {
-            true
-        }
     }
 }

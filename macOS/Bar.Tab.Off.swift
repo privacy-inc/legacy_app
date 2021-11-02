@@ -74,7 +74,7 @@ extension Bar.Tab {
             icon.centerYAnchor.constraint(equalTo: close.centerYAnchor).isActive = true
             
             title.leftAnchor.constraint(equalTo: close.rightAnchor).isActive = true
-            title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -3).isActive = true
+            title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
             title.centerYAnchor.constraint(equalTo: close.centerYAnchor, constant: -1).isActive = true
             
             status

@@ -44,7 +44,7 @@ final class Icon: NSView {
     }
     
     override var allowsVibrancy: Bool {
-        false
+        icon.isHidden
     }
     
     override func hitTest(_: NSPoint) -> NSView? {
