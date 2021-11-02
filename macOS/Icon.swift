@@ -11,10 +11,6 @@ final class Icon: NSView {
     init(size: CGFloat = 32) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        layer = Layer()
-        wantsLayer = true
-        layer!.cornerRadius = 6
-        layer!.cornerCurve = .continuous
         
         let backup = Image(icon: "network")
         backup.contentTintColor = .tertiaryLabelColor
@@ -23,6 +19,9 @@ final class Icon: NSView {
         addSubview(backup)
         
         let icon = NSImageView()
+        icon.wantsLayer = true
+        icon.layer!.cornerRadius = 6
+        icon.layer!.cornerCurve = .continuous
         icon.imageScaling = .scaleProportionallyUpOrDown
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.isHidden = true
@@ -41,10 +40,6 @@ final class Icon: NSView {
         backup.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backup.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         backup.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-    }
-    
-    override var allowsVibrancy: Bool {
-        icon.isHidden
     }
     
     override func hitTest(_: NSPoint) -> NSView? {

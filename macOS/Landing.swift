@@ -84,4 +84,11 @@ final class Landing: NSScrollView {
             }
             .store(in: &subs)
     }
+    
+    override func mouseDown(with: NSEvent) {
+        super.mouseDown(with: with)
+        if with.clickCount == 1 {
+            window?.makeFirstResponder(self)
+        }
+    }
 }

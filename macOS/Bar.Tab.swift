@@ -60,8 +60,6 @@ extension Bar {
             self.item = item
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
-            layer = Layer()
-            wantsLayer = true
             
             heightAnchor.constraint(equalToConstant: 28).isActive = true
         }
