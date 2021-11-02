@@ -5,12 +5,18 @@ import Specs
 final class Web: Webview {
 //    private var destination = Destination.window
     
+    private let status: Status
+    private let item: UUID
+    
     deinit {
         print("web gone")
     }
     
     required init?(coder: NSCoder) { nil }
-    init(history: UInt16, settings: Specs.Settings.Configuration) {
+    init(status: Status, item: UUID, history: UInt16, settings: Specs.Settings.Configuration) {
+        self.status = status
+        self.item = item
+        
         let configuration = WKWebViewConfiguration()
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
         configuration.preferences.setValue(true, forKey: "fullScreenEnabled")
@@ -26,55 +32,6 @@ final class Web: Webview {
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15"
         
         /*
-        session
-            .load
-            .filter {
-                $0.id == id
-            }
-            .sink { [weak self] in
-                self?.load($0.access)
-            }
-            .store(in: &subs)
-        
-        session
-            .reload
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.reload()
-            }
-            .store(in: &subs)
-        
-        session
-            .stop
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.stopLoading()
-            }
-            .store(in: &subs)
-        
-        session
-            .back
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.goBack()
-            }
-            .store(in: &subs)
-        
-        session
-            .forward
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.goForward()
-            }
-            .store(in: &subs)
         
         session
             .print
@@ -184,7 +141,7 @@ final class Web: Webview {
     }
     
     override func error(error: Err) {
-//        self.error.send(error)
+        status.change(flow: .error(self, error), id: item)
     }
     
 //    override func userContentController(_ controller: WKUserContentController, didReceive: WKScriptMessage) {

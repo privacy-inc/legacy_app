@@ -55,8 +55,8 @@ extension Window {
                         view = Landing(status: status)
                     case let .web(web):
                         view = web
-                    default:
-                        view = .init()
+                    case let .error(_, error):
+                        view = Recover(error: error)
                     }
                     
                     view.translatesAutoresizingMaskIntoConstraints = false

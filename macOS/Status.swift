@@ -21,6 +21,23 @@ struct Status {
         current.send(item.id)
     }
     
+    func dismiss() async {
+        guard
+            case let .error(web, _) = item.flow,
+            let url = await web.url,
+            let title = await web.title
+        else {
+            let current = current.value
+            addTab()
+            close(id: current)
+            return
+        }
+        
+        await cloud.update(url: url, history: web.history)
+        await cloud.update(title: title, history: web.history)
+        await change(flow: .web(web))
+    }
+    
     func close(id: UUID) {
         guard items.value.count > 1 else { return }
         
@@ -64,6 +81,17 @@ struct Status {
                                     }!))
     }
     
+    @MainActor func change(flow: Flow, id: UUID) {
+        items
+            .value
+            .firstIndex {
+                $0.id == id
+            }
+            .map { index in
+                items.value[index].flow = flow
+            }
+    }
+    
     @MainActor func searching(search: String) async {
         do {
             switch item.flow {
@@ -74,7 +102,7 @@ struct Status {
                 await web.access()
             }
         } catch {
-            fatalError()
+            
         }
     }
     
@@ -89,7 +117,7 @@ struct Status {
     }
     
     @MainActor func history(id: UInt16) async {
-        let web = await Web(history: id, settings: cloud.model.settings.configuration)
+        let web = await Web(status: self, item: current.value, history: id, settings: cloud.model.settings.configuration)
         change(flow: .web(web))
         await web.access()
     }
@@ -110,7 +138,7 @@ struct Status {
             }!
     }
     
-    private func change(flow: Flow) {
+    @MainActor private func change(flow: Flow) {
         items.value[index].flow = flow
     }
     

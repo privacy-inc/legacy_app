@@ -16,7 +16,7 @@ struct Recover: View {
                 .symbolRenderingMode(.hierarchical)
                 .foregroundColor(.pink)
             Text(verbatim: error?.url.absoluteString ?? "")
-                .font(.callout)
+                .font(.callout.weight(.light))
                 .foregroundColor(.secondary)
                 .frame(maxWidth: 320)
                 .lineLimit(1)
@@ -25,7 +25,7 @@ struct Recover: View {
                 .font(.body)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.center)
-                .frame(maxWidth: 320)
+                .frame(maxWidth: 260)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom)
             Button(action: retry) {

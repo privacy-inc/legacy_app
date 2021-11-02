@@ -134,13 +134,16 @@ extension Bar.Tab {
                 .first()
                 .sink { [weak self] (web: Web) in
                     self?.listen(web: web,
-                              search: search,
-                              secure: secure,
-                              insecure: insercure,
-                              back: back,
-                              forward: forward,
-                              reload: reload,
-                              stop: stop)
+                                 status: status,
+                                 item: item,
+                                 search: search,
+                                 secure: secure,
+                                 insecure: insercure,
+                                 back: back,
+                                 forward: forward,
+                                 reload: reload,
+                                 stop: stop)
+                    
                     background.listen(web: web)
                     options.state = .on
                 }
@@ -214,6 +217,8 @@ extension Bar.Tab {
         }
         
         private func listen(web: Web,
+                            status: Status,
+                            item: UUID,
                             search: Search,
                             secure: Option,
                             insecure: Option,
@@ -227,28 +232,49 @@ extension Bar.Tab {
                     $0
                 }
                 .removeDuplicates()
-                .sink { url in
-                    switch url.scheme?.lowercased() {
-                    case "https":
-                        secure.state = .on
-                        insecure.state = .hidden
-                    case "http":
+                .combineLatest(status
+                                .items
+                                .compactMap {
+                                    $0
+                                        .first {
+                                            $0.id == item
+                                        }?
+                                        .flow
+                                }
+                                .removeDuplicates())
+                .sink { url, flow in
+                    
+                    switch flow {
+                    case .web:
+                        switch url.scheme?.lowercased() {
+                        case "https":
+                            secure.state = .on
+                            insecure.state = .hidden
+                        case "http":
+                            secure.state = .hidden
+                            insecure.state = .on
+                        default:
+                            secure.state = .hidden
+                            insecure.state = .hidden
+                        }
+                        
+                        var string = url
+                            .absoluteString
+                            .replacingOccurrences(of: "https://", with: "")
+                        
+                        if string.last == "/" {
+                            string.removeLast()
+                        }
+                        
+                        search.stringValue = string
+                        
+                    case let .error(_, error):
                         secure.state = .hidden
-                        insecure.state = .on
+                        insecure.state = .hidden
+                        search.stringValue = error.url.absoluteString
                     default:
-                        secure.state = .hidden
-                        insecure.state = .hidden
+                        break
                     }
-                    
-                    var string = url
-                        .absoluteString
-                        .replacingOccurrences(of: "https://", with: "")
-                    
-                    if string.last == "/" {
-                        string.removeLast()
-                    }
-                    
-                    search.stringValue = string
                 }
                 .store(in: &subs)
             
@@ -264,8 +290,27 @@ extension Bar.Tab {
             web
                 .publisher(for: \.canGoBack)
                 .removeDuplicates()
-                .sink {
-                    back.state = $0 ? .on : .hidden
+                .combineLatest(status
+                                .items
+                                .compactMap {
+                                    $0
+                                        .first {
+                                            $0.id == item
+                                        }?
+                                        .flow
+                                }
+                                .removeDuplicates())
+                .sink { canGoBack, flow in
+                    
+                    switch flow {
+                    case .web:
+                        back.state = canGoBack ? .on : .hidden
+                    case .error:
+                        back.state = .on
+                    default:
+                        break
+                    }
+                    
                 }
                 .store(in: &subs)
             
@@ -280,7 +325,17 @@ extension Bar.Tab {
             reload
                 .click
                 .sink {
-                    web.reload()
+                    guard let flow = status.items.value.first(where: { $0.id == item })?.flow else { return }
+                    
+                    switch flow {
+                    case .web:
+                        web.reload()
+                    case let .error(_, error):
+                        web.load(error.url)
+                        status.change(flow: .web(web), id: item)
+                    default:
+                        break
+                    }
                 }
                 .store(in: &subs)
             
@@ -294,7 +349,19 @@ extension Bar.Tab {
             back
                 .click
                 .sink {
-                    web.goBack()
+                    guard let flow = status.items.value.first(where: { $0.id == item })?.flow else { return }
+                    
+                    switch flow {
+                    case .web:
+                        web.goBack()
+                    case .error:
+                        Task
+                            .detached(priority: .utility) {
+                                await status.dismiss()
+                            }
+                    default:
+                        break
+                    }
                 }
                 .store(in: &subs)
             
@@ -302,6 +369,12 @@ extension Bar.Tab {
                 .click
                 .sink {
                     web.goForward()
+                    
+                    guard
+                        let flow = status.items.value.first(where: { $0.id == item })?.flow,
+                        case .error = flow
+                    else { return }
+                    status.change(flow: .web(web), id: item)
                 }
                 .store(in: &subs)
             

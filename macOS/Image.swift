@@ -4,8 +4,8 @@ final class Image: NSImageView {
     private let vibrancy: Bool
     
     required init?(coder: NSCoder) { nil }
-    convenience init(icon: String) {
-        self.init(vibrancy: true)
+    convenience init(icon: String, vibrancy: Bool = true) {
+        self.init(vibrancy: vibrancy)
         image = .init(systemSymbolName: icon, accessibilityDescription: nil)
     }
 
