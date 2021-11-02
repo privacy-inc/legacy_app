@@ -25,6 +25,8 @@ extension Tab {
         }
         
         private func progress(value: Double) {
+            guard value != 1 || progress.second != 0 else { return }
+            
             progress.first = 0
             withAnimation(.easeInOut(duration: 0.3)) {
                 progress.second = value

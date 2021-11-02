@@ -172,6 +172,8 @@
 		CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDD5512728219600F2F493 /* Window.Content.swift */; };
 		CEBDD5562728232600F2F493 /* Status.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDD5552728232600F2F493 /* Status.Flow.swift */; };
 		CEBFC845273163B300EFDA17 /* Landing.History.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC844273163B300EFDA17 /* Landing.History.Item.swift */; };
+		CEBFC8472731686300EFDA17 /* Bar.Tab.On.Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC8462731686300EFDA17 /* Bar.Tab.On.Background.swift */; };
+		CEBFC84927316A7000EFDA17 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC84827316A7000EFDA17 /* Shape.swift */; };
 		CED63AEA27047E5A001C8183 /* Options.Representable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED63AE927047E5A001C8183 /* Options.Representable.swift */; };
 		CED63AEC27048150001C8183 /* Options.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED63AEB27048150001C8183 /* Options.Content.swift */; };
 		CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C2272FFA540079928E /* NSMenu.swift */; };
@@ -407,6 +409,8 @@
 		CEBDD5512728219600F2F493 /* Window.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Content.swift; sourceTree = "<group>"; };
 		CEBDD5552728232600F2F493 /* Status.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.Flow.swift; sourceTree = "<group>"; };
 		CEBFC844273163B300EFDA17 /* Landing.History.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Item.swift; sourceTree = "<group>"; };
+		CEBFC8462731686300EFDA17 /* Bar.Tab.On.Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.On.Background.swift; sourceTree = "<group>"; };
+		CEBFC84827316A7000EFDA17 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		CED63AE927047E5A001C8183 /* Options.Representable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Representable.swift; sourceTree = "<group>"; };
 		CED63AEB27048150001C8183 /* Options.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.swift; sourceTree = "<group>"; };
 		CEEBA5C2272FFA540079928E /* NSMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
@@ -488,6 +492,7 @@
 				CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */,
 				CE8BA2F0272D7DBD00E2D73F /* Bar.Tab.Layer.swift */,
 				CE8BA2EC272D72E500E2D73F /* Bar.Tab.Off.swift */,
+				CEBFC8462731686300EFDA17 /* Bar.Tab.On.Background.swift */,
 				CE8BA2F2272D843900E2D73F /* Bar.Tab.On.swift */,
 				CE8BA2F4272D8BE600E2D73F /* Bar.Tab.Option.swift */,
 				CE5D41B5272C484900AEBE0F /* Bar.Tab.swift */,
@@ -526,6 +531,7 @@
 				CE8BA2F8272D9B6300E2D73F /* Search.Cell.swift */,
 				CE8BA2F6272D9B3E00E2D73F /* Search.swift */,
 				CE5D41AC272C2ED400AEBE0F /* Separator.swift */,
+				CEBFC84827316A7000EFDA17 /* Shape.swift */,
 				CEBDD5552728232600F2F493 /* Status.Flow.swift */,
 				CE8BA2EE272D741900E2D73F /* Status.Item.swift */,
 				CEBB8BDE2728258300016F2C /* Status.swift */,
@@ -947,6 +953,7 @@
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
 				CE743014272987E700F5F5B8 /* Text.swift in Sources */,
 				CE8BA2F5272D8BE600E2D73F /* Bar.Tab.Option.swift in Sources */,
+				CEBFC84927316A7000EFDA17 /* Shape.swift in Sources */,
 				CE743005272981EA00F5F5B8 /* CollectionItem.swift in Sources */,
 				CE5F1279272EB93E002D0AD2 /* Web.swift in Sources */,
 				CE5D41AD272C2ED400AEBE0F /* Separator.swift in Sources */,
@@ -981,6 +988,7 @@
 				CE3576B227281C3F005854B5 /* Window.swift in Sources */,
 				CEABD1ED272AC22F00F56852 /* Landing.Simple.swift in Sources */,
 				CE74300A272981EA00F5F5B8 /* Collection.swift in Sources */,
+				CEBFC8472731686300EFDA17 /* Bar.Tab.On.Background.swift in Sources */,
 				CE3576B427281CF7005854B5 /* Store.Item.swift in Sources */,
 				CEABD1F9272AE8C600F56852 /* Landing.Bookmarks.Other.swift in Sources */,
 				CE8BA2F1272D7DBD00E2D73F /* Bar.Tab.Layer.swift in Sources */,

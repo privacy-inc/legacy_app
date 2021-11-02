@@ -12,11 +12,9 @@ extension Bar.Tab {
             self.status = status
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
-            layer = Privacy.Layer()
-            wantsLayer = true
-            layer!.cornerRadius = 8
-            layer!.cornerCurve = .continuous
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
+            
+            let background = Background()
+            addSubview(background)
             
             let search = Search()
             search.delegate = self
@@ -68,6 +66,11 @@ extension Bar.Tab {
             addSubview(stack)
             
             widthAnchor.constraint(equalToConstant: 350).isActive = true
+            
+            background.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            background.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            background.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
             
             prompt.widthAnchor.constraint(equalToConstant: 28).isActive = true
             
@@ -130,7 +133,7 @@ extension Bar.Tab {
                 }
                 .first()
                 .sink { [weak self] (web: Web) in
-                    self?.web(web: web,
+                    self?.listen(web: web,
                               search: search,
                               secure: secure,
                               insecure: insercure,
@@ -138,6 +141,7 @@ extension Bar.Tab {
                               forward: forward,
                               reload: reload,
                               stop: stop)
+                    background.listen(web: web)
                     options.state = .on
                 }
                 .store(in: &subs)
@@ -209,14 +213,14 @@ extension Bar.Tab {
             return true
         }
         
-        private func web(web: Web,
-                         search: Search,
-                         secure: Option,
-                         insecure: Option,
-                         back: Option,
-                         forward: Option,
-                         reload: Option,
-                         stop: Option) {
+        private func listen(web: Web,
+                            search: Search,
+                            secure: Option,
+                            insecure: Option,
+                            back: Option,
+                            forward: Option,
+                            reload: Option,
+                            stop: Option) {
             web
                 .publisher(for: \.url)
                 .compactMap {
