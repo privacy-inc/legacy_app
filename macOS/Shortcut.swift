@@ -4,10 +4,6 @@ import Combine
 final class Shortcut: NSPopover {
     private var subs = Set<AnyCancellable>()
     
-    deinit {
-        print("shortcut gone")
-    }
-    
     required init?(coder: NSCoder) { nil }
     init(origin: NSView) {
         super.init()

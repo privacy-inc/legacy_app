@@ -2,11 +2,20 @@ import Foundation
 import Combine
 import Specs
 
-struct Status {
+final class Status {
     let current: CurrentValueSubject<UUID, Never>
     let items: CurrentValueSubject<[Item], Never>
+    let search = PassthroughSubject<Void, Never>()
 
-    init() {
+    var item: Item? {
+        items
+            .value
+            .first {
+                $0.id == current.value
+            }
+    }
+    
+    convenience init() {
         self.init(item: .init(flow: .landing))
     }
     
@@ -23,7 +32,7 @@ struct Status {
     
     func dismiss() async {
         guard
-            case let .error(web, _) = item.flow,
+            case let .error(web, _) = item!.flow,
             let url = await web.url,
             let title = await web.title
         else {
@@ -94,7 +103,7 @@ struct Status {
     
     @MainActor func searching(search: String) async {
         do {
-            switch item.flow {
+            switch item!.flow {
             case .landing:
                 try await history(id: cloud.search(search))
             case let .web(web), let .error(web, _):
@@ -107,7 +116,7 @@ struct Status {
     }
     
     @MainActor func access(access: AccessType) async {
-        switch item.flow {
+        switch item!.flow {
         case .landing:
             await history(id: cloud.open(access: access))
         case let .web(web), let .error(web, _):
@@ -120,14 +129,6 @@ struct Status {
         let web = await Web(status: self, item: current.value, history: id, settings: cloud.model.settings.configuration)
         change(flow: .web(web))
         await web.access()
-    }
-    
-    private var item: Item {
-        items
-            .value
-            .first {
-                $0.id == current.value
-            }!
     }
     
     private var index: Int {

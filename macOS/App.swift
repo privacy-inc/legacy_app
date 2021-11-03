@@ -71,8 +71,8 @@ import StoreKit
     }
     
     @objc override func orderFrontStandardAboutPanel(_ sender: Any?) {
-//        (anyWindow() ?? About())
-//            .makeKeyAndOrderFront(nil)
+        (anyWindow() ?? About())
+            .makeKeyAndOrderFront(nil)
     }
 
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {

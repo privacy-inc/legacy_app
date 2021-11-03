@@ -5,7 +5,7 @@ import Specs
 final class Web: Webview {
 //    private var destination = Destination.window
     
-    private let status: Status
+    private weak var status: Status!
     private let item: UUID
     
     required init?(coder: NSCoder) { nil }

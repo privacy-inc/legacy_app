@@ -4,10 +4,6 @@ import Combine
 final class Forgeting: NSPopover {
     private var subs = Set<AnyCancellable>()
     
-    deinit {
-        print("forget gone")
-    }
-    
     required init?(coder: NSCoder) { nil }
     override init() {
         super.init()

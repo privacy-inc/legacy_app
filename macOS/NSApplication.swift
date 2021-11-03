@@ -28,6 +28,10 @@ extension NSApplication {
             .reduce(0, +)
     }
     
+    var activeWindow: Window? {
+        keyWindow as? Window ?? anyWindow()
+    }
+    
 //    func newTabWith(url: URL) {
 //        guard let window = activeWindow else {
 //            newWindowWith(url: url)
@@ -94,15 +98,7 @@ extension NSApplication {
 //    }
 //
     
-    @objc func showPreferencesWindow(_ sender: Any?) {
-//        (anyWindow() ?? Settings())
-//            .makeKeyAndOrderFront(nil)
-    }
     
-    @objc func show() {
-        (anyWindow() as Window?)?
-            .orderFrontRegardless()
-    }
     
     func anyWindow<T>() -> T? {
         windows
@@ -112,7 +108,13 @@ extension NSApplication {
             .first
     }
     
-    private var activeWindow: Window? {
-        keyWindow as? Window ?? anyWindow()
+    @objc func show() {
+        activeWindow?
+            .orderFrontRegardless()
+    }
+    
+    @objc func showPreferencesWindow(_ sender: Any?) {
+//        (anyWindow() ?? Settings())
+//            .makeKeyAndOrderFront(nil)
     }
 }

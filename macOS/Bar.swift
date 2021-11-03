@@ -38,7 +38,6 @@ final class Bar: NSVisualEffectView {
             .removeDuplicates()
             .sink { [weak self] in
                 
-                print("items")
                 guard let self = self else { return }
                 var items = $0
                 tabs = tabs

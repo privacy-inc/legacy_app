@@ -46,8 +46,6 @@ extension Window {
                             $0.removeFromSuperview()
                         }
                     
-                    print("flow")
-                    
                     let view: NSView
                     
                     switch item.flow {

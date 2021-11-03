@@ -5,7 +5,7 @@ extension Bar.Tab {
     final class On: NSView, NSTextFieldDelegate {
         private var subs = Set<AnyCancellable>()
         private weak var stack: NSStackView!
-        private let status: Status
+        private weak var status: Status!
         
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {
@@ -146,6 +146,13 @@ extension Bar.Tab {
                     
                     background.listen(web: web)
                     options.state = .on
+                }
+                .store(in: &subs)
+            
+            status
+                .search
+                .sink { [weak self] in
+                    self?.window!.makeFirstResponder(search)
                 }
                 .store(in: &subs)
         }

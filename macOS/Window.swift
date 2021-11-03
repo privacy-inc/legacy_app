@@ -1,16 +1,19 @@
 import AppKit
 
-final class Window: NSWindow {
+final class Window: NSWindow {    
     class func new() {
         new(status: .init())
     }
     
     class func new(status: Status) {
-        let window = Window(status: status)
-        window.makeKeyAndOrderFront(nil)
+        Window(status: status).makeKeyAndOrderFront(nil)
     }
     
     let status: Status
+    
+    deinit {
+        print("window gone")
+    }
     
     private init(status: Status) {
         self.status = status
@@ -34,7 +37,31 @@ final class Window: NSWindow {
         accessory.view = Bar(status: status)
         accessory.layoutAttribute = .top
         addTitlebarAccessoryViewController(accessory)
-    }/*
+    }
+    
+    @objc func search() {
+        status.search.send()
+    }
+    
+    override func close() {
+        status
+            .items
+            .value
+            .forEach {
+                $0.clear()
+            }
+        super.close()
+    }
+    
+    func closeTab() {
+        guard status.items.value.count > 1 else {
+            close()
+            return
+        }
+        status.close(id: status.current.value)
+    }
+    
+    /*
     
     override func close() {
         session
