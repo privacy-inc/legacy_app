@@ -10,7 +10,11 @@ final class Window: NSWindow {
         window.makeKeyAndOrderFront(nil)
     }
     
+    let status: Status
+    
     private init(status: Status) {
+        self.status = status
+        
         super.init(contentRect: .init(x: 0,
                                       y: 0,
                                       width: NSScreen.main!.frame.width * 0.5,

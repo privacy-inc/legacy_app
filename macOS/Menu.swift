@@ -1,21 +1,21 @@
 import AppKit
 
 final class Menu: NSMenu, NSMenuDelegate {
-    private let status = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    private let shortcut = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
     required init(coder: NSCoder) { super.init(coder: coder) }
     init() {
         super.init(title: "")
         items = [app, file, edit, page, window, help]
-        status.button!.image = NSImage(named: "status")
-        status.button!.target = self
-        status.button!.action = #selector(triggerStatus)
-        status.button!.menu = .init()
-        status.button!.sendAction(on: [.leftMouseUp, .rightMouseUp])
-//        status.button!.menu!.items = [
-//            .child("Show Avocado", #selector(NSApplication.show)),
-//            .separator(),
-//            .child("Quit Avocado", #selector(NSApplication.terminate))]
+        shortcut.button!.image = NSImage(named: "status")
+        shortcut.button!.target = self
+        shortcut.button!.action = #selector(triggerShortcut)
+        shortcut.button!.menu = .init()
+        shortcut.button!.sendAction(on: [.leftMouseUp, .rightMouseUp])
+        shortcut.button!.menu!.items = [
+            .child("Show Privacy", #selector(NSApplication.show)),
+            .separator(),
+            .child("Quit Privacy", #selector(NSApplication.terminate))]
     }
     
     private var app: NSMenuItem {
@@ -242,21 +242,19 @@ final class Menu: NSMenu, NSMenuDelegate {
         }
     }
     */
-    @objc private func triggerStatus(_ button: NSStatusBarButton) {
-//        guard let event = NSApp.currentEvent else { return }
-//
-//        switch event.type {
-//        case .rightMouseUp:
-//            NSMenu.popUpContextMenu(button.menu!, with: event, for: button)
-//        case .leftMouseUp:
-//            let activity = Activity()
-//            activity.behavior = .transient
-//            activity.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
-//            activity.contentViewController!.view.window!.makeKey()
-//        default:
-//            break
-//        }
-    }
+    @objc private func triggerShortcut(_ button: NSStatusBarButton) {
+         guard let event = NSApp.currentEvent else { return }
+         
+         switch event.type {
+         case .rightMouseUp:
+             NSMenu.popUpContextMenu(button.menu!, with: event, for: button)
+         case .leftMouseUp:
+             let shortcut = Shortcut(origin: button)
+             shortcut.contentViewController!.view.window!.makeKey()
+         default:
+             break
+         }
+     }
     
     @objc private func triggerWebsite() {
 //        NSApp.newTabWith(url: URL(string: "https://goprivacy.app")!)
@@ -291,13 +289,6 @@ final class Menu: NSMenu, NSMenuDelegate {
                  }
                  .flatMap(URL.init(string:))
          } ?? URL(string: "https://goprivacy.app")!
- }
- 
- @objc private func triggerStatus(_ button: NSStatusBarButton) {
-     let forget = Forget()
-     forget.behavior = .transient
-     forget.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
-     forget.contentViewController!.view.window!.makeKey()
  }
  
  @objc private func triggerShare(_ item: NSMenuItem) {

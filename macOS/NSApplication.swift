@@ -5,6 +5,29 @@ extension NSApplication {
         effectiveAppearance.name != .aqua
     }
     
+    var windowsOpen: Int {
+        windows
+            .filter {
+                $0 is Window
+            }
+            .count
+    }
+    
+    var tabsOpen: Int {
+        windows
+            .compactMap {
+                $0 as? Window
+            }
+            .map {
+                $0
+                    .status
+                    .items
+                    .value
+                    .count
+            }
+            .reduce(0, +)
+    }
+    
 //    func newTabWith(url: URL) {
 //        guard let window = activeWindow else {
 //            newWindowWith(url: url)
@@ -74,6 +97,11 @@ extension NSApplication {
     @objc func showPreferencesWindow(_ sender: Any?) {
 //        (anyWindow() ?? Settings())
 //            .makeKeyAndOrderFront(nil)
+    }
+    
+    @objc func show() {
+        (anyWindow() as Window?)?
+            .orderFrontRegardless()
     }
     
     func anyWindow<T>() -> T? {
