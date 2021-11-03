@@ -4,6 +4,7 @@ import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     final let history: UInt16
+    final let dark: Bool
     private var subs = Set<AnyCancellable>()
     private let settings: Specs.Settings.Configuration
     
@@ -15,6 +16,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         
         self.history = history
         self.settings = settings
+        self.dark = dark
         
         configuration.suppressesIncrementalRendering = false
         configuration.allowsAirPlayForMediaPlayback = true
@@ -81,17 +83,13 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             publisher(for: \.themeColor)
                 .removeDuplicates()
                 .sink { [weak self] theme in
-                    self?
-                        .traitCollection
-                        .performAsCurrent {
-                            guard let color = theme else {
-                                self?.underPageBackgroundColor = self?.defaultBackground
-                                return
-                            }
-                            var alpha = CGFloat()
-                            color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
-                            self?.underPageBackgroundColor = alpha == 0 ? self?.defaultBackground : color
-                        }
+                    guard let color = theme else {
+                        self?.underPageBackgroundColor = self?.defaultBackground
+                        return
+                    }
+                    var alpha = CGFloat()
+                    color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
+                    self?.underPageBackgroundColor = alpha == 0 ? self?.defaultBackground : color
                 }
                 .store(in: &subs)
         }
