@@ -5,8 +5,13 @@ import Specs
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     final let history: UInt16
     final let dark: Bool
+    final let progress = PassthroughSubject<Double, Never>()
     private var subs = Set<AnyCancellable>()
     private let settings: Specs.Settings.Configuration
+    
+    deinit {
+        print("web gone")
+    }
     
     required init?(coder: NSCoder) { nil }
     @MainActor init(configuration: WKWebViewConfiguration,
@@ -75,6 +80,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                         await cloud.update(url: url, history: history)
                     }
             }
+            .store(in: &subs)
+        
+        publisher(for: \.estimatedProgress)
+            .subscribe(progress)
             .store(in: &subs)
         
         if dark && settings.dark {
@@ -146,6 +155,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
         
     final func error(url: URL, description: String) {
+        progress.send(1)
         error(error: .init(url: url, description: description))
         
         Task

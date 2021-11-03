@@ -35,7 +35,7 @@ extension Bar.Tab.On {
         
         func listen(web: Web) {
             subscription = web
-                .publisher(for: \.estimatedProgress)
+                .progress
                 .removeDuplicates()
                 .sink { [weak self] progress in
                     

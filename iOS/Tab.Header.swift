@@ -18,7 +18,7 @@ extension Tab {
             .background(color)
             .allowsHitTesting(false)
             .ignoresSafeArea(edges: .horizontal)
-            .onReceive(web.publisher(for: \.estimatedProgress), perform: progress(value:))
+            .onReceive(web.progress, perform: progress(value:))
             .onReceive(web.publisher(for: \.underPageBackgroundColor)) {
                 color = .init($0)
             }

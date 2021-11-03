@@ -8,10 +8,6 @@ final class Web: Webview {
     private let status: Status
     private let item: UUID
     
-    deinit {
-        print("web gone")
-    }
-    
     required init?(coder: NSCoder) { nil }
     init(status: Status, item: UUID, history: UInt16, settings: Specs.Settings.Configuration) {
         self.status = status
