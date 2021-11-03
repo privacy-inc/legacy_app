@@ -80,14 +80,18 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         } else {
             publisher(for: \.themeColor)
                 .removeDuplicates()
-                .sink { [weak self] in
-                    guard let color = $0 else {
-                        self?.underPageBackgroundColor = self?.defaultBackground
-                        return
-                    }
-                    var alpha = CGFloat()
-                    color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
-                    self?.underPageBackgroundColor = alpha == 0 ? self?.defaultBackground : color
+                .sink { [weak self] theme in
+                    self?
+                        .traitCollection
+                        .performAsCurrent {
+                            guard let color = theme else {
+                                self?.underPageBackgroundColor = self?.defaultBackground
+                                return
+                            }
+                            var alpha = CGFloat()
+                            color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
+                            self?.underPageBackgroundColor = alpha == 0 ? self?.defaultBackground : color
+                        }
                 }
                 .store(in: &subs)
         }
