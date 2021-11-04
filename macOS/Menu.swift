@@ -6,7 +6,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     required init(coder: NSCoder) { super.init(coder: coder) }
     init() {
         super.init(title: "")
-        items = [app, file, edit, page, window, help]
+        items = [app, file, edit, view, window, help]
         shortcut.button!.image = NSImage(named: "status")
         shortcut.button!.target = self
         shortcut.button!.action = #selector(triggerShortcut)
@@ -65,7 +65,13 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var edit: NSMenuItem {
-        .parent("Edit", [
+        .parent("Edit") {
+            $0.submenu!.delegate = self
+        }
+    }
+    
+    private var editItems: [NSMenuItem] {
+        var items: [NSMenuItem] = [
             .child("Undo", Selector(("undo:")), "z"),
             .child("Redo", Selector(("redo:")), "Z"),
             .separator(),
@@ -73,33 +79,90 @@ final class Menu: NSMenu, NSMenuDelegate {
             .child("Copy", #selector(NSText.copy(_:)), "c"),
             .child("Paste", #selector(NSText.paste), "v"),
             .child("Delete", #selector(NSText.delete)),
-            .child("Select All", #selector(NSText.selectAll), "a"),
-            .separator(),
-            .parent("Find", [
-                .child("Find", #selector(NSResponder.performTextFinderAction), "f") {
-                    $0.tag = .init(NSTextFinder.Action.showFindInterface.rawValue)
-                },
-                .child("Find Next", #selector(NSResponder.performTextFinderAction), "g") {
-                    $0.tag = .init(NSTextFinder.Action.nextMatch.rawValue)
-                },
-                .child("Find Previous", #selector(NSResponder.performTextFinderAction), "G") {
-                    $0.tag = .init(NSTextFinder.Action.previousMatch.rawValue)
-                },
+            .child("Select All", #selector(NSText.selectAll), "a")]
+        
+        if let window = NSApp.keyWindow as? Window,
+           case let .web(web) = window.status.item.flow {
+            
+            items += [
                 .separator(),
-                .child("Hide Find Banner", #selector(NSResponder.performTextFinderAction), "F") {
-                    $0.tag = .init(NSTextFinder.Action.hideFindInterface.rawValue)
-                }
-            ]) {
-                $0.submenu!.delegate = self
-                $0.submenu!.autoenablesItems = false
-            }])
+                .parent("Find", [
+                    .child("Find", #selector(NSResponder.performTextFinderAction), "f") {
+                        $0.tag = .init(NSTextFinder.Action.showFindInterface.rawValue)
+                        $0.target = web
+                    },
+                    .child("Find Next", #selector(NSResponder.performTextFinderAction), "g") {
+                        $0.tag = .init(NSTextFinder.Action.nextMatch.rawValue)
+                        $0.target = web
+                    },
+                    .child("Find Previous", #selector(NSResponder.performTextFinderAction), "G") {
+                        $0.tag = .init(NSTextFinder.Action.previousMatch.rawValue)
+                        $0.target = web
+                    },
+                    .separator(),
+                    .child("Hide Find Banner", #selector(NSResponder.performTextFinderAction), "F") {
+                        $0.tag = .init(NSTextFinder.Action.hideFindInterface.rawValue)
+                        $0.isEnabled = web.isFindBarVisible == true
+                        $0.target = web
+                    }
+                ]) {
+                    $0.submenu!.autoenablesItems = false
+                }]
+        }
+        
+        return items
     }
     
-    private var page: NSMenuItem {
-        .parent("Page") {
+    private var view: NSMenuItem {
+        .parent("View") {
             $0.submenu!.delegate = self
-            $0.submenu!.autoenablesItems = false
         }
+    }
+    
+    private var viewItems: [NSMenuItem] {
+        guard let window = NSApp.keyWindow as? Window else { return [] }
+        
+        var items = [NSMenuItem]()
+        
+        switch window.status.item.flow {
+        case let .web(web):
+            items += [
+                .child("Stop", #selector(web.stopLoading(_:)), ".") {
+                    $0.target = web
+                },
+                .child("Reload", #selector(web.reload(_:)), "r") {
+                    $0.target = web
+                },
+                .separator(),
+                .child("Actual Size", #selector(web.actualSize), "0") {
+                    $0.target = web
+                },
+                .child("Zoom In", #selector(web.zoomIn), "+") {
+                    $0.target = web
+                },
+                .child("Zoom Out", #selector(web.zoomOut), "-") {
+                    $0.target = web
+                }]
+        case let .error(web, _):
+            items += [
+                .child("Dismiss Error", #selector(web.dismiss), ".") {
+                    $0.target = web
+                },
+                .child("Try Again", #selector(web.tryAgain), "r") {
+                    $0.target = web
+                }]
+        default:
+            break
+        }
+        
+        items += [
+            .separator(),
+            .child(window.contentView?.isInFullScreenMode == true ? "Exit Full Screen" : "Enter Full Screen", #selector(window.toggleFullScreen), "f") {
+                $0.target = window
+                $0.keyEquivalentModifierMask = [.function]
+            }]
+        
+        return items
     }
     
     private var window: NSMenuItem {
@@ -120,23 +183,10 @@ final class Menu: NSMenu, NSMenuDelegate {
         switch menu.title {
         case "File":
             menu.items = fileItems
-//        case "Share":
-//            if let url = url {
-//                menu.items = [
-//                    .init(title: url.absoluteString.prefix(50) + "...", action: nil, keyEquivalent: ""),
-//                    .separator()]
-//                + NSSharingService
-//                    .sharingServices(forItems: [url])
-//                    .map { service in
-//                        .child(service.menuItemTitle, #selector(triggerShare)) {
-//                            $0.target = self
-//                            $0.image = service.image
-//                            $0.representedObject = service
-//                        }
-//                    }
-//            } else {
-//                menu.items = [.init(title: "Nothing to share", action: nil, keyEquivalent: "")]
-//            }
+        case "Edit":
+            menu.items = editItems
+        case "View":
+            menu.items = viewItems
 //        case "Window":
 //            menu.items = [
 //                .child("Minimize", #selector(NSWindow.miniaturize), "m"),
@@ -195,69 +245,7 @@ final class Menu: NSMenu, NSMenuDelegate {
 //                    $0.state = NSApp.mainWindow == NSApp.windows[index] ? .on : .off
 //                }
 //                }
-//            //        case "Page":
-//            //            var browse = false
-//            //            var error = false
-//            //            (NSApp.keyWindow as? Window)
-//            //                .map {
-//            //                    browse = $0
-//            //                        .session
-//            //                        .tab
-//            //                        .items
-//            //                        .value[state: $0
-//            //                                .session
-//            //                                .current
-//            //                                .value].isBrowse
-//            //                    error = $0
-//            //                        .session
-//            //                        .tab
-//            //                        .items
-//            //                        .value[state: $0
-//            //                                .session
-//            //                                .current
-//            //                                .value].isError
-//            //                }
-//            //
-//            //            menu.items = [
-//            //                .child("Stop", #selector(Window.stop), ".") {
-//            //                    $0.isEnabled = browse
-//            //                },
-//            //                error
-//            //                ? .child("Try Again", #selector(Window.tryAgain), "r")
-//            //                : .child("Reload", #selector(Window.reload), "r") {
-//            //                    $0.isEnabled = browse
-//            //                },
-//            //                .separator(),
-//            //                .child("Actual Size", #selector(Window.actualSize), "0") {
-//            //                    $0.isEnabled = browse
-//            //                },
-//            //                .child("Zoom In", #selector(Window.zoomIn), "+") {
-//            //                    $0.isEnabled = browse
-//            //                },
-//            //                .child("Zoom Out", #selector(Window.zoomOut), "-") {
-//            //                    $0.isEnabled = browse
-//            //                }]
-//            //        case "Find":
-//            //            let browser = (NSApp.keyWindow as? Window)
-//            //                .flatMap {
-//            //                    $0
-//            //                        .contentView?
-//            //                        .subviews
-//            //                        .compactMap {
-//            //                            $0 as? Browser
-//            //                        }
-//            //                        .first
-//            //                }
-//            //            menu
-//            //                .items
-//            //                .forEach {
-//            //                    switch NSTextFinder.Action(rawValue: $0.tag) {
-//            //                    case .hideFindInterface:
-//            //                        $0.isEnabled = browser != nil && browser?.finder.findBarContainer?.isFindBarVisible == true
-//            //                    default:
-//            //                        $0.isEnabled = browser != nil
-//            //                    }
-//            //                }
+
         default:
             break
         }
@@ -306,7 +294,7 @@ final class Menu: NSMenu, NSMenuDelegate {
                     $0.target = web
                 },
                 .separator(),
-                .child("Print...", #selector(web.print), "p") {
+                .child("Print...", #selector(web.printPage), "p") {
                     $0.target = web
                 }
             ]

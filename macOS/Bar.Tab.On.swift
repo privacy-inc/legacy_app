@@ -337,9 +337,8 @@ extension Bar.Tab {
                     switch flow {
                     case .web:
                         web.reload()
-                    case let .error(_, error):
-                        web.load(error.url)
-                        status.change(flow: .web(web), id: item)
+                    case .error:
+                        web.tryAgain()
                     default:
                         break
                     }
@@ -362,10 +361,7 @@ extension Bar.Tab {
                     case .web:
                         web.goBack()
                     case .error:
-                        Task
-                            .detached(priority: .utility) {
-                                await status.dismiss()
-                            }
+                        web.dismiss()
                     default:
                         break
                     }

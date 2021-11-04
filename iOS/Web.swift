@@ -7,6 +7,18 @@ final class Web: Webview, UIViewRepresentable {
     let tab = PassthroughSubject<URL, Never>()
     let error = PassthroughSubject<Err, Never>()
     
+    @MainActor var fontSize: CGFloat {
+        get async {
+            guard
+                let string = try? await evaluateJavaScript(Script.text.script) as? String,
+                let int = Int(string.replacingOccurrences(of: "%", with: ""))
+            else {
+                return 1
+            }
+            return .init(int) / 100
+        }
+    }
+    
     required init?(coder: NSCoder) { nil }
     init(history: UInt16, settings: Specs.Settings.Configuration, dark: Bool) {
         let configuration = WKWebViewConfiguration()
@@ -25,6 +37,10 @@ final class Web: Webview, UIViewRepresentable {
     
     deinit {
         scrollView.delegate = nil
+    }
+    
+    @MainActor func resizeFont(size: CGFloat) async {
+        _ = try? await evaluateJavaScript(Script.text(size: size))
     }
     
     override func external(_ url: URL) {

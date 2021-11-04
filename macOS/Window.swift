@@ -1,6 +1,6 @@
 import AppKit
 
-final class Window: NSWindow {    
+final class Window: NSWindow, NSWindowDelegate {
     class func new() {
         new(status: .init())
     }
@@ -32,7 +32,8 @@ final class Window: NSWindow {
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
         contentView = Content(status: status)
-
+        delegate = self
+        
         let accessory = NSTitlebarAccessoryViewController()
         accessory.view = Bar(status: status)
         accessory.layoutAttribute = .top
@@ -47,6 +48,26 @@ final class Window: NSWindow {
                 $0.clear()
             }
         super.close()
+    }
+    
+    func windowDidEnterFullScreen(_: Notification) {
+        titlebarAccessoryViewControllers
+            .compactMap {
+                $0.view as? NSVisualEffectView
+            }
+            .forEach {
+                $0.material = .sheet
+            }
+    }
+    
+    func windowDidExitFullScreen(_: Notification) {
+        titlebarAccessoryViewControllers
+            .compactMap {
+                $0.view as? NSVisualEffectView
+            }
+            .forEach {
+                $0.material = .menu
+            }
     }
     
     @objc func search() {

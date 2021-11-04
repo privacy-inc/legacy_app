@@ -3,11 +3,12 @@ import Combine
 import UniformTypeIdentifiers
 import Specs
 
-final class Web: Webview {
+final class Web: Webview, NSTextFinderBarContainer {
 //    private var destination = Destination.window
     
     private weak var status: Status!
     private let item: UUID
+    private let finder = NSTextFinder()
     
     required init?(coder: NSCoder) { nil }
     init(status: Status, item: UUID, history: UInt16, settings: Specs.Settings.Configuration) {
@@ -27,6 +28,9 @@ final class Web: Webview {
         super.init(configuration: configuration, history: history, settings: settings, dark: dark)
         translatesAutoresizingMaskIntoConstraints = false
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15"
+        
+        finder.client = self
+        finder.findBarContainer = self
         
         /*
         
@@ -280,6 +284,55 @@ final class Web: Webview {
 //        item.activate()
 //    }
     
+    var findBarView: NSView? {
+        didSet {
+            oldValue?.removeFromSuperview()
+            findBarView
+                .map {
+                    $0.removeFromSuperview()
+                    $0.frame.size.width = 360
+                    $0.frame.origin = .init(x: bounds.width - 370, y: bounds.height - ($0.frame.height + safeAreaInsets.top + 5))
+                    $0.autoresizingMask = [.minXMargin, .minYMargin]
+                    addSubview($0)
+                }
+        }
+    }
+    
+    var isFindBarVisible = false {
+        didSet {
+            findBarView?
+                .subviews
+                .first?
+                .subviews
+                .filter {
+                    !($0 is NSStackView)
+                }
+                .forEach {
+                    $0.removeFromSuperview()
+                }
+            findBarView?.isHidden = !isFindBarVisible
+        }
+    }
+    
+    func findBarViewDidChangeHeight() {
+        
+    }
+    
+    override func performTextFinderAction(_ sender: Any?) {
+        (sender as? NSMenuItem)
+            .flatMap {
+                NSTextFinder.Action(rawValue: $0.tag)
+            }
+            .map {
+                finder.performAction($0)
+
+                switch $0 {
+                case .showFindInterface:
+                    finder.findBarContainer?.isFindBarVisible = true
+                default: break
+                }
+            }
+    }
     
     @objc func share(_ item: NSMenuItem) {
         guard
@@ -291,6 +344,62 @@ final class Web: Webview {
     
     @objc func saveAs() {
         saveAs(types: [])
+    }
+    
+    @objc func exportAsWebarchive() {
+        guard url?.pathExtension != "webarchive" else {
+            saveAs(types: [.webArchive])
+            return
+        }
+        createWebArchiveData { [weak self] in
+            guard
+                case let .success(data) = $0,
+                let name = self?.url?.file("webarchive")
+            else { return }
+            NSSavePanel.save(data: data, name: name, types: [.webArchive])
+        }
+    }
+    
+   @objc func printPage() {
+       let info = NSPrintInfo.shared
+       info.horizontalPagination = .automatic
+       info.verticalPagination = .automatic
+       info.isVerticallyCentered = false
+       info.isHorizontallyCentered = false
+       info.leftMargin = 10
+       info.rightMargin = 10
+       info.topMargin = 10
+       info.bottomMargin = 10
+       
+       let operation = printOperation(with: info)
+       operation.view?.frame = bounds
+       operation.runModal(for: window!, delegate: nil, didRun: nil, contextInfo: nil)
+    }
+    
+    @objc func actualSize() {
+        pageZoom = 1
+    }
+    
+    @objc func zoomIn() {
+        pageZoom *= 1.1
+    }
+    
+    @objc func zoomOut() {
+        pageZoom /= 1.1
+    }
+    
+    @objc func tryAgain() {
+        if case let .error(_, error) = status.item.flow {
+            load(error.url)
+            status.change(flow: .web(self), id: item)
+        }
+    }
+    
+    @objc func dismiss() {
+        Task
+            .detached(priority: .utility) { [weak self] in
+                await self?.status.dismiss()
+            }
     }
     
     @MainActor @objc func exportAsPdf() {
@@ -328,36 +437,6 @@ final class Web: Webview {
                 NSSavePanel.save(data: data, name: name, types: [.png])
             }
         }
-    }
-    
-    @objc func exportAsWebarchive() {
-        guard url?.pathExtension != "webarchive" else {
-            saveAs(types: [.webArchive])
-            return
-        }
-        createWebArchiveData { [weak self] in
-            guard
-                case let .success(data) = $0,
-                let name = self?.url?.file("webarchive")
-            else { return }
-            NSSavePanel.save(data: data, name: name, types: [.webArchive])
-        }
-    }
-    
-   @objc func print() {
-       let info = NSPrintInfo.shared
-       info.horizontalPagination = .automatic
-       info.verticalPagination = .automatic
-       info.isVerticallyCentered = false
-       info.isHorizontallyCentered = false
-       info.leftMargin = 10
-       info.rightMargin = 10
-       info.topMargin = 10
-       info.bottomMargin = 10
-       
-       let operation = printOperation(with: info)
-       operation.view?.frame = bounds
-       operation.runModal(for: window!, delegate: nil, didRun: nil, contextInfo: nil)
     }
     
     private func saveAs(types: [UTType]) {

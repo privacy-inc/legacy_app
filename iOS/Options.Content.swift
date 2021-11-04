@@ -48,7 +48,7 @@ extension Options {
                     .main
                     .asyncAfter(deadline: .now() + 0.1) {
                         Task {
-                            await update()
+                            await updateFont()
                         }
                     }
             }
@@ -66,15 +66,8 @@ extension Options {
             }
         }
         
-        @MainActor private func update() async {
-            guard
-                let string = try? await web.evaluateJavaScript(Script.text.script) as? String,
-                let int = Int(string.replacingOccurrences(of: "%", with: ""))
-            else {
-                size = 1
-                return
-            }
-            size = .init(int) / 100
+        private func updateFont() async {
+            size = await web.fontSize
         }
         
         private func update(access: AccessType?) {
@@ -208,7 +201,7 @@ extension Options {
                 Action(symbol: "textformat.size.smaller", active: size > 0.25) {
                     size -= 0.25
                     Task {
-                        await resize()
+                        await web.resizeFont(size: size)
                     }
                 }
                 .tint(.init("Dawn"))
@@ -216,7 +209,7 @@ extension Options {
                 Button {
                     size = 1
                     Task {
-                        await resize()
+                        await web.resizeFont(size: 1)
                     }
                 } label: {
                     Text(size, format: .percent)
@@ -229,16 +222,12 @@ extension Options {
                 Action(symbol: "textformat.size.larger", active: size < 4) {
                     size += 0.25
                     Task {
-                        await resize()
+                        await web.resizeFont(size: size)
                     }
                 }
                 .tint(.init("Dawn"))
             }
             .padding()
-        }
-        
-        @MainActor private func resize() async {
-            _ = try? await web.evaluateJavaScript(Script.text(size: size))
         }
     }
 }
