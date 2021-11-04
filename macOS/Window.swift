@@ -39,10 +39,6 @@ final class Window: NSWindow {
         addTitlebarAccessoryViewController(accessory)
     }
     
-    @objc func search() {
-        status.search.send()
-    }
-    
     override func close() {
         status
             .items
@@ -53,7 +49,11 @@ final class Window: NSWindow {
         super.close()
     }
     
-    func closeTab() {
+    @objc func search() {
+        status.search.send()
+    }
+    
+    @objc func closeTab() {
         guard status.items.value.count > 1 else {
             close()
             return

@@ -38,23 +38,30 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var file: NSMenuItem {
-        .parent("File", [
+        .parent("File") {
+            $0.submenu!.delegate = self
+        }
+    }
+    
+    private var fileItems: [NSMenuItem] {
+        var items: [NSMenuItem] = [
             .child("New Window", #selector(triggerNewWindow), "n") {
                 $0.target = self
             },
             .child("New Tab", #selector(triggerNewTab), "t") {
                 $0.target = self
-            },
-            .child("Open Location", #selector(Window.search), "l"),
-            .separator(),
-            .child("Close Window", #selector(Window.close), "W"),
-            .child("Close Tab", #selector(triggerCloseTab), "w") {
-                $0.target = self
-            },
-            .separator(),
-            .parent("Share") {
-                $0.submenu!.delegate = self
-            }])
+            }]
+        
+        switch NSApp.keyWindow {
+        case let window as Window:
+            items += fileItems(window: window)
+        case let other?:
+            items += fileItems(other: other)
+        default:
+            break
+        }
+        
+        return items
     }
     
     private var edit: NSMenuItem {
@@ -111,23 +118,25 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         switch menu.title {
-        case "Share":
-            if let url = url {
-                menu.items = [
-                    .init(title: url.absoluteString.prefix(50) + "...", action: nil, keyEquivalent: ""),
-                    .separator()]
-                + NSSharingService
-                    .sharingServices(forItems: [url])
-                    .map { service in
-                        .child(service.menuItemTitle, #selector(triggerShare)) {
-                            $0.target = self
-                            $0.image = service.image
-                            $0.representedObject = service
-                        }
-                    }
-            } else {
-                menu.items = [.init(title: "Nothing to share", action: nil, keyEquivalent: "")]
-            }
+        case "File":
+            menu.items = fileItems
+//        case "Share":
+//            if let url = url {
+//                menu.items = [
+//                    .init(title: url.absoluteString.prefix(50) + "...", action: nil, keyEquivalent: ""),
+//                    .separator()]
+//                + NSSharingService
+//                    .sharingServices(forItems: [url])
+//                    .map { service in
+//                        .child(service.menuItemTitle, #selector(triggerShare)) {
+//                            $0.target = self
+//                            $0.image = service.image
+//                            $0.representedObject = service
+//                        }
+//                    }
+//            } else {
+//                menu.items = [.init(title: "Nothing to share", action: nil, keyEquivalent: "")]
+//            }
 //        case "Window":
 //            menu.items = [
 //                .child("Minimize", #selector(NSWindow.miniaturize), "m"),
@@ -254,14 +263,64 @@ final class Menu: NSMenu, NSMenuDelegate {
         }
     }
     
-    private var url: URL? {
-        (NSApp.keyWindow as? Window)
-            .flatMap {
-                if case let .web(web) = $0.status.item?.flow {
-                    return web.url
+    private func fileItems(window: Window) -> [NSMenuItem] {
+        var items: [NSMenuItem] = [
+            .child("Open Location", #selector(window.search), "l") {
+                $0.target = window
+            },
+            .separator(),
+            .child("Close Window", #selector(window.close), "W") {
+                $0.target = window
+            },
+            .child("Close Tab", #selector(window.closeTab), "w") {
+                $0.target = window
+            }]
+        
+        if case let .web(web) = window.status.item.flow,
+           let url = web.url {
+            items += [
+                .separator(),
+                .parent("Share", [
+                    .child(url.absoluteString.capped),
+                    .separator()]
+                        + NSSharingService
+                            .sharingServices(forItems: [url])
+                            .map { service in
+                                .child(service.menuItemTitle, #selector(web.share)) {
+                                    $0.target = web
+                                    $0.image = service.image
+                                    $0.representedObject = service
+                                }
+                            }),
+                .separator(),
+                .child("Save As...", #selector(web.saveAs), "s") {
+                    $0.target = web
+                },
+                .child("Export as PDF...", #selector(web.exportAsPdf)) {
+                    $0.target = web
+                },
+                .child("Export as Snapshot...", #selector(web.exportAsSnapshot)) {
+                    $0.target = web
+                },
+                .child("Export as Web archive...", #selector(web.exportAsWebarchive)) {
+                    $0.target = web
+                },
+                .separator(),
+                .child("Print...", #selector(web.print), "p") {
+                    $0.target = web
                 }
-                return nil
-            }
+            ]
+        }
+        
+        return items
+    }
+    
+    private func fileItems(other: NSWindow) -> [NSMenuItem] {
+        [
+            .separator(),
+            .child("Close Window", #selector(other.close), "w") {
+                $0.target = other
+            }]
     }
     
     @objc private func triggerNewWindow() {
@@ -286,21 +345,9 @@ final class Menu: NSMenu, NSMenuDelegate {
         window.status.addTab()
     }
     
-    @objc private func triggerCloseTab() {
-        if let window = NSApp.keyWindow as? Window {
-            window.closeTab()
-        } else {
-            NSApp.keyWindow?.close()
-        }
-    }
     
     @objc private func triggerWebsite() {
         //        NSApp.newTabWith(url: URL(string: "https://goprivacy.app")!)
-    }
-    
-    @objc private func triggerShare(_ item: NSMenuItem) {
-        (item.representedObject as? NSSharingService)?
-            .perform(withItems: [url])
     }
     
     @objc private func triggerShortcut(_ button: NSStatusBarButton) {
@@ -364,3 +411,10 @@ final class Menu: NSMenu, NSMenuDelegate {
  NSApp.windows[item.tag].makeKeyAndOrderFront(nil)
  }
  */
+
+
+private extension String {
+    var capped: String {
+        count > 50 ? prefix(50) + "..." : self
+    }
+}

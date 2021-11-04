@@ -194,6 +194,7 @@
 		CEEE59D62721B6790038952A /* Privacy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CEEE59D52721B6790038952A /* Privacy.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CEEE59E12721B67A0038952A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEEE59E02721B67A0038952A /* Assets.xcassets */; };
 		CEEE59E82721B67A0038952A /* Privacy.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CEEE59CD2721B6770038952A /* Privacy.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CEF006572733F98800D0A1EB /* NSSavePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF006562733F98800D0A1EB /* NSSavePanel.swift */; };
 		CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
 		CEF5548926FDD4FA00FE0E9C /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548726FDD4FA00FE0E9C /* Web.swift */; };
 		CEFEAAAD272069210073149D /* Plus.Banner.Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEAAAC272069210073149D /* Plus.Banner.Particle.swift */; };
@@ -437,6 +438,7 @@
 		CEEE59D52721B6790038952A /* Privacy.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Privacy.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEE59E02721B67A0038952A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEEE59E52721B67A0038952A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEF006562733F98800D0A1EB /* NSSavePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSavePanel.swift; sourceTree = "<group>"; };
 		CEF5548226FDD4F000FE0E9C /* Webview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
 		CEF5548726FDD4FA00FE0E9C /* Web.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CEFEAAAC272069210073149D /* Plus.Banner.Particle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Banner.Particle.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 				CE3576AF27281C25005854B5 /* NSApplication.swift */,
 				CEEBA5C2272FFA540079928E /* NSMenu.swift */,
 				CEEBA5C3272FFA540079928E /* NSMenuItem.swift */,
+				CEF006562733F98800D0A1EB /* NSSavePanel.swift */,
 				CEBFC84A273178BE00EFDA17 /* Recover.swift.swift */,
 				CE8BA2FA272D9B7700E2D73F /* Search.Cell.Editor.swift */,
 				CE8BA2F8272D9B6300E2D73F /* Search.Cell.swift */,
@@ -986,6 +989,7 @@
 				CE5D41AD272C2ED400AEBE0F /* Separator.swift in Sources */,
 				CEEBA5C927302A1C0079928E /* Menu.swift in Sources */,
 				CE8BA2F9272D9B6300E2D73F /* Search.Cell.swift in Sources */,
+				CEF006572733F98800D0A1EB /* NSSavePanel.swift in Sources */,
 				CE743009272981EA00F5F5B8 /* CollectionCell.swift in Sources */,
 				CE5D41BF272C5CDC00AEBE0F /* Control.State.swift in Sources */,
 				CE8BA2EF272D741900E2D73F /* Status.Item.swift in Sources */,

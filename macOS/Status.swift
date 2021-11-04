@@ -7,12 +7,12 @@ final class Status {
     let items: CurrentValueSubject<[Item], Never>
     let search = PassthroughSubject<Void, Never>()
 
-    var item: Item? {
+    var item: Item {
         items
             .value
             .first {
                 $0.id == current.value
-            }
+            }!
     }
     
     convenience init() {
@@ -32,7 +32,7 @@ final class Status {
     
     func dismiss() async {
         guard
-            case let .error(web, _) = item!.flow,
+            case let .error(web, _) = item.flow,
             let url = await web.url,
             let title = await web.title
         else {
@@ -103,7 +103,7 @@ final class Status {
     
     @MainActor func searching(search: String) async {
         do {
-            switch item!.flow {
+            switch item.flow {
             case .landing:
                 try await history(id: cloud.search(search))
             case let .web(web), let .error(web, _):
@@ -116,7 +116,7 @@ final class Status {
     }
     
     @MainActor func access(access: AccessType) async {
-        switch item!.flow {
+        switch item.flow {
         case .landing:
             await history(id: cloud.open(access: access))
         case let .web(web), let .error(web, _):
@@ -144,7 +144,7 @@ final class Status {
     }
     
     private func shift() {
-        let index = self.index
+        let index = index
         if index > 0 {
             current.value = items.value[index - 1].id
         } else {

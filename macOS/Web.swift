@@ -1,5 +1,6 @@
 import WebKit
 import Combine
+import UniformTypeIdentifiers
 import Specs
 
 final class Web: Webview {
@@ -278,4 +279,95 @@ final class Web: Webview {
 //        destination = .download
 //        item.activate()
 //    }
+    
+    
+    @objc func share(_ item: NSMenuItem) {
+        guard
+            let url = url,
+            let service = item.representedObject as? NSSharingService
+        else { return }
+        service.perform(withItems: [url])
+    }
+    
+    @objc func saveAs() {
+        saveAs(types: [])
+    }
+    
+    @MainActor @objc func exportAsPdf() {
+        guard url?.pathExtension.lowercased() != "pdf" else {
+            saveAs(types: [.pdf])
+            return
+        }
+        Task {
+            guard
+                let name = url?.file("pdf"),
+                let pdf = try? await pdf()
+            else { return }
+            NSSavePanel.save(data: pdf, name: name, types: [.pdf])
+        }
+    }
+    
+    @MainActor @objc func exportAsSnapshot() {
+        switch url?.pathExtension.lowercased() {
+        case "png":
+            saveAs(types: [.png])
+        case "jpg", "jpeg":
+            saveAs(types: [.jpeg])
+        case "bmp":
+            saveAs(types: [.bmp])
+        case "gif":
+            saveAs(types: [.gif])
+        default:
+            Task {
+                guard
+                    let name = url?.file("png"),
+                    let image = try? await takeSnapshot(configuration: nil),
+                    let tiff = image.tiffRepresentation,
+                    let data = NSBitmapImageRep(data: tiff)?.representation(using: .png, properties: [:])
+                else { return }
+                NSSavePanel.save(data: data, name: name, types: [.png])
+            }
+        }
+    }
+    
+    @objc func exportAsWebarchive() {
+        guard url?.pathExtension != "webarchive" else {
+            saveAs(types: [.webArchive])
+            return
+        }
+        createWebArchiveData { [weak self] in
+            guard
+                case let .success(data) = $0,
+                let name = self?.url?.file("webarchive")
+            else { return }
+            NSSavePanel.save(data: data, name: name, types: [.webArchive])
+        }
+    }
+    
+   @objc func print() {
+       let info = NSPrintInfo.shared
+       info.horizontalPagination = .automatic
+       info.verticalPagination = .automatic
+       info.isVerticallyCentered = false
+       info.isHorizontallyCentered = false
+       info.leftMargin = 10
+       info.rightMargin = 10
+       info.topMargin = 10
+       info.bottomMargin = 10
+       
+       let operation = printOperation(with: info)
+       operation.view?.frame = bounds
+       operation.runModal(for: window!, delegate: nil, didRun: nil, contextInfo: nil)
+    }
+    
+    private func saveAs(types: [UTType]) {
+        url?
+            .download
+            .map { download in
+                (try? Data(contentsOf: download))
+                    .map {
+                        NSSavePanel.save(data: $0, name: download.lastPathComponent, types: types)
+                    }
+            }
+    }
 }
