@@ -47,6 +47,24 @@ final class Status {
         await change(flow: .web(web))
     }
     
+    func nextTab() {
+        let index = index
+        if index > 0 {
+            current.value = items.value[index - 1].id
+        } else {
+            current.value = items.value.last!.id
+        }
+    }
+    
+    func previousTab() {
+        let index = index
+        if index < items.value.count - 1 {
+            current.value = items.value[index + 1].id
+        } else {
+            current.value = items.value.first!.id
+        }
+    }
+    
     func close(id: UUID) {
         guard items.value.count > 1 else { return }
         

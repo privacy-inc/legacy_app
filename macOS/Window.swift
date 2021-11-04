@@ -82,6 +82,14 @@ final class Window: NSWindow, NSWindowDelegate {
         status.close(id: status.current.value)
     }
     
+    @objc func nextTab() {
+        status.nextTab()
+    }
+    
+    @objc func previousTab() {
+        status.previousTab()
+    }
+    
     /*
     
     override func close() {

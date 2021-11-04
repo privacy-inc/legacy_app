@@ -168,11 +168,101 @@ final class Menu: NSMenu, NSMenuDelegate {
     private var window: NSMenuItem {
         .parent("Window") {
             $0.submenu!.delegate = self
+            $0.submenu!.autoenablesItems = false
         }
+    }
+    
+    private var windowItems: [NSMenuItem] {
+        var items: [NSMenuItem] = [
+            .child("Minimize", #selector(NSWindow.miniaturize), "m"),
+            .child("Zoom", #selector(NSWindow.zoom), "p"),
+            .separator()
+        ]
+        
+        if let window = NSApp.keyWindow as? Window {
+            items += [
+                .child("Show Previous Tab", #selector(window.previousTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
+                    $0.keyEquivalentModifierMask = [.control, .shift]
+                    $0.target = window
+                    $0.isEnabled = window.status.items.value.count > 1
+                },
+                .child("Show Next Tab", #selector(window.nextTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
+                    $0.keyEquivalentModifierMask = [.control]
+                    $0.target = window
+                    $0.isEnabled = window.status.items.value.count > 1
+                },
+                .child("Alternate Previous Tab", #selector(window.previousTab), "{") {
+                    $0.keyEquivalentModifierMask = [.command]
+                    $0.target = window
+                    $0.isEnabled = window.status.items.value.count > 1
+                },
+                .child("Alternate Next Tab", #selector(window.nextTab), "}") {
+                    $0.keyEquivalentModifierMask = [.command]
+                    $0.target = window
+                    $0.isEnabled = window.status.items.value.count > 1
+                },
+                .separator()]
+        }
+        
+        items += [
+            .separator(),
+            .child("Bring All to Front", #selector(NSApplication.arrangeInFront)),
+            .separator()]
+        
+        items += NSApp
+            .windows
+            .compactMap { item in
+                
+                var title = "Privacy"
+                let add: NSWindow?
+                
+                switch item {
+                case let window as Window:
+                    switch window.status.item.flow {
+                    case let .web(web):
+                        web
+                            .title
+                            .map {
+                                title = $0.capped
+                            }
+                    case let .error(_, error):
+                        title = error.description.capped
+                    default:
+                        break
+                    }
+                    
+                    add = window
+                case is About:
+                    title = "About"
+                    add = item
+                default:
+                    add = nil
+                }
+                
+                return add
+                    .map {
+                        .child(title, #selector($0.makeKeyAndOrderFront)) {
+                            $0.target = item
+                            $0.state = NSApp.mainWindow == item ? .on : .off
+                        }
+                    }
+            }
+        
+        return items
     }
     
     private var help: NSMenuItem {
         .parent("Help", [
+            .child("Policy", #selector(triggerWebsite)) {
+                $0.target = self
+            },
+            .child("Terms and conditions", #selector(triggerWebsite)) {
+                $0.target = self
+            },
+            .separator(),
+            .child("Privacy +", #selector(triggerWebsite)) {
+                $0.target = self
+            },
             .separator(),
             .child("Visit goprivacy.app", #selector(triggerWebsite)) {
                 $0.target = self
@@ -187,65 +277,8 @@ final class Menu: NSMenu, NSMenuDelegate {
             menu.items = editItems
         case "View":
             menu.items = viewItems
-//        case "Window":
-//            menu.items = [
-//                .child("Minimize", #selector(NSWindow.miniaturize), "m"),
-//                .child("Zoom", #selector(NSWindow.zoom), "p"),
-//                .separator(),
-                //                .child("Show Previous Tab", #selector(Window.previousTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
-                //                    $0.keyEquivalentModifierMask = [.control, .shift]
-                //                },
-                //                .child("Show Next Tab", #selector(Window.nextTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
-                //                    $0.keyEquivalentModifierMask = [.control]
-                //                },
-                //                .child("Alternate Previous Tab", #selector(Window.previousTab), "{") {
-                //                    $0.keyEquivalentModifierMask = [.command]
-                //                },
-                //                .child("Alternate Next Tab", #selector(Window.nextTab), "}") {
-                //                    $0.keyEquivalentModifierMask = [.command]
-                //                },
-//                    .separator(),
-//                .child("Bring All to Front", #selector(NSApplication.arrangeInFront)),
-//                .separator()]
-//            + (0 ..< NSApp.windows.count)
-//                .compactMap {
-//                    switch NSApp.windows[$0] {
-//                    case let window as Window:
-//                        return (index: $0, title: window
-//                                    .session
-//                                    .tab
-//                                    .items
-//                                    .value[state: window
-//                                            .session
-//                                            .current
-//                                            .value]
-//                                    .browse
-//                                    .map {
-//                            cloud
-//                                .archive
-//                                .value
-//                                .page($0)
-//                                .title
-//                        }
-//                                ?? "Privacy")
-//                        //                    case is Trackers, is Activity, is Settings, is Info:
-//                        //                        return (index: $0, title: NSApp.windows[$0].title)
-//                        //                    case is Store:
-//                        //                        return (index: $0, title: NSLocalizedString("In-App Purchases", comment: ""))
-//                        //                    case is About:
-//                        //                        return (index: $0, title: NSLocalizedString("About", comment: ""))
-//                    default:
-//                        return nil
-//                    }
-//                }
-//                .map { (index: Int, title: String) in
-//                .child(title, #selector(triggerFocus)) {
-//                    $0.target = self
-//                    $0.tag = index
-//                    $0.state = NSApp.mainWindow == NSApp.windows[index] ? .on : .off
-//                }
-//                }
-
+        case "Window":
+            menu.items = windowItems
         default:
             break
         }
@@ -284,6 +317,10 @@ final class Menu: NSMenu, NSMenuDelegate {
                 .child("Save As...", #selector(web.saveAs), "s") {
                     $0.target = web
                 },
+                .child("Copy Link", #selector(web.copyLink), "C") {
+                    $0.target = web
+                },
+                .separator(),
                 .child("Export as PDF...", #selector(web.exportAsPdf)) {
                     $0.target = web
                 },
@@ -335,7 +372,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     
     @objc private func triggerWebsite() {
-        //        NSApp.newTabWith(url: URL(string: "https://goprivacy.app")!)
+//                NSApp.newTabWith(url: URL(string: "https://goprivacy.app")!)
     }
     
     @objc private func triggerShortcut(_ button: NSStatusBarButton) {
@@ -351,55 +388,7 @@ final class Menu: NSMenu, NSMenuDelegate {
             break
         }
     }
-    
-    @objc private func triggerFocus(_ item: NSMenuItem) {
-        NSApp.windows[item.tag].makeKeyAndOrderFront(nil)
-    }
 }
-
-
-/*
- private var url: URL {
- (NSApp.keyWindow as? Window)
- .flatMap {
- $0
- .session
- .tab
- .items
- .value[state: $0
- .session
- .current
- .value]
- .browse
- .map {
- cloud
- .archive
- .value
- .page($0)
- .access
- .value
- }
- .flatMap(URL.init(string:))
- } ?? URL(string: "https://goprivacy.app")!
- }
- 
- 
- 
- @objc private func triggerCopyLink() {
- NSPasteboard.general.clearContents()
- NSPasteboard.general.setString(url.absoluteString, forType: .string)
- Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc.fill"))
- }
- 
- @objc private func triggerWebsite() {
- NSApp.newTabWith(url: URL(string: "https://goprivacy.app")!)
- }
- 
- @objc private func triggerFocus(_ item: NSMenuItem) {
- NSApp.windows[item.tag].makeKeyAndOrderFront(nil)
- }
- */
-
 
 private extension String {
     var capped: String {

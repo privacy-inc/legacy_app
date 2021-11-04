@@ -1,6 +1,7 @@
 import WebKit
 import Combine
 import UniformTypeIdentifiers
+import UserNotifications
 import Specs
 
 final class Web: Webview, NSTextFinderBarContainer {
@@ -399,6 +400,17 @@ final class Web: Webview, NSTextFinderBarContainer {
         Task
             .detached(priority: .utility) { [weak self] in
                 await self?.status.dismiss()
+            }
+    }
+    
+    @objc func copyLink() {
+        guard let url = url else { return }
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(url.absoluteString, forType: .string)
+        
+        Task
+            .detached(priority: .utility) {
+                await UNUserNotificationCenter.send(message: "Link URL copied")
             }
     }
     
