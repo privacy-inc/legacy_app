@@ -49,7 +49,9 @@ extension NSApplication {
 //            }
 //    }
     
-    func closeAll() {
+    
+    
+    func closeAllWindows() {
         windows
             .compactMap {
                 $0 as? Window
@@ -111,6 +113,13 @@ extension NSApplication {
     @objc func show() {
         activeWindow?
             .orderFrontRegardless()
+    }
+    
+    @objc func closeAll() {
+        windows
+            .forEach {
+                $0.close()
+            }
     }
     
     @objc func showPreferencesWindow(_ sender: Any?) {

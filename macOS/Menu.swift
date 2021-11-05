@@ -293,6 +293,10 @@ final class Menu: NSMenu, NSMenuDelegate {
             .child("Close Window", #selector(window.close), "W") {
                 $0.target = window
             },
+            .child("Close All Windows", #selector(NSApp.closeAll), "w") {
+                $0.target = NSApp
+                $0.keyEquivalentModifierMask = [.option, .command]
+            },
             .child("Close Tab", #selector(window.closeTab), "w") {
                 $0.target = window
             }]
@@ -345,6 +349,10 @@ final class Menu: NSMenu, NSMenuDelegate {
             .separator(),
             .child("Close Window", #selector(other.close), "w") {
                 $0.target = other
+            },
+            .child("Close All Windows", #selector(NSApp.closeAll), "w") {
+                $0.target = NSApp
+                $0.keyEquivalentModifierMask = [.option, .command]
             }]
     }
     

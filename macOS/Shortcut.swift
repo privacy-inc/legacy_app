@@ -24,7 +24,7 @@ final class Shortcut: NSPopover {
         close
             .click
             .sink { [weak self] in
-                NSApp.closeAll()
+                NSApp.closeAllWindows()
                 self?.close()
             }
             .store(in: &subs)

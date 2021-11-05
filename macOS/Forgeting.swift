@@ -33,7 +33,7 @@ final class Forgeting: NSPopover {
             .click
             .sink { [weak self] in
                 Forget.history()
-                NSApp.closeAll()
+                NSApp.closeAllWindows()
                 self?.close()
             }
             .store(in: &subs)
@@ -52,7 +52,7 @@ final class Forgeting: NSPopover {
             .click
             .sink { [weak self] in
                 Forget.everything()
-                NSApp.closeAll()
+                NSApp.closeAllWindows()
                 self?.close()
             }
             .store(in: &subs)
