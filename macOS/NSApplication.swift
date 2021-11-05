@@ -36,6 +36,7 @@ extension NSApplication {
         if let window = activeWindow {
             Task {
                 await window.status.url(url: url)
+                window.makeKeyAndOrderFront(nil)
             }
         } else {
             newWindow(url: url)

@@ -203,7 +203,7 @@ final class Menu: NSMenu, NSMenuDelegate {
             .compactMap { item in
                 
                 var title = "Privacy"
-                let add: NSWindow?
+                var add: NSWindow? = item
                 
                 switch item {
                 case let window as Window:
@@ -219,11 +219,14 @@ final class Menu: NSMenu, NSMenuDelegate {
                     default:
                         break
                     }
-                    
-                    add = window
                 case is About:
                     title = "About"
-                    add = item
+                case is Info.Policy:
+                    title = "Policy"
+                case is Info.Terms:
+                    title = "Terms"
+                case is Plus:
+                    title = "Privacy +"
                 default:
                     add = nil
                 }
@@ -242,14 +245,14 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     private var help: NSMenuItem {
         .parent("Help", [
-            .child("Policy", #selector(triggerWebsite)) {
+            .child("Policy", #selector(triggerPolicy)) {
                 $0.target = self
             },
-            .child("Terms and conditions", #selector(triggerWebsite)) {
+            .child("Terms and conditions", #selector(triggerTerms)) {
                 $0.target = self
             },
             .separator(),
-            .child("Privacy +", #selector(triggerWebsite)) {
+            .child("Privacy +", #selector(triggerPrivacyPlus)) {
                 $0.target = self
             },
             .separator(),
@@ -303,6 +306,21 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     @objc private func triggerWebsite() {
         NSApp.open(url: URL(string: "https://goprivacy.app")!)
+    }
+    
+    @objc private func triggerPolicy() {
+        (NSApp.anyWindow() ?? Info.Policy())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    @objc private func triggerTerms() {
+        (NSApp.anyWindow() ?? Info.Terms())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    @objc private func triggerPrivacyPlus() {
+        (NSApp.anyWindow() ?? Plus())
+            .makeKeyAndOrderFront(nil)
     }
     
     @objc private func triggerShortcut(_ button: NSStatusBarButton) {

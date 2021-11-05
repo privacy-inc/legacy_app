@@ -167,6 +167,11 @@
 		CEABD1FB272AED7A00F56852 /* Landing.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1FA272AED7A00F56852 /* Landing.History.swift */; };
 		CEABD1FD272AF0E000F56852 /* Landing.History.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1FC272AF0E000F56852 /* Landing.History.Remote.swift */; };
 		CEB22E9227355208001C77E0 /* Web.Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E9127355208001C77E0 /* Web.Destination.swift */; };
+		CEB22E94273578E1001C77E0 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E93273578E1001C77E0 /* Info.swift */; };
+		CEB22E9627357A84001C77E0 /* Info.Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E9527357A84001C77E0 /* Info.Policy.swift */; };
+		CEB22E9827358367001C77E0 /* Info.Terms.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E9727358367001C77E0 /* Info.Terms.swift */; };
+		CEB22E9A2735880F001C77E0 /* Plus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E992735880F001C77E0 /* Plus.swift */; };
+		CEB22E9C27358DE1001C77E0 /* Plus.Purchased.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E9B27358DE1001C77E0 /* Plus.Purchased.swift */; };
 		CEBB8BDF2728258300016F2C /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB8BDE2728258300016F2C /* Status.swift */; };
 		CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
 		CEBB8BE12728320000016F2C /* Webview.Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE862AA6270C869F0039630B /* Webview.Code.swift */; };
@@ -416,6 +421,11 @@
 		CEABD1FA272AED7A00F56852 /* Landing.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.swift; sourceTree = "<group>"; };
 		CEABD1FC272AF0E000F56852 /* Landing.History.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Remote.swift; sourceTree = "<group>"; };
 		CEB22E9127355208001C77E0 /* Web.Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Destination.swift; sourceTree = "<group>"; };
+		CEB22E93273578E1001C77E0 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		CEB22E9527357A84001C77E0 /* Info.Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Policy.swift; sourceTree = "<group>"; };
+		CEB22E9727358367001C77E0 /* Info.Terms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Terms.swift; sourceTree = "<group>"; };
+		CEB22E992735880F001C77E0 /* Plus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.swift; sourceTree = "<group>"; };
+		CEB22E9B27358DE1001C77E0 /* Plus.Purchased.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Purchased.swift; sourceTree = "<group>"; };
 		CEBB8BDE2728258300016F2C /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		CEBB8BE22728353900016F2C /* Webview.iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.iOS.swift; sourceTree = "<group>"; };
 		CEBCAAD32732B66D00B9D49C /* Shortcut.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcut.Action.swift; sourceTree = "<group>"; };
@@ -531,6 +541,9 @@
 				CEBCAAD72732BE5000B9D49C /* Forgeting.swift */,
 				CEABD1F4272AE07100F56852 /* Icon.swift */,
 				CEABD1EA272AC01500F56852 /* Image.swift */,
+				CEB22E9527357A84001C77E0 /* Info.Policy.swift */,
+				CEB22E93273578E1001C77E0 /* Info.swift */,
+				CEB22E9727358367001C77E0 /* Info.Terms.swift */,
 				CEABD1EE272AC4F400F56852 /* Landing.Activity.swift */,
 				CEABD1F2272AD91900F56852 /* Landing.Bookmarks.Item.swift */,
 				CEABD1F8272AE8C600F56852 /* Landing.Bookmarks.Other.swift */,
@@ -550,6 +563,8 @@
 				CEEBA5C2272FFA540079928E /* NSMenu.swift */,
 				CEEBA5C3272FFA540079928E /* NSMenuItem.swift */,
 				CEF006562733F98800D0A1EB /* NSSavePanel.swift */,
+				CEB22E992735880F001C77E0 /* Plus.swift */,
+				CEB22E9B27358DE1001C77E0 /* Plus.Purchased.swift */,
 				CEBFC84A273178BE00EFDA17 /* Recover.swift.swift */,
 				CE8BA2FA272D9B7700E2D73F /* Search.Cell.Editor.swift */,
 				CE8BA2F8272D9B6300E2D73F /* Search.Cell.swift */,
@@ -992,11 +1007,14 @@
 				CE5D41AD272C2ED400AEBE0F /* Separator.swift in Sources */,
 				CEEBA5C927302A1C0079928E /* Menu.swift in Sources */,
 				CE8BA2F9272D9B6300E2D73F /* Search.Cell.swift in Sources */,
+				CEB22E9627357A84001C77E0 /* Info.Policy.swift in Sources */,
 				CEF006572733F98800D0A1EB /* NSSavePanel.swift in Sources */,
 				CE743009272981EA00F5F5B8 /* CollectionCell.swift in Sources */,
 				CE5D41BF272C5CDC00AEBE0F /* Control.State.swift in Sources */,
 				CE8BA2EF272D741900E2D73F /* Status.Item.swift in Sources */,
 				CEABD1FD272AF0E000F56852 /* Landing.History.Remote.swift in Sources */,
+				CEB22E9827358367001C77E0 /* Info.Terms.swift in Sources */,
+				CEB22E9C27358DE1001C77E0 /* Plus.Purchased.swift in Sources */,
 				CE743008272981EA00F5F5B8 /* CollectionItemInfo.swift in Sources */,
 				CE743010272983CB00F5F5B8 /* CGRect.swift in Sources */,
 				CE1936B0272804CF00476227 /* App.swift in Sources */,
@@ -1006,6 +1024,7 @@
 				CEBCAAD62732B83D00B9D49C /* Shortcut.Option.swift in Sources */,
 				CE8BA2ED272D72E500E2D73F /* Bar.Tab.Off.swift in Sources */,
 				CEABD1F1272ACEFA00F56852 /* Landing.Bookmarks.swift in Sources */,
+				CEB22E94273578E1001C77E0 /* Info.swift in Sources */,
 				CE5D41AF272C3A8300AEBE0F /* AttributedString.swift in Sources */,
 				CEBFC845273163B300EFDA17 /* Landing.History.Item.swift in Sources */,
 				CE8BA2FB272D9B7700E2D73F /* Search.Cell.Editor.swift in Sources */,
@@ -1022,6 +1041,7 @@
 				CEBCAAD42732B66D00B9D49C /* Shortcut.Action.swift in Sources */,
 				CE743006272981EA00F5F5B8 /* CollectionCellText.swift in Sources */,
 				CE5D41AB272C240D00AEBE0F /* Landing.History.Other.swift in Sources */,
+				CEB22E9A2735880F001C77E0 /* Plus.swift in Sources */,
 				CE3576B227281C3F005854B5 /* Window.swift in Sources */,
 				CEABD1ED272AC22F00F56852 /* Landing.Simple.swift in Sources */,
 				CE74300A272981EA00F5F5B8 /* Collection.swift in Sources */,
