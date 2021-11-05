@@ -17,17 +17,17 @@ extension NSMenuItem {
         return item
     }
     
-//    func activate() {
-//        (representedObject as? NSMenuItem)
-//            .map {
-//                guard let action = $0.action else { return }
-//                NSApp.sendAction(action, to: $0.target, from: $0)
-//            }
-//    }
-//    
-//    func immitate(with title: String, action: Selector) -> Self {
-//        let item = Self(title: NSLocalizedString(title, comment: ""), action: action, keyEquivalent: "")
-//        item.representedObject = self
-//        return item
-//    }
+    func activate() {
+        (representedObject as? NSMenuItem)
+            .map {
+                guard let action = $0.action else { return }
+                _ = NSApp.sendAction(action, to: $0.target, from: $0)
+            }
+    }
+    
+    func immitate(with title: String, action: Selector) -> Self {
+        let item = Self(title: NSLocalizedString(title, comment: ""), action: action, keyEquivalent: "")
+        item.representedObject = self
+        return item
+    }
 }

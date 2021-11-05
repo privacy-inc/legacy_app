@@ -2,7 +2,7 @@ import AppKit
 import UniformTypeIdentifiers
 
 extension NSSavePanel {
-    class func save(data: Data, name: String, types: [UTType]) {
+    @MainActor class func save(data: Data, name: String, types: [UTType]) {
         let panel = Self()
         panel.nameFieldStringValue = name
         panel.allowedContentTypes = types

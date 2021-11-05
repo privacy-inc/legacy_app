@@ -32,34 +32,29 @@ extension NSApplication {
         keyWindow as? Window ?? anyWindow()
     }
     
-//    func newTabWith(url: URL) {
-//        guard let window = activeWindow else {
-//            newWindowWith(url: url)
-//            return
-//        }
-//        window.session.open.send((url: url, change: true))
-//    }
-    
-//    func newWindowWith(url: URL) {
-//        cloud
-//            .navigate(url) { browse, _ in
-//                Window(tab:
-//                        .init(browse: browse))
-//                    .makeKeyAndOrderFront(nil)
-//            }
-//    }
-    
     func open(url: URL) {
         if let window = activeWindow {
             Task {
                 await window.status.url(url: url)
             }
         } else {
+            newWindow(url: url)
+        }
+    }
+    
+    func silent(url: URL) {
+        if let window = activeWindow {
             Task {
-                let status = Status()
-                await status.url(url: url)
-                Window.new(status: status)
+                await window.status.silent(url: url)
             }
+        }
+    }
+    
+    func newWindow(url: URL) {
+        Task {
+            let status = Status()
+            await status.url(url: url)
+            Window.new(status: status)
         }
     }
     

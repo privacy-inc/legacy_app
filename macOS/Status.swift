@@ -147,6 +147,12 @@ final class Status {
         }
     }
     
+    @MainActor func silent(url: URL) async {
+        let web = await Web(status: self, item: .init(), history: cloud.open(url: url), settings: cloud.model.settings.configuration)
+        items.value.append(.init(id: web.item, web: web))
+        await web.access()
+    }
+    
     @MainActor func access(access: AccessType) async {
         switch item.flow {
         case .landing:

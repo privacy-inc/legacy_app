@@ -5,7 +5,7 @@ import UserNotifications
 import Specs
 
 final class Web: Webview, NSTextFinderBarContainer {
-//    private var destination = Destination.window
+    private var destination = Destination.window
     
     let item: UUID
     private weak var status: Status!
@@ -32,110 +32,6 @@ final class Web: Webview, NSTextFinderBarContainer {
         
         finder.client = self
         finder.findBarContainer = self
-        
-        /*
-        
-        session
-            .print
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                let info = NSPrintInfo.shared
-                info.horizontalPagination = .automatic
-                info.verticalPagination = .automatic
-                info.isVerticallyCentered = false
-                info.isHorizontallyCentered = false
-                info.leftMargin = 10
-                info.rightMargin = 10
-                info.topMargin = 10
-                info.bottomMargin = 10
-                let operation = self.printOperation(with: info)
-                operation.showsPrintPanel = false
-                operation.showsProgressPanel = false
-                operation.runModal(for: self.window!, delegate: nil, didRun: nil, contextInfo: nil)
-            }
-            .store(in: &subs)
-
-        session
-            .pdf
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.createPDF {
-                    guard
-                        case let .success(data) = $0,
-                        let title = self?.title
-                    else { return }
-                    NSSavePanel.save(data: data, name: title, type: "pdf")
-                }
-            }
-            .store(in: &subs)
-        
-        session
-            .webarchive
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.createWebArchiveData {
-                    guard
-                        case let .success(data) = $0,
-                        let title = self?.title
-                    else { return }
-                    NSSavePanel.save(data: data, name: title, type: "webarchive")
-                }
-            }
-            .store(in: &subs)
-        
-        session
-            .snapshot
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.takeSnapshot(with: nil) { image, _ in
-                    guard
-                        let tiff = image?.tiffRepresentation,
-                        let data = NSBitmapImageRep(data: tiff)?.representation(using: .png, properties: [:]),
-                        let title = self?.title
-                    else { return }
-                    NSSavePanel.save(data: data, name: title, type: "png")
-                }
-            }
-            .store(in: &subs)
-        
-        session
-            .actualSize
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.pageZoom = 1
-            }
-            .store(in: &subs)
-        
-        session
-            .zoomIn
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.pageZoom *= 1.1
-            }
-            .store(in: &subs)
-        
-        session
-            .zoomOut
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.pageZoom /= 1.1
-            }
-            .store(in: &subs)*/
     }
     
     override func external(_ url: URL) {
@@ -182,30 +78,27 @@ final class Web: Webview, NSTextFinderBarContainer {
                 .map(load)
         case .other:
             if action.targetFrame == nil {
-//                action
-//                    .request
-//                    .url
-//                    .map { url in
-//                        switch destination {
-//                        case let .tab(change):
-//                            session.open.send((url: url, change: change))
-//                        case .window:
-//                            NSApp.newWindowWith(url: url)
-//                        case .download:
-//                            URLSession
-//                                .shared
-//                                .dataTaskPublisher(for: url)
-//                                .map(\.data)
-//                                .receive(on: DispatchQueue.main)
-//                                .replaceError(with: .init())
-//                                .sink {
-//                                    NSSavePanel.save(data: $0, name: url.lastPathComponent, type: nil)
-//                                }
-//                                .store(in: &subs)
-//                            break
-//                        }
-//                        destination = .window
-//                    }
+                action
+                    .request
+                    .url
+                    .map { url in
+                        switch destination {
+                        case let .tab(change):
+                            if change {
+                                NSApp.open(url: url)
+                            } else {
+                                NSApp.silent(url: url)
+                            }
+                        case .window:
+                            NSApp.newWindow(url: url)
+                        case .download:
+                            Task
+                                .detached(priority: .utility) { [weak self] in
+                                    await self?.download(url: url)
+                                }
+                        }
+                        destination = .window
+                    }
             }
         default:
             break
@@ -214,76 +107,61 @@ final class Web: Webview, NSTextFinderBarContainer {
     }
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
-//        menu.remove(id: "WKMenuItemIdentifierOpenLink")
-//        menu.remove(id: "WKMenuItemIdentifierSearchWeb")
-//        
-//        if let image = menu.remove(id: "WKMenuItemIdentifierOpenImageInNewWindow") {
-//            let tabStay = image.immitate(with: "Open Image in New Tab", action: #selector(tab(stay:)))
-//            tabStay.target = self
-//            
-//            let tabChange = image.immitate(with: "Open Image in New Tab and Change", action: #selector(tab(change:)))
-//            tabChange.target = self
-//            
-//            menu.items = [
-//                tabStay,
-//                tabChange,
-//                image,
-//                .separator()
-//            ]
-//            + menu.items
-//            
-//            menu
-//                .mutate(id: "WKMenuItemIdentifierDownloadImage") {
-//                    $0.target = self
-//                    $0.action = #selector(download(item:))
-//                    $0.representedObject = image
-//                }
-//        }
-//        
-//        if let window = menu.remove(id: "WKMenuItemIdentifierOpenLinkInNewWindow") {
-//            window.title = "Open in New Window"
-//            
-//            let tabStay = window.immitate(with: "Open in New Tab", action: #selector(tab(stay:)))
-//            tabStay.target = self
-//            
-//            let tabChange = window.immitate(with: "Open in New Tab and Change", action: #selector(tab(change:)))
-//            tabChange.target = self
-//            
-//            menu.items = [
-//                tabStay,
-//                tabChange,
-//                window,
-//                .separator()
-//            ]
-//            + menu.items
-//            
-//            menu
-//                .mutate(id: "WKMenuItemIdentifierDownloadLinkedFile") {
-//                    $0.target = self
-//                    $0.action = #selector(download(item:))
-//                    $0.representedObject = window
-//                }
-//        }
+        menu.remove(id: "WKMenuItemIdentifierOpenLink")
+        menu.remove(id: "WKMenuItemIdentifierSearchWeb")
+        
+        if let image = menu.remove(id: "WKMenuItemIdentifierOpenImageInNewWindow") {
+            let tabStay = image.immitate(with: "Open Image in New Tab", action: #selector(tab(stay:)))
+            tabStay.target = self
+            
+            let tabChange = image.immitate(with: "Open Image in New Tab and Change", action: #selector(tab(change:)))
+            tabChange.target = self
+            
+            menu.items = [
+                tabStay,
+                tabChange,
+                image,
+                .separator()
+            ]
+            + menu.items
+            
+            menu
+                .mutate(id: "WKMenuItemIdentifierDownloadImage") {
+                    $0.target = self
+                    $0.action = #selector(download(item:))
+                    $0.representedObject = image
+                }
+        }
+        
+        if let window = menu.remove(id: "WKMenuItemIdentifierOpenLinkInNewWindow") {
+            window.title = "Open in New Window"
+            
+            let tabStay = window.immitate(with: "Open in New Tab", action: #selector(tab(stay:)))
+            tabStay.target = self
+            
+            let tabChange = window.immitate(with: "Open in New Tab and Change", action: #selector(tab(change:)))
+            tabChange.target = self
+            
+            menu.items = [
+                tabStay,
+                tabChange,
+                window,
+                .separator()
+            ]
+            + menu.items
+            
+            menu
+                .mutate(id: "WKMenuItemIdentifierDownloadLinkedFile") {
+                    $0.target = self
+                    $0.action = #selector(download(item:))
+                    $0.representedObject = window
+                }
+        }
     }
     
     override var isEditable: Bool {
         false
     }
-//
-//    @objc private func tab(change item: NSMenuItem) {
-//        destination = .tab(true)
-//        item.activate()
-//    }
-//
-//    @objc private func tab(stay item: NSMenuItem) {
-//        destination = .tab(false)
-//        item.activate()
-//    }
-//
-//    @objc private func download(item: NSMenuItem) {
-//        destination = .download
-//        item.activate()
-//    }
     
     var findBarView: NSView? {
         didSet {
@@ -460,5 +338,28 @@ final class Web: Webview, NSTextFinderBarContainer {
                         NSSavePanel.save(data: $0, name: download.lastPathComponent, types: types)
                     }
             }
+    }
+    
+    private func download(url: URL) async {
+        guard let (data, _) = try? await URLSession.shared.data(from: url, delegate: nil) else { return }
+        await MainActor
+            .run {
+                NSSavePanel.save(data: data, name: url.lastPathComponent, types: [])
+            }
+    }
+    
+    @objc private func tab(change item: NSMenuItem) {
+        destination = .tab(true)
+        item.activate()
+    }
+
+    @objc private func tab(stay item: NSMenuItem) {
+        destination = .tab(false)
+        item.activate()
+    }
+
+    @objc private func download(item: NSMenuItem) {
+        destination = .download
+        item.activate()
     }
 }
