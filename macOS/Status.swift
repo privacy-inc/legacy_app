@@ -151,6 +151,7 @@ final class Status {
         let web = await Web(status: self, item: .init(), history: cloud.open(url: url), settings: cloud.model.settings.configuration)
         items.value.append(.init(id: web.item, web: web))
         await web.access()
+        current.send(current.value)
     }
     
     @MainActor func access(access: AccessType) async {

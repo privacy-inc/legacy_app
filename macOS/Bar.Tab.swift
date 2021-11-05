@@ -4,7 +4,7 @@ extension Bar {
     final class Tab: NSView, NSMenuDelegate {
         var current = false {
             didSet {
-                guard current != oldValue else { return }
+                guard subviews.isEmpty || current != oldValue else { return }
                 subviews
                     .forEach {
                         $0.removeFromSuperview()
