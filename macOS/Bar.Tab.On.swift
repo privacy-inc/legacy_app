@@ -40,23 +40,23 @@ extension Bar.Tab {
             insercure.toolTip = "Insecure"
             insercure.state = .hidden
             
-            let options = Option(icon: "ellipsis.circle.fill", size: 15)
+            let options = Option(icon: "ellipsis.circle.fill", size: 14)
             options.toolTip = "Options"
             options.state = .hidden
             
-            let back = Option(icon: "chevron.backward", size: 14)
+            let back = Option(icon: "chevron.backward", size: 13)
             back.toolTip = "Back"
             back.state = .hidden
             
-            let forward = Option(icon: "chevron.forward", size: 14)
+            let forward = Option(icon: "chevron.forward", size: 13)
             forward.toolTip = "Forward"
             forward.state = .hidden
             
-            let reload = Option(icon: "arrow.clockwise", size: 14)
+            let reload = Option(icon: "arrow.clockwise", size: 12)
             reload.toolTip = "Reload"
             reload.state = .hidden
             
-            let stop = Option(icon: "xmark", size: 14)
+            let stop = Option(icon: "xmark", size: 12)
             stop.toolTip = "Stop"
             stop.state = .hidden
             

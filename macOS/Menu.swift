@@ -1,4 +1,6 @@
 import AppKit
+import StoreKit
+import Specs
 
 final class Menu: NSMenu, NSMenuDelegate {
     private let shortcut = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -264,6 +266,9 @@ final class Menu: NSMenu, NSMenuDelegate {
                 $0.target = self
             },
             .separator(),
+            .child("Rate on the App Store", #selector(triggerRate)) {
+                $0.target = self
+            },
             .child("Visit goprivacy.app", #selector(triggerWebsite)) {
                 $0.target = self
             }])
@@ -378,6 +383,10 @@ final class Menu: NSMenu, NSMenuDelegate {
         window.status.addTab()
     }
     
+    @objc private func triggerRate() {
+        SKStoreReviewController.requestReview()
+        Defaults.hasRated = true
+    }
     
     @objc private func triggerWebsite() {
         NSApp.open(url: URL(string: "https://goprivacy.app")!)
