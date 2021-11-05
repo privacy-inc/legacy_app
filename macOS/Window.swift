@@ -70,11 +70,11 @@ final class Window: NSWindow, NSWindowDelegate {
             }
     }
     
-    @objc func search() {
+    @objc func triggerSearch() {
         status.search.send()
     }
     
-    @objc func closeTab() {
+    @objc func triggerCloseTab() {
         guard status.items.value.count > 1 else {
             close()
             return
@@ -82,11 +82,11 @@ final class Window: NSWindow, NSWindowDelegate {
         status.close(id: status.current.value)
     }
     
-    @objc func nextTab() {
+    @objc func triggerNextTab() {
         status.nextTab()
     }
     
-    @objc func previousTab() {
+    @objc func triggerPreviousTab() {
         status.previousTab()
     }
     

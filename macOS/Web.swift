@@ -213,6 +213,20 @@ final class Web: Webview, NSTextFinderBarContainer {
             }
     }
     
+    func tryAgain() {
+        if case let .error(_, error) = status.item.flow {
+            load(error.url)
+            status.change(flow: .web(self), id: item)
+        }
+    }
+    
+    func dismiss() {
+        Task
+            .detached(priority: .utility) { [weak self] in
+                await self?.status.dismiss()
+            }
+    }
+    
     @objc func share(_ item: NSMenuItem) {
         guard
             let url = url,
@@ -265,20 +279,6 @@ final class Web: Webview, NSTextFinderBarContainer {
     
     @objc func zoomOut() {
         pageZoom /= 1.1
-    }
-    
-    @objc func tryAgain() {
-        if case let .error(_, error) = status.item.flow {
-            load(error.url)
-            status.change(flow: .web(self), id: item)
-        }
-    }
-    
-    @objc func dismiss() {
-        Task
-            .detached(priority: .utility) { [weak self] in
-                await self?.status.dismiss()
-            }
     }
     
     @objc func copyLink() {

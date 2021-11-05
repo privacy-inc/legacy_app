@@ -91,6 +91,14 @@ final class Search: NSTextField {
 //            .store(in: &subs)
     }
     
+    deinit {
+        NSApp
+            .windows
+            .forEach {
+                $0.undoManager?.removeAllActions()
+            }
+    }
+    
     override var canBecomeKeyView: Bool {
         true
     }

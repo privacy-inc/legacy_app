@@ -282,6 +282,8 @@ extension Bar.Tab {
                     default:
                         break
                     }
+                    
+                    search.undoManager?.removeAllActions()
                 }
                 .store(in: &subs)
             

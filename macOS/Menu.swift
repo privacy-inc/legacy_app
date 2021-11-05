@@ -40,7 +40,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var file: NSMenuItem {
-        .parent("File") {
+        .parent("File", fileItems) {
             $0.submenu!.delegate = self
         }
     }
@@ -52,22 +52,64 @@ final class Menu: NSMenu, NSMenuDelegate {
             },
             .child("New Tab", #selector(triggerNewTab), "t") {
                 $0.target = self
-            }]
+            },
+            .child("Open Location", #selector(Window.triggerSearch), "l"),
+            .separator(),
+            .child("Close Window", #selector(Window.close), "W"),
+            .child("Close All Windows", #selector(NSApp.closeAll), "w") {
+                $0.target = NSApp
+                $0.keyEquivalentModifierMask = [.option, .command]
+            },
+            .child("Close Tab", #selector(Window.triggerCloseTab), "w")]
         
-        switch NSApp.keyWindow {
-        case let window as Window:
-            items += fileItems(window: window)
-        case let other?:
-            items += fileItems(other: other)
-        default:
-            break
-        }
+        guard
+            let window = NSApp.keyWindow as? Window,
+            case let .web(web) = window.status.item.flow,
+            let url = web.url
+        else { return items }
+        
+        items += [
+            .separator(),
+            .parent("Share", [
+                .child(url.absoluteString.capped),
+                .separator()]
+                    + NSSharingService
+                        .sharingServices(forItems: [url])
+                        .map { service in
+                            .child(service.menuItemTitle, #selector(web.share)) {
+                                $0.target = web
+                                $0.image = service.image
+                                $0.representedObject = service
+                            }
+                        }),
+            .separator(),
+            .child("Save As...", #selector(web.saveAs), "s") {
+                $0.target = web
+            },
+            .child("Copy Link", #selector(web.copyLink), "C") {
+                $0.target = web
+            },
+            .separator(),
+            .child("Export as PDF...", #selector(web.exportAsPdf)) {
+                $0.target = web
+            },
+            .child("Export as Snapshot...", #selector(web.exportAsSnapshot)) {
+                $0.target = web
+            },
+            .child("Export as Web archive...", #selector(web.exportAsWebarchive)) {
+                $0.target = web
+            },
+            .separator(),
+            .child("Print...", #selector(web.printPage), "p") {
+                $0.target = web
+            }
+        ]
         
         return items
     }
     
     private var edit: NSMenuItem {
-        .parent("Edit") {
+        .parent("Edit", editItems) {
             $0.submenu!.delegate = self
         }
     }
@@ -116,61 +158,22 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var view: NSMenuItem {
-        .parent("View") {
-            $0.submenu!.delegate = self
-        }
-    }
-    
-    private var viewItems: [NSMenuItem] {
-        guard let window = NSApp.keyWindow as? Window else { return [] }
-        
-        var items = [NSMenuItem]()
-        
-        switch window.status.item.flow {
-        case let .web(web):
-            items += [
-                .child("Stop", #selector(web.stopLoading(_:)), ".") {
-                    $0.target = web
-                },
-                .child("Reload", #selector(web.reload(_:)), "r") {
-                    $0.target = web
-                },
-                .separator(),
-                .child("Actual Size", #selector(web.actualSize), "0") {
-                    $0.target = web
-                },
-                .child("Zoom In", #selector(web.zoomIn), "+") {
-                    $0.target = web
-                },
-                .child("Zoom Out", #selector(web.zoomOut), "-") {
-                    $0.target = web
-                }]
-        case let .error(web, _):
-            items += [
-                .child("Dismiss Error", #selector(web.dismiss), ".") {
-                    $0.target = web
-                },
-                .child("Try Again", #selector(web.tryAgain), "r") {
-                    $0.target = web
-                }]
-        default:
-            break
-        }
-        
-        items += [
+        .parent("View", [
+            .child("Stop", #selector(Web.stopLoading(_:)), "."),
+            .child("Reload", #selector(Web.reload(_:)), "r"),
             .separator(),
-            .child(window.contentView?.isInFullScreenMode == true ? "Exit Full Screen" : "Enter Full Screen", #selector(window.toggleFullScreen), "f") {
-                $0.target = window
+            .child("Actual Size", #selector(Web.actualSize), "0"),
+            .child("Zoom In", #selector(Web.zoomIn), "+"),
+            .child("Zoom Out", #selector(Web.zoomOut), "-"),
+            .separator(),
+            .child("Full Screen", #selector(Window.toggleFullScreen), "f") {
                 $0.keyEquivalentModifierMask = [.function]
-            }]
-        
-        return items
+            }])
     }
     
     private var window: NSMenuItem {
-        .parent("Window") {
+        .parent("Window", windowItems) {
             $0.submenu!.delegate = self
-            $0.submenu!.autoenablesItems = false
         }
     }
     
@@ -178,39 +181,23 @@ final class Menu: NSMenu, NSMenuDelegate {
         var items: [NSMenuItem] = [
             .child("Minimize", #selector(NSWindow.miniaturize), "m"),
             .child("Zoom", #selector(NSWindow.zoom), "p"),
-            .separator()
-        ]
-        
-        if let window = NSApp.keyWindow as? Window {
-            items += [
-                .child("Show Previous Tab", #selector(window.previousTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
-                    $0.keyEquivalentModifierMask = [.control, .shift]
-                    $0.target = window
-                    $0.isEnabled = window.status.items.value.count > 1
-                },
-                .child("Show Next Tab", #selector(window.nextTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
-                    $0.keyEquivalentModifierMask = [.control]
-                    $0.target = window
-                    $0.isEnabled = window.status.items.value.count > 1
-                },
-                .child("Alternate Previous Tab", #selector(window.previousTab), "{") {
-                    $0.keyEquivalentModifierMask = [.command]
-                    $0.target = window
-                    $0.isEnabled = window.status.items.value.count > 1
-                },
-                .child("Alternate Next Tab", #selector(window.nextTab), "}") {
-                    $0.keyEquivalentModifierMask = [.command]
-                    $0.target = window
-                    $0.isEnabled = window.status.items.value.count > 1
-                },
-                .separator()]
-        }
-        
-        items += [
+            .separator(),
+            .child("Show Previous Tab", #selector(Window.triggerPreviousTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
+                $0.keyEquivalentModifierMask = [.control, .shift]
+            },
+            .child("Show Next Tab", #selector(Window.triggerNextTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
+                $0.keyEquivalentModifierMask = [.control]
+            },
+            .child("Alternate Previous Tab", #selector(Window.triggerPreviousTab), "{") {
+                $0.keyEquivalentModifierMask = [.command]
+            },
+            .child("Alternate Next Tab", #selector(Window.triggerNextTab), "}") {
+                $0.keyEquivalentModifierMask = [.command]
+            },
             .separator(),
             .child("Bring All to Front", #selector(NSApplication.arrangeInFront)),
             .separator()]
-        
+
         items += NSApp
             .windows
             .compactMap { item in
@@ -280,85 +267,11 @@ final class Menu: NSMenu, NSMenuDelegate {
             menu.items = fileItems
         case "Edit":
             menu.items = editItems
-        case "View":
-            menu.items = viewItems
         case "Window":
             menu.items = windowItems
         default:
             break
         }
-    }
-    
-    private func fileItems(window: Window) -> [NSMenuItem] {
-        var items: [NSMenuItem] = [
-            .child("Open Location", #selector(window.search), "l") {
-                $0.target = window
-            },
-            .separator(),
-            .child("Close Window", #selector(window.close), "W") {
-                $0.target = window
-            },
-            .child("Close All Windows", #selector(NSApp.closeAll), "w") {
-                $0.target = NSApp
-                $0.keyEquivalentModifierMask = [.option, .command]
-            },
-            .child("Close Tab", #selector(window.closeTab), "w") {
-                $0.target = window
-            }]
-        
-        if case let .web(web) = window.status.item.flow,
-           let url = web.url {
-            items += [
-                .separator(),
-                .parent("Share", [
-                    .child(url.absoluteString.capped),
-                    .separator()]
-                        + NSSharingService
-                            .sharingServices(forItems: [url])
-                            .map { service in
-                                .child(service.menuItemTitle, #selector(web.share)) {
-                                    $0.target = web
-                                    $0.image = service.image
-                                    $0.representedObject = service
-                                }
-                            }),
-                .separator(),
-                .child("Save As...", #selector(web.saveAs), "s") {
-                    $0.target = web
-                },
-                .child("Copy Link", #selector(web.copyLink), "C") {
-                    $0.target = web
-                },
-                .separator(),
-                .child("Export as PDF...", #selector(web.exportAsPdf)) {
-                    $0.target = web
-                },
-                .child("Export as Snapshot...", #selector(web.exportAsSnapshot)) {
-                    $0.target = web
-                },
-                .child("Export as Web archive...", #selector(web.exportAsWebarchive)) {
-                    $0.target = web
-                },
-                .separator(),
-                .child("Print...", #selector(web.printPage), "p") {
-                    $0.target = web
-                }
-            ]
-        }
-        
-        return items
-    }
-    
-    private func fileItems(other: NSWindow) -> [NSMenuItem] {
-        [
-            .separator(),
-            .child("Close Window", #selector(other.close), "w") {
-                $0.target = other
-            },
-            .child("Close All Windows", #selector(NSApp.closeAll), "w") {
-                $0.target = NSApp
-                $0.keyEquivalentModifierMask = [.option, .command]
-            }]
     }
     
     @objc private func triggerNewWindow() {

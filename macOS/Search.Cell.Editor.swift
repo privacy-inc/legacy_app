@@ -15,7 +15,6 @@ extension Search.Cell {
             isContinuousSpellCheckingEnabled = false
             isAutomaticTextCompletionEnabled = false
             insertionPointColor = .labelColor
-            
         }
         
         override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
