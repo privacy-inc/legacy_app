@@ -36,7 +36,7 @@ extension Window {
                 }
                 .sink { [weak self] item in
                     guard let self = self else { return }
-                    
+
                     self
                         .subviews
                         .filter {

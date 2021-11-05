@@ -380,7 +380,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     
     @objc private func triggerWebsite() {
-//                NSApp.newTabWith(url: URL(string: "https://goprivacy.app")!)
+        NSApp.open(url: URL(string: "https://goprivacy.app")!)
     }
     
     @objc private func triggerShortcut(_ button: NSStatusBarButton) {

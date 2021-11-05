@@ -7,8 +7,8 @@ import Specs
 final class Web: Webview, NSTextFinderBarContainer {
 //    private var destination = Destination.window
     
+    let item: UUID
     private weak var status: Status!
-    private let item: UUID
     private let finder = NSTextFinder()
     
     required init?(coder: NSCoder) { nil }

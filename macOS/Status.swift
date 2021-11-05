@@ -133,6 +133,20 @@ final class Status {
         }
     }
     
+    @MainActor func url(url: URL) async {
+        let id = await cloud.open(url: url)
+        switch item.flow {
+        case .landing:
+            await history(id: id)
+        case .web, .error:
+            let web = await Web(status: self, item: .init(), history: id, settings: cloud.model.settings.configuration)
+            let item = Item(id: web.item, web: web)
+            items.value.append(item)
+            current.send(web.item)
+            await web.access()
+        }
+    }
+    
     @MainActor func access(access: AccessType) async {
         switch item.flow {
         case .landing:

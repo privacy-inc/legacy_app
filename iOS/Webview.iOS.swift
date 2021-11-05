@@ -2,7 +2,7 @@ import UIKit
 import WebKit
 
 extension Webview: WKDownloadDelegate {
-    var defaultBackground: UIColor {
+    final var defaultBackground: UIColor {
         .secondarySystemBackground
         .resolvedColor(with:
                             .init(userInterfaceStyle: dark ? .dark : .light))

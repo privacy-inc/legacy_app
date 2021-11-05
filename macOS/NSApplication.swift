@@ -49,7 +49,19 @@ extension NSApplication {
 //            }
 //    }
     
-    
+    func open(url: URL) {
+        if let window = activeWindow {
+            Task {
+                await window.status.url(url: url)
+            }
+        } else {
+            Task {
+                let status = Status()
+                await status.url(url: url)
+                Window.new(status: status)
+            }
+        }
+    }
     
     func closeAllWindows() {
         windows

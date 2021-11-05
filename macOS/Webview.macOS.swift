@@ -2,7 +2,7 @@ import AppKit
 import WebKit
 
 extension Webview: WKDownloadDelegate {
-    var defaultBackground: NSColor {
+    final var defaultBackground: NSColor {
         .underPageBackgroundColor
     }
     
