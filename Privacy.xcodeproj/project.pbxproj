@@ -22,6 +22,8 @@
 		CE1936B0272804CF00476227 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1936AF272804CF00476227 /* App.swift */; };
 		CE1936B4272804D100476227 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1936B3272804D100476227 /* Assets.xcassets */; };
 		CE1936BD2728059800476227 /* Specs in Frameworks */ = {isa = PBXBuildFile; productRef = CE1936BC2728059800476227 /* Specs */; };
+		CE19EC8B2736A39400A412FC /* Plus.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE19EC8A2736A39400A412FC /* Plus.Option.swift */; };
+		CE19EC8D2736A54300A412FC /* Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE19EC8C2736A54300A412FC /* Pop.swift */; };
 		CE1D9C3226FB6883004F8B6B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D9C3126FB6883004F8B6B /* Status.swift */; };
 		CE1ECE42271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1ECE41271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift */; };
 		CE22EAF82720224F00A9B29B /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE22EAF72720224E00A9B29B /* About.swift */; };
@@ -285,6 +287,8 @@
 		CE1936AF272804CF00476227 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE1936B3272804D100476227 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE1936B8272804D100476227 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		CE19EC8A2736A39400A412FC /* Plus.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Option.swift; sourceTree = "<group>"; };
+		CE19EC8C2736A54300A412FC /* Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pop.swift; sourceTree = "<group>"; };
 		CE1D9C3126FB6883004F8B6B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		CE1ECE41271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.Other.swift; sourceTree = "<group>"; };
 		CE22EAF72720224E00A9B29B /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
@@ -563,8 +567,10 @@
 				CEEBA5C2272FFA540079928E /* NSMenu.swift */,
 				CEEBA5C3272FFA540079928E /* NSMenuItem.swift */,
 				CEF006562733F98800D0A1EB /* NSSavePanel.swift */,
-				CEB22E992735880F001C77E0 /* Plus.swift */,
+				CE19EC8A2736A39400A412FC /* Plus.Option.swift */,
 				CEB22E9B27358DE1001C77E0 /* Plus.Purchased.swift */,
+				CEB22E992735880F001C77E0 /* Plus.swift */,
+				CE19EC8C2736A54300A412FC /* Pop.swift */,
 				CEBFC84A273178BE00EFDA17 /* Recover.swift.swift */,
 				CE8BA2FA272D9B7700E2D73F /* Search.Cell.Editor.swift */,
 				CE8BA2F8272D9B6300E2D73F /* Search.Cell.swift */,
@@ -980,6 +986,7 @@
 				CEABD1F7272AE70700F56852 /* Landing.Bookmarks.Remote.swift in Sources */,
 				CE74300D2729825500F5F5B8 /* Layer.swift in Sources */,
 				CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */,
+				CE19EC8B2736A39400A412FC /* Plus.Option.swift in Sources */,
 				CEABD1F3272AD91900F56852 /* Landing.Bookmarks.Item.swift in Sources */,
 				CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */,
 				CE5D41A9272C1DAD00AEBE0F /* Card.swift in Sources */,
@@ -1038,6 +1045,7 @@
 				CE743007272981EA00F5F5B8 /* CollectionCellState.swift in Sources */,
 				CE3576B327281CE4005854B5 /* Copy.swift in Sources */,
 				CE7430122729874200F5F5B8 /* Landing.Section.swift in Sources */,
+				CE19EC8D2736A54300A412FC /* Pop.swift in Sources */,
 				CEBCAAD42732B66D00B9D49C /* Shortcut.Action.swift in Sources */,
 				CE743006272981EA00F5F5B8 /* CollectionCellText.swift in Sources */,
 				CE5D41AB272C240D00AEBE0F /* Landing.History.Other.swift in Sources */,

@@ -9,4 +9,13 @@ extension AttributedString {
         string.paragraphStyle = style
         return string
     }
+    
+    func with(alignment: NSTextAlignment) -> Self {
+        let style = NSMutableParagraphStyle()
+        style.alignment = alignment
+        
+        var string = self
+        string.paragraphStyle = style
+        return string
+    }
 }
