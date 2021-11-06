@@ -63,6 +63,13 @@
 		CE4047F1270726BA00E101D1 /* Listed.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4047F0270726BA00E101D1 /* Listed.Remote.swift */; };
 		CE43125F2736C70100DA0F99 /* Froob.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43125E2736C70100DA0F99 /* Froob.swift */; };
 		CE4312612736CCD500DA0F99 /* Froob.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312602736CCD500DA0F99 /* Froob.Action.swift */; };
+		CE4312672736D25C00DA0F99 /* Preferences.Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312622736D25B00DA0F99 /* Preferences.Features.swift */; };
+		CE4312682736D25C00DA0F99 /* Preferences.Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312632736D25B00DA0F99 /* Preferences.Notifications.swift */; };
+		CE4312692736D25C00DA0F99 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312642736D25B00DA0F99 /* Preferences.swift */; };
+		CE43126A2736D25C00DA0F99 /* Preferences.Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312652736D25B00DA0F99 /* Preferences.Switch.swift */; };
+		CE43126B2736D25C00DA0F99 /* Preferences.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312662736D25B00DA0F99 /* Preferences.Option.swift */; };
+		CE43126D2736D6E100DA0F99 /* Preferences.General.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43126C2736D6E100DA0F99 /* Preferences.General.swift */; };
+		CE43126F2736D71500DA0F99 /* Preferences.Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43126E2736D71500DA0F99 /* Preferences.Navigation.swift */; };
 		CE46B4DE26F797F600A5B5BB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE46B4DD26F797F600A5B5BB /* App.swift */; };
 		CE46B4E226F797F700A5B5BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4E126F797F700A5B5BB /* Assets.xcassets */; };
 		CE46B4EB26F7982200A5B5BB /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
@@ -324,6 +331,13 @@
 		CE4047F0270726BA00E101D1 /* Listed.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listed.Remote.swift; sourceTree = "<group>"; };
 		CE43125E2736C70100DA0F99 /* Froob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.swift; sourceTree = "<group>"; };
 		CE4312602736CCD500DA0F99 /* Froob.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.Action.swift; sourceTree = "<group>"; };
+		CE4312622736D25B00DA0F99 /* Preferences.Features.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.Features.swift; sourceTree = "<group>"; };
+		CE4312632736D25B00DA0F99 /* Preferences.Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.Notifications.swift; sourceTree = "<group>"; };
+		CE4312642736D25B00DA0F99 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		CE4312652736D25B00DA0F99 /* Preferences.Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.Switch.swift; sourceTree = "<group>"; };
+		CE4312662736D25B00DA0F99 /* Preferences.Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.Option.swift; sourceTree = "<group>"; };
+		CE43126C2736D6E100DA0F99 /* Preferences.General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.General.swift; sourceTree = "<group>"; };
+		CE43126E2736D71500DA0F99 /* Preferences.Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Navigation.swift; sourceTree = "<group>"; };
 		CE46B4DA26F797F600A5B5BB /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE46B4DD26F797F600A5B5BB /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE46B4E126F797F700A5B5BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -583,6 +597,13 @@
 				CEB22E9B27358DE1001C77E0 /* Plus.Purchased.swift */,
 				CEB22E992735880F001C77E0 /* Plus.swift */,
 				CE19EC8C2736A54300A412FC /* Pop.swift */,
+				CE4312622736D25B00DA0F99 /* Preferences.Features.swift */,
+				CE4312632736D25B00DA0F99 /* Preferences.Notifications.swift */,
+				CE4312662736D25B00DA0F99 /* Preferences.Option.swift */,
+				CE43126C2736D6E100DA0F99 /* Preferences.General.swift */,
+				CE43126E2736D71500DA0F99 /* Preferences.Navigation.swift */,
+				CE4312642736D25B00DA0F99 /* Preferences.swift */,
+				CE4312652736D25B00DA0F99 /* Preferences.Switch.swift */,
 				CEBFC84A273178BE00EFDA17 /* Recover.swift.swift */,
 				CE8BA2FA272D9B7700E2D73F /* Search.Cell.Editor.swift */,
 				CE8BA2F8272D9B6300E2D73F /* Search.Cell.swift */,
@@ -994,13 +1015,16 @@
 				CE742FFE2729759900F5F5B8 /* Landing.swift in Sources */,
 				CEBFC84B273178BE00EFDA17 /* Recover.swift.swift in Sources */,
 				CE3576B527281CFD005854B5 /* Store.State.swift in Sources */,
+				CE43126F2736D71500DA0F99 /* Preferences.Navigation.swift in Sources */,
 				CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */,
 				CEABD1F7272AE70700F56852 /* Landing.Bookmarks.Remote.swift in Sources */,
+				CE4312682736D25C00DA0F99 /* Preferences.Notifications.swift in Sources */,
 				CE74300D2729825500F5F5B8 /* Layer.swift in Sources */,
 				CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */,
 				CE19EC8B2736A39400A412FC /* Plus.Option.swift in Sources */,
 				CEABD1F3272AD91900F56852 /* Landing.Bookmarks.Item.swift in Sources */,
 				CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */,
+				CE43126A2736D25C00DA0F99 /* Preferences.Switch.swift in Sources */,
 				CE43125F2736C70100DA0F99 /* Froob.swift in Sources */,
 				CE5D41A9272C1DAD00AEBE0F /* Card.swift in Sources */,
 				CEBCAADA2732C31900B9D49C /* Forgeting.Option.swift in Sources */,
@@ -1017,6 +1041,7 @@
 				CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */,
 				CE5D41B1272C3D8800AEBE0F /* Bar.swift in Sources */,
 				CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */,
+				CE4312672736D25C00DA0F99 /* Preferences.Features.swift in Sources */,
 				CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */,
 				CEEBA5C727301E280079928E /* Bar.Tab.Connection.swift in Sources */,
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
@@ -1028,12 +1053,14 @@
 				CE5F1279272EB93E002D0AD2 /* Web.swift in Sources */,
 				CE5D41AD272C2ED400AEBE0F /* Separator.swift in Sources */,
 				CEEBA5C927302A1C0079928E /* Menu.swift in Sources */,
+				CE43126B2736D25C00DA0F99 /* Preferences.Option.swift in Sources */,
 				CE4312612736CCD500DA0F99 /* Froob.Action.swift in Sources */,
 				CE8BA2F9272D9B6300E2D73F /* Search.Cell.swift in Sources */,
 				CEB22E9627357A84001C77E0 /* Info.Policy.swift in Sources */,
 				CEF006572733F98800D0A1EB /* NSSavePanel.swift in Sources */,
 				CE743009272981EA00F5F5B8 /* CollectionCell.swift in Sources */,
 				CE5D41BF272C5CDC00AEBE0F /* Control.State.swift in Sources */,
+				CE43126D2736D6E100DA0F99 /* Preferences.General.swift in Sources */,
 				CE8BA2EF272D741900E2D73F /* Status.Item.swift in Sources */,
 				CEABD1FD272AF0E000F56852 /* Landing.History.Remote.swift in Sources */,
 				CEB22E9827358367001C77E0 /* Info.Terms.swift in Sources */,
@@ -1051,6 +1078,7 @@
 				CE5D41AF272C3A8300AEBE0F /* AttributedString.swift in Sources */,
 				CEBFC845273163B300EFDA17 /* Landing.History.Item.swift in Sources */,
 				CE8BA2FB272D9B7700E2D73F /* Search.Cell.Editor.swift in Sources */,
+				CE4312692736D25C00DA0F99 /* Preferences.swift in Sources */,
 				CEBB8BDF2728258300016F2C /* Status.swift in Sources */,
 				CEB22E9227355208001C77E0 /* Web.Destination.swift in Sources */,
 				CEABD1EB272AC01500F56852 /* Image.swift in Sources */,

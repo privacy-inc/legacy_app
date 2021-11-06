@@ -69,47 +69,6 @@ extension NSApplication {
             }
     }
     
-//    func activity() {
-//        (anyWindow() ?? Activity())
-//            .makeKeyAndOrderFront(nil)
-//    }
-//
-//    func trackers() {
-//        (anyWindow() ?? Trackers())
-//            .makeKeyAndOrderFront(nil)
-//    }
-//
-//    func froob() {
-//        (anyWindow() ?? Info.Froob())
-//            .makeKeyAndOrderFront(nil)
-//    }
-//
-//    func why() {
-//        (anyWindow() ?? Info.Why())
-//            .makeKeyAndOrderFront(nil)
-//    }
-//
-//    func alternatives() {
-//        (anyWindow() ?? Info.Alternatives())
-//            .makeKeyAndOrderFront(nil)
-//    }
-//
-//    func store() {
-//        (anyWindow() ?? Store())
-//            .makeKeyAndOrderFront(nil)
-//    }
-    
-//    @objc func newTab() {
-//        guard let window = activeWindow else {
-//            newWindow()
-//            return
-//        }
-//        window.plus()
-//    }
-//
-    
-    
-    
     func anyWindow<T>() -> T? {
         windows
             .compactMap {
@@ -131,7 +90,7 @@ extension NSApplication {
     }
     
     @objc func showPreferencesWindow(_ sender: Any?) {
-//        (anyWindow() ?? Settings())
-//            .makeKeyAndOrderFront(nil)
+        (anyWindow() ?? Preferences())
+            .makeKeyAndOrderFront(nil)
     }
 }

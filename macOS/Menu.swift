@@ -229,6 +229,8 @@ final class Menu: NSMenu, NSMenuDelegate {
                     title = "Privacy +"
                 case is Froob:
                     title = "Support Privacy"
+                case is Preferences:
+                    title = "Preferences"
                 default:
                     add = nil
                 }
