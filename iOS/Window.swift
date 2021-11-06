@@ -40,16 +40,14 @@ struct Window: View {
             }
             .task {
                 status.dark = scheme == .dark
-                if let created = Defaults.wasCreated {
-                    let days = Calendar.current.dateComponents([.day], from: created, to: .init()).day!
-                    if !Defaults.hasRated && days > 6 {
-                        UIApplication.shared.review()
-                        Defaults.hasRated = true
-                    } else if Defaults.hasRated && !Defaults.isPremium && days > 8 {
-                        modal = .froob
-                    }
-                } else {
-                    Defaults.wasCreated = .init()
+                
+                switch Defaults.action {
+                case .rate:
+                    UIApplication.shared.review()
+                case .froob:
+                    modal = .froob
+                case .none:
+                    break
                 }
                 
                 await cloud.migrate()

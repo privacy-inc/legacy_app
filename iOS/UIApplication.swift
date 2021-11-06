@@ -40,13 +40,18 @@ extension UIApplication {
     }
     
     private var scene: UIWindowScene? {
-        connectedScenes
-            .filter {
-                $0.activationState == .foregroundActive
-            }
+        { (connected: [UIWindowScene]) -> UIWindowScene? in
+            connected.count > 1
+            ? connected
+                .filter {
+                    $0.activationState == .foregroundActive || $0.activationState == .foregroundInactive
+                }
+                .first
+            : connected
+                .first
+        } (connectedScenes
             .compactMap {
                 $0 as? UIWindowScene
-            }
-            .first
+            })
     }
 }
