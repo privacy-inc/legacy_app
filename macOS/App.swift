@@ -62,13 +62,9 @@ import Specs
         return false
     }
     
-    func application(_: NSApplication, open: [URL]) {
-//        cloud
-//            .notifier
-//            .notify(queue: .main) {
-//                open
-//                    .forEach(self.newTabWith(url:))
-//            }
+    func application(_ app: NSApplication, open: [URL]) {
+        open
+            .forEach(app.open(url:))
     }
     
     @objc override func orderFrontStandardAboutPanel(_ sender: Any?) {
@@ -77,14 +73,10 @@ import Specs
     }
 
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {
-//        cloud
-//            .notifier
-//            .notify(queue: .main) {
-//                event
-//                    .paramDescriptor(forKeyword: keyDirectObject)
-//                    .flatMap(\.stringValue?.removingPercentEncoding)
-//                    .flatMap(URL.init(string:))
-//                    .map(self.newTabWith(url:))
-//            }
+        event
+            .paramDescriptor(forKeyword: keyDirectObject)
+            .flatMap(\.stringValue?.removingPercentEncoding)
+            .flatMap(URL.init(string:))
+            .map(NSApp.open(url:))
     }
 }
