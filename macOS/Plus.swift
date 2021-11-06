@@ -8,6 +8,7 @@ final class Plus: NSWindow {
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 520, height: 680),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
+        animationBehavior = .alertPanel
         toolbar = .init()
         isReleasedWhenClosed = false
         titlebarAppearsTransparent = true
@@ -115,6 +116,10 @@ final class Plus: NSWindow {
         Task {
             await store.load()
         }
+    }
+    
+    @objc func triggerCloseTab() {
+        close()
     }
     
     private func message(error: String) -> NSView {

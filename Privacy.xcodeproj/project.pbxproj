@@ -61,6 +61,8 @@
 		CE4047ED2707235000E101D1 /* Listed.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4047EC2707235000E101D1 /* Listed.swift */; };
 		CE4047EF2707247400E101D1 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4047EE2707247400E101D1 /* UIImage.swift */; };
 		CE4047F1270726BA00E101D1 /* Listed.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4047F0270726BA00E101D1 /* Listed.Remote.swift */; };
+		CE43125F2736C70100DA0F99 /* Froob.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43125E2736C70100DA0F99 /* Froob.swift */; };
+		CE4312612736CCD500DA0F99 /* Froob.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312602736CCD500DA0F99 /* Froob.Action.swift */; };
 		CE46B4DE26F797F600A5B5BB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE46B4DD26F797F600A5B5BB /* App.swift */; };
 		CE46B4E226F797F700A5B5BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4E126F797F700A5B5BB /* Assets.xcassets */; };
 		CE46B4EB26F7982200A5B5BB /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
@@ -320,6 +322,8 @@
 		CE4047EC2707235000E101D1 /* Listed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listed.swift; sourceTree = "<group>"; };
 		CE4047EE2707247400E101D1 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		CE4047F0270726BA00E101D1 /* Listed.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listed.Remote.swift; sourceTree = "<group>"; };
+		CE43125E2736C70100DA0F99 /* Froob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.swift; sourceTree = "<group>"; };
+		CE4312602736CCD500DA0F99 /* Froob.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.Action.swift; sourceTree = "<group>"; };
 		CE46B4DA26F797F600A5B5BB /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE46B4DD26F797F600A5B5BB /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE46B4E126F797F700A5B5BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -547,6 +551,8 @@
 				CE74300C2729825500F5F5B8 /* Flip.swift */,
 				CEBCAAD92732C31900B9D49C /* Forgeting.Option.swift */,
 				CEBCAAD72732BE5000B9D49C /* Forgeting.swift */,
+				CE4312602736CCD500DA0F99 /* Froob.Action.swift */,
+				CE43125E2736C70100DA0F99 /* Froob.swift */,
 				CEABD1F4272AE07100F56852 /* Icon.swift */,
 				CEABD1EA272AC01500F56852 /* Image.swift */,
 				CEB22E9527357A84001C77E0 /* Info.Policy.swift */,
@@ -995,6 +1001,7 @@
 				CE19EC8B2736A39400A412FC /* Plus.Option.swift in Sources */,
 				CEABD1F3272AD91900F56852 /* Landing.Bookmarks.Item.swift in Sources */,
 				CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */,
+				CE43125F2736C70100DA0F99 /* Froob.swift in Sources */,
 				CE5D41A9272C1DAD00AEBE0F /* Card.swift in Sources */,
 				CEBCAADA2732C31900B9D49C /* Forgeting.Option.swift in Sources */,
 				CE5D41BD272C5CDC00AEBE0F /* Bar.Option.swift in Sources */,
@@ -1021,6 +1028,7 @@
 				CE5F1279272EB93E002D0AD2 /* Web.swift in Sources */,
 				CE5D41AD272C2ED400AEBE0F /* Separator.swift in Sources */,
 				CEEBA5C927302A1C0079928E /* Menu.swift in Sources */,
+				CE4312612736CCD500DA0F99 /* Froob.Action.swift in Sources */,
 				CE8BA2F9272D9B6300E2D73F /* Search.Cell.swift in Sources */,
 				CEB22E9627357A84001C77E0 /* Info.Policy.swift in Sources */,
 				CEF006572733F98800D0A1EB /* NSSavePanel.swift in Sources */,

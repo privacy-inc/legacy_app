@@ -4,6 +4,7 @@ class Info: NSWindow {
     init(title: String, copy: String) {
         super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 700),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
+        animationBehavior = .alertPanel
         toolbar = .init()
         isReleasedWhenClosed = false
         titlebarAppearsTransparent = true
@@ -33,5 +34,9 @@ class Info: NSWindow {
         text.rightAnchor.constraint(equalTo: content.rightAnchor, constant: -50).isActive = true
         text.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -50).isActive = true
         text.widthAnchor.constraint(equalToConstant: 500).isActive = true
+    }
+    
+    @objc func triggerCloseTab() {
+        close()
     }
 }

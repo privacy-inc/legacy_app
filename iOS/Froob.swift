@@ -11,9 +11,9 @@ struct Froob: View {
                     Image("Logo")
                         .frame(maxWidth: .greatestFiniteMagnitude)
                         .padding(.top)
-                    Text("Privacy \(Image(systemName: "plus"))")
+                    Text("\(Text("Privacy").font(.title2.weight(.medium))) \(Image(systemName: "plus"))")
                         .foregroundColor(.primary)
-                        .font(.title2)
+                        .font(.title.weight(.ultraLight))
                         .imageScale(.large)
                         .frame(maxWidth: .greatestFiniteMagnitude)
                 }

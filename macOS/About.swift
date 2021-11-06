@@ -4,6 +4,7 @@ final class About: NSWindow {
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 320, height: 360),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
+        animationBehavior = .alertPanel
         toolbar = .init()
         isReleasedWhenClosed = false
         titlebarAppearsTransparent = true
@@ -54,5 +55,9 @@ final class About: NSWindow {
         
         heart.centerYAnchor.constraint(equalTo: disclaimer.centerYAnchor).isActive = true
         heart.leftAnchor.constraint(equalTo: disclaimer.rightAnchor).isActive = true
+    }
+    
+    @objc func triggerCloseTab() {
+        close()
     }
 }

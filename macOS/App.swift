@@ -1,5 +1,6 @@
 import AppKit
 import StoreKit
+import Specs
 
 //let location = Location()
 
@@ -23,19 +24,19 @@ import StoreKit
     }
     
     func applicationDidFinishLaunching(_: Notification) {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            if let created = Defaults.created {
-//                let days = Calendar.current.dateComponents([.day], from: created, to: .init()).day!
-//                if !Defaults.rated && days > 4 {
-//                    SKStoreReviewController.requestReview()
-//                    Defaults.rated = true
-//                } else if Defaults.rated && !Defaults.premium && days > 6 {
-//                    self.froob()
-//                }
-//            } else {
-//                Defaults.created = .init()
-//            }
-//        }
+        Task {
+            switch Defaults.action {
+            case .rate:
+                SKStoreReviewController.requestReview()
+            case .froob:
+                (NSApp.anyWindow() ?? Froob())
+                    .makeKeyAndOrderFront(nil)
+            case .none:
+                break
+            }
+            
+            await cloud.migrate()
+        }
 
         registerForRemoteNotifications()
     }
@@ -56,7 +57,7 @@ import StoreKit
                     $0.deminiaturize(nil)
                 }
         } else {
-//            newWindow()
+            Window.new()
         }
         return false
     }
