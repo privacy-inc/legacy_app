@@ -30,16 +30,16 @@ final class Plus: NSWindow {
         content.addSubview(title)
         
         let plus = Image(icon: "plus")
-        plus.symbolConfiguration = .init(pointSize: 48, weight: .ultraLight)
+        plus.symbolConfiguration = .init(pointSize: 35, weight: .ultraLight)
             .applying(.init(hierarchicalColor: .labelColor))
         content.addSubview(plus)
         
-        let why = Option(title: "Why In-App Purchases", image: "questionmark.app.dashed")
+        let why = Option(title: "Why purchases", image: "questionmark.app.dashed")
         content.addSubview(why)
         why
             .click
             .sink {
-                let pop = Pop(title: "Why In-App Purchases", copy: Copy.why)
+                let pop = Pop(title: "Why purchases", copy: Copy.why)
                 pop.show(relativeTo: why.bounds, of: why, preferredEdge: .minY)
                 pop.contentViewController!.view.window!.makeKey()
             }
@@ -60,20 +60,37 @@ final class Plus: NSWindow {
         
         store
             .status
-            .sink { status in
+            .sink { [weak self] status in
                 inner?.removeFromSuperview()
-                
-//                if Defaults.isPremium {
+
+                if Defaults.isPremium {
                     inner = Purchased()
-//                } else {
-//                    switch status {
-//                        
-//                    }
-//                }
+                } else {
+                    switch status {
+                    case .loading:
+                        inner = NSView()
+                        
+                        let image = Image(icon: "hourglass", vibrancy: false)
+                        image.symbolConfiguration = .init(textStyle: .largeTitle)
+                            .applying(.init(hierarchicalColor: .init(named: "Dawn")!))
+                        inner!.addSubview(image)
+                        
+                        image.centerXAnchor.constraint(equalTo: inner!.centerXAnchor).isActive = true
+                        image.centerYAnchor.constraint(equalTo: inner!.centerYAnchor).isActive = true
+                    case let .error(error):
+                        inner = self?.message(error: error)
+                    case let .products(products):
+                        if let product = products.first {
+                            inner = Item(product: product)
+                        } else {
+                            inner = self?.message(error: Copy.noPurchases)
+                        }
+                    }
+                }
                 
                 inner!.translatesAutoresizingMaskIntoConstraints = false
                 content.addSubview(inner!)
-                inner!.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 30).isActive = true
+                inner!.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10).isActive = true
                 inner!.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
                 inner!.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
                 inner!.bottomAnchor.constraint(equalTo: why.topAnchor, constant: -30).isActive = true
@@ -83,16 +100,38 @@ final class Plus: NSWindow {
         image.topAnchor.constraint(equalTo: content.topAnchor, constant: 60).isActive = true
         image.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
         
-        title.topAnchor.constraint(equalTo: image.bottomAnchor).isActive = true
+        title.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20).isActive = true
         title.centerXAnchor.constraint(equalTo: content.centerXAnchor, constant: -22).isActive = true
         
         plus.centerYAnchor.constraint(equalTo: title.centerYAnchor).isActive = true
         plus.leftAnchor.constraint(equalTo: title.rightAnchor).isActive = true
         
-        why.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
-        why.bottomAnchor.constraint(equalTo: alternatives.topAnchor, constant: -10).isActive = true
+        why.rightAnchor.constraint(equalTo: content.centerXAnchor, constant: -10).isActive = true
+        why.centerYAnchor.constraint(equalTo: alternatives.centerYAnchor).isActive = true
         
-        alternatives.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
+        alternatives.leftAnchor.constraint(equalTo: content.centerXAnchor, constant: 10).isActive = true
         alternatives.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -50).isActive = true
+        
+        Task {
+            await store.load()
+        }
+    }
+    
+    private func message(error: String) -> NSView {
+        let inner = NSView()
+        
+        let text = Text(vibrancy: true)
+        text.font = .preferredFont(forTextStyle: .title3)
+        text.alignment = .center
+        text.textColor = .secondaryLabelColor
+        text.stringValue = error
+        text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        inner.addSubview(text)
+        
+        text.centerXAnchor.constraint(equalTo: inner.centerXAnchor).isActive = true
+        text.centerYAnchor.constraint(equalTo: inner.centerYAnchor).isActive = true
+        text.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        
+        return inner
     }
 }
