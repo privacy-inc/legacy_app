@@ -9,7 +9,7 @@ extension UNUserNotificationCenter {
     
     static func send(message: String) async {
         let settings = await current().notificationSettings()
-        guard settings.alertSetting == .enabled && settings.authorizationStatus == .authorized else { return }
+        guard settings.authorizationStatus == .authorized else { return }
         let content = UNMutableNotificationContent()
         content.body = message
         try? await current().add(.init(identifier: UUID().uuidString, content: content, trigger: nil))

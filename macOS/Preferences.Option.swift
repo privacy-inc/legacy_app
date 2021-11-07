@@ -2,7 +2,7 @@ import AppKit
 
 extension Preferences {
     final class Option: Control {
-        private weak var text: Text!
+        private(set) weak var text: Text!
         
         required init?(coder: NSCoder) { nil }
         init(title: String) {

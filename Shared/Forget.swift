@@ -8,7 +8,6 @@ enum Forget {
                 await Webview.clear()
                 await UNUserNotificationCenter.send(message: "Forgot cache!")
             }
-        
     }
     
     static func history() {

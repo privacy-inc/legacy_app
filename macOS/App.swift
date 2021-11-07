@@ -1,10 +1,11 @@
 import AppKit
 import StoreKit
+import UserNotifications
 import Specs
 
 //let location = Location()
 
-@NSApplicationMain final class App: NSApplication, NSApplicationDelegate {
+@NSApplicationMain final class App: NSApplication, NSApplicationDelegate, UNUserNotificationCenterDelegate {
     required init?(coder: NSCoder) { nil }
     override init() {
         super.init()
@@ -39,6 +40,7 @@ import Specs
         }
 
         registerForRemoteNotifications()
+        UNUserNotificationCenter.current().delegate = self
     }
     
     func applicationDidBecomeActive(_: Notification) {
@@ -66,6 +68,14 @@ import Specs
         open
             .forEach(app.open(url:))
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        await center.present(notification)
+    }
+    
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent: UNNotification) async -> UNNotificationPresentationOptions {
+//        await center.present(willPresent)
+//    }
     
     @objc override func orderFrontStandardAboutPanel(_ sender: Any?) {
         (anyWindow() ?? About())

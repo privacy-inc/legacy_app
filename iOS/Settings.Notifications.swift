@@ -37,7 +37,7 @@ extension Settings {
             if settings.authorizationStatus == .notDetermined {
                 requested = false
                 enabled = false
-            } else if settings.alertSetting == .disabled {
+            } else if settings.alertSetting == .disabled || settings.authorizationStatus == .denied {
                 enabled = false
             } else {
                 enabled = true
