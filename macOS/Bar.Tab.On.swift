@@ -142,7 +142,8 @@ extension Bar.Tab {
                                  back: back,
                                  forward: forward,
                                  reload: reload,
-                                 stop: stop)
+                                 stop: stop,
+                                 options: options)
                     
                     background.listen(web: web)
                     options.state = .on
@@ -232,7 +233,8 @@ extension Bar.Tab {
                             back: Option,
                             forward: Option,
                             reload: Option,
-                            stop: Option) {
+                            stop: Option,
+                            options: Option) {
             web
                 .publisher(for: \.url)
                 .compactMap {
@@ -396,6 +398,20 @@ extension Bar.Tab {
                 .sink {
                     Connection(history: web.history)
                         .show(relativeTo: insecure.bounds, of: insecure, preferredEdge: .minY)
+                }
+                .store(in: &subs)
+            
+            options
+                .click
+                .sink {
+                    guard
+                        let title = web.title,
+                        let url = web.url?.absoluteString
+                    else { return }
+                    
+                    let pop = Pop(title: title, copy: url)
+                    pop.show(relativeTo: options.bounds, of: options, preferredEdge: .minY)
+                    pop.contentViewController!.view.window!.makeKey()
                 }
                 .store(in: &subs)
         }
