@@ -22,7 +22,7 @@ Your privacy is respected at all times.
 """
             view!.addSubview(text)
             
-            let option = Option(title: "Enable notifications")
+            let option = Option(title: "Enable notifications", symbol: "app.badge")
             option.state = .hidden
             option
                 .click

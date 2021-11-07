@@ -1,103 +1,126 @@
 import AppKit
-import Combine
 
 extension Preferences {
     final class Navigation: NSTabViewItem {
-        private var subs = Set<AnyCancellable>()
-        
         required init?(coder: NSCoder) { nil }
         override init() {
-            super.init(identifier: "Navigation")
+            super.init(identifier: "")
             label = "Navigation"
-//
-//            let engineTitle = Text()
-//            engineTitle.font = .preferredFont(forTextStyle: .callout)
-//            engineTitle.textColor = .labelColor
-//            engineTitle.stringValue = "Search engine"
-//            view!.addSubview(engineTitle)
-//
-//            let engine = NSSegmentedControl(labels: ["Google", "Ecosia"], trackingMode: .selectOne, target: self, action: #selector(self.engine))
-//            engine.segmentStyle = .texturedRounded
-//            engine.translatesAutoresizingMaskIntoConstraints = false
-//            switch cloud.archive.value.settings.engine {
-//            case .google:
-//                engine.selectedSegment = 0
-//            case .ecosia:
-//                engine.selectedSegment = 1
-//            }
-//            view!.addSubview(engine)
-//
-//            let browserTitle = Text()
-//            browserTitle.font = .preferredFont(forTextStyle: .callout)
-//            browserTitle.textColor = .secondaryLabelColor
-//            browserTitle.stringValue = """
-//You can make this app your default browser and all websites will open automatically on Privacy.
-//"""
-//            browserTitle.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-//            view!.addSubview(browserTitle)
-//
-//            engineTitle.topAnchor.constraint(equalTo: view!.topAnchor, constant: 20).isActive = true
-//            engineTitle.leftAnchor.constraint(equalTo: engine.leftAnchor).isActive = true
-//
-//            engine.topAnchor.constraint(equalTo: engineTitle.bottomAnchor, constant: 10).isActive = true
-//            engine.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
-//            engine.widthAnchor.constraint(equalToConstant: 280).isActive = true
-//
-//            browserTitle.topAnchor.constraint(equalTo: engine.bottomAnchor, constant: 80).isActive = true
-//            browserTitle.leftAnchor.constraint(equalTo: engine.leftAnchor).isActive = true
-//            browserTitle.rightAnchor.constraint(equalTo: engine.rightAnchor).isActive = true
-//
-//            if isDefault {
-//                let browser = Text()
-//                browser.stringValue = "Default Browser"
-//                browser.font = .font(style: .callout, weight: .medium)
-//                browser.textColor = .secondaryLabelColor
-//                view!.addSubview(browser)
-//
-//                let icon = Image(icon: "checkmark.circle.fill")
-//                icon.symbolConfiguration = .init(textStyle: .title3)
-//                icon.contentTintColor = .controlAccentColor
-//                view!.addSubview(icon)
-//
-//                browser.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
-//                browser.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 5).isActive = true
-//
-//                icon.leftAnchor.constraint(equalTo: engine.leftAnchor).isActive = true
-//                icon.bottomAnchor.constraint(equalTo: browserTitle.topAnchor, constant: -10).isActive = true
-//            } else {
-//                let browser = Option(title: "Make default browser", image: "magnifyingglass")
-//                browser
-//                    .click
-//                    .sink { [weak self] in
-//                        LSSetDefaultHandlerForURLScheme(URL.Scheme.http.rawValue as CFString, "incognit" as CFString)
-//                        LSSetDefaultHandlerForURLScheme(URL.Scheme.https.rawValue as CFString, "incognit" as CFString)
-//                        self?.view?.window?.close()
-//                    }
-//                    .store(in: &subs)
-//                view!.addSubview(browser)
-//
-//                browser.bottomAnchor.constraint(equalTo: browserTitle.topAnchor, constant: -10).isActive = true
-//                browser.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
-//            }
+            
+            let engine = Segmented(title: "Search engine", labels: ["Google", "Ecosia"], target: self, action: #selector(self.engine))
+            let level = Segmented(title: "Privacy level", labels: ["Block trackers", "Standard"], target: self, action: #selector(self.level))
+            let connection = Segmented(title: "Connection encryption", labels: ["Enforce https", "Allow http"], target: self, action: #selector(self.connection))
+            let cookies = Segmented(title: "Cookies", labels: ["Block all", "Accept"], target: self, action: #selector(self.cookies))
+            let autoplay = Segmented(title: "Autoplay", labels: ["None", "Audio", "Video", "All"], target: self, action: #selector(self.autoplay))
+            
+            let stack = NSStackView(views: [engine,
+                                            level,
+                                            connection,
+                                            cookies,
+                                            autoplay])
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            stack.orientation = .vertical
+            stack.spacing = 20
+            view!.addSubview(stack)
+            
+            stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 20).isActive = true
+            stack.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
+            
+            Task {
+                let settings = await cloud.model.settings
+                await MainActor
+                    .run {
+                        engine.control.selectedSegment = settings.search.engine == .google ? 0 : 1
+                        level.control.selectedSegment = settings.policy.level == .secure ? 0 : 1
+                        connection.control.selectedSegment = settings.configuration.http ? 1 : 0
+                        cookies.control.selectedSegment = settings.configuration.cookies ? 1 : 0
+                        
+                        switch settings.configuration.autoplay {
+                        case .none:
+                            autoplay.control.selectedSegment = 0
+                        case .audio:
+                            autoplay.control.selectedSegment = 1
+                        case .video:
+                            autoplay.control.selectedSegment = 2
+                        case .all:
+                            autoplay.control.selectedSegment = 3
+                        }
+                    }
+            }
         }
         
-//        private var isDefault: Bool {
-//            NSWorkspace
-//                .shared
-//                .urlForApplication(toOpen: URL(string: URL.Scheme.http.rawValue + "://")!)
-//                .map {
-//                    $0.lastPathComponent == Bundle.main.bundleURL.lastPathComponent
-//                }
-//                ?? false
-//        }
-//        
-//        @objc private func engine(_ segmented: NSSegmentedControl) {
-//            switch segmented.selectedSegment {
-//            case 0:
-//                cloud.engine(.google)
-//            default:
-//                cloud.engine(.ecosia)
-//            }
-//        }
+        @objc private func engine(_ segmented: NSSegmentedControl) {
+            let selected = segmented.selectedSegment
+            
+            Task
+                .detached(priority: .utility) {
+                    switch selected {
+                    case 0:
+                        await cloud.update(search: .google)
+                    default:
+                        await cloud.update(search: .ecosia)
+                    }
+                }
+        }
+        
+        @objc private func level(_ segmented: NSSegmentedControl) {
+            let selected = segmented.selectedSegment
+            
+            Task
+                .detached(priority: .utility) {
+                    switch selected {
+                    case 0:
+                        await cloud.update(policy: .secure)
+                    default:
+                        await cloud.update(policy: .standard)
+                    }
+                }
+        }
+        
+        @objc private func connection(_ segmented: NSSegmentedControl) {
+            let selected = segmented.selectedSegment
+            
+            Task
+                .detached(priority: .utility) {
+                    switch selected {
+                    case 0:
+                        await cloud.update(http: false)
+                    default:
+                        await cloud.update(http: true)
+                    }
+                }
+        }
+        
+        @objc private func cookies(_ segmented: NSSegmentedControl) {
+            let selected = segmented.selectedSegment
+            
+            Task
+                .detached(priority: .utility) {
+                    switch selected {
+                    case 0:
+                        await cloud.update(cookies: false)
+                    default:
+                        await cloud.update(cookies: true)
+                    }
+                }
+        }
+        
+        @objc private func autoplay(_ segmented: NSSegmentedControl) {
+            let selected = segmented.selectedSegment
+            
+            Task
+                .detached(priority: .utility) {
+                    switch selected {
+                    case 0:
+                        await cloud.update(autoplay: .none)
+                    case 1:
+                        await cloud.update(autoplay: .audio)
+                    case 2:
+                        await cloud.update(autoplay: .video)
+                    default:
+                        await cloud.update(autoplay: .all)
+                    }
+                }
+        }
     }
 }

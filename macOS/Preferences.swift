@@ -2,7 +2,7 @@ import AppKit
 
 final class Preferences: NSWindow {
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 800, height: 600),
+        super.init(contentRect: .init(x: 0, y: 0, width: 460, height: 460),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
         animationBehavior = .alertPanel
         toolbar = .init()

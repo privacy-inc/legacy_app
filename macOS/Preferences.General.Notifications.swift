@@ -25,7 +25,7 @@ extension Preferences.General {
             text.font = .preferredFont(forTextStyle: .callout)
             self.text = text
             
-            let option = Preferences.Option(title: "")
+            let option = Preferences.Option(title: "", symbol: "app.badge")
             self.option = option
             option
                 .click
@@ -35,7 +35,7 @@ extension Preferences.General {
                         self.window?.close()
                         NSWorkspace
                             .shared
-                            .open(URL(string: "x-apple.systempreferences:com.apple.preference.notifications?app=Privacy")!)
+                            .open(URL(string: "x-apple.systempreferences:com.apple.preference.notifications")!)
                     } else {
                         Task {
                             await self.request()

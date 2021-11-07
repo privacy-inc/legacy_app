@@ -122,7 +122,7 @@ extension Settings {
             }
             .onReceive(cloud) {
                 engine = $0.settings.search.engine
-                policy = $0.settings.secure ? .secure : .standard
+                policy = $0.settings.policy.level
                 http = $0.settings.configuration.http
                 cookies = $0.settings.configuration.cookies
                 autoplay = $0.settings.configuration.autoplay
