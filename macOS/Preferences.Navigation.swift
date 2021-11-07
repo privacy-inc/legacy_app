@@ -7,11 +7,11 @@ extension Preferences {
             super.init(identifier: "")
             label = "Navigation"
             
-            let engine = Segmented(title: "Search engine", labels: ["Google", "Ecosia"], target: self, action: #selector(self.engine))
-            let level = Segmented(title: "Privacy level", labels: ["Block trackers", "Standard"], target: self, action: #selector(self.level))
-            let connection = Segmented(title: "Connection encryption", labels: ["Enforce https", "Allow http"], target: self, action: #selector(self.connection))
-            let cookies = Segmented(title: "Cookies", labels: ["Block all", "Accept"], target: self, action: #selector(self.cookies))
-            let autoplay = Segmented(title: "Autoplay", labels: ["None", "Audio", "Video", "All"], target: self, action: #selector(self.autoplay))
+            let engine = Segmented(title: "Search engine", labels: ["Google", "Ecosia"], target: self, action: #selector(engine))
+            let level = Segmented(title: "Privacy level", labels: ["Block trackers", "Standard"], target: self, action: #selector(level))
+            let connection = Segmented(title: "Connection encryption", labels: ["Enforce https", "Allow http"], target: self, action: #selector(connection))
+            let cookies = Segmented(title: "Cookies", labels: ["Block all", "Accept"], target: self, action: #selector(cookies))
+            let autoplay = Segmented(title: "Autoplay", labels: ["None", "Audio", "Video", "All"], target: self, action: #selector(autoplay))
             
             let stack = NSStackView(views: [engine,
                                             level,
