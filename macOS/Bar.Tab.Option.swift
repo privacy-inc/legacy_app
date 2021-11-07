@@ -11,11 +11,9 @@ extension Bar.Tab {
             image.symbolConfiguration = .init(pointSize: size, weight: .regular)
             image.contentTintColor = .secondaryLabelColor
             self.image = image
-            
             self.color = color
             
             super.init(layer: false)
-            
             addSubview(image)
             widthAnchor.constraint(equalToConstant: 28).isActive = true
             heightAnchor.constraint(equalTo: widthAnchor).isActive = true
