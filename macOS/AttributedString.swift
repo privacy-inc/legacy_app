@@ -1,6 +1,8 @@
 import AppKit
 
 extension AttributedString {
+    static let newLine = Self("\n")
+    
     func with(truncating: NSLineBreakMode) -> Self {
         let style = NSMutableParagraphStyle()
         style.lineBreakMode = truncating

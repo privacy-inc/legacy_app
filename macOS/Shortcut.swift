@@ -58,13 +58,15 @@ final class Shortcut: NSPopover {
         .init("Windows open", attributes: .init([
             .font: NSFont.preferredFont(forTextStyle: .body),
             .foregroundColor: NSColor.tertiaryLabelColor]))
-        + .init("\n" + NSApp.windowsOpen.formatted() + "\n\n", attributes: .init([
+        + .newLine
+        + .init(NSApp.windowsOpen.formatted() + "\n\n", attributes: .init([
             .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
             .foregroundColor: NSColor.secondaryLabelColor]))
         + .init("Tabs open", attributes: .init([
             .font: NSFont.preferredFont(forTextStyle: .callout),
             .foregroundColor: NSColor.tertiaryLabelColor]))
-        + .init("\n" + NSApp.tabsOpen.formatted(), attributes: .init([
+        + .newLine
+        + .init(NSApp.tabsOpen.formatted(), attributes: .init([
             .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
             .foregroundColor: NSColor.secondaryLabelColor]))
     }

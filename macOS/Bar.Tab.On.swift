@@ -404,12 +404,7 @@ extension Bar.Tab {
             options
                 .click
                 .sink {
-                    guard
-                        let title = web.title,
-                        let url = web.url?.absoluteString
-                    else { return }
-                    
-                    let pop = Pop(title: title, copy: url)
+                    let pop = Ellipsis(web: web, origin: options)
                     pop.show(relativeTo: options.bounds, of: options, preferredEdge: .minY)
                     pop.contentViewController!.view.window!.makeKey()
                 }
