@@ -49,7 +49,7 @@ struct Sidebar: View {
                         }
                         .allowsHitTesting(false)
                     }
-                    .confirmationDialog("Forget", isPresented: $forget) {
+                    .confirmationDialog("Forget", isPresented: $forget, titleVisibility: .visible) {
                         Button("Cache", action: Forget.cache)
                         Button("History") {
                             Forget.history()
