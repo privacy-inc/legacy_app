@@ -59,7 +59,16 @@ struct Store {
     }
     
     @MainActor func restore() async {
+        status.send(.loading)
+        
         try? await AppStore.sync()
+        
+        for await result in Transaction.currentEntitlements {
+            if case let .verified(safe) = result {
+                await safe.process()
+            }
+        }
+        
         await load()
     }
     
