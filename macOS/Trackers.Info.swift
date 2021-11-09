@@ -8,12 +8,17 @@ extension Trackers {
         let date: NSAttributedString
         let website: NSAttributedString
         let count: NSAttributedString
-        let trackers: [NSAttributedString]
+        let trackers: [String]
         let icon: String
-        let height: CGFloat
         
-        init(id: Int, report: Events.Report) {
-            
+        init(id: Int, first: Bool, report: Events.Report) {
+            self.id = id
+            self.first = first
+            self.date = .init()
+            self.website = .init()
+            self.count = .init()
+            self.trackers = []
+            self.icon = ""
         }
     }
 }

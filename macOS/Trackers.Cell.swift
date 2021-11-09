@@ -2,10 +2,12 @@ import AppKit
 
 extension Trackers {
     final class Cell: CollectionCell<Info> {
+        static let height = CGFloat(70)
+        
         static let insetsHorizontal2 = insetsHorizontal * 2
-        static let insetsVertical2 = insetsVertical * 2
+//        static let insetsVertical2 = insetsVertical * 2
         private static let insetsHorizontal = CGFloat(20)
-        private static let insetsVertical = CGFloat(12)
+//        private static let insetsVertical = CGFloat(12)
         private weak var text: CollectionCellText!
         private weak var separator: Shape!
         
@@ -16,8 +18,8 @@ extension Trackers {
                     let item = item
                 else { return }
                 frame = item.rect
-                text.frame.size = .init(width: item.rect.width - Self.insetsHorizontal2, height: item.rect.height - Self.insetsVertical2)
-                text.string = item.info.string
+                text.frame.size = .init(width: item.rect.width - Self.insetsHorizontal2, height: Self.height)
+                text.string = item.info.website
                 separator.isHidden = item.info.first
             }
         }
@@ -31,7 +33,7 @@ extension Trackers {
             let text = CollectionCellText()
             text.frame = .init(
                 x: Self.insetsHorizontal,
-                y: Self.insetsVertical,
+                y: 0,
                 width: 0,
                 height: 0)
             addSublayer(text)
@@ -49,10 +51,10 @@ extension Trackers {
         override func update() {
             switch state {
             case .pressed:
-                text.string = item?.info.stringHighlighted
+                text.string = item?.info.website
                 backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
             default:
-                text.string = item?.info.string
+                text.string = item?.info.website
                 backgroundColor = .clear
             }
         }

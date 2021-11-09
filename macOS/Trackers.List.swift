@@ -29,7 +29,7 @@ extension Trackers {
                     $0
                         .enumerated()
                         .map {
-                            .init(id: $0.0, report: $0.1)
+                            .init(id: $0.0, first: $0.0 == 0, report: $0.1)
                         }
                 }
                 .subscribe(info)
@@ -40,15 +40,14 @@ extension Trackers {
                 .sink {
                     let result = $0
                         .reduce(into: (items: Set<CollectionItem<Info>>(), y: vertical)) {
-                            let height = ceil($1.height + Cell.insetsVertical2)
                             $0.items.insert(.init(
                                                 info: $1,
                                                 rect: .init(
                                                     x: Self.insets,
                                                     y: $0.y,
                                                     width: Self.width,
-                                                    height: height)))
-                            $0.y += height + 2
+                                                    height: Cell.height)))
+                            $0.y += Cell.height + 2
                         }
                     self.items.send(result.items)
                     self.size.send(.init(width: 0, height: result.y + vertical))

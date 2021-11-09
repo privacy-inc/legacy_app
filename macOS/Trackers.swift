@@ -2,7 +2,7 @@ import AppKit
 import Combine
 
 final class Trackers: NSWindow {
-    static let width = CGFloat(600)
+    static let width = CGFloat(400)
     private var subs = Set<AnyCancellable>()
     
     init() {
@@ -23,8 +23,19 @@ final class Trackers: NSWindow {
         let title = Text(vibrancy: false)
         content.addSubview(title)
         
+        let list = List()
+        content.addSubview(list)
+        
+        let separator = Separator(mode: .vertical)
+        content.addSubview(separator)
+        
         title.centerYAnchor.constraint(equalTo: content.topAnchor, constant: 26).isActive = true
         title.rightAnchor.constraint(equalTo: content.rightAnchor, constant: -26).isActive = true
+        
+        list.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
+        list.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
+        list.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
+        list.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
         
         cloud
             .map(\.events.prevented)
