@@ -160,6 +160,7 @@
 		CEA73CBD2723084900AB65CB /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA73CBC2723084900AB65CB /* Trackers.swift */; };
 		CEA73CBF2723128200AB65CB /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA73CBE2723128200AB65CB /* Forget.swift */; };
 		CEA73CC12723249500AB65CB /* Forget.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA73CC02723249500AB65CB /* Forget.Item.swift */; };
+		CEA9A98C273A970100E2D993 /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9A98B273A970100E2D993 /* Trackers.swift */; };
 		CEAAFB2327009BE100149F0C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2227009BE100149F0C /* StoreKit.framework */; };
 		CEAAFB2527009C1E00149F0C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAAFB2427009C1E00149F0C /* CloudKit.framework */; };
 		CEAAFB2727009E4000149F0C /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2627009E4000149F0C /* App.Delegate.swift */; };
@@ -419,6 +420,7 @@
 		CEA73CBC2723084900AB65CB /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CEA73CBE2723128200AB65CB /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
 		CEA73CC02723249500AB65CB /* Forget.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.Item.swift; sourceTree = "<group>"; };
+		CEA9A98B273A970100E2D993 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CEAAFB2027009BB900149F0C /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
 		CEAAFB2227009BE100149F0C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		CEAAFB2427009C1E00149F0C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -600,6 +602,7 @@
 				CEBB8BDE2728258300016F2C /* Status.swift */,
 				CE4312652736D25B00DA0F99 /* Switch.swift */,
 				CE743013272987E700F5F5B8 /* Text.swift */,
+				CEA9A98B273A970100E2D993 /* Trackers.swift */,
 				CEB22E9127355208001C77E0 /* Web.Destination.swift */,
 				CE5F1278272EB93E002D0AD2 /* Web.swift */,
 				CE3F56D02728361300A022CC /* Webview.macOS.swift */,
@@ -985,6 +988,7 @@
 				CE4312672736D25C00DA0F99 /* Preferences.Features.swift in Sources */,
 				CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */,
 				CE6BFE9427380AD000ECF118 /* Preferences.Segmented.swift in Sources */,
+				CEA9A98C273A970100E2D993 /* Trackers.swift in Sources */,
 				CEEBA5C727301E280079928E /* Bar.Tab.Connection.swift in Sources */,
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
 				CEBCAADD2732DAB600B9D49C /* About.swift in Sources */,

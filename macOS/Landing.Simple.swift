@@ -5,6 +5,7 @@ extension Landing {
         private(set) weak var icon: Image!
         private(set) weak var first: Text!
         private(set) weak var second: Text!
+        private(set) weak var card: Card!
         
         required init?(coder: NSCoder) { nil }
         init(title: String, icon: String) {
@@ -12,6 +13,7 @@ extension Landing {
             header.stringValue = title
             
             let card = Card()
+            self.card = card
             addSubview(card)
             
             let icon = Image(icon: icon)

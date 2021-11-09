@@ -2,7 +2,7 @@ import AppKit
 
 final class Preferences: NSWindow {
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 460),
+        super.init(contentRect: .init(x: 0, y: 0, width: 600, height: 460),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
         animationBehavior = .alertPanel
         toolbar = .init()
@@ -10,7 +10,6 @@ final class Preferences: NSWindow {
         isReleasedWhenClosed = false
         center()
         setFrameAutosaveName("Preferences")
-        center()
         
         let content = NSVisualEffectView()
         content.state = .active

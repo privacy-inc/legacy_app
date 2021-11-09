@@ -10,6 +10,14 @@ extension Landing {
             super.init(title: "Trackers", icon: "shield.lefthalf.filled")
             first.font = .monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .regular)
             
+            card
+                .click
+                .sink {
+                    (NSApp.anyWindow() ?? Privacy.Trackers())
+                        .makeKeyAndOrderFront(nil)
+                }
+                .store(in: &subs)
+            
             cloud
                 .map {
                     $0.events.prevented

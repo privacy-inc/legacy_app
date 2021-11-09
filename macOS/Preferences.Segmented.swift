@@ -16,7 +16,6 @@ extension Preferences {
             addSubview(text)
             
             let control = NSSegmentedControl(labels: labels, trackingMode: .selectOne, target: target, action: action)
-            control.segmentStyle = .texturedRounded
             control.translatesAutoresizingMaskIntoConstraints = false
             self.control = control
             addSubview(control)

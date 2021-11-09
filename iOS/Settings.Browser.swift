@@ -6,7 +6,7 @@ extension Settings {
         
         var body: some View {
             Section("Default browser") {
-                Text(Copy.browser)
+                Text(Copy.browser + Copy.activateOnSettings)
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .padding(.vertical)

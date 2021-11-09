@@ -21,6 +21,10 @@ You can always change this permission on Settings.
     
     static let browser = """
 You can make this app your default browser and all websites will open automatically on Privacy.
+"""
+    
+    static let activateOnSettings = """
+
 
 Activate it on Settings.
 """

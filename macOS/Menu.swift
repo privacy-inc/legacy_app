@@ -231,6 +231,8 @@ final class Menu: NSMenu, NSMenuDelegate {
                     title = "Support Privacy"
                 case is Preferences:
                     title = "Preferences"
+                case is Trackers:
+                    title = "Trackers"
                 default:
                     add = nil
                 }

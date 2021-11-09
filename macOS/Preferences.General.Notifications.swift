@@ -7,7 +7,7 @@ extension Preferences.General {
         private weak var option: Preferences.Option!
         private weak var text: Text!
         private weak var badge: Image!
-        private var requested = true
+        private var requested = false
         private var enabled = true
         private var subs = Set<AnyCancellable>()
         
@@ -41,6 +41,7 @@ extension Preferences.General {
                             await self.request()
                         }
                     }
+                    self.requested = true
                 }
                 .store(in: &subs)
             
@@ -79,7 +80,6 @@ extension Preferences.General {
             if settings.authorizationStatus == .notDetermined {
                 option.text.stringValue = "Activate notifications"
                 updateNotifications(text: Copy.notifications)
-                requested = false
                 enabled = false
             } else if settings.alertSetting == .disabled || settings.authorizationStatus == .denied {
                 option.text.stringValue = "Activate notifications"
