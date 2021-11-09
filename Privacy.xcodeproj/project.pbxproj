@@ -104,6 +104,10 @@
 		CE63A0B62719CD6E00756E02 /* Settings.Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63A0B52719CD6E00756E02 /* Settings.Location.swift */; };
 		CE63A0B82719CF6F00756E02 /* Settings.Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63A0B72719CF6F00756E02 /* Settings.Browser.swift */; };
 		CE63F094271453CC00918E54 /* Options.Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63F093271453CC00918E54 /* Options.Share.swift */; };
+		CE660ABC273AA3F4009A800E /* Trackers.List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE660ABB273AA3F4009A800E /* Trackers.List.swift */; };
+		CE660ABE273AA41D009A800E /* Trackers.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE660ABD273AA41D009A800E /* Trackers.Cell.swift */; };
+		CE660AC0273AA42D009A800E /* Trackers.Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE660ABF273AA42D009A800E /* Trackers.Info.swift */; };
+		CE660AC2273AA978009A800E /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE660AC1273AA978009A800E /* NSAttributedString.swift */; };
 		CE6BFE902737F6E100ECF118 /* Preferences.General.Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFE8F2737F6E100ECF118 /* Preferences.General.Notifications.swift */; };
 		CE6BFE922738043C00ECF118 /* Preferences.General.Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFE912738043C00ECF118 /* Preferences.General.Browser.swift */; };
 		CE6BFE9427380AD000ECF118 /* Preferences.Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6BFE9327380AD000ECF118 /* Preferences.Segmented.swift */; };
@@ -364,6 +368,10 @@
 		CE63A0B52719CD6E00756E02 /* Settings.Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Location.swift; sourceTree = "<group>"; };
 		CE63A0B72719CF6F00756E02 /* Settings.Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Browser.swift; sourceTree = "<group>"; };
 		CE63F093271453CC00918E54 /* Options.Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Share.swift; sourceTree = "<group>"; };
+		CE660ABB273AA3F4009A800E /* Trackers.List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.List.swift; sourceTree = "<group>"; };
+		CE660ABD273AA41D009A800E /* Trackers.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Cell.swift; sourceTree = "<group>"; };
+		CE660ABF273AA42D009A800E /* Trackers.Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Info.swift; sourceTree = "<group>"; };
+		CE660AC1273AA978009A800E /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		CE6BFE8F2737F6E100ECF118 /* Preferences.General.Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.General.Notifications.swift; sourceTree = "<group>"; };
 		CE6BFE912738043C00ECF118 /* Preferences.General.Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.General.Browser.swift; sourceTree = "<group>"; };
 		CE6BFE9327380AD000ECF118 /* Preferences.Segmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Segmented.swift; sourceTree = "<group>"; };
@@ -568,6 +576,7 @@
 				CE74300B2729825500F5F5B8 /* Layer.swift */,
 				CEEBA5C827302A1C0079928E /* Menu.swift */,
 				CE3576AF27281C25005854B5 /* NSApplication.swift */,
+				CE660AC1273AA978009A800E /* NSAttributedString.swift */,
 				CEEBA5C2272FFA540079928E /* NSMenu.swift */,
 				CEEBA5C3272FFA540079928E /* NSMenuItem.swift */,
 				CEF006562733F98800D0A1EB /* NSSavePanel.swift */,
@@ -602,6 +611,9 @@
 				CEBB8BDE2728258300016F2C /* Status.swift */,
 				CE4312652736D25B00DA0F99 /* Switch.swift */,
 				CE743013272987E700F5F5B8 /* Text.swift */,
+				CE660ABD273AA41D009A800E /* Trackers.Cell.swift */,
+				CE660ABF273AA42D009A800E /* Trackers.Info.swift */,
+				CE660ABB273AA3F4009A800E /* Trackers.List.swift */,
 				CEA9A98B273A970100E2D993 /* Trackers.swift */,
 				CEB22E9127355208001C77E0 /* Web.Destination.swift */,
 				CE5F1278272EB93E002D0AD2 /* Web.swift */,
@@ -958,6 +970,7 @@
 			files = (
 				CE742FFE2729759900F5F5B8 /* Landing.swift in Sources */,
 				CEBFC84B273178BE00EFDA17 /* Recover.swift.swift in Sources */,
+				CE660AC0273AA42D009A800E /* Trackers.Info.swift in Sources */,
 				CE3576B527281CFD005854B5 /* Store.State.swift in Sources */,
 				CE43126F2736D71500DA0F99 /* Preferences.Navigation.swift in Sources */,
 				CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */,
@@ -966,6 +979,7 @@
 				CE74300D2729825500F5F5B8 /* Layer.swift in Sources */,
 				CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */,
 				CE19EC8B2736A39400A412FC /* Plus.Option.swift in Sources */,
+				CE660AC2273AA978009A800E /* NSAttributedString.swift in Sources */,
 				CEABD1F3272AD91900F56852 /* Landing.Bookmarks.Item.swift in Sources */,
 				CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */,
 				CE43126A2736D25C00DA0F99 /* Switch.swift in Sources */,
@@ -987,6 +1001,7 @@
 				CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */,
 				CE4312672736D25C00DA0F99 /* Preferences.Features.swift in Sources */,
 				CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */,
+				CE660ABE273AA41D009A800E /* Trackers.Cell.swift in Sources */,
 				CE6BFE9427380AD000ECF118 /* Preferences.Segmented.swift in Sources */,
 				CEA9A98C273A970100E2D993 /* Trackers.swift in Sources */,
 				CEEBA5C727301E280079928E /* Bar.Tab.Connection.swift in Sources */,
@@ -1013,6 +1028,7 @@
 				CE6BFE902737F6E100ECF118 /* Preferences.General.Notifications.swift in Sources */,
 				CE43126D2736D6E100DA0F99 /* Preferences.General.swift in Sources */,
 				CE8BA2EF272D741900E2D73F /* Status.Item.swift in Sources */,
+				CE660ABC273AA3F4009A800E /* Trackers.List.swift in Sources */,
 				CEABD1FD272AF0E000F56852 /* Landing.History.Remote.swift in Sources */,
 				CEB22E9827358367001C77E0 /* Info.Terms.swift in Sources */,
 				CEB22E9C27358DE1001C77E0 /* Plus.Purchased.swift in Sources */,

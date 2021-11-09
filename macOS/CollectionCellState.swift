@@ -4,5 +4,6 @@ enum CollectionCellState {
     case
     none,
     highlighted,
-    pressed
+    pressed,
+    dragging
 }
