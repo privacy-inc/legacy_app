@@ -40,7 +40,7 @@ struct Trackers: View {
                     Text(count, format: .number)
                         .foregroundColor(.primary)
                         .font(.callout.monospaced())
-                    + Text(count == 1 ? " tracker" : " trackers")
+                    + Text(count == 1 ? " tracker so far" : " total trackers")
                         .foregroundColor(.secondary)
                         .font(.callout)
                 }
