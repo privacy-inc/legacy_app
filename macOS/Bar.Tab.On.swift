@@ -301,7 +301,10 @@ extension Bar.Tab {
             web
                 .publisher(for: \.canGoBack)
                 .removeDuplicates()
-                .combineLatest(status
+                .combineLatest(
+                    web
+                        .publisher(for: \.canGoForward)
+                        .removeDuplicates(), status
                                 .items
                                 .compactMap {
                                     $0
@@ -311,25 +314,26 @@ extension Bar.Tab {
                                         .flow
                                 }
                                 .removeDuplicates())
-                .sink { canGoBack, flow in
+                .sink { canGoBack, canGoForward , flow in
                     
                     switch flow {
                     case .web:
-                        back.state = canGoBack ? .on : .hidden
+                        back.state = canGoBack
+                            ? .on
+                            : canGoForward
+                                ? .off
+                                : .hidden
+                        forward.state = canGoForward
+                            ? .on
+                            :  canGoBack
+                                ? .off
+                                : .hidden
                     case .error:
                         back.state = .on
+                        forward.state = canGoForward ? .on : .off
                     default:
                         break
                     }
-                    
-                }
-                .store(in: &subs)
-            
-            web
-                .publisher(for: \.canGoForward)
-                .removeDuplicates()
-                .sink {
-                    forward.state = $0 ? .on : .hidden
                 }
                 .store(in: &subs)
             

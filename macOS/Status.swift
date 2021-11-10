@@ -124,9 +124,13 @@ final class Status {
             switch item.flow {
             case .landing:
                 try await history(id: cloud.search(search))
-            case let .web(web), let .error(web, _):
+            case let .web(web):
                 try await cloud.search(search, history: web.history)
                 await web.access()
+            case let .error(web, _):
+                try await cloud.search(search, history: web.history)
+                await web.access()
+                change(flow: .web(web))
             }
         } catch {
             
