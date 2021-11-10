@@ -1,9 +1,6 @@
 import AppKit
-import Combine
 
 final class Pop: NSPopover {
-    private var subs = Set<AnyCancellable>()
-    
     required init?(coder: NSCoder) { nil }
     init(title: String, copy: String) {
         super.init()

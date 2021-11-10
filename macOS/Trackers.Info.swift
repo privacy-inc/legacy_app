@@ -26,7 +26,7 @@ extension Trackers {
                 + .init(report.trackers.count == 1 ? " tracker" : " trackers", attributes: .init([
                     .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular),
                     .foregroundColor: NSColor.secondaryLabelColor])))
-            trackers = []
+            trackers = report.trackers.sorted()
             icon = report.website.lowercased()
         }
     }

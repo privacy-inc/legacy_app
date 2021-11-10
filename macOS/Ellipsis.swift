@@ -28,7 +28,7 @@ final class Ellipsis: NSPopover {
                 self?.close()
                 
                 let pop = Share(web: web, origin: origin)
-                pop.show(relativeTo: origin.bounds, of: origin, preferredEdge: .minY)
+                pop.show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxY)
                 pop.contentViewController!.view.window!.makeKey()
             }
             .store(in: &subs)

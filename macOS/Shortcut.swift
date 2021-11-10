@@ -35,7 +35,7 @@ final class Shortcut: NSPopover {
             .click
             .sink {
                 let pop = Forgeting()
-                pop.show(relativeTo: origin.bounds, of: origin, preferredEdge: .minY)
+                pop.show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxY)
                 pop.contentViewController!.view.window!.makeKey()
             }
             .store(in: &subs)
@@ -51,7 +51,7 @@ final class Shortcut: NSPopover {
         forget.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
         forget.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        show(relativeTo: origin.bounds, of: origin, preferredEdge: .minY)
+        show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxY)
     }
     
     private var statsString: AttributedString {

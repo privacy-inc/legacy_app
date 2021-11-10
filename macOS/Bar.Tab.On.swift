@@ -393,7 +393,7 @@ extension Bar.Tab {
                 .click
                 .sink {
                     Connection(history: web.history)
-                        .show(relativeTo: secure.bounds, of: secure, preferredEdge: .minY)
+                        .show(relativeTo: secure.bounds, of: secure, preferredEdge: .maxY)
                 }
                 .store(in: &subs)
             
@@ -401,7 +401,7 @@ extension Bar.Tab {
                 .click
                 .sink {
                     Connection(history: web.history)
-                        .show(relativeTo: insecure.bounds, of: insecure, preferredEdge: .minY)
+                        .show(relativeTo: insecure.bounds, of: insecure, preferredEdge: .maxY)
                 }
                 .store(in: &subs)
             
@@ -409,7 +409,7 @@ extension Bar.Tab {
                 .click
                 .sink {
                     let pop = Ellipsis(web: web, origin: options)
-                    pop.show(relativeTo: options.bounds, of: options, preferredEdge: .minY)
+                    pop.show(relativeTo: options.bounds, of: options, preferredEdge: .maxY)
                     pop.contentViewController!.view.window!.makeKey()
                 }
                 .store(in: &subs)
