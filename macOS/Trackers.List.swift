@@ -13,6 +13,9 @@ extension Trackers {
             let info = PassthroughSubject<[Info], Never>()
             
             cloud
+                .first()
+                .merge(with: cloud
+                        .debounce(for: .seconds(1), scheduler: DispatchQueue.main))
                 .map {
                     $0
                         .events

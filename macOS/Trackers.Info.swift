@@ -11,7 +11,7 @@ extension Trackers {
         
         init(id: Int, report: Events.Report) {
             self.id = id
-            self.text = .init(
+            text = .init(
                 .init(report.website, attributes: .init([
                     .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
                     .foregroundColor: NSColor.labelColor]))
@@ -19,9 +19,15 @@ extension Trackers {
                 + .init(report.date.formatted(.relative(presentation: .named, unitsStyle: .wide)), attributes: .init([
                     .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .regular),
                     .foregroundColor: NSColor.secondaryLabelColor])))
-            self.count = .init()
-            self.trackers = []
-            self.icon = report.website.lowercased()
+            count = .init(
+                .init(report.trackers.count.formatted(), attributes: .init([
+                    .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular),
+                    .foregroundColor: NSColor.labelColor]))
+                + .init(report.trackers.count == 1 ? " tracker" : " trackers", attributes: .init([
+                    .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular),
+                    .foregroundColor: NSColor.secondaryLabelColor])))
+            trackers = []
+            icon = report.website.lowercased()
         }
     }
 }

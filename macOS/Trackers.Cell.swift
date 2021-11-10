@@ -5,6 +5,7 @@ extension Trackers {
     final class Cell: CollectionCell<Info> {
         static let height = CGFloat(80)
         private weak var text: CollectionCellText!
+        private weak var count: CollectionCellText!
         private weak var icon: CollectionCellImage!
         private weak var container: Layer!
         private weak var background: Layer!
@@ -18,6 +19,7 @@ extension Trackers {
                 else { return }
                 frame = item.rect
                 text.string = item.info.text
+                count.string = item.info.count
                 
                 Task
                     .detached { [weak self] in
@@ -79,6 +81,16 @@ extension Trackers {
                 height: 60)
             addSublayer(text)
             self.text = text
+            
+            let count = CollectionCellText()
+            count.alignmentMode = .right
+            count.frame = .init(
+                x: Trackers.width - 214,
+                y: 32,
+                width: 150,
+                height: 35)
+            addSublayer(count)
+            self.count = count
         }
         
         override func update() {
