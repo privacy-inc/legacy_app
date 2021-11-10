@@ -1,15 +1,14 @@
 import AppKit
+import Combine
 
 extension Trackers {
     final class Cell: CollectionCell<Info> {
-        static let height = CGFloat(70)
-        
-        static let insetsHorizontal2 = insetsHorizontal * 2
-//        static let insetsVertical2 = insetsVertical * 2
-        private static let insetsHorizontal = CGFloat(20)
-//        private static let insetsVertical = CGFloat(12)
+        static let height = CGFloat(80)
         private weak var text: CollectionCellText!
-        private weak var separator: Shape!
+        private weak var icon: CollectionCellImage!
+        private weak var container: Layer!
+        private weak var background: Layer!
+        private var sub: AnyCancellable?
         
         override var item: CollectionItem<Info>? {
             didSet {
@@ -18,9 +17,12 @@ extension Trackers {
                     let item = item
                 else { return }
                 frame = item.rect
-                text.frame.size = .init(width: item.rect.width - Self.insetsHorizontal2, height: Self.height)
-                text.string = item.info.website
-                separator.isHidden = item.info.first
+                text.string = item.info.text
+                
+                Task
+                    .detached { [weak self] in
+                        await self?.update(icon: item.info.icon)
+                    }
             }
         }
         
@@ -28,35 +30,80 @@ extension Trackers {
         override init(layer: Any) { super.init(layer: layer) }
         required init() {
             super.init()
-            cornerRadius = 6
+            
+            let line = Shape()
+            line.fillColor = .clear
+            line.lineWidth = 1
+            line.strokeColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+            line.path = .init(rect: .init(x: 1, y: 39.5, width: 54, height: 1), transform: nil)
+            addSublayer(line)
+            
+            let container = Layer()
+            container.frame = .init(
+                x: 40,
+                y: 0,
+                width: Trackers.width - 80,
+                height: Self.height)
+            container.cornerRadius = 12
+            addSublayer(container)
+            self.container = container
+            
+            let background = Layer()
+            background.frame = .init(
+                x: 56,
+                y: 16,
+                width: 48,
+                height: 48)
+            background.cornerRadius = 8
+            background.cornerCurve = .continuous
+            background.borderColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+            addSublayer(background)
+            self.background = background
+            
+            let icon = CollectionCellImage()
+            icon.frame = .init(
+                x: 64,
+                y: 24,
+                width: 32,
+                height: 32)
+            icon.cornerRadius = 6
+            icon.cornerCurve = .continuous
+            addSublayer(icon)
+            self.icon = icon
             
             let text = CollectionCellText()
             text.frame = .init(
-                x: Self.insetsHorizontal,
-                y: 0,
-                width: 0,
-                height: 0)
+                x: 116,
+                y: 22,
+                width: 300,
+                height: 60)
             addSublayer(text)
             self.text = text
-            
-            let separator = Shape()
-            separator.fillColor = .clear
-            separator.lineWidth = 1
-            separator.strokeColor = NSColor.separatorColor.cgColor
-            separator.path = .init(rect: .init(x: Self.insetsHorizontal, y: -1, width: List.cellWidth, height: 0), transform: nil)
-            addSublayer(separator)
-            self.separator = separator
         }
         
         override func update() {
             switch state {
-            case .pressed:
-                text.string = item?.info.website
-                backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+            case .highlighted, .pressed:
+                container.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+                background.backgroundColor = .clear
+                background.borderWidth = 1
             default:
-                text.string = item?.info.website
-                backgroundColor = .clear
+                container.backgroundColor = .clear
+                background.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+                background.borderWidth = 0
             }
+        }
+        
+        @MainActor private func update(icon: String) async {
+            self.icon.contents = NSImage(systemSymbolName: "network", accessibilityDescription: nil)?
+                .withSymbolConfiguration(.init(pointSize: 32, weight: .ultraLight)
+                                            .applying(.init(hierarchicalColor: .tertiaryLabelColor)))
+            sub?.cancel()
+            guard let publisher = await favicon.publisher(for: icon) else { return }
+            sub = publisher
+                .sink { [weak self] in
+                    self?.icon.contents = $0
+                }
         }
     }
 }
