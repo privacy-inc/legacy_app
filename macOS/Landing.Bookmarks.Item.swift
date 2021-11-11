@@ -34,6 +34,8 @@ extension Landing.Bookmarks {
             title.topAnchor.constraint(equalTo: card.bottomAnchor, constant: 10).isActive = true
             title.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor).isActive = true
             title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor).isActive = true
+            title.widthAnchor.constraint(lessThanOrEqualToConstant: 140).isActive = true
+            title.centerXAnchor.constraint(equalTo: card.centerXAnchor).isActive = true
         }
     }
 }
