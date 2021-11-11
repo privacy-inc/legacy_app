@@ -44,7 +44,9 @@ extension Landing.Edit {
         }
         
         @objc private func action(_ control: NSSwitch) {
-            
+            Task {
+                await cloud.turn(card: card.id, state: control.state == .on)
+            }
         }
     }
 }

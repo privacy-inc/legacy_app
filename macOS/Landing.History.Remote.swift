@@ -4,7 +4,7 @@ import Specs
 extension Landing.History {
     final class Remote: Item {
         required init?(coder: NSCoder) { nil }
-        init(item: History, remote: Access.Remote) {
+        init(item: Specs.History, remote: Access.Remote) {
             super.init()
             let icon = Icon()
             icon.icon(icon: item.website.access.icon)

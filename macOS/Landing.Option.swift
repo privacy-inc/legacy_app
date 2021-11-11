@@ -7,7 +7,7 @@ extension Landing {
         required init?(coder: NSCoder) { nil }
         init(icon: String) {
             let image = Image(icon: icon)
-            image.symbolConfiguration = .init(pointSize: 22, weight: .regular)
+            image.symbolConfiguration = .init(pointSize: 18, weight: .regular)
             image.contentTintColor = .secondaryLabelColor
             self.image = image
             

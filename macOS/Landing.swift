@@ -43,7 +43,17 @@ final class Landing: NSView {
             }
             .store(in: &subs)
         
-        let stack = NSStackView(views: [forget, configure])
+        let bookmarks = Option(icon: "bookmark")
+        
+        let history = Option(icon: "clock")
+        history
+            .click
+            .sink {
+                NSApp.showHistory()
+            }
+            .store(in: &subs)
+        
+        let stack = NSStackView(views: [bookmarks, history, forget, configure])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
         addSubview(stack)
@@ -73,6 +83,9 @@ final class Landing: NSView {
         width.isActive = true
         
         cloud
+            .filter {
+                $0.timestamp > 0
+            }
             .map {
                 $0
                     .cards

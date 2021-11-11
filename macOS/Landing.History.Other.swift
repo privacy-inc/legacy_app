@@ -4,7 +4,7 @@ import Specs
 extension Landing.History {
     final class Other: Item {
         required init?(coder: NSCoder) { nil }
-        init(item: History) {
+        init(item: Specs.History) {
             super.init()
             let title = Text(vibrancy: true)
             title.stringValue = item.website.access.value
