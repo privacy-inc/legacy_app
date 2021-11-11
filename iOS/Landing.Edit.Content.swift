@@ -12,7 +12,6 @@ extension Landing.Edit {
                 List {
                     ForEach(cards) {
                         Item(active: $0.state, id: $0.id)
-                            
                     }
                     .onMove { index, destination in
                         guard let index = index.first else { return }

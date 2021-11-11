@@ -5,9 +5,9 @@ final class Forgeting: NSPopover {
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
-    override init() {
+    init(behaviour: NSPopover.Behavior) {
         super.init()
-        behavior = .transient
+        behavior = behaviour
         contentSize = .init(width: 200, height: 200)
         contentViewController = .init()
         

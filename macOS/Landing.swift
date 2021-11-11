@@ -2,36 +2,72 @@ import AppKit
 import Combine
 import Specs
 
-final class Landing: NSScrollView {
+final class Landing: NSView {
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
     init(status: Status) {
         super.init(frame: .zero)
         let flip = Flip()
-        documentView = flip
-        drawsBackground = false
-        hasVerticalScroller = true
-        verticalScroller!.controlSize = .mini
-        scrollerInsets.bottom = 12
-        automaticallyAdjustsContentInsets = false
+        let scroll = NSScrollView()
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        scroll.documentView = flip
+        scroll.drawsBackground = false
+        scroll.hasVerticalScroller = true
+        scroll.verticalScroller!.controlSize = .mini
+        scroll.scrollerInsets.bottom = 12
+        scroll.automaticallyAdjustsContentInsets = false
+        addSubview(scroll)
         
         let guide = NSView()
         guide.translatesAutoresizingMaskIntoConstraints = false
         flip.addSubview(guide)
         
+        let configure = Option(icon: "slider.vertical.3")
+        configure
+            .click
+            .sink {
+                let pop = Edit()
+                pop.show(relativeTo: configure.bounds, of: configure, preferredEdge: .maxY)
+                pop.contentViewController!.view.window!.makeKey()
+            }
+            .store(in: &subs)
+        
+        let forget = Option(icon: "flame")
+        forget
+            .click
+            .sink {
+                let pop = Forgeting(behaviour: .semitransient)
+                pop.show(relativeTo: forget.bounds, of: forget, preferredEdge: .maxY)
+                pop.contentViewController!.view.window!.makeKey()
+            }
+            .store(in: &subs)
+        
+        let stack = NSStackView(views: [forget, configure])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.orientation = .vertical
+        addSubview(stack)
+        
+        scroll.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        scroll.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        scroll.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        scroll.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
         flip.translatesAutoresizingMaskIntoConstraints = false
-        flip.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        flip.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        flip.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        flip.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor).isActive = true
+        flip.topAnchor.constraint(equalTo: scroll.topAnchor).isActive = true
+        flip.leftAnchor.constraint(equalTo: scroll.leftAnchor).isActive = true
+        flip.rightAnchor.constraint(equalTo: scroll.rightAnchor).isActive = true
+        flip.bottomAnchor.constraint(greaterThanOrEqualTo: scroll.bottomAnchor).isActive = true
 
+        stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -27).isActive = true
+        stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -30).isActive = true
+        
         guide.topAnchor.constraint(equalTo: flip.topAnchor).isActive = true
         guide.heightAnchor.constraint(equalToConstant: 0).isActive = true
         guide.leftAnchor.constraint(greaterThanOrEqualTo: flip.leftAnchor, constant: 150).isActive = true
         guide.rightAnchor.constraint(lessThanOrEqualTo: flip.rightAnchor, constant: -150).isActive = true
         guide.widthAnchor.constraint(lessThanOrEqualToConstant: 500).isActive = true
-        guide.centerXAnchor.constraint(equalTo: flip.centerXAnchor).isActive = true
+        guide.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         let width = guide.widthAnchor.constraint(equalTo: flip.widthAnchor, constant: -300)
         width.priority = .defaultLow
         width.isActive = true

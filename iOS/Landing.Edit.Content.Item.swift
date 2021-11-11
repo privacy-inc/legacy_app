@@ -8,7 +8,7 @@ extension Landing.Edit.Content {
         
         var body: some View {
             Toggle(isOn: $active) {
-                Label("\(id)".capitalized, systemImage: symbol)
+                Label(id.title, systemImage: id.symbol)
                     .padding([.trailing, .top, .bottom])
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .trailing)
             }
@@ -17,19 +17,6 @@ extension Landing.Edit.Content {
                     .detached(priority: .utility) {
                         await cloud.turn(card: id, state: active)
                     }
-            }
-        }
-        
-        private var symbol: String {
-            switch id {
-            case .trackers:
-                return "shield.lefthalf.filled"
-            case .activity:
-                return "chart.xyaxis.line"
-            case .bookmarks:
-                return "bookmark"
-            case .history:
-                return "clock"
             }
         }
     }

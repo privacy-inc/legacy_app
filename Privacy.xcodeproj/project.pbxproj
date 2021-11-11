@@ -131,6 +131,11 @@
 		CE7DAB7826FB49CE00BEAA0F /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */; };
 		CE80B8B8271EDE5E001A7BEC /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE80B8B7271EDE5E001A7BEC /* Forget.swift */; };
 		CE8422C727171D83007D7A0B /* Recover.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8422C627171D83007D7A0B /* Recover.swift */; };
+		CE84E62E273D4BD60071429B /* Landing.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E62D273D4BD60071429B /* Landing.Option.swift */; };
+		CE84E630273D52FF0071429B /* Landing.Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E62F273D52FF0071429B /* Landing.Edit.swift */; };
+		CE84E632273D557B0071429B /* Landing.Edit.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E631273D557B0071429B /* Landing.Edit.Item.swift */; };
+		CE84E634273D56110071429B /* Card.ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E633273D56110071429B /* Card.ID.swift */; };
+		CE84E635273D56400071429B /* Card.ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E633273D56110071429B /* Card.ID.swift */; };
 		CE862AA7270C869F0039630B /* Webview.Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE862AA6270C869F0039630B /* Webview.Code.swift */; };
 		CE8AF27C26FF698A00F6655F /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8AF27B26FF698A00F6655F /* Global.swift */; };
 		CE8BA2ED272D72E500E2D73F /* Bar.Tab.Off.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8BA2EC272D72E500E2D73F /* Bar.Tab.Off.swift */; };
@@ -400,6 +405,10 @@
 		CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CE80B8B7271EDE5E001A7BEC /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
 		CE8422C627171D83007D7A0B /* Recover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recover.swift; sourceTree = "<group>"; };
+		CE84E62D273D4BD60071429B /* Landing.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Option.swift; sourceTree = "<group>"; };
+		CE84E62F273D52FF0071429B /* Landing.Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.swift; sourceTree = "<group>"; };
+		CE84E631273D557B0071429B /* Landing.Edit.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.Item.swift; sourceTree = "<group>"; };
+		CE84E633273D56110071429B /* Card.ID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.ID.swift; sourceTree = "<group>"; };
 		CE862AA6270C869F0039630B /* Webview.Code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.Code.swift; sourceTree = "<group>"; };
 		CE8AF27B26FF698A00F6655F /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		CE8BA2EC272D72E500E2D73F /* Bar.Tab.Off.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.Off.swift; sourceTree = "<group>"; };
@@ -579,10 +588,13 @@
 				CEABD1F8272AE8C600F56852 /* Landing.Bookmarks.Other.swift */,
 				CEABD1F6272AE70700F56852 /* Landing.Bookmarks.Remote.swift */,
 				CEABD1F0272ACEFA00F56852 /* Landing.Bookmarks.swift */,
+				CE84E631273D557B0071429B /* Landing.Edit.Item.swift */,
+				CE84E62F273D52FF0071429B /* Landing.Edit.swift */,
 				CEBFC844273163B300EFDA17 /* Landing.History.Item.swift */,
 				CE5D41AA272C240D00AEBE0F /* Landing.History.Other.swift */,
 				CEABD1FC272AF0E000F56852 /* Landing.History.Remote.swift */,
 				CEABD1FA272AED7A00F56852 /* Landing.History.swift */,
+				CE84E62D273D4BD60071429B /* Landing.Option.swift */,
 				CE7430112729874200F5F5B8 /* Landing.Section.swift */,
 				CEABD1EC272AC22F00F56852 /* Landing.Simple.swift */,
 				CE742FFD2729759900F5F5B8 /* Landing.swift */,
@@ -751,6 +763,7 @@
 			isa = PBXGroup;
 			children = (
 				CE99B052272173EB0077BAC6 /* Configuration.storekit */,
+				CE84E633273D56110071429B /* Card.ID.swift */,
 				CE9DFA0E27061D5400D69810 /* Copy.swift */,
 				CE80B8B7271EDE5E001A7BEC /* Forget.swift */,
 				CE8AF27B26FF698A00F6655F /* Global.swift */,
@@ -999,6 +1012,7 @@
 				CEBDD5522728219600F2F493 /* Window.Content.swift in Sources */,
 				CE43126A2736D25C00DA0F99 /* Switch.swift in Sources */,
 				CE43125F2736C70100DA0F99 /* Froob.swift in Sources */,
+				CE84E632273D557B0071429B /* Landing.Edit.Item.swift in Sources */,
 				CE5D41A9272C1DAD00AEBE0F /* Card.swift in Sources */,
 				CEBCAADA2732C31900B9D49C /* Forgeting.Option.swift in Sources */,
 				CE5D41BD272C5CDC00AEBE0F /* Bar.Option.swift in Sources */,
@@ -1020,6 +1034,7 @@
 				CE6BFE9427380AD000ECF118 /* Preferences.Segmented.swift in Sources */,
 				CEA9A98C273A970100E2D993 /* Trackers.swift in Sources */,
 				CEEBA5C727301E280079928E /* Bar.Tab.Connection.swift in Sources */,
+				CE84E62E273D4BD60071429B /* Landing.Option.swift in Sources */,
 				CEE4D870273D2B5300EAA768 /* Chart.swift in Sources */,
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
 				CEBCAADD2732DAB600B9D49C /* About.swift in Sources */,
@@ -1050,6 +1065,7 @@
 				CEABD1FD272AF0E000F56852 /* Landing.History.Remote.swift in Sources */,
 				CEB22E9827358367001C77E0 /* Info.Terms.swift in Sources */,
 				CEB22E9C27358DE1001C77E0 /* Plus.Purchased.swift in Sources */,
+				CE84E630273D52FF0071429B /* Landing.Edit.swift in Sources */,
 				CE743008272981EA00F5F5B8 /* CollectionItemInfo.swift in Sources */,
 				CEE91AC8273960BD003447BD /* Share.Option.swift in Sources */,
 				CE743010272983CB00F5F5B8 /* CGRect.swift in Sources */,
@@ -1076,6 +1092,7 @@
 				CE743007272981EA00F5F5B8 /* CollectionCellState.swift in Sources */,
 				CE3576B327281CE4005854B5 /* Copy.swift in Sources */,
 				CE7430122729874200F5F5B8 /* Landing.Section.swift in Sources */,
+				CE84E634273D56110071429B /* Card.ID.swift in Sources */,
 				CE19EC8D2736A54300A412FC /* Pop.swift in Sources */,
 				CEBCAAD42732B66D00B9D49C /* Shortcut.Action.swift in Sources */,
 				CE743006272981EA00F5F5B8 /* CollectionCellText.swift in Sources */,
@@ -1144,6 +1161,7 @@
 				CE99B051272167660077BAC6 /* Plus.Banner.Model.swift in Sources */,
 				CE63F094271453CC00918E54 /* Options.Share.swift in Sources */,
 				CE8422C727171D83007D7A0B /* Recover.swift in Sources */,
+				CE84E635273D56400071429B /* Card.ID.swift in Sources */,
 				CE470A6F26FA2284002D560A /* Landing.Activity.swift in Sources */,
 				CE470A6426F9DE8F002D560A /* Landing.Section.swift in Sources */,
 				CE383746270DD0FC006A8FE7 /* Trackers.swift in Sources */,
