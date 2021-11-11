@@ -5,7 +5,7 @@ import UserNotifications
 import Specs
 
 final class Web: Webview, NSTextFinderBarContainer {
-    private var destination = Destination.window
+    private var destination = Destination.here
     
     let item: UUID
     private weak var status: Status!
@@ -83,6 +83,8 @@ final class Web: Webview, NSTextFinderBarContainer {
                     .url
                     .map { url in
                         switch destination {
+                        case .here:
+                            load(url)
                         case let .tab(change):
                             if change {
                                 NSApp.open(url: url)
@@ -97,7 +99,7 @@ final class Web: Webview, NSTextFinderBarContainer {
                                     await self?.download(url: url)
                                 }
                         }
-                        destination = .window
+                        destination = .here
                     }
             }
         default:
@@ -107,10 +109,12 @@ final class Web: Webview, NSTextFinderBarContainer {
     }
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
-        menu.remove(id: "WKMenuItemIdentifierOpenLink")
         menu.remove(id: "WKMenuItemIdentifierSearchWeb")
         
         if let image = menu.remove(id: "WKMenuItemIdentifierOpenImageInNewWindow") {
+            let here = image.immitate(with: "Open Image", action: #selector(here(item:)))
+            here.target = self
+            
             let tabStay = image.immitate(with: "Open Image in New Tab", action: #selector(tab(stay:)))
             tabStay.target = self
             
@@ -118,6 +122,7 @@ final class Web: Webview, NSTextFinderBarContainer {
             tabChange.target = self
             
             menu.items = [
+                here,
                 tabStay,
                 tabChange,
                 image,
@@ -346,6 +351,11 @@ final class Web: Webview, NSTextFinderBarContainer {
             .run {
                 NSSavePanel.save(data: data, name: url.lastPathComponent, types: [])
             }
+    }
+    
+    @objc private func here(item: NSMenuItem) {
+        destination = .here
+        item.activate()
     }
     
     @objc private func tab(change item: NSMenuItem) {
