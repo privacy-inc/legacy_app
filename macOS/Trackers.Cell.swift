@@ -76,7 +76,7 @@ extension Trackers {
             let text = CollectionCellText()
             text.frame = .init(
                 x: 116,
-                y: 22,
+                y: 24,
                 width: 300,
                 height: 60)
             addSublayer(text)

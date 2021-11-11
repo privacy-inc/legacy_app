@@ -13,19 +13,16 @@ extension Landing {
             card
                 .click
                 .sink {
-                    (NSApp.anyWindow() ?? Privacy.Trackers())
-                        .makeKeyAndOrderFront(nil)
+                    NSApp.showTrackers()
                 }
                 .store(in: &subs)
             
             cloud
-                .map {
-                    $0.events.prevented
-                }
+                .map(\.events.prevented)
                 .removeDuplicates()
                 .sink { [weak self] in
                     self?.first.stringValue = $0.formatted()
-                    self?.second.stringValue = $0 == 1 ? "Tracker prevented" : "Trackers prevented"
+                    self?.second.stringValue = $0 == 1 ? " Tracker prevented" : " Trackers prevented"
                 }
                 .store(in: &subs)
         }

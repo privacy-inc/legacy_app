@@ -208,6 +208,8 @@
 		CED28599273C01DE0086D038 /* Trackers.Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED28598273C01DE0086D038 /* Trackers.Pop.swift */; };
 		CED63AEA27047E5A001C8183 /* Options.Representable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED63AE927047E5A001C8183 /* Options.Representable.swift */; };
 		CED63AEC27048150001C8183 /* Options.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED63AEB27048150001C8183 /* Options.Content.swift */; };
+		CEE4D86C273D1F3B00EAA768 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4D86B273D1F3B00EAA768 /* Activity.swift */; };
+		CEE4D86E273D24E700EAA768 /* Activity.Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4D86D273D24E700EAA768 /* Activity.Card.swift */; };
 		CEE91AC6273960B1003447BD /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE91AC5273960B1003447BD /* Share.swift */; };
 		CEE91AC8273960BD003447BD /* Share.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE91AC7273960BD003447BD /* Share.Option.swift */; };
 		CEE9B15C2739481A0086BD6C /* Ellipsis.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9B15B2739481A0086BD6C /* Ellipsis.swift */; };
@@ -472,6 +474,8 @@
 		CED28598273C01DE0086D038 /* Trackers.Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Pop.swift; sourceTree = "<group>"; };
 		CED63AE927047E5A001C8183 /* Options.Representable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Representable.swift; sourceTree = "<group>"; };
 		CED63AEB27048150001C8183 /* Options.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.swift; sourceTree = "<group>"; };
+		CEE4D86B273D1F3B00EAA768 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		CEE4D86D273D24E700EAA768 /* Activity.Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.Card.swift; sourceTree = "<group>"; };
 		CEE91AC5273960B1003447BD /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		CEE91AC7273960BD003447BD /* Share.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.Option.swift; sourceTree = "<group>"; };
 		CEE9B15B2739481A0086BD6C /* Ellipsis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ellipsis.swift; sourceTree = "<group>"; };
@@ -531,6 +535,8 @@
 				CE1936B8272804D100476227 /* macOS.entitlements */,
 				CE3576AB2728096E005854B5 /* Info.plist */,
 				CEBCAADC2732DAB600B9D49C /* About.swift */,
+				CEE4D86D273D24E700EAA768 /* Activity.Card.swift */,
+				CEE4D86B273D1F3B00EAA768 /* Activity.swift */,
 				CE1936AF272804CF00476227 /* App.swift */,
 				CE5D41AE272C3A8300AEBE0F /* AttributedString.swift */,
 				CE5D41BA272C5CDC00AEBE0F /* Bar.Option.swift */,
@@ -1025,9 +1031,11 @@
 				CE43126B2736D25C00DA0F99 /* Preferences.Option.swift in Sources */,
 				CE4312612736CCD500DA0F99 /* Froob.Action.swift in Sources */,
 				CE8BA2F9272D9B6300E2D73F /* Search.Cell.swift in Sources */,
+				CEE4D86E273D24E700EAA768 /* Activity.Card.swift in Sources */,
 				CEE9B15C2739481A0086BD6C /* Ellipsis.swift in Sources */,
 				CEB22E9627357A84001C77E0 /* Info.Policy.swift in Sources */,
 				CEF006572733F98800D0A1EB /* NSSavePanel.swift in Sources */,
+				CEE4D86C273D1F3B00EAA768 /* Activity.swift in Sources */,
 				CE743009272981EA00F5F5B8 /* CollectionCell.swift in Sources */,
 				CEE91AC6273960B1003447BD /* Share.swift in Sources */,
 				CE5D41BF272C5CDC00AEBE0F /* Control.State.swift in Sources */,

@@ -29,6 +29,8 @@ final class Menu: NSMenu, NSMenuDelegate {
             .child("About", #selector(NSApplication.orderFrontStandardAboutPanel(_:))),
             .separator(),
             .child("Preferences...", #selector(NSApplication.showPreferencesWindow), ","),
+            .child("Trackers", #selector(NSApplication.showTrackers)),
+            .child("Activity", #selector(NSApplication.showActivity)),
             .separator(),
             .child("Hide", #selector(NSApplication.hide), "h"),
             .child("Hide Others", #selector(NSApplication.hideOtherApplications), "h") {
@@ -233,6 +235,8 @@ final class Menu: NSMenu, NSMenuDelegate {
                     title = "Preferences"
                 case is Trackers:
                     title = "Trackers"
+                case is Activity:
+                    title = "Activity"
                 default:
                     add = nil
                 }

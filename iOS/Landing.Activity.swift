@@ -10,8 +10,8 @@ extension Landing {
                 display = true
             } label: {
                 Section("Activity") {
-                    HStack {
-                        Label("Since", systemImage: "chart.xyaxis.line")
+                    HStack(spacing: 0) {
+                        Label("Since ", systemImage: "chart.xyaxis.line")
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(Color.primary, Color("Dawn"))
                             .imageScale(.large)

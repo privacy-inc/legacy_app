@@ -47,7 +47,7 @@ extension Landing {
             first.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 10).isActive = true
             
             second.centerYAnchor.constraint(equalTo: card.centerYAnchor).isActive = true
-            second.leftAnchor.constraint(equalTo: first.rightAnchor, constant: 5).isActive = true
+            second.leftAnchor.constraint(equalTo: first.rightAnchor).isActive = true
         }
     }
 }

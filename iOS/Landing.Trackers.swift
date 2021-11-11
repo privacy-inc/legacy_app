@@ -10,10 +10,10 @@ extension Landing {
                 display = true
             } label: {
                 Section("Trackers") {
-                    HStack {
+                    HStack(spacing: 0) {
                         Label(count.formatted(), systemImage: "shield.lefthalf.filled")
                             .font(.body.monospaced())
-                        Text(count == 1 ? "Tracker prevented" : "Trackers prevented")
+                        Text(count == 1 ? " Tracker prevented" : " Trackers prevented")
                             .foregroundStyle(.secondary)
                             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     }

@@ -11,13 +11,18 @@ extension Landing {
             icon.symbolConfiguration = icon
                 .symbolConfiguration!
                 .applying(.init(paletteColors: [.labelColor, .init(named: "Dawn")!]))
-            first.stringValue = "Since"
+            first.stringValue = "Since "
             first.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .regular)
             
-            cloud
-                .map {
-                    $0.events.since
+            card
+                .click
+                .sink {
+                    NSApp.showActivity()
                 }
+                .store(in: &subs)
+            
+            cloud
+                .map(\.events.since)
                 .removeDuplicates()
                 .sink { [weak self] in
                     self?.second.stringValue = ($0 ?? .now).formatted(.relative(presentation: .named, unitsStyle: .wide))

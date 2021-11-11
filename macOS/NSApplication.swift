@@ -89,6 +89,16 @@ extension NSApplication {
             }
     }
     
+    @objc func showTrackers() {
+        (anyWindow() ?? Trackers())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    @objc func showActivity() {
+        (anyWindow() ?? Activity())
+            .makeKeyAndOrderFront(nil)
+    }
+    
     @objc func showPreferencesWindow(_ sender: Any?) {
         (anyWindow() ?? Preferences())
             .makeKeyAndOrderFront(nil)
