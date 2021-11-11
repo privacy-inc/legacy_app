@@ -1,7 +1,7 @@
 import AppKit
 import Combine
 
-final class Forgeting: NSPopover {
+final class Forgetting: NSPopover {
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }

@@ -203,7 +203,7 @@
 		CEBB8BE32728353900016F2C /* Webview.iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB8BE22728353900016F2C /* Webview.iOS.swift */; };
 		CEBCAAD42732B66D00B9D49C /* Shortcut.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCAAD32732B66D00B9D49C /* Shortcut.Action.swift */; };
 		CEBCAAD62732B83D00B9D49C /* Shortcut.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCAAD52732B83D00B9D49C /* Shortcut.Option.swift */; };
-		CEBCAAD82732BE5000B9D49C /* Forgeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCAAD72732BE5000B9D49C /* Forgeting.swift */; };
+		CEBCAAD82732BE5000B9D49C /* Forgetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCAAD72732BE5000B9D49C /* Forgetting.swift */; };
 		CEBCAADA2732C31900B9D49C /* Forgeting.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCAAD92732C31900B9D49C /* Forgeting.Option.swift */; };
 		CEBCAADB2732C64600B9D49C /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE80B8B7271EDE5E001A7BEC /* Forget.swift */; };
 		CEBCAADD2732DAB600B9D49C /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCAADC2732DAB600B9D49C /* About.swift */; };
@@ -479,7 +479,7 @@
 		CEBB8BE22728353900016F2C /* Webview.iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.iOS.swift; sourceTree = "<group>"; };
 		CEBCAAD32732B66D00B9D49C /* Shortcut.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcut.Action.swift; sourceTree = "<group>"; };
 		CEBCAAD52732B83D00B9D49C /* Shortcut.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcut.Option.swift; sourceTree = "<group>"; };
-		CEBCAAD72732BE5000B9D49C /* Forgeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forgeting.swift; sourceTree = "<group>"; };
+		CEBCAAD72732BE5000B9D49C /* Forgetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forgetting.swift; sourceTree = "<group>"; };
 		CEBCAAD92732C31900B9D49C /* Forgeting.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forgeting.Option.swift; sourceTree = "<group>"; };
 		CEBCAADC2732DAB600B9D49C /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		CEBDD5512728219600F2F493 /* Window.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Content.swift; sourceTree = "<group>"; };
@@ -583,7 +583,7 @@
 				CEE9B15B2739481A0086BD6C /* Ellipsis.swift */,
 				CE74300C2729825500F5F5B8 /* Flip.swift */,
 				CEBCAAD92732C31900B9D49C /* Forgeting.Option.swift */,
-				CEBCAAD72732BE5000B9D49C /* Forgeting.swift */,
+				CEBCAAD72732BE5000B9D49C /* Forgetting.swift */,
 				CE4312602736CCD500DA0F99 /* Froob.Action.swift */,
 				CE43125E2736C70100DA0F99 /* Froob.swift */,
 				CE6C7282273D6D7D007972FC /* History.Cell.swift */,
@@ -1032,7 +1032,7 @@
 				CE8BA2F7272D9B3E00E2D73F /* Search.swift in Sources */,
 				CE3576B027281C25005854B5 /* NSApplication.swift in Sources */,
 				CE19EC8F2736AE8C00A412FC /* Plus.Item.swift in Sources */,
-				CEBCAAD82732BE5000B9D49C /* Forgeting.swift in Sources */,
+				CEBCAAD82732BE5000B9D49C /* Forgetting.swift in Sources */,
 				CE19EC912736B32500A412FC /* Plus.Action.swift in Sources */,
 				CE3576AE27281689005854B5 /* Global.swift in Sources */,
 				CEABD1FB272AED7A00F56852 /* Landing.History.swift in Sources */,

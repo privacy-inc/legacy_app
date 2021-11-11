@@ -34,7 +34,7 @@ final class Shortcut: NSPopover {
         forget
             .click
             .sink {
-                let pop = Forgeting(behaviour: .transient)
+                let pop = Forgetting(behaviour: .transient)
                 pop.show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxY)
                 pop.contentViewController!.view.window!.makeKey()
             }

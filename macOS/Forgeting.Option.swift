@@ -1,6 +1,6 @@
 import AppKit
 
-extension Forgeting {
+extension Forgetting {
     final class Option: Control {
         private weak var text: Text!
         private weak var image: Image!
