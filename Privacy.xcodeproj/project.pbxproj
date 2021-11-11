@@ -210,6 +210,7 @@
 		CED63AEC27048150001C8183 /* Options.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED63AEB27048150001C8183 /* Options.Content.swift */; };
 		CEE4D86C273D1F3B00EAA768 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4D86B273D1F3B00EAA768 /* Activity.swift */; };
 		CEE4D86E273D24E700EAA768 /* Activity.Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4D86D273D24E700EAA768 /* Activity.Card.swift */; };
+		CEE4D870273D2B5300EAA768 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4D86F273D2B5300EAA768 /* Chart.swift */; };
 		CEE91AC6273960B1003447BD /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE91AC5273960B1003447BD /* Share.swift */; };
 		CEE91AC8273960BD003447BD /* Share.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE91AC7273960BD003447BD /* Share.Option.swift */; };
 		CEE9B15C2739481A0086BD6C /* Ellipsis.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9B15B2739481A0086BD6C /* Ellipsis.swift */; };
@@ -476,6 +477,7 @@
 		CED63AEB27048150001C8183 /* Options.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.swift; sourceTree = "<group>"; };
 		CEE4D86B273D1F3B00EAA768 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		CEE4D86D273D24E700EAA768 /* Activity.Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.Card.swift; sourceTree = "<group>"; };
+		CEE4D86F273D2B5300EAA768 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		CEE91AC5273960B1003447BD /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		CEE91AC7273960BD003447BD /* Share.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.Option.swift; sourceTree = "<group>"; };
 		CEE9B15B2739481A0086BD6C /* Ellipsis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ellipsis.swift; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 				CE5D41B5272C484900AEBE0F /* Bar.Tab.swift */,
 				CE5D41A8272C1DAD00AEBE0F /* Card.swift */,
 				CE74300F272983CB00F5F5B8 /* CGRect.swift */,
+				CEE4D86F273D2B5300EAA768 /* Chart.swift */,
 				CE743004272981EA00F5F5B8 /* Collection.swift */,
 				CE743003272981EA00F5F5B8 /* CollectionCell.swift */,
 				CED28596273BD5890086D038 /* CollectionCellImage.swift */,
@@ -1017,6 +1020,7 @@
 				CE6BFE9427380AD000ECF118 /* Preferences.Segmented.swift in Sources */,
 				CEA9A98C273A970100E2D993 /* Trackers.swift in Sources */,
 				CEEBA5C727301E280079928E /* Bar.Tab.Connection.swift in Sources */,
+				CEE4D870273D2B5300EAA768 /* Chart.swift in Sources */,
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
 				CEBCAADD2732DAB600B9D49C /* About.swift in Sources */,
 				CE743014272987E700F5F5B8 /* Text.swift in Sources */,
