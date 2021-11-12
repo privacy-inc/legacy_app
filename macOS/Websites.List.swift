@@ -21,9 +21,15 @@ extension Websites {
             
             NotificationCenter
                 .default
-                .publisher(for: NSView.frameDidChangeNotification, object: contentView)
+                .publisher(for: NSView.frameDidChangeNotification)
                 .compactMap {
-                    ($0.object as? NSView)?.bounds.width
+                    $0.object as? NSClipView
+                }
+                .filter { [weak self] in
+                    $0 == self?.contentView
+                }
+                .map {
+                    $0.bounds.width
                 }
                 .map {
                     $0 - Self.insets2

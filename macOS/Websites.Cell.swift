@@ -3,10 +3,6 @@ import Combine
 
 extension Websites {
     final class Cell: CollectionCell<Info> {
-        deinit {
-            print("website cell gone")
-        }
-        
         static let height = CGFloat(60)
         private weak var text: CollectionCellText!
         private weak var icon: CollectionCellImage!

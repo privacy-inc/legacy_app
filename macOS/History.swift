@@ -2,10 +2,6 @@ import AppKit
 import Combine
 
 final class History: Websites {
-    deinit {
-        print("history gone")
-    }
-    
     override init() {
         super.init()
         setFrameAutosaveName("History")
@@ -47,9 +43,5 @@ final class History: Websites {
                     }
             }
             .store(in: &subs)
-    }
-    
-    @MainActor private func open(index: Int) {
-        
     }
 }
