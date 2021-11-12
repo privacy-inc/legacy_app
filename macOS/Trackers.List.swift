@@ -16,7 +16,7 @@ extension Trackers {
             cloud
                 .first()
                 .merge(with: cloud
-                        .debounce(for: .seconds(1), scheduler: DispatchQueue.main))
+                        .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main))
                 .map {
                     $0
                         .events
@@ -37,7 +37,7 @@ extension Trackers {
             
             info
                 .removeDuplicates()
-                .sink {
+                .sink { [weak self] in
                     let result = $0
                         .reduce(into: (items: Set<CollectionItem<Info>>(), y: vertical)) {
                             $0.items.insert(.init(
@@ -49,14 +49,14 @@ extension Trackers {
                                                     height: Cell.height)))
                             $0.y += Cell.height + 6
                         }
-                    self.items.send(result.items)
-                    self.size.send(.init(width: 0, height: result.y + vertical))
+                    self?.items.send(result.items)
+                    self?.size.send(.init(width: 0, height: result.y + vertical))
                 }
                 .store(in: &subs)
             
             select
-                .map { point in
-                    self
+                .map { [weak self] point in
+                    self?
                         .cells
                         .compactMap(\.item)
                         .first {

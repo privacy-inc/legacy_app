@@ -11,22 +11,38 @@ extension Websites {
         init(id: Int, history: Specs.History) {
             self.init(id: id,
                       mode: .history(history.id),
-                      text: .init(""),
-                      icon: history.website.access.icon)
+                      website: history.website)
         }
         
         init(id: Int, bookmark: Website) {
             self.init(id: id,
                       mode: .bookmark(bookmark.access),
-                      text: .init(""),
-                      icon: bookmark.access.icon)
+                      website: bookmark)
         }
         
-        private init(id: Int, mode: Mode, text: AttributedString, icon: String?) {
+        private init(id: Int, mode: Mode, website: Website) {
             self.id = id
             self.mode = mode
-            self.text = .init(text)
-            self.icon = icon
+            icon = website.access.icon
+            
+            let string: AttributedString
+            
+            switch website.access {
+            case let remote as Access.Remote:
+                string = .init(website.title, attributes: .init([
+                    .font: NSFont.preferredFont(forTextStyle: .body),
+                    .foregroundColor: NSColor.labelColor]))
+                + .newLine
+                + .init(remote.domain.minimal, attributes: .init([
+                    .font: NSFont.preferredFont(forTextStyle: .footnote),
+                    .foregroundColor: NSColor.secondaryLabelColor]))
+            default:
+                string = .init(website.access.value, attributes: .init([
+                    .font: NSFont.preferredFont(forTextStyle: .body),
+                    .foregroundColor: NSColor.secondaryLabelColor]))
+            }
+            
+            text = .init(string.with(truncating: .byTruncatingTail))
         }
     }
 }

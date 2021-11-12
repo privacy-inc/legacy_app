@@ -14,6 +14,9 @@ extension Landing {
             bottomAnchor.constraint(greaterThanOrEqualTo: header.bottomAnchor, constant: 10).isActive = true
             
             cloud
+                .first()
+                .merge(with: cloud
+                        .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main))
                 .map {
                     $0
                         .history
@@ -24,7 +27,6 @@ extension Landing {
                 }
                 .sink { [weak self] history in
                     guard let self = self else { return }
-                    
                     self
                         .subviews
                         .filter {
@@ -79,7 +81,7 @@ extension Landing {
                 .click
                 .sink {
                     Task {
-                        await status.history(id: history)
+                        await status.open(id: history)
                     }
                 }
                 .store(in: &subs)

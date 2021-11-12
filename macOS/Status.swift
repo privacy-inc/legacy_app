@@ -138,17 +138,7 @@ final class Status {
     }
     
     @MainActor func url(url: URL) async {
-        let id = await cloud.open(url: url)
-        switch item.flow {
-        case .landing:
-            await history(id: id)
-        case .web, .error:
-            let web = await Web(status: self, item: .init(), history: id, settings: cloud.model.settings.configuration)
-            let item = Item(id: web.item, web: web)
-            items.value.append(item)
-            current.send(web.item)
-            await web.access()
-        }
+        await open(id: await cloud.open(url: url))
     }
     
     @MainActor func silent(url: URL) async {
@@ -168,10 +158,17 @@ final class Status {
         }
     }
     
-    @MainActor func history(id: UInt16) async {
-        let web = await Web(status: self, item: current.value, history: id, settings: cloud.model.settings.configuration)
-        change(flow: .web(web))
-        await web.access()
+    @MainActor func open(id: UInt16) async {
+        switch item.flow {
+        case .landing:
+            await history(id: id)
+        case .web, .error:
+            let web = await Web(status: self, item: .init(), history: id, settings: cloud.model.settings.configuration)
+            let item = Item(id: web.item, web: web)
+            items.value.append(item)
+            current.send(web.item)
+            await web.access()
+        }
     }
     
     private var index: Int {
@@ -180,6 +177,12 @@ final class Status {
             .firstIndex {
                 $0.id == current.value
             }!
+    }
+    
+    @MainActor private func history(id: UInt16) async {
+        let web = await Web(status: self, item: current.value, history: id, settings: cloud.model.settings.configuration)
+        change(flow: .web(web))
+        await web.access()
     }
     
     @MainActor private func change(flow: Flow) {

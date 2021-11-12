@@ -10,7 +10,7 @@ extension Trackers {
         private weak var container: Layer!
         private weak var background: Layer!
         private var sub: AnyCancellable?
-        
+
         override var item: CollectionItem<Info>? {
             didSet {
                 guard
@@ -21,10 +21,17 @@ extension Trackers {
                 text.string = item.info.text
                 count.string = item.info.count
                 
-                Task
-                    .detached { [weak self] in
-                        await self?.update(icon: item.info.icon)
-                    }
+                if item.info != oldValue?.info {
+                    sub?.cancel()
+                    icon.contents = NSImage(systemSymbolName: "network", accessibilityDescription: nil)?
+                        .withSymbolConfiguration(.init(pointSize: 32, weight: .ultraLight)
+                                                    .applying(.init(hierarchicalColor: .tertiaryLabelColor)))
+
+                    Task
+                        .detached { [weak self] in
+                            await self?.update(icon: item.info.icon)
+                        }
+                }
             }
         }
         
@@ -37,7 +44,7 @@ extension Trackers {
             line.fillColor = .clear
             line.lineWidth = 1
             line.strokeColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-            line.path = .init(rect: .init(x: 1, y: 39.5, width: 54, height: 1), transform: nil)
+            line.path = .init(rect: .init(x: 1, y: 39.5, width: 54, height: 0), transform: nil)
             addSublayer(line)
             
             let container = Layer()
@@ -106,11 +113,7 @@ extension Trackers {
             }
         }
         
-        @MainActor private func update(icon: String) async {
-            self.icon.contents = NSImage(systemSymbolName: "network", accessibilityDescription: nil)?
-                .withSymbolConfiguration(.init(pointSize: 32, weight: .ultraLight)
-                                            .applying(.init(hierarchicalColor: .tertiaryLabelColor)))
-            sub?.cancel()
+        private func update(icon: String) async {
             guard let publisher = await favicon.publisher(for: icon) else { return }
             sub = publisher
                 .sink { [weak self] in

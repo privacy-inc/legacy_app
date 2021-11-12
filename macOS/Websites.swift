@@ -7,9 +7,9 @@ class Websites: NSWindow {
     private(set) weak var list: List!
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 600, height: 400),
+        super.init(contentRect: .init(x: 0, y: 0, width: 400, height: 400),
                    styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
-        minSize = .init(width: 300, height: 200)
+        minSize = .init(width: 260, height: 140)
         animationBehavior = .alertPanel
         toolbar = .init()
         isReleasedWhenClosed = false
@@ -22,6 +22,8 @@ class Websites: NSWindow {
         center()
         
         let navigation = Text(vibrancy: true)
+        navigation.font = .preferredFont(forTextStyle: .title3)
+        navigation.textColor = .tertiaryLabelColor
         self.navigation = navigation
         content.addSubview(navigation)
         

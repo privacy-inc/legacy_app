@@ -55,7 +55,7 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
                     .filter { cell in
                         !visible
                             .contains {
-                                $0 == cell.item
+                                $0.info.id == cell.item?.info.id
                             }
                     }
                     .forEach {
@@ -68,7 +68,7 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
                         let cell = self?
                             .cells
                             .first {
-                                $0.item == item
+                                $0.item?.info.id == item.info.id
                             }
                             ?? self?.cells.first {
                                 $0.item == nil

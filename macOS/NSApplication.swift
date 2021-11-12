@@ -43,6 +43,21 @@ extension NSApplication {
         }
     }
     
+    @MainActor func open(id: UInt16) {
+        if let window = activeWindow {
+            Task {
+                await window.status.open(id: id)
+                window.makeKeyAndOrderFront(nil)
+            }
+        } else {
+            Task {
+                let status = Status()
+                await status.open(id: id)
+                Window.new(status: status)
+            }
+        }
+    }
+    
     func silent(url: URL) {
         if let window = activeWindow {
             Task {
