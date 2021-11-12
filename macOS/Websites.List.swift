@@ -1,8 +1,9 @@
 import AppKit
 import Combine
 
-extension History {
+extension Websites {
     final class List: Collection<Cell, Info> {
+        let info = PassthroughSubject<[Info], Never>()
         private let select = PassthroughSubject<CGPoint, Never>()
         
         required init?(coder: NSCoder) { nil }
@@ -10,29 +11,9 @@ extension History {
             super.init()
             
             let vertical = CGFloat(30)
-            let info = PassthroughSubject<[Info], Never>()
             
-            cloud
-                .first()
-                .merge(with: cloud
-                        .debounce(for: .seconds(1), scheduler: DispatchQueue.main))
-                .map {
-                    $0
-                        .events
-                        .report
-                        .filter {
-                            !$0.trackers.isEmpty
-                        }
-                }
-                .map {
-                    $0
-                        .enumerated()
-                        .map {
-                            .init(id: $0.0, report: $0.1)
-                        }
-                }
-                .subscribe(info)
-                .store(in: &subs)
+            
+            
             
             info
                 .removeDuplicates()

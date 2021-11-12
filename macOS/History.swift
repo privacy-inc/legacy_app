@@ -1,54 +1,24 @@
 import AppKit
 import Combine
 
-final class History: NSWindow {
-    static let width = CGFloat(500)
-    private var subs = Set<AnyCancellable>()
-    
-    init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: Self.width, height: 500),
-                   styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
-        animationBehavior = .alertPanel
-        toolbar = .init()
-        isReleasedWhenClosed = false
-        titlebarAppearsTransparent = true
-        
-        let content = NSVisualEffectView()
-        content.state = .active
-        content.material = .menu
-        contentView = content
-        center()
+final class History: Websites {
+    override init() {
+        super.init()
         setFrameAutosaveName("History")
-        
-        let title = Text(vibrancy: true)
-        content.addSubview(title)
-        
-        let list = List()
-        content.addSubview(list)
-        
-        title.centerYAnchor.constraint(equalTo: content.topAnchor, constant: 26).isActive = true
-        title.rightAnchor.constraint(equalTo: content.rightAnchor, constant: -26).isActive = true
-        
-        list.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
-        list.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
-        list.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
-        list.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -1).isActive = true
+        navigation.stringValue = "History"
         
         cloud
-            .map(\.events.prevented)
-            .removeDuplicates()
-            .sink { count in
-                title.attributedStringValue = .init(.init(count.formatted(), attributes: .init([
-                    .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular),
-                    .foregroundColor: NSColor.labelColor]))
-                                                    + .init(count == 1 ? " tracker so far" : " total trackers", attributes: .init([
-                                                        .font: NSFont.preferredFont(forTextStyle: .body),
-                                                        .foregroundColor: NSColor.secondaryLabelColor])))
+            .map(\.history)
+            .map {
+                $0
+                    .enumerated()
+                    .map {
+                        .init(id: $0.0, history: $0.1)
+                    }
+            }
+            .sink { [weak self] in
+                self?.list.info.send($0)
             }
             .store(in: &subs)
-    }
-    
-    @objc func triggerCloseTab() {
-        close()
     }
 }

@@ -1,7 +1,7 @@
 import AppKit
 import Combine
 
-extension History {
+extension Websites {
     final class Cell: CollectionCell<Info> {
         static let height = CGFloat(80)
         private weak var text: CollectionCellText!
