@@ -239,6 +239,7 @@
 		CEF5548926FDD4FA00FE0E9C /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548726FDD4FA00FE0E9C /* Web.swift */; };
 		CEFEAAAD272069210073149D /* Plus.Banner.Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEAAAC272069210073149D /* Plus.Banner.Particle.swift */; };
 		CEFEAAAF27206F9B0073149D /* Plus.Banner.Shine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEAAAE27206F9B0073149D /* Plus.Banner.Shine.swift */; };
+		CEFF6FA0273EE662007E456E /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF6F9F273EE662007E456E /* Bookmarks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -517,6 +518,7 @@
 		CEF5548726FDD4FA00FE0E9C /* Web.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CEFEAAAC272069210073149D /* Plus.Banner.Particle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Banner.Particle.swift; sourceTree = "<group>"; };
 		CEFEAAAE27206F9B0073149D /* Plus.Banner.Shine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Banner.Shine.swift; sourceTree = "<group>"; };
+		CEFF6F9F273EE662007E456E /* Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -571,6 +573,7 @@
 				CE8BA2F2272D843900E2D73F /* Bar.Tab.On.swift */,
 				CE8BA2F4272D8BE600E2D73F /* Bar.Tab.Option.swift */,
 				CE5D41B5272C484900AEBE0F /* Bar.Tab.swift */,
+				CEFF6F9F273EE662007E456E /* Bookmarks.swift */,
 				CE5D41A8272C1DAD00AEBE0F /* Card.swift */,
 				CE74300F272983CB00F5F5B8 /* CGRect.swift */,
 				CEE4D86F273D2B5300EAA768 /* Chart.swift */,
@@ -1025,6 +1028,7 @@
 				CE4312682736D25C00DA0F99 /* Preferences.Javascript.swift in Sources */,
 				CE74300D2729825500F5F5B8 /* Layer.swift in Sources */,
 				CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */,
+				CEFF6FA0273EE662007E456E /* Bookmarks.swift in Sources */,
 				CE19EC8B2736A39400A412FC /* Plus.Option.swift in Sources */,
 				CE660AC2273AA978009A800E /* NSAttributedString.swift in Sources */,
 				CEABD1F3272AD91900F56852 /* Landing.Bookmarks.Item.swift in Sources */,

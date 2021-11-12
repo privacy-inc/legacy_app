@@ -5,6 +5,7 @@ class Websites: NSWindow {
     final var subs = Set<AnyCancellable>()
     private(set) weak var navigation: Text!
     private(set) weak var list: List!
+    private(set) weak var icon: Image!
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 400, height: 400),
@@ -23,16 +24,25 @@ class Websites: NSWindow {
         
         let navigation = Text(vibrancy: true)
         navigation.font = .preferredFont(forTextStyle: .title3)
-        navigation.textColor = .tertiaryLabelColor
+        navigation.textColor = .secondaryLabelColor
         self.navigation = navigation
         content.addSubview(navigation)
+        
+        let icon = Image(vibrancy: true)
+        icon.symbolConfiguration = .init(textStyle: .title3)
+        icon.contentTintColor = .secondaryLabelColor
+        self.icon = icon
+        content.addSubview(icon)
         
         let list = List()
         self.list = list
         content.addSubview(list)
         
         navigation.centerYAnchor.constraint(equalTo: content.topAnchor, constant: 26).isActive = true
-        navigation.rightAnchor.constraint(equalTo: content.rightAnchor, constant: -26).isActive = true
+        navigation.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -10).isActive = true
+        
+        icon.rightAnchor.constraint(equalTo: content.rightAnchor, constant: -26).isActive = true
+        icon.centerYAnchor.constraint(equalTo: content.topAnchor, constant: 26).isActive = true
         
         list.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
         list.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true

@@ -149,13 +149,7 @@ final class Status {
     }
     
     @MainActor func access(access: AccessType) async {
-        switch item.flow {
-        case .landing:
-            await history(id: cloud.open(access: access))
-        case let .web(web), let .error(web, _):
-            await cloud.open(access: access, history: web.history)
-            await web.access()
-        }
+        await open(id: cloud.open(access: access))
     }
     
     @MainActor func open(id: UInt16) async {

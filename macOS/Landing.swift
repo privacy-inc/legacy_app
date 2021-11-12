@@ -44,6 +44,12 @@ final class Landing: NSView {
             .store(in: &subs)
         
         let bookmarks = Option(icon: "bookmark")
+        bookmarks
+            .click
+            .sink {
+                NSApp.showBookmarks()
+            }
+            .store(in: &subs)
         
         let history = Option(icon: "clock")
         history

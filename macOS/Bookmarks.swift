@@ -1,23 +1,23 @@
 import AppKit
 import Combine
 
-final class History: Websites {
+final class Bookmarks: Websites {
     override init() {
         super.init()
-        setFrameAutosaveName("History")
-        navigation.stringValue = "History"
-        icon.image = .init(systemSymbolName: "clock", accessibilityDescription: nil)
+        setFrameAutosaveName("Bookmarks")
+        navigation.stringValue = "Bookmarks"
+        icon.image = .init(systemSymbolName: "bookmark", accessibilityDescription: nil)
         
         cloud
             .first()
             .merge(with: cloud
                     .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main))
-            .map(\.history)
+            .map(\.bookmarks)
             .map {
                 $0
                     .enumerated()
                     .map {
-                        .init(id: $0.0, history: $0.1)
+                        .init(id: $0.0, bookmark: $0.1)
                     }
             }
             .removeDuplicates()
@@ -30,7 +30,7 @@ final class History: Websites {
             .open
             .sink { index in
                 Task {
-                    await NSApp.open(id: cloud.model.history[index].id)
+                    await NSApp.open(access: cloud.model.bookmarks[index].access)
                 }
             }
             .store(in: &subs)
@@ -40,7 +40,7 @@ final class History: Websites {
             .sink { index in
                 Task
                     .detached(priority: .utility) {
-                        await cloud.delete(history: cloud.model.history[index].id)
+                        await cloud.delete(bookmark: index)
                     }
             }
             .store(in: &subs)

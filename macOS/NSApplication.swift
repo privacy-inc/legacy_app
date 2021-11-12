@@ -1,4 +1,5 @@
 import AppKit
+import Specs
 
 extension NSApplication {
     var dark: Bool {
@@ -53,6 +54,21 @@ extension NSApplication {
             Task {
                 let status = Status()
                 await status.open(id: id)
+                Window.new(status: status)
+            }
+        }
+    }
+    
+    @MainActor func open(access: AccessType) {
+        if let window = activeWindow {
+            Task {
+                await window.status.access(access: access)
+                window.makeKeyAndOrderFront(nil)
+            }
+        } else {
+            Task {
+                let status = Status()
+                await status.access(access: access)
                 Window.new(status: status)
             }
         }
@@ -116,6 +132,11 @@ extension NSApplication {
     
     @objc func showHistory() {
         (anyWindow() ?? History())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    @objc func showBookmarks() {
+        (anyWindow() ?? Bookmarks())
             .makeKeyAndOrderFront(nil)
     }
     
