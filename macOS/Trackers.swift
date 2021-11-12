@@ -3,6 +3,7 @@ import Combine
 
 final class Trackers: NSWindow {
     static let width = CGFloat(500)
+    private weak var list: List!
     private var subs = Set<AnyCancellable>()
     
     init() {
@@ -24,6 +25,7 @@ final class Trackers: NSWindow {
         content.addSubview(title)
         
         let list = List()
+        self.list = list
         content.addSubview(list)
         
         title.centerYAnchor.constraint(equalTo: content.topAnchor, constant: 26).isActive = true
@@ -49,6 +51,7 @@ final class Trackers: NSWindow {
     }
     
     @objc func triggerCloseTab() {
+        list.pop?.close()
         close()
     }
 }

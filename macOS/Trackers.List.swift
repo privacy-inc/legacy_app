@@ -3,7 +3,7 @@ import Combine
 
 extension Trackers {
     final class List: Collection<Cell, Info> {
-        private weak var pop: Pop?
+        private(set) weak var pop: Pop?
         private let select = PassthroughSubject<CGPoint, Never>()
         
         required init?(coder: NSCoder) { nil }

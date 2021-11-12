@@ -10,7 +10,7 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
     final let highlighted = CurrentValueSubject<Info.ID?, Never>(nil)
     private let clear = PassthroughSubject<Void, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
-    
+
     required init?(coder: NSCoder) { nil }
     init() {
         super.init(frame: .zero)
@@ -88,12 +88,18 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
         
         NotificationCenter
             .default
-            .publisher(for: NSView.boundsDidChangeNotification, object: contentView)
+            .publisher(for: NSView.boundsDidChangeNotification)
             .merge(with: NotificationCenter
                     .default
-                    .publisher(for: NSView.frameDidChangeNotification, object: contentView))
+                    .publisher(for: NSView.frameDidChangeNotification))
             .compactMap {
-                ($0.object as? NSClipView)?.documentVisibleRect
+                $0.object as? NSClipView
+            }
+            .filter { [weak self] in
+                $0 == self?.contentView
+            }
+            .map {
+                $0.documentVisibleRect
             }
             .subscribe(clip)
             .store(in: &subs)
