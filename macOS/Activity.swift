@@ -6,7 +6,8 @@ final class Activity: NSWindow {
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 1000, height: 300),
-                   styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
+                   styleMask: [.closable, .resizable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
+        minSize = .init(width: 1000, height: 300)
         animationBehavior = .alertPanel
         toolbar = .init()
         isReleasedWhenClosed = false
