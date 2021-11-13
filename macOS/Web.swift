@@ -7,7 +7,7 @@ import Specs
 final class Web: Webview, NSTextFinderBarContainer {
     let item: UUID
     private weak var status: Status!
-    private var destination = Destination.here
+    private var destination = Destination.tab(true)
     private let finder = NSTextFinder()
     
     required init?(coder: NSCoder) { nil }
@@ -83,7 +83,7 @@ final class Web: Webview, NSTextFinderBarContainer {
                                     await self?.download(url: url)
                                 }
                         }
-                        destination = .here
+                        destination = .tab(true)
                     }
             }
         default:
