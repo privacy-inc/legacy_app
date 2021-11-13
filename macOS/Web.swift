@@ -167,10 +167,6 @@ final class Web: Webview, NSTextFinderBarContainer {
         }
     }
     
-    override var isEditable: Bool {
-        false
-    }
-    
     var findBarView: NSView? {
         didSet {
             oldValue?.removeFromSuperview()

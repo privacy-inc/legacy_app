@@ -12,7 +12,7 @@ final class Search: NSTextField {
         lineBreakMode = .byTruncatingTail
         textColor = .labelColor
         isAutomaticTextCompletionEnabled = false
-        
+
 //        cloud
 //            .archive
 //            .combineLatest(session
