@@ -60,7 +60,7 @@ extension Preferences {
             stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 30).isActive = true
             stack.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             
-            text.widthAnchor.constraint(lessThanOrEqualToConstant: 240).isActive = true
+            text.widthAnchor.constraint(lessThanOrEqualToConstant: 260).isActive = true
         }
         
         private var isDefault: Bool {

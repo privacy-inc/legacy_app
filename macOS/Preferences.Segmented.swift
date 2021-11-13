@@ -27,7 +27,7 @@ extension Preferences {
             control.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
             control.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
             control.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-            control.widthAnchor.constraint(equalToConstant: 260).isActive = true
+            control.widthAnchor.constraint(equalToConstant: 280).isActive = true
         }
     }
 }
