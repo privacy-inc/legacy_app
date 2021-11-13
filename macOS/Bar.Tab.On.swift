@@ -186,7 +186,7 @@ extension Bar.Tab {
                      window!.makeFirstResponder(superview!)
                  }
                  */
-                break
+                window?.makeFirstResponder(window?.contentView)
             case #selector(insertNewline):
                 /*
                  autocomplete.end()

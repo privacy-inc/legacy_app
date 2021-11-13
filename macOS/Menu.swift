@@ -160,17 +160,40 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var view: NSMenuItem {
-        .parent("View", [
-            .child("Stop", #selector(Web.stopLoading(_:)), "."),
-            .child("Reload", #selector(Web.reload(_:)), "r"),
+        .parent("View", viewItems) {
+            $0.submenu!.delegate = self
+        }
+    }
+    
+    private var viewItems: [NSMenuItem] {
+        var web: Web?
+        
+        if let window = NSApp.keyWindow as? Window,
+           case let .web(item) = window.status.item.flow {
+            web = item
+        }
+        
+        return [
+            .child("Stop", #selector(Web.stopLoading(_:)), ".") {
+                $0.target = web
+            },
+            .child("Reload", #selector(Web.reload(_:)), "r") {
+                $0.target = web
+            },
             .separator(),
-            .child("Actual Size", #selector(Web.actualSize), "0"),
-            .child("Zoom In", #selector(Web.zoomIn), "+"),
-            .child("Zoom Out", #selector(Web.zoomOut), "-"),
+            .child("Actual Size", #selector(Web.actualSize), "0") {
+                $0.target = web
+            },
+            .child("Zoom In", #selector(Web.zoomIn), "+") {
+                $0.target = web
+            },
+            .child("Zoom Out", #selector(Web.zoomOut), "-") {
+                $0.target = web
+            },
             .separator(),
             .child("Full Screen", #selector(Window.toggleFullScreen), "f") {
                 $0.keyEquivalentModifierMask = [.function]
-            }])
+            }]
     }
     
     private var window: NSMenuItem {
@@ -182,7 +205,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     private var windowItems: [NSMenuItem] {
         var items: [NSMenuItem] = [
             .child("Minimize", #selector(NSWindow.miniaturize), "m"),
-            .child("Zoom", #selector(NSWindow.zoom), "p"),
+            .child("Zoom", #selector(NSWindow.zoom)),
             .separator(),
             .child("Show Previous Tab", #selector(Window.triggerPreviousTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
                 $0.keyEquivalentModifierMask = [.control, .shift]
@@ -284,6 +307,8 @@ final class Menu: NSMenu, NSMenuDelegate {
             menu.items = fileItems
         case "Edit":
             menu.items = editItems
+        case "View":
+            menu.items = viewItems
         case "Window":
             menu.items = windowItems
         default:

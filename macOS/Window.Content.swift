@@ -62,13 +62,11 @@ extension Window {
                     
                     view.translatesAutoresizingMaskIntoConstraints = false
                     self.addSubview(view)
-
+                    
                     view.topAnchor.constraint(equalTo: separator.bottomAnchor).isActive = true
                     view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
                     view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
                     view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-                    
-                    NSApp.mainMenu?.update()
                 }
             
 //            
