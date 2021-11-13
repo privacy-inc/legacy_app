@@ -5,14 +5,17 @@ import UserNotifications
 import Specs
 
 final class Web: Webview, NSTextFinderBarContainer {
-    private var destination = Destination.here
-    
     let item: UUID
     private weak var status: Status!
+    private var destination = Destination.here
     private let finder = NSTextFinder()
     
     required init?(coder: NSCoder) { nil }
-    init(status: Status, item: UUID, history: UInt16, settings: Specs.Settings.Configuration) {
+    init(status: Status,
+         item: UUID,
+         history: UInt16,
+         settings: Specs.Settings.Configuration) {
+        
         self.status = status
         self.item = item
         
@@ -171,30 +174,22 @@ final class Web: Webview, NSTextFinderBarContainer {
     var findBarView: NSView? {
         didSet {
             oldValue?.removeFromSuperview()
+            
+            guard let finder = (window as? Window)?.finder else { return }
             findBarView
                 .map {
                     $0.removeFromSuperview()
-                    $0.frame.size.width = 360
-                    $0.frame.origin = .init(x: bounds.width - 370, y: bounds.height - ($0.frame.height + safeAreaInsets.top + 5))
-                    $0.autoresizingMask = [.minXMargin, .minYMargin]
-                    addSubview($0)
+                    finder.view = $0
                 }
         }
     }
     
     var isFindBarVisible = false {
         didSet {
-//            findBarView?
-//                .subviews
-//                .first?
-//                .subviews
-//                .filter {
-//                    !($0 is NSStackView)
-//                }
-//                .forEach {
-//                    $0.removeFromSuperview()
-//                }
-            findBarView?.isHidden = !isFindBarVisible
+            if !isFindBarVisible {
+                guard let finder = (window as? Window)?.finder else { return }
+                finder.reset()
+            }
         }
     }
     

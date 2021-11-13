@@ -65,6 +65,7 @@
 		CE43126B2736D25C00DA0F99 /* Preferences.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312662736D25B00DA0F99 /* Preferences.Option.swift */; };
 		CE43126D2736D6E100DA0F99 /* Preferences.General.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43126C2736D6E100DA0F99 /* Preferences.General.swift */; };
 		CE43126F2736D71500DA0F99 /* Preferences.Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43126E2736D71500DA0F99 /* Preferences.Navigation.swift */; };
+		CE441D70273FE67800F4DACE /* Finder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE441D6F273FE67800F4DACE /* Finder.swift */; };
 		CE46B4DE26F797F600A5B5BB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE46B4DD26F797F600A5B5BB /* App.swift */; };
 		CE46B4E226F797F700A5B5BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4E126F797F700A5B5BB /* Assets.xcassets */; };
 		CE46B4EB26F7982200A5B5BB /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
@@ -348,6 +349,7 @@
 		CE4312662736D25B00DA0F99 /* Preferences.Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.Option.swift; sourceTree = "<group>"; };
 		CE43126C2736D6E100DA0F99 /* Preferences.General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.General.swift; sourceTree = "<group>"; };
 		CE43126E2736D71500DA0F99 /* Preferences.Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Navigation.swift; sourceTree = "<group>"; };
+		CE441D6F273FE67800F4DACE /* Finder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finder.swift; sourceTree = "<group>"; };
 		CE46B4DA26F797F600A5B5BB /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE46B4DD26F797F600A5B5BB /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE46B4E126F797F700A5B5BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 				CE3F56D02728361300A022CC /* Webview.macOS.swift */,
 				CEBDD5512728219600F2F493 /* Window.Content.swift */,
 				CE3576B127281C3F005854B5 /* Window.swift */,
+				CE441D6F273FE67800F4DACE /* Finder.swift */,
 				CE1936B3272804D100476227 /* Assets.xcassets */,
 			);
 			path = macOS;
@@ -1088,6 +1091,7 @@
 				CE8BA2EF272D741900E2D73F /* Status.Item.swift in Sources */,
 				CE660ABC273AA3F4009A800E /* Trackers.List.swift in Sources */,
 				CEABD1FD272AF0E000F56852 /* Landing.History.Remote.swift in Sources */,
+				CE441D70273FE67800F4DACE /* Finder.swift in Sources */,
 				CEB22E9827358367001C77E0 /* Info.Terms.swift in Sources */,
 				CEB22E9C27358DE1001C77E0 /* Plus.Purchased.swift in Sources */,
 				CE84E630273D52FF0071429B /* Landing.Edit.swift in Sources */,

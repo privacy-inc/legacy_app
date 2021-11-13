@@ -6,7 +6,7 @@ extension Window {
         private var sub: AnyCancellable?
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status) {
+        init(status: Status, finder: Finder) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             state = .active
@@ -51,10 +51,13 @@ extension Window {
                     switch item.flow {
                     case .landing:
                         view = Landing(status: status)
+                        finder.isHidden = true
                     case let .web(web):
                         view = web
+                        finder.isHidden = false
                     case let .error(_, error):
                         view = Recover(error: error)
+                        finder.isHidden = true
                     }
                     
                     view.translatesAutoresizingMaskIntoConstraints = false

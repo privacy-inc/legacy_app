@@ -10,6 +10,7 @@ final class Window: NSWindow, NSWindowDelegate {
     }
     
     let status: Status
+    private(set) weak var finder: Finder!
     
     deinit {
         print("window gone")
@@ -31,13 +32,20 @@ final class Window: NSWindow, NSWindowDelegate {
         setFrameAutosaveName("Window")
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
-        contentView = Content(status: status)
+        
+        let finder = Finder()
+        contentView = Content(status: status, finder: finder)
         delegate = self
         
-        let accessory = NSTitlebarAccessoryViewController()
-        accessory.view = Bar(status: status)
-        accessory.layoutAttribute = .top
-        addTitlebarAccessoryViewController(accessory)
+        let top = NSTitlebarAccessoryViewController()
+        top.view = Bar(status: status)
+        top.layoutAttribute = .top
+        addTitlebarAccessoryViewController(top)
+
+        finder.layoutAttribute = .bottom
+        finder.reset()
+        self.finder = finder
+        addTitlebarAccessoryViewController(finder)
     }
     
     override func close() {
