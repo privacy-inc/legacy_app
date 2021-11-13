@@ -7,19 +7,15 @@ extension Web {
     final class Location: NSObject, WKScriptMessageHandlerWithReply, CLLocationManagerDelegate {
         private var location: CLLocation?
         private var handler: ((Any?, String?) -> Void)?
-        private let manager = CLLocationManager()
-        
-        deinit {
-            print("handler gone")
-        }
-        
-        override init() {
-            super.init()
-            manager.delegate = self
-        }
+        private var manager: CLLocationManager?
         
         func userContentController(_: WKUserContentController, didReceive: WKScriptMessage, replyHandler: @escaping (Any?, String?) -> Void) {
             handler = replyHandler
+            
+            if manager == nil {
+                manager = .init()
+                manager!.delegate = self
+            }
             
             guard
                 didReceive.name == Script.location.method,
@@ -32,7 +28,7 @@ extension Web {
             if let location = location {
                 send(location: location)
             } else {
-                manager.requestLocation()
+                manager!.requestLocation()
             }
         }
         
@@ -48,10 +44,10 @@ extension Web {
         }
         
         func locationManagerDidChangeAuthorization(_: CLLocationManager) {
-            switch manager.authorizationStatus {
+            switch manager?.authorizationStatus {
             case .authorized, .authorizedAlways, .authorizedWhenInUse:
                 if handler != nil {
-                    manager.requestLocation()
+                    manager?.requestLocation()
                 }
             case .denied, .restricted:
                 fail()
@@ -61,11 +57,11 @@ extension Web {
         }
         
         private var accept: Bool {
-            switch manager.authorizationStatus {
+            switch manager?.authorizationStatus {
             case .authorized, .authorizedAlways, .authorizedWhenInUse:
                 return true
             case .notDetermined:
-                manager.requestWhenInUseAuthorization()
+                manager?.requestWhenInUseAuthorization()
                 return true
             default:
                 return false
@@ -75,6 +71,7 @@ extension Web {
         private func fail() {
             handler?(nil, "Not allowed")
             handler = nil
+            manager = nil
         }
         
         private func send(location: CLLocation) {
@@ -82,6 +79,7 @@ extension Web {
                       location.coordinate.longitude,
                       location.horizontalAccuracy], nil)
             handler = nil
+            manager = nil
         }
     }
 }
