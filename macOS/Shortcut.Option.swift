@@ -2,11 +2,13 @@ import AppKit
 
 extension Shortcut {
     final class Option: Control {
+        private weak var image: Image!
+        
         required init?(coder: NSCoder) { nil }
         init(icon: String, color: NSColor) {
             let image = Image(icon: icon, vibrancy: false)
             image.symbolConfiguration = .init(pointSize: 38, weight: .regular)
-                .applying(.init(hierarchicalColor: color))
+            self.image = image
 
             super.init(layer: false)
             addSubview(image)
@@ -21,9 +23,9 @@ extension Shortcut {
             
             switch state {
             case .pressed, .highlighted:
-                alphaValue = 0.6
+                image.symbolConfiguration = image.symbolConfiguration!.applying(.init(hierarchicalColor: .labelColor))
             default:
-                alphaValue = 1
+                image.symbolConfiguration = image.symbolConfiguration!.applying(.init(hierarchicalColor: .secondaryLabelColor))
             }
         }
     }

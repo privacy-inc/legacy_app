@@ -8,7 +8,7 @@ final class Shortcut: NSPopover {
     init(origin: NSView) {
         super.init()
         behavior = .transient
-        contentSize = .init(width: 200, height: 300)
+        contentSize = .init(width: 200, height: 220)
         contentViewController = .init()
         
         let view = NSView(frame: .init(origin: .zero, size: contentSize))
@@ -17,9 +17,8 @@ final class Shortcut: NSPopover {
         let stats = Text(vibrancy: true)
         stats.attributedStringValue = .init(statsString)
         stats.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        view.addSubview(stats)
         
-        let close = Action(title: "Close all", color: .systemIndigo, foreground: .white)
+        let close = Action(title: "Close all")
         close.state = NSApp.windowsOpen > 0 ? .on : .off
         close
             .click
@@ -28,7 +27,6 @@ final class Shortcut: NSPopover {
                 self?.close()
             }
             .store(in: &subs)
-        view.addSubview(close)
         
         let forget = Option(icon: "flame.circle.fill", color: .systemPink)
         forget
@@ -39,35 +37,33 @@ final class Shortcut: NSPopover {
                 pop.contentViewController!.view.window!.makeKey()
             }
             .store(in: &subs)
-        view.addSubview(forget)
         
-        stats.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
-        stats.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-        stats.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor, constant: -30).isActive = true
+        let stack = NSStackView(views: [forget, .init(), Separator(mode: .horizontal), stats, Separator(mode: .horizontal), close])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.orientation = .vertical
+        view.addSubview(stack)
         
-        close.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        close.topAnchor.constraint(equalTo: stats.bottomAnchor, constant: 20).isActive = true
-        
-        forget.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
-        forget.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        stack.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+        stack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
+        stack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        stack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         
         show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxY)
     }
     
     private var statsString: AttributedString {
-        .init("Windows open", attributes: .init([
-            .font: NSFont.preferredFont(forTextStyle: .body),
-            .foregroundColor: NSColor.tertiaryLabelColor]))
-        + .newLine
-        + .init(NSApp.windowsOpen.formatted() + "\n\n", attributes: .init([
+        .init(NSApp.windowsOpen.formatted(), attributes: .init([
             .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
+            .foregroundColor: NSColor.labelColor]))
+        + .init(NSApp.windowsOpen == 1 ? " window" : " windows", attributes: .init([
+            .font: NSFont.preferredFont(forTextStyle: .body),
             .foregroundColor: NSColor.secondaryLabelColor]))
-        + .init("Tabs open", attributes: .init([
-            .font: NSFont.preferredFont(forTextStyle: .callout),
-            .foregroundColor: NSColor.tertiaryLabelColor]))
         + .newLine
         + .init(NSApp.tabsOpen.formatted(), attributes: .init([
             .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
+            .foregroundColor: NSColor.labelColor]))
+        + .init(NSApp.tabsOpen == 1 ? " tab" : " tabs", attributes: .init([
+            .font: NSFont.preferredFont(forTextStyle: .body),
             .foregroundColor: NSColor.secondaryLabelColor]))
     }
 }

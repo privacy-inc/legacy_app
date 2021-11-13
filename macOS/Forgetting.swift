@@ -57,9 +57,10 @@ final class Forgetting: NSPopover {
             }
             .store(in: &subs)
         
-        let stack = NSStackView(views: [title, cache, history, activity, everything])
+        let stack = NSStackView(views: [title, Separator(mode: .horizontal), cache, history, activity, everything])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
+        stack.alignment = .leading
         view.addSubview(stack)
         
         stack.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true

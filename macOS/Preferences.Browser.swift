@@ -2,13 +2,14 @@ import AppKit
 import Combine
 import UserNotifications
 
-extension Preferences.General {
-    final class Browser: NSView {
+extension Preferences {
+    final class Browser: NSTabViewItem {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        init() {
-            super.init(frame: .zero)
+        override init() {
+            super.init(identifier: "")
+            label = "Browser"
             
             let title = Text(vibrancy: true)
             title.textColor = .labelColor
@@ -31,7 +32,7 @@ extension Preferences.General {
                 .sink { [weak self] in
                     LSSetDefaultHandlerForURLScheme(URL.Scheme.http.rawValue as CFString, "incognit" as CFString)
                     LSSetDefaultHandlerForURLScheme(URL.Scheme.https.rawValue as CFString, "incognit" as CFString)
-                    self?.window?.close()
+                    self?.view?.window?.close()
                     
                     Task {
                         await UNUserNotificationCenter.send(message: "Made default Browser")
@@ -48,7 +49,7 @@ extension Preferences.General {
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.orientation = .vertical
             stack.spacing = 20
-            addSubview(stack)
+            view!.addSubview(stack)
             
             if isDefault {
                 badge.isHidden = false
@@ -56,10 +57,8 @@ extension Preferences.General {
                 option.isHidden = true
             }
             
-            stack.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            stack.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            stack.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            stack.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 30).isActive = true
+            stack.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             
             text.widthAnchor.constraint(lessThanOrEqualToConstant: 240).isActive = true
         }
