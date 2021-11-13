@@ -25,7 +25,7 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
         contentView.postsBoundsChangedNotifications = true
         contentView.postsFrameChangedNotifications = true
         drawsBackground = false
-        addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeAlways, .inVisibleRect], owner: self))
+        addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow, .inVisibleRect], owner: self))
         
         let clip = PassthroughSubject<CGRect, Never>()
         clip
@@ -166,14 +166,6 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
     final override func rightMouseDown(with: NSEvent) {
         highlight.send(point(with: with))
         super.rightMouseDown(with: with)
-    }
-    
-    final override func acceptsFirstMouse(for: NSEvent?) -> Bool {
-        true
-    }
-    
-    final override func shouldDelayWindowOrdering(for: NSEvent) -> Bool {
-        true
     }
     
     final override var allowsVibrancy: Bool {
