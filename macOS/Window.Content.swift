@@ -64,6 +64,8 @@ extension Window {
                     view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
                     view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
                     view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+                    
+                    NSApp.mainMenu?.update()
                 }
             
 //            

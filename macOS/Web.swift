@@ -184,16 +184,16 @@ final class Web: Webview, NSTextFinderBarContainer {
     
     var isFindBarVisible = false {
         didSet {
-            findBarView?
-                .subviews
-                .first?
-                .subviews
-                .filter {
-                    !($0 is NSStackView)
-                }
-                .forEach {
-                    $0.removeFromSuperview()
-                }
+//            findBarView?
+//                .subviews
+//                .first?
+//                .subviews
+//                .filter {
+//                    !($0 is NSStackView)
+//                }
+//                .forEach {
+//                    $0.removeFromSuperview()
+//                }
             findBarView?.isHidden = !isFindBarVisible
         }
     }
@@ -295,6 +295,10 @@ final class Web: Webview, NSTextFinderBarContainer {
             .detached(priority: .utility) {
                 await UNUserNotificationCenter.send(message: "Link URL copied")
             }
+    }
+    
+    @objc func findAction(_ sender: Any?) {
+        performTextFinderAction(sender)
     }
     
     @MainActor @objc func exportAsPdf() {

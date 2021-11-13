@@ -119,7 +119,13 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var editItems: [NSMenuItem] {
-        var items: [NSMenuItem] = [
+        var web: Web?
+        if let window = NSApp.keyWindow as? Window,
+           case let .web(item) = window.status.item.flow {
+            web = item
+        }
+        
+        return [
             .child("Undo", Selector(("undo:")), "z"),
             .child("Redo", Selector(("redo:")), "Z"),
             .separator(),
@@ -127,38 +133,30 @@ final class Menu: NSMenu, NSMenuDelegate {
             .child("Copy", #selector(NSText.copy(_:)), "c"),
             .child("Paste", #selector(NSText.paste), "v"),
             .child("Delete", #selector(NSText.delete)),
-            .child("Select All", #selector(NSText.selectAll), "a")]
-        
-        if let window = NSApp.keyWindow as? Window,
-           case let .web(web) = window.status.item.flow {
-            
-            items += [
+            .child("Select All", #selector(NSText.selectAll), "a"),
+            .separator(),
+            .parent("Find", [
+                .child("Find", #selector(Web.findAction), "f") {
+                    $0.tag = .init(NSTextFinder.Action.showFindInterface.rawValue)
+                    $0.target = web
+                },
+                .child("Find Next", #selector(Web.findAction), "g") {
+                    $0.tag = .init(NSTextFinder.Action.nextMatch.rawValue)
+                    $0.target = web
+                },
+                .child("Find Previous", #selector(Web.findAction), "G") {
+                    $0.tag = .init(NSTextFinder.Action.previousMatch.rawValue)
+                    $0.target = web
+                },
                 .separator(),
-                .parent("Find", [
-                    .child("Find", #selector(NSResponder.performTextFinderAction), "f") {
-                        $0.tag = .init(NSTextFinder.Action.showFindInterface.rawValue)
-                        $0.target = web
-                    },
-                    .child("Find Next", #selector(NSResponder.performTextFinderAction), "g") {
-                        $0.tag = .init(NSTextFinder.Action.nextMatch.rawValue)
-                        $0.target = web
-                    },
-                    .child("Find Previous", #selector(NSResponder.performTextFinderAction), "G") {
-                        $0.tag = .init(NSTextFinder.Action.previousMatch.rawValue)
-                        $0.target = web
-                    },
-                    .separator(),
-                    .child("Hide Find Banner", #selector(NSResponder.performTextFinderAction), "F") {
-                        $0.tag = .init(NSTextFinder.Action.hideFindInterface.rawValue)
-                        $0.isEnabled = web.isFindBarVisible == true
-                        $0.target = web
-                    }
-                ]) {
-                    $0.submenu!.autoenablesItems = false
-                }]
-        }
-        
-        return items
+                .child("Hide Find Banner", #selector(Web.findAction), "F") {
+                    $0.tag = .init(NSTextFinder.Action.hideFindInterface.rawValue)
+                    $0.isEnabled = web?.isFindBarVisible == true
+                    $0.target = web
+                }
+            ]) {
+                $0.submenu!.autoenablesItems = false
+            }]
     }
     
     private var view: NSMenuItem {
