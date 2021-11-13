@@ -29,9 +29,13 @@ final class Web: Webview, NSTextFinderBarContainer {
             configuration.setValue(false, forKey: "drawsBackground")
         }
         
+        configuration.userContentController.addUserScript(.init(source: Script.location.script, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+        
         super.init(configuration: configuration, history: history, settings: settings, dark: dark)
         translatesAutoresizingMaskIntoConstraints = false
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15"
+        
+        configuration.userContentController.addScriptMessageHandler(Location(), contentWorld: .page, name: Script.location.method)
         
         finder.client = self
         finder.findBarContainer = self
@@ -44,29 +48,6 @@ final class Web: Webview, NSTextFinderBarContainer {
     override func error(error: Err) {
         status.change(flow: .error(self, error), id: item)
     }
-    
-//    override func userContentController(_ controller: WKUserContentController, didReceive: WKScriptMessage) {
-//        super.userContentController(controller, didReceive: didReceive)
-//        
-//        switch Script.Message(rawValue: didReceive.name) {
-//        case .location:
-//            guard (didReceive.body as? String) == "_privacy_incognit_location_request", settings.location else { return }
-//            var sub: AnyCancellable?
-//            sub = location
-//                .current
-//                .compactMap {
-//                    $0
-//                }
-//                .sink { [weak self] in
-//                    sub?.cancel()
-//                    self?.evaluateJavaScript(
-//                        "_privacy_incognit_location_received(\($0.coordinate.latitude), \($0.coordinate.longitude), \($0.horizontalAccuracy));")
-//                }
-//            location.request()
-//        default:
-//            break
-//        }
-//    }
     
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
         window?.makeFirstResponder(self)

@@ -3,8 +3,6 @@ import StoreKit
 import UserNotifications
 import Specs
 
-//let location = Location()
-
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate, UNUserNotificationCenterDelegate {
     required init?(coder: NSCoder) { nil }
     override init() {

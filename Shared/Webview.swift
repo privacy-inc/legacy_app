@@ -148,6 +148,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         stopLoading()
         uiDelegate = nil
         navigationDelegate = nil
+        
+        configuration.userContentController.removeScriptMessageHandler(forName: Script.location.method)
     }
     
     final func load(_ url: URL) {
