@@ -28,7 +28,7 @@ extension Bar.Tab {
             
             let empty = Image(icon: "sparkles")
             empty.symbolConfiguration = .init(textStyle: .body)
-                .applying(.init(hierarchicalColor: .secondaryLabelColor))
+            empty.contentTintColor = .tertiaryLabelColor
             addSubview(empty)
             
             let title = Text(vibrancy: true)
@@ -52,7 +52,7 @@ extension Bar.Tab {
             close.state = .hidden
             self.close = close
             
-            let width = widthAnchor.constraint(equalToConstant: 70)
+            let width = widthAnchor.constraint(equalToConstant: 80)
             width.isActive = true
             
             close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
@@ -62,7 +62,7 @@ extension Bar.Tab {
             icon.centerYAnchor.constraint(equalTo: close.centerYAnchor).isActive = true
             
             empty.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
-            empty.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive = true
+            empty.rightAnchor.constraint(equalTo: rightAnchor, constant: -24).isActive = true
             
             title.leftAnchor.constraint(equalTo: close.rightAnchor).isActive = true
             title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
