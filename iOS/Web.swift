@@ -33,6 +33,28 @@ final class Web: Webview, UIViewRepresentable {
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.clipsToBounds = false
         scrollView.indicatorStyle = dark && settings.dark ? .white : .default
+        
+        let background = UIColor
+            .secondarySystemBackground
+            .resolvedColor(with:
+                                .init(userInterfaceStyle: dark ? .dark : .light))
+        
+        underPageBackgroundColor = background
+        publisher(for: \.themeColor)
+            .sink { [weak self] theme in
+                guard
+                    dark,
+                    settings.dark,
+                    let color = theme
+                else {
+                    self?.underPageBackgroundColor = background
+                    return
+                }
+                var alpha = CGFloat()
+                color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
+                self?.underPageBackgroundColor = alpha == 0 ? background : color
+            }
+            .store(in: &subs)
     }
     
     deinit {

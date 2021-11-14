@@ -3,10 +3,9 @@ import Combine
 import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
+    var subs = Set<AnyCancellable>()
     final let history: UInt16
-    final let dark: Bool
     final let progress = PassthroughSubject<Double, Never>()
-    private var subs = Set<AnyCancellable>()
     private let settings: Specs.Settings.Configuration
     
     deinit {
@@ -21,7 +20,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         
         self.history = history
         self.settings = settings
-        self.dark = dark
         
         configuration.suppressesIncrementalRendering = false
         configuration.allowsAirPlayForMediaPlayback = true
@@ -85,23 +83,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         publisher(for: \.estimatedProgress)
             .subscribe(progress)
             .store(in: &subs)
-        
-        if dark && settings.dark {
-            underPageBackgroundColor = defaultBackground
-        } else {
-            publisher(for: \.themeColor)
-                .removeDuplicates()
-                .sink { [weak self] theme in
-                    guard let color = theme else {
-                        self?.underPageBackgroundColor = self?.defaultBackground
-                        return
-                    }
-                    var alpha = CGFloat()
-                    color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
-                    self?.underPageBackgroundColor = alpha == 0 ? self?.defaultBackground : color
-                }
-                .store(in: &subs)
-        }
         
         Task {
             guard

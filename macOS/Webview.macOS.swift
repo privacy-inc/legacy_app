@@ -1,11 +1,6 @@
-import AppKit
 import WebKit
 
 extension Webview: WKDownloadDelegate {
-    final var defaultBackground: NSColor {
-        .underPageBackgroundColor
-    }
-    
     final func download(_: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
         FileManager.default.fileExists(atPath: downloads.appendingPathComponent(suggestedFilename).path)
             ? downloads.appendingPathComponent(UUID().uuidString + "_" + suggestedFilename)
