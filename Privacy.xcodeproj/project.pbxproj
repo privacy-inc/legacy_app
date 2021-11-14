@@ -194,6 +194,11 @@
 		CEABD1F9272AE8C600F56852 /* Landing.Bookmarks.Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F8272AE8C600F56852 /* Landing.Bookmarks.Other.swift */; };
 		CEABD1FB272AED7A00F56852 /* Landing.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1FA272AED7A00F56852 /* Landing.History.swift */; };
 		CEABD1FD272AF0E000F56852 /* Landing.History.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1FC272AF0E000F56852 /* Landing.History.Remote.swift */; };
+		CEAFF0122741522200A9F744 /* Autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF0112741522200A9F744 /* Autocomplete.swift */; };
+		CEAFF016274152E300A9F744 /* Autocomplete.Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF015274152E300A9F744 /* Autocomplete.Move.swift */; };
+		CEAFF0182741531A00A9F744 /* Autocomplete.List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF0172741531A00A9F744 /* Autocomplete.List.swift */; };
+		CEAFF01A2741532F00A9F744 /* Autocomplete.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF0192741532F00A9F744 /* Autocomplete.Cell.swift */; };
+		CEAFF01C2741534200A9F744 /* Autocomplete.Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF01B2741534200A9F744 /* Autocomplete.Info.swift */; };
 		CEB22E9227355208001C77E0 /* Web.Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E9127355208001C77E0 /* Web.Destination.swift */; };
 		CEB22E94273578E1001C77E0 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E93273578E1001C77E0 /* Info.swift */; };
 		CEB22E9627357A84001C77E0 /* Info.Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E9527357A84001C77E0 /* Info.Policy.swift */; };
@@ -477,6 +482,11 @@
 		CEABD1F8272AE8C600F56852 /* Landing.Bookmarks.Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Other.swift; sourceTree = "<group>"; };
 		CEABD1FA272AED7A00F56852 /* Landing.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.swift; sourceTree = "<group>"; };
 		CEABD1FC272AF0E000F56852 /* Landing.History.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Remote.swift; sourceTree = "<group>"; };
+		CEAFF0112741522200A9F744 /* Autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.swift; sourceTree = "<group>"; };
+		CEAFF015274152E300A9F744 /* Autocomplete.Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.Move.swift; sourceTree = "<group>"; };
+		CEAFF0172741531A00A9F744 /* Autocomplete.List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.List.swift; sourceTree = "<group>"; };
+		CEAFF0192741532F00A9F744 /* Autocomplete.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.Cell.swift; sourceTree = "<group>"; };
+		CEAFF01B2741534200A9F744 /* Autocomplete.Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.Info.swift; sourceTree = "<group>"; };
 		CEB22E9127355208001C77E0 /* Web.Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Destination.swift; sourceTree = "<group>"; };
 		CEB22E93273578E1001C77E0 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		CEB22E9527357A84001C77E0 /* Info.Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Policy.swift; sourceTree = "<group>"; };
@@ -568,6 +578,11 @@
 				CEE4D86B273D1F3B00EAA768 /* Activity.swift */,
 				CE1936AF272804CF00476227 /* App.swift */,
 				CE5D41AE272C3A8300AEBE0F /* AttributedString.swift */,
+				CEAFF0192741532F00A9F744 /* Autocomplete.Cell.swift */,
+				CEAFF01B2741534200A9F744 /* Autocomplete.Info.swift */,
+				CEAFF0172741531A00A9F744 /* Autocomplete.List.swift */,
+				CEAFF015274152E300A9F744 /* Autocomplete.Move.swift */,
+				CEAFF0112741522200A9F744 /* Autocomplete.swift */,
 				CE5D41BA272C5CDC00AEBE0F /* Bar.Option.swift */,
 				CE5D41B0272C3D8800AEBE0F /* Bar.swift */,
 				CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */,
@@ -1028,6 +1043,7 @@
 				CEBFC84B273178BE00EFDA17 /* Recover.swift.swift in Sources */,
 				CE660AC0273AA42D009A800E /* Trackers.Info.swift in Sources */,
 				CE3576B527281CFD005854B5 /* Store.State.swift in Sources */,
+				CEAFF0182741531A00A9F744 /* Autocomplete.List.swift in Sources */,
 				CE43126F2736D71500DA0F99 /* Preferences.Navigation.swift in Sources */,
 				CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */,
 				CEABD1F7272AE70700F56852 /* Landing.Bookmarks.Remote.swift in Sources */,
@@ -1052,11 +1068,13 @@
 				CEBCAAD82732BE5000B9D49C /* Forgetting.swift in Sources */,
 				CE19EC912736B32500A412FC /* Plus.Action.swift in Sources */,
 				CE3576AE27281689005854B5 /* Global.swift in Sources */,
+				CEAFF01C2741534200A9F744 /* Autocomplete.Info.swift in Sources */,
 				CEABD1FB272AED7A00F56852 /* Landing.History.swift in Sources */,
 				CEBCAADB2732C64600B9D49C /* Forget.swift in Sources */,
 				CE74300E2729825500F5F5B8 /* Flip.swift in Sources */,
 				CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */,
 				CE5D41B1272C3D8800AEBE0F /* Bar.swift in Sources */,
+				CEAFF0122741522200A9F744 /* Autocomplete.swift in Sources */,
 				CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */,
 				CE4312672736D25C00DA0F99 /* Preferences.Features.swift in Sources */,
 				CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */,
@@ -1116,6 +1134,7 @@
 				CE5D41AF272C3A8300AEBE0F /* AttributedString.swift in Sources */,
 				CEBFC845273163B300EFDA17 /* Landing.History.Item.swift in Sources */,
 				CE8BA2FB272D9B7700E2D73F /* Search.Cell.Editor.swift in Sources */,
+				CEAFF016274152E300A9F744 /* Autocomplete.Move.swift in Sources */,
 				CE4312692736D25C00DA0F99 /* Preferences.swift in Sources */,
 				CEBB8BDF2728258300016F2C /* Status.swift in Sources */,
 				CEB22E9227355208001C77E0 /* Web.Destination.swift in Sources */,
@@ -1134,6 +1153,7 @@
 				CE5D41AB272C240D00AEBE0F /* Landing.History.Other.swift in Sources */,
 				CEB22E9A2735880F001C77E0 /* Plus.swift in Sources */,
 				CED28599273C01DE0086D038 /* Trackers.Pop.swift in Sources */,
+				CEAFF01A2741532F00A9F744 /* Autocomplete.Cell.swift in Sources */,
 				CE6C7283273D6D7D007972FC /* Websites.Cell.swift in Sources */,
 				CE3576B227281C3F005854B5 /* Window.swift in Sources */,
 				CEABD1ED272AC22F00F56852 /* Landing.Simple.swift in Sources */,

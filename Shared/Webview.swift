@@ -3,7 +3,7 @@ import Combine
 import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
-    var subs = Set<AnyCancellable>()
+    final var subs = Set<AnyCancellable>()
     final let history: UInt16
     final let progress = PassthroughSubject<Double, Never>()
     private let settings: Specs.Settings.Configuration

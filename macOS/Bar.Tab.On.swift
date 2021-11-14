@@ -3,9 +3,11 @@ import Combine
 
 extension Bar.Tab {
     final class On: NSView, NSTextFieldDelegate {
-        private var subs = Set<AnyCancellable>()
+        static let width = CGFloat(350)
         private weak var stack: NSStackView!
         private weak var status: Status!
+        private var subs = Set<AnyCancellable>()
+        private let autocomplete = Autocomplete()
         
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {
@@ -65,7 +67,7 @@ extension Bar.Tab {
             stack.spacing = 0
             addSubview(stack)
             
-            widthAnchor.constraint(equalToConstant: 350).isActive = true
+            widthAnchor.constraint(equalToConstant: Self.width).isActive = true
             
             background.topAnchor.constraint(equalTo: topAnchor).isActive = true
             background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -158,23 +160,20 @@ extension Bar.Tab {
                 .store(in: &subs)
         }
         
-        func controlTextDidChange(_: Notification) {
+        func controlTextDidChange(_ control: Notification) {
+            guard let search = control.object as? Search else { return }
             
+            if !autocomplete.isVisible {
+                window!.addChildWindow(autocomplete, ordered: .above)
+                autocomplete.start()
+                
+                ;{
+                    autocomplete.adjust.send((position: .init(x: $0.x + 4, y: $0.y - 4), width: bounds.width - 8))
+                } (window!.convertPoint(toScreen: convert(frame.origin, to: nil)))
+            }
+            
+            autocomplete.find(string: search.stringValue)
         }
-        
-//        override func textDidChange(_: Notification) {
-    //        if !autocomplete.isVisible {
-    //            window!.addChildWindow(autocomplete, ordered: .above)
-    //            autocomplete.start()
-    //
-    //            ;{
-    //                autocomplete.adjust.send((position: .init(x: $0.x - 14, y: $0.y - 1.5), width: bounds.width + 28))
-    //            } (window!.convertPoint(toScreen: superview!.convert(frame.origin, to: nil)))
-    //        }
-    //        autocomplete
-    //            .filter
-    //            .send(stringValue.trimmingCharacters(in: .whitespacesAndNewlines))
-//        }
         
         func control(_ control: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
