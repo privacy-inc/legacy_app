@@ -12,7 +12,6 @@ final class Autocomplete: NSPanel {
                    styleMask: [.borderless],
                    backing: .buffered,
                    defer: true)
-        isMovableByWindowBackground = true
         isOpaque = false
         backgroundColor = .clear
         hasShadow = true
@@ -22,7 +21,6 @@ final class Autocomplete: NSPanel {
         blur.state = .active
         blur.wantsLayer = true
         blur.layer!.cornerRadius = 12
-        blur.layer!.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         contentView!.addSubview(blur)
         
         let list = List()
@@ -39,7 +37,7 @@ final class Autocomplete: NSPanel {
                             .size
                             .map(\.height))
             .sink { [weak self] in
-                blur.frame.size = .init(width: $0.0.width, height: min($0.1, 300))
+                blur.frame.size = .init(width: $0.0.width, height: min($0.1, 240))
                 self?.setContentSize(blur.frame.size)
                 self?.setFrameTopLeftPoint($0.0.position)
             }
@@ -48,16 +46,12 @@ final class Autocomplete: NSPanel {
     
     func start() {
         guard monitor == nil else { return }
-        
         monitor = NSEvent
             .addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown, .otherMouseDown]) { [weak self] event in
-                guard
-                    self?.isVisible == true,
-                    event.window != self
-                else { return event }
-                
-                self?.end()
-                return nil
+                if self?.isVisible == true && event.window != self {
+                    self?.end()
+                }
+                return event
             }
     }
     
@@ -73,11 +67,5 @@ final class Autocomplete: NSPanel {
         Task {
             await list.found.send(cloud.autocomplete(search: string))
         }
-    }
-    
-    override func close() {
-        super.close()
-        monitor
-            .map(NSEvent.removeMonitor)
     }
 }

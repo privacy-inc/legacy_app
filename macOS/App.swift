@@ -71,10 +71,6 @@ import Specs
         await center.present(notification)
     }
     
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent: UNNotification) async -> UNNotificationPresentationOptions {
-//        await center.present(willPresent)
-//    }
-    
     @objc override func orderFrontStandardAboutPanel(_ sender: Any?) {
         (anyWindow() ?? About())
             .makeKeyAndOrderFront(nil)

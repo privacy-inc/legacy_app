@@ -168,7 +168,7 @@ extension Bar.Tab {
                 autocomplete.start()
                 
                 ;{
-                    autocomplete.adjust.send((position: .init(x: $0.x + 4, y: $0.y - 4), width: bounds.width - 8))
+                    autocomplete.adjust.send((position: .init(x: $0.x - 3, y: $0.y - 6), width: bounds.width + 6))
                 } (window!.convertPoint(toScreen: convert(frame.origin, to: nil)))
             }
             
