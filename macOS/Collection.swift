@@ -12,7 +12,7 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
     private let highlight = PassthroughSubject<CGPoint, Never>()
 
     required init?(coder: NSCoder) { nil }
-    init() {
+    init(active: NSTrackingArea.Options) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -25,7 +25,7 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
         contentView.postsBoundsChangedNotifications = true
         contentView.postsFrameChangedNotifications = true
         drawsBackground = false
-        addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow, .inVisibleRect], owner: self))
+        addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, active, .inVisibleRect], owner: self))
         
         let clip = PassthroughSubject<CGRect, Never>()
         clip

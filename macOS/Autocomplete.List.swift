@@ -10,13 +10,14 @@ extension Autocomplete {
         private let select = PassthroughSubject<CGPoint, Never>()
         
         required init?(coder: NSCoder) { nil }
-        override init() {
-            super.init()
+        init(status: Status) {
+            super.init(active: .activeAlways)
+            scrollerInsets.top = 8
             scrollerInsets.bottom = 8
             
             let vertical = CGFloat(15)
-            let info = PassthroughSubject<[Info], Never>()
-            let selected = PassthroughSubject<Info.ID?, Never>()
+            let info = CurrentValueSubject<[Info], Never>([])
+            let selected = PassthroughSubject<Info.ID, Never>()
             
             found
                 .sink { [weak self] _ in
@@ -39,18 +40,25 @@ extension Autocomplete {
                 .store(in: &subs)
             
             info
+                .dropFirst()
                 .removeDuplicates()
                 .sink { [weak self] in
+                    guard !$0.isEmpty else {
+                        self?.items.send([])
+                        self?.size.send(.init(width: 0, height: 0))
+                        return
+                    }
+                    
                     let result = $0
                         .reduce(into: (items: Set<CollectionItem<Info>>(), y: vertical)) {
                             $0.items.insert(.init(
                                                 info: $1,
                                                 rect: .init(
-                                                    x: 0,
+                                                    x: 12,
                                                     y: $0.y,
-                                                    width: 100,
-                                                    height: 30)))
-                            $0.y += 30 + 2
+                                                    width: Cell.size.width,
+                                                    height: Cell.size.height)))
+                            $0.y += Cell.size.height + 2
                         }
                     self?.items.send(result.items)
                     self?.size.send(.init(width: 0, height: result.y + vertical))
@@ -123,14 +131,21 @@ extension Autocomplete {
                 .subscribe(selected)
                 .store(in: &subs)
             
-//            selected
-//                .compactMap(\.?.board)
-//                .sink { [weak self] in
-//                    self?.window?.close()
-//                    session.select.send($0)
-//                }
-//                .store(in: &subs)
+            selected
+                .compactMap { [weak self] id in
+                    info.value.first { $0.id == id }?.access
+                }
+                .sink { [weak self] access in
+                    self?.window?.close()
+                    
+                    Task {
+                        await status.reaccess(access: access)
+                    }
+                }
+                .store(in: &subs)
         }
+        
+        
         
         override func mouseUp(with: NSEvent) {
             switch with.clickCount {

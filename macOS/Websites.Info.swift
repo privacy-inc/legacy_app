@@ -30,11 +30,11 @@ extension Websites {
             switch website.access {
             case let remote as Access.Remote:
                 string = .init(website.title, attributes: .init([
-                    .font: NSFont.preferredFont(forTextStyle: .body),
+                    .font: NSFont.preferredFont(forTextStyle: .title3),
                     .foregroundColor: NSColor.labelColor]))
                 + .newLine
                 + .init(remote.domain.minimal, attributes: .init([
-                    .font: NSFont.preferredFont(forTextStyle: .footnote),
+                    .font: NSFont.preferredFont(forTextStyle: .body),
                     .foregroundColor: NSColor.secondaryLabelColor]))
             default:
                 string = .init(website.access.value, attributes: .init([

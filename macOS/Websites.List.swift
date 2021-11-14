@@ -11,8 +11,8 @@ extension Websites {
         private let select = PassthroughSubject<CGPoint, Never>()
         
         required init?(coder: NSCoder) { nil }
-        override init() {
-            super.init()
+        init() {
+            super.init(active: .activeInKeyWindow)
             menu = .init()
             menu!.delegate = self
             

@@ -7,8 +7,8 @@ extension Trackers {
         private let select = PassthroughSubject<CGPoint, Never>()
         
         required init?(coder: NSCoder) { nil }
-        override init() {
-            super.init()
+        init() {
+            super.init(active: .activeInKeyWindow)
             
             let vertical = CGFloat(30)
             let info = PassthroughSubject<[Info], Never>()

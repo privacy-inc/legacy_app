@@ -7,7 +7,7 @@ final class Autocomplete: NSPanel {
     private var monitor: Any?
     private var subs = Set<AnyCancellable>()
     
-    init() {
+    init(status: Status) {
         super.init(contentRect: .zero,
                    styleMask: [.borderless],
                    backing: .buffered,
@@ -23,7 +23,7 @@ final class Autocomplete: NSPanel {
         blur.layer!.cornerRadius = 12
         contentView!.addSubview(blur)
         
-        let list = List()
+        let list = List(status: status)
         self.list = list
         blur.addSubview(list)
         
@@ -35,9 +35,13 @@ final class Autocomplete: NSPanel {
         adjust
             .combineLatest(list
                             .size
-                            .map(\.height))
+                            .map(\.height)
+                            .map {
+                                min($0, 300)
+                            }
+                            .removeDuplicates())
             .sink { [weak self] in
-                blur.frame.size = .init(width: $0.0.width, height: min($0.1, 240))
+                blur.frame.size = .init(width: $0.0.width, height: $0.1)
                 self?.setContentSize(blur.frame.size)
                 self?.setFrameTopLeftPoint($0.0.position)
             }
@@ -49,18 +53,18 @@ final class Autocomplete: NSPanel {
         monitor = NSEvent
             .addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown, .otherMouseDown]) { [weak self] event in
                 if self?.isVisible == true && event.window != self {
-                    self?.end()
+                    self?.close()
                 }
                 return event
             }
     }
     
-    func end() {
+    override func close() {
         monitor
             .map(NSEvent.removeMonitor)
         monitor = nil
         parent?.removeChildWindow(self)
-        orderOut(nil)
+        super.close()
     }
     
     func find(string: String) {

@@ -7,11 +7,12 @@ extension Bar.Tab {
         private weak var stack: NSStackView!
         private weak var status: Status!
         private var subs = Set<AnyCancellable>()
-        private let autocomplete = Autocomplete()
-        
+        private let autocomplete: Autocomplete
+
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {
             self.status = status
+            autocomplete = .init(status: status)
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             

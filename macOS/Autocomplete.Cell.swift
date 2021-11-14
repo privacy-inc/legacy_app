@@ -1,9 +1,13 @@
 import AppKit
+import Combine
 
 extension Autocomplete {
     final class Cell: CollectionCell<Info> {
+        static let size = CGSize(width: Bar.Tab.On.width - 24, height: 52)
         private weak var text: CollectionCellText!
+        private weak var icon: CollectionCellImage!
         private weak var separator: Shape!
+        private var sub: AnyCancellable?
         
         override var item: CollectionItem<Info>? {
             didSet {
@@ -11,10 +15,32 @@ extension Autocomplete {
                     item != oldValue,
                     let item = item
                 else { return }
-                frame = item.rect
-                text.frame.size = item.rect.size
-                text.string = item.info.string
-                separator.isHidden = item.info.first
+                
+                if item.rect != oldValue?.rect {
+                    frame = item.rect
+                    
+                    let width = item.rect.size.width - 66
+                    let height = item.info.text.height(for: width)
+                    text.frame = .init(
+                        x: 52,
+                        y: (Self.size.height - height) / 2,
+                        width: width,
+                        height: height)
+                    separator.isHidden = item.info.first
+                }
+                
+                if item.info != oldValue?.info {
+                    text.string = item.info.text
+                    sub?.cancel()
+                    icon.contents = NSImage(systemSymbolName: "network", accessibilityDescription: nil)?
+                        .withSymbolConfiguration(.init(pointSize: 32, weight: .ultraLight)
+                                                    .applying(.init(hierarchicalColor: .tertiaryLabelColor)))
+                    
+                    Task
+                        .detached { [weak self] in
+                            await self?.update(icon: item.info.access.icon)
+                        }
+                }
             }
         }
         
@@ -22,14 +48,19 @@ extension Autocomplete {
         override init(layer: Any) { super.init(layer: layer) }
         required init() {
             super.init()
-            cornerRadius = 6
+            cornerCurve = .continuous
+            cornerRadius = 8
+            
+            let icon = CollectionCellImage()
+            icon.frame = .init(
+                x: 14,
+                y: 14,
+                width: 24,
+                height: 24)
+            addSublayer(icon)
+            self.icon = icon
             
             let text = CollectionCellText()
-            text.frame = .init(
-                x: 0,
-                y: 0,
-                width: 0,
-                height: 0)
             addSublayer(text)
             self.text = text
             
@@ -37,20 +68,29 @@ extension Autocomplete {
             separator.fillColor = .clear
             separator.lineWidth = 1
             separator.strokeColor = NSColor.separatorColor.cgColor
-            separator.path = .init(rect: .init(x: 0, y: -1, width: 100, height: 0), transform: nil)
+            separator.path = .init(rect: .init(x: 10, y: -1, width: Self.size.width - 20, height: 0), transform: nil)
             addSublayer(separator)
             self.separator = separator
         }
         
         override func update() {
             switch state {
-            case .pressed:
-                backgroundColor = NSColor.quaternaryLabelColor.cgColor
-            case .highlighted:
-                backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+            case .highlighted, .pressed:
+                backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
             default:
                 backgroundColor = .clear
             }
+        }
+        
+        private func update(icon: String?) async {
+            guard
+                let icon = icon,
+                let publisher = await favicon.publisher(for: icon)
+            else { return }
+            sub = publisher
+                .sink { [weak self] in
+                    self?.icon.contents = $0
+                }
         }
     }
 }

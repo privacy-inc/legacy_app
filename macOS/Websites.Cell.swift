@@ -3,7 +3,7 @@ import Combine
 
 extension Websites {
     final class Cell: CollectionCell<Info> {
-        static let height = CGFloat(60)
+        static let height = CGFloat(66)
         private weak var text: CollectionCellText!
         private weak var icon: CollectionCellImage!
         private weak var separator: Shape!
@@ -18,12 +18,12 @@ extension Websites {
                 
                 if item.rect != oldValue?.rect {
                     frame = item.rect
-                    separator.path = .init(rect: .init(x: 16, y: -0.5, width: item.rect.size.width - 32, height: 0), transform: nil)
+                    separator.path = .init(rect: .init(x: 17, y: -0.5, width: item.rect.size.width - 34, height: 0), transform: nil)
                     
-                    let width = item.rect.size.width - 77
+                    let width = item.rect.size.width - 86
                     let height = item.info.text.height(for: width)
                     text.frame = .init(
-                        x: 58,
+                        x: 64,
                         y: (Self.height - height) / 2,
                         width: width,
                         height: height)
@@ -53,9 +53,10 @@ extension Websites {
             cornerRadius = 10
             
             let icon = CollectionCellImage()
+            icon.cornerRadius = 6
             icon.frame = .init(
-                x: 16,
-                y: 14,
+                x: 17,
+                y: 17,
                 width: 32,
                 height: 32)
             addSublayer(icon)
