@@ -8,7 +8,7 @@ extension Bar.Tab {
         private weak var status: Status!
         private var subs = Set<AnyCancellable>()
         private let autocomplete: Autocomplete
-
+        
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {
             self.status = status
@@ -161,6 +161,10 @@ extension Bar.Tab {
                 .store(in: &subs)
         }
         
+        deinit {
+            autocomplete.close()
+        }
+        
         func controlTextDidChange(_ control: Notification) {
             guard let search = control.object as? Search else { return }
             
@@ -179,45 +183,19 @@ extension Bar.Tab {
         func control(_ control: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
             case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
-                /*
-                 if autocomplete.isVisible {
-                     autocomplete.end()
-                 } else {
-                     window!.makeFirstResponder(superview!)
-                 }
-                 */
+                autocomplete.close()
                 window?.makeFirstResponder(window?.contentView)
             case #selector(insertNewline):
-                /*
-                 autocomplete.end()
-                 
-                 let state = session.tab.items.value[state: id]
-                 cloud
-                     .browse(stringValue, browse: state.browse) { [weak self] in
-                         guard let id = self?.id else { return }
-                         if state.browse == $0 {
-                             if state.isError {
-                                 self?.session.tab.browse(id, $0)
-                             }
-                             self?.session.load.send((id: id, access: $1))
-                         } else {
-                             self?.session.tab.browse(id, $0)
-                         }
-                     }
-                 window!.makeFirstResponder(window!.contentView)
-                 */
+                autocomplete.close()
                 Task
                     .detached(priority: .utility) { [weak self] in
                         await self?.status.searching(search: control.stringValue)
                     }
                 window!.makeFirstResponder(window!.contentView)
-                break
             case #selector(moveUp):
-                //autocomplete.up.send(.init())
-                break
+                autocomplete.list.move.send((date: .init(), direction: .up))
             case #selector(moveDown):
-                //autocomplete.down.send(.init())
-                break
+                autocomplete.list.move.send((date: .init(), direction: .down))
             default:
                 return false
             }

@@ -3,7 +3,7 @@ import Combine
 
 final class Autocomplete: NSPanel {
     let adjust = PassthroughSubject<(position: CGPoint, width: CGFloat), Never>()
-    private weak var list: List!
+    private(set) weak var list: List!
     private var monitor: Any?
     private var subs = Set<AnyCancellable>()
     

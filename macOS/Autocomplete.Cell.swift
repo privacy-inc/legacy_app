@@ -3,7 +3,7 @@ import Combine
 
 extension Autocomplete {
     final class Cell: CollectionCell<Info> {
-        static let size = CGSize(width: Bar.Tab.On.width - 24, height: 52)
+        static let size = CGSize(width: Bar.Tab.On.width - 24, height: 56)
         private weak var text: CollectionCellText!
         private weak var icon: CollectionCellImage!
         private weak var separator: Shape!
@@ -19,10 +19,10 @@ extension Autocomplete {
                 if item.rect != oldValue?.rect {
                     frame = item.rect
                     
-                    let width = item.rect.size.width - 66
+                    let width = item.rect.size.width - 75
                     let height = item.info.text.height(for: width)
                     text.frame = .init(
-                        x: 52,
+                        x: 54,
                         y: (Self.size.height - height) / 2,
                         width: width,
                         height: height)
@@ -52,9 +52,10 @@ extension Autocomplete {
             cornerRadius = 8
             
             let icon = CollectionCellImage()
+            icon.cornerRadius = 6
             icon.frame = .init(
-                x: 14,
-                y: 14,
+                x: 16,
+                y: 16,
                 width: 24,
                 height: 24)
             addSublayer(icon)
@@ -68,7 +69,7 @@ extension Autocomplete {
             separator.fillColor = .clear
             separator.lineWidth = 1
             separator.strokeColor = NSColor.separatorColor.cgColor
-            separator.path = .init(rect: .init(x: 10, y: -1, width: Self.size.width - 20, height: 0), transform: nil)
+            separator.path = .init(rect: .init(x: 20, y: -1, width: Self.size.width - 40, height: 0), transform: nil)
             addSublayer(separator)
             self.separator = separator
         }

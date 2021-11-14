@@ -132,7 +132,7 @@ extension Autocomplete {
                 .store(in: &subs)
             
             selected
-                .compactMap { [weak self] id in
+                .compactMap { id in
                     info.value.first { $0.id == id }?.access
                 }
                 .sink { [weak self] access in
