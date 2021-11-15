@@ -289,9 +289,7 @@ final class Menu: NSMenu, NSMenuDelegate {
                 $0.target = self
             },
             .separator(),
-            .child("Privacy +", #selector(triggerPrivacyPlus)) {
-                $0.target = self
-            },
+            .child("Privacy +", #selector(NSApp.showPrivacyPlus)),
             .separator(),
             .child("Rate on the App Store", #selector(triggerRate)) {
                 $0.target = self
@@ -354,11 +352,6 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     @objc private func triggerTerms() {
         (NSApp.anyWindow() ?? Info.Terms())
-            .makeKeyAndOrderFront(nil)
-    }
-    
-    @objc private func triggerPrivacyPlus() {
-        (NSApp.anyWindow() ?? Plus())
             .makeKeyAndOrderFront(nil)
     }
     

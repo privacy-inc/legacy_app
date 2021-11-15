@@ -26,7 +26,12 @@ final class Preferences: NSWindow {
         tab.addTabViewItem(Location())
         contentView!.addSubview(tab)
         
-        tab.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
+        let top = NSTitlebarAccessoryViewController()
+        top.view = Bar()
+        top.layoutAttribute = .top
+        addTitlebarAccessoryViewController(top)
+        
+        tab.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         tab.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
         tab.leftAnchor.constraint(equalTo: contentView!.leftAnchor).isActive = true
         tab.rightAnchor.constraint(equalTo: contentView!.rightAnchor).isActive = true

@@ -144,4 +144,9 @@ extension NSApplication {
         (anyWindow() ?? Preferences())
             .makeKeyAndOrderFront(nil)
     }
+    
+    @objc func showPrivacyPlus() {
+        (NSApp.anyWindow() ?? Plus())
+            .makeKeyAndOrderFront(nil)
+    }
 }

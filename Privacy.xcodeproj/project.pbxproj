@@ -222,6 +222,8 @@
 		CEBFC84927316A7000EFDA17 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC84827316A7000EFDA17 /* Shape.swift */; };
 		CEBFC84B273178BE00EFDA17 /* Recover.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC84A273178BE00EFDA17 /* Recover.swift.swift */; };
 		CECBDE1A273E6AA00023B88F /* Websites.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECBDE19273E6AA00023B88F /* Websites.swift */; };
+		CED093C62742B71D0015196A /* Preferences.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED093C52742B71D0015196A /* Preferences.Bar.swift */; };
+		CED093C82742B8560015196A /* Preferences.Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED093C72742B8560015196A /* Preferences.Promotion.swift */; };
 		CED28597273BD5890086D038 /* CollectionCellImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED28596273BD5890086D038 /* CollectionCellImage.swift */; };
 		CED28599273C01DE0086D038 /* Trackers.Pop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED28598273C01DE0086D038 /* Trackers.Pop.swift */; };
 		CED63AEA27047E5A001C8183 /* Options.Representable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED63AE927047E5A001C8183 /* Options.Representable.swift */; };
@@ -507,6 +509,8 @@
 		CEBFC84827316A7000EFDA17 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		CEBFC84A273178BE00EFDA17 /* Recover.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recover.swift.swift; sourceTree = "<group>"; };
 		CECBDE19273E6AA00023B88F /* Websites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Websites.swift; sourceTree = "<group>"; };
+		CED093C52742B71D0015196A /* Preferences.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Bar.swift; sourceTree = "<group>"; };
+		CED093C72742B8560015196A /* Preferences.Promotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Promotion.swift; sourceTree = "<group>"; };
 		CED28596273BD5890086D038 /* CollectionCellImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellImage.swift; sourceTree = "<group>"; };
 		CED28598273C01DE0086D038 /* Trackers.Pop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Pop.swift; sourceTree = "<group>"; };
 		CED63AE927047E5A001C8183 /* Options.Representable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Representable.swift; sourceTree = "<group>"; };
@@ -648,6 +652,7 @@
 				CEB22E9B27358DE1001C77E0 /* Plus.Purchased.swift */,
 				CEB22E992735880F001C77E0 /* Plus.swift */,
 				CE19EC8C2736A54300A412FC /* Pop.swift */,
+				CED093C52742B71D0015196A /* Preferences.Bar.swift */,
 				CE441D71273FF94200F4DACE /* Preferences.Browser.swift */,
 				CE4312622736D25B00DA0F99 /* Preferences.Features.swift */,
 				CE43126C2736D6E100DA0F99 /* Preferences.General.swift */,
@@ -655,6 +660,7 @@
 				CE441D73273FFD7B00F4DACE /* Preferences.Location.swift */,
 				CE43126E2736D71500DA0F99 /* Preferences.Navigation.swift */,
 				CE4312662736D25B00DA0F99 /* Preferences.Option.swift */,
+				CED093C72742B8560015196A /* Preferences.Promotion.swift */,
 				CE6BFE9327380AD000ECF118 /* Preferences.Segmented.swift */,
 				CE4312642736D25B00DA0F99 /* Preferences.swift */,
 				CEBFC84A273178BE00EFDA17 /* Recover.swift.swift */,
@@ -1075,6 +1081,7 @@
 				CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */,
 				CE5D41B1272C3D8800AEBE0F /* Bar.swift in Sources */,
 				CEAFF0122741522200A9F744 /* Autocomplete.swift in Sources */,
+				CED093C62742B71D0015196A /* Preferences.Bar.swift in Sources */,
 				CEABD1EF272AC4F400F56852 /* Landing.Activity.swift in Sources */,
 				CE4312672736D25C00DA0F99 /* Preferences.Features.swift in Sources */,
 				CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */,
@@ -1120,6 +1127,7 @@
 				CE743008272981EA00F5F5B8 /* CollectionItemInfo.swift in Sources */,
 				CEE91AC8273960BD003447BD /* Share.Option.swift in Sources */,
 				CE743010272983CB00F5F5B8 /* CGRect.swift in Sources */,
+				CED093C82742B8560015196A /* Preferences.Promotion.swift in Sources */,
 				CE6C7285273D6D96007972FC /* Websites.Info.swift in Sources */,
 				CE1936B0272804CF00476227 /* App.swift in Sources */,
 				CE3F56D12728361300A022CC /* Webview.macOS.swift in Sources */,
