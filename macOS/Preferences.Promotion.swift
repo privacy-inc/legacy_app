@@ -6,11 +6,11 @@ extension Preferences {
         init() {
             let text = Text(vibrancy: false)
             text.stringValue = "Privacy"
-            text.font = .preferredFont(forTextStyle: .body)
+            text.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .medium)
             text.textColor = .systemBlue
             
             let icon = Image(icon: "plus")
-            icon.symbolConfiguration = .init(textStyle: .title3)
+            icon.symbolConfiguration = .init(pointSize: 18, weight: .regular)
             icon.contentTintColor = .systemBlue
             
             super.init(layer: true)
@@ -33,7 +33,7 @@ extension Preferences {
             
             switch state {
             case .pressed, .highlighted:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+                layer!.backgroundColor = NSColor.systemBlue.withAlphaComponent(0.2).cgColor
             default:
                 layer!.backgroundColor = .clear
             }
