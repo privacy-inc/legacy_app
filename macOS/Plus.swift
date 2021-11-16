@@ -7,7 +7,7 @@ final class Plus: NSWindow {
     private let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 520, height: 680),
+        super.init(contentRect: .init(x: 0, y: 0, width: 520, height: 780),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
         animationBehavior = .alertPanel
         toolbar = .init()
@@ -102,13 +102,19 @@ final class Plus: NSWindow {
             }
             .store(in: &subs)
         
-        image.topAnchor.constraint(equalTo: content.topAnchor, constant: 60).isActive = true
+        timer
+            .sink { _ in
+                banner.tick()
+            }
+            .store(in: &subs)
+        
+        image.topAnchor.constraint(equalTo: content.topAnchor, constant: 100).isActive = true
         image.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
         
         banner.centerXAnchor.constraint(equalTo: image.centerXAnchor).isActive = true
         banner.centerYAnchor.constraint(equalTo: image.centerYAnchor).isActive = true
         
-        title.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20).isActive = true
+        title.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 80).isActive = true
         title.centerXAnchor.constraint(equalTo: content.centerXAnchor, constant: -22).isActive = true
         
         plus.centerYAnchor.constraint(equalTo: title.centerYAnchor).isActive = true

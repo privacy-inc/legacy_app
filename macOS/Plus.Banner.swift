@@ -14,7 +14,7 @@ extension Plus {
         }
         
         func tick() {
-            
+            layer!.setNeedsDisplay()
         }
         
         override func hitTest(_: NSPoint) -> NSView? {
