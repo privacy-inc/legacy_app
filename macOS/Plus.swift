@@ -4,6 +4,7 @@ import Specs
 
 final class Plus: NSWindow {
     private var subs = Set<AnyCancellable>()
+    private let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 520, height: 680),
@@ -23,6 +24,9 @@ final class Plus: NSWindow {
         let image = Image(named: "Plus", vibrancy: true)
         image.imageScaling = .scaleNone
         content.addSubview(image)
+        
+        let banner = Banner()
+        content.addSubview(banner)
         
         let title = Text(vibrancy: true)
         title.stringValue = "Privacy"
@@ -100,6 +104,9 @@ final class Plus: NSWindow {
         
         image.topAnchor.constraint(equalTo: content.topAnchor, constant: 60).isActive = true
         image.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
+        
+        banner.centerXAnchor.constraint(equalTo: image.centerXAnchor).isActive = true
+        banner.centerYAnchor.constraint(equalTo: image.centerYAnchor).isActive = true
         
         title.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20).isActive = true
         title.centerXAnchor.constraint(equalTo: content.centerXAnchor, constant: -22).isActive = true
