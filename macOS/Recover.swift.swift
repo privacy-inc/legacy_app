@@ -39,33 +39,3 @@ final class Recover: NSView {
         description.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 }
-
-
-/*
- VStack {
-     Spacer()
-     Image(systemName: "exclamationmark.triangle.fill")
-         .font(.largeTitle)
-         .symbolRenderingMode(.hierarchical)
-         .foregroundColor(.pink)
-     Text(verbatim: error?.url.absoluteString ?? "")
-         .font(.callout)
-         .foregroundColor(.secondary)
-         .frame(maxWidth: 320)
-         .lineLimit(1)
-         .padding(.top)
-     Text(verbatim: error?.description ?? "")
-         .font(.body)
-         .foregroundColor(.primary)
-         .multilineTextAlignment(.center)
-         .frame(maxWidth: 260)
-         .fixedSize(horizontal: false, vertical: true)
-         .padding(.bottom)
-     Button(action: retry) {
-         Image(systemName: "arrow.clockwise")
-     }
-     .buttonStyle(.bordered)
-     .tint(.init("Shades"))
-     Spacer()
- }
- */

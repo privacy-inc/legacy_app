@@ -166,35 +166,3 @@ extension Autocomplete {
         }
     }
 }
-
-
-/*
- func controlTextDidChange(_: Notification) {
-     update()
- }
- 
- func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
-     switch doCommandBy {
-     case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
-         window?.close()
-     case #selector(insertNewline):
-         enter.send(.init())
-     case #selector(moveUp):
-         move.send((date: .init(), direction: .up))
-     case #selector(moveDown):
-         move.send((date: .init(), direction: .down))
-     default:
-         return false
-     }
-     return true
- }
- 
- private func update() {
-     xmark.state = field.stringValue.isEmpty ? .off : .on
-     cloud
-         .find(search: field.stringValue) { [weak self] in
-             self?.icon.isHidden = !$0.isEmpty
-             self?.found.send($0)
-         }
- }
- */

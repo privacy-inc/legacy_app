@@ -8,10 +8,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     final let progress = PassthroughSubject<Double, Never>()
     private let settings: Specs.Settings.Configuration
     
-    deinit {
-        print("web gone")
-    }
-    
     required init?(coder: NSCoder) { nil }
     @MainActor init(configuration: WKWebViewConfiguration,
                     history: UInt16,

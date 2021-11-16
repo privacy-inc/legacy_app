@@ -68,50 +68,6 @@ extension Window {
                     view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
                     view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
                 }
-            
-//            
-//            let separator = Separator(mode: .horizontal)
-//            bar.addSubview(separator)
-//            
-//            sub = session
-//                .tab
-//                .items
-//                .combineLatest(session
-//                                .current
-//                                .removeDuplicates())
-//                .map {
-//                    (state: $0[state: $1], id: $1)
-//                }
-//                .removeDuplicates {
-//                    $0.state == $1.state && $0.id == $1.id
-//                }
-//                .sink { [weak self] in
-//                    switch $0.state {
-//                    case .new:
-//                        self?.update(display: New(session: session, id: $0.id))
-//                    case let .browse(browse):
-//                        let web = (session.tab.items.value[web: $0.id] as? Web) ?? Web(session: session, id: $0.id, browse: browse)
-//                        if session.tab.items.value[web: $0.id] == nil {
-//                            session.tab.update($0.id, web: web)
-//                        }
-//                        let browser = Browser(web: web)
-//                        self?.update(display: browser)
-//                        self?.window?.makeFirstResponder(web)
-//                    case let .error(browse, error):
-//                        let display = Error(session: session, id: $0.id, browse: browse, error: error)
-//                        self?.update(display: display)
-//                        self?.window?.makeFirstResponder(display)
-//                    }
-//                }
-//            
-//            bar.topAnchor.constraint(equalTo: topAnchor).isActive = true
-//            bar.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-//            bar.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-//            bar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 1).isActive = true
-//            
-//            separator.bottomAnchor.constraint(equalTo: bar.bottomAnchor).isActive = true
-//            separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-//            separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         }
     }
 }

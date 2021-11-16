@@ -21,30 +21,6 @@ extension Plus {
             
             text.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             text.topAnchor.constraint(equalTo: check.bottomAnchor, constant: 15).isActive = true
-            
-            
-//            Section {
-//                Image(systemName: "checkmark.circle.fill")
-//                    .font(.largeTitle)
-//                    .symbolRenderingMode(.multicolor)
-//                    .frame(maxWidth: .greatestFiniteMagnitude)
-//
-//                Group {
-//                    Text("We received your support\n")
-//                        .foregroundColor(.secondary)
-//                    + Text("Thank you!")
-//                        .foregroundColor(.primary)
-//                }
-//                .font(.footnote)
-//                .multilineTextAlignment(.center)
-//                .fixedSize(horizontal: false, vertical: true)
-//                .frame(maxWidth: .greatestFiniteMagnitude)
-//                .padding(.bottom)
-//            }
-//            .listRowSeparator(.hidden)
-//            .listSectionSeparator(.hidden)
-//            .listRowBackground(Color.clear)
-//            .allowsHitTesting(false)
         }
         
         private var message: AttributedString {

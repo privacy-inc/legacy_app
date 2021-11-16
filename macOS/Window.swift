@@ -12,10 +12,6 @@ final class Window: NSWindow, NSWindowDelegate {
     let status: Status
     private(set) weak var finder: Finder!
     
-    deinit {
-        print("window gone")
-    }
-    
     private init(status: Status) {
         self.status = status
         
