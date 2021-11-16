@@ -8,7 +8,6 @@ extension Preferences {
         private weak var text: Text!
         private weak var badge: Image!
         private var requested = false
-        private var enabled = true
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
@@ -32,7 +31,7 @@ extension Preferences {
                 .click
                 .sink { [weak self] in
                     guard let self = self else { return }
-                    if self.enabled || self.requested {
+                    if self.requested {
                         self.view?.window?.close()
                         NSWorkspace
                             .shared
@@ -79,16 +78,15 @@ extension Preferences {
             if settings.authorizationStatus == .notDetermined {
                 option.text.stringValue = "Activate notifications"
                 updateNotifications(text: Copy.notifications)
-                enabled = false
             } else if settings.alertSetting == .disabled || settings.authorizationStatus == .denied {
-                option.text.stringValue = "Activate notifications"
+                option.text.stringValue = "Open Settings"
                 updateNotifications(text: Copy.notifications)
-                enabled = false
+                requested = true
             } else {
                 badge.isHidden = false
                 option.text.stringValue = "Open Settings"
                 updateNotifications(text: Copy.deactivate)
-                enabled = true
+                requested = true
             }
         }
         
