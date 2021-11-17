@@ -30,9 +30,9 @@ extension Preferences {
             addSubview(option)
             
             navigation.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            navigation.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 5).isActive = true
+            navigation.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 6).isActive = true
             
-            icon.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
             icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
             option.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
