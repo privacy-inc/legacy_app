@@ -32,7 +32,7 @@ final class Web: Webview, NSTextFinderBarContainer {
 
         layer = Layer()
         wantsLayer = true
-        layer?.backgroundColor = NSColor.underPageBackgroundColor.cgColor
+        layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
         
         configuration.userContentController.addScriptMessageHandler(Location(), contentWorld: .page, name: Script.location.method)
         
