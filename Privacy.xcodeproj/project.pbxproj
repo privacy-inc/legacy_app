@@ -1723,7 +1723,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = incognit.watch.extension;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)watchextension";
-				PROVISIONING_PROFILE_SPECIFIER = "Incognit watch extension dev";
+				PROVISIONING_PROFILE_SPECIFIER = "incognit watch extension dev";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1859,7 +1859,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = incognit.watch;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)watch";
-				PROVISIONING_PROFILE_SPECIFIER = "Incognit watch dev";
+				PROVISIONING_PROFILE_SPECIFIER = "incognit watch dev";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;

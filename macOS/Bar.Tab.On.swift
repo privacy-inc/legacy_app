@@ -159,6 +159,14 @@ extension Bar.Tab {
                     self?.window!.makeFirstResponder(search)
                 }
                 .store(in: &subs)
+            
+            autocomplete
+                .list
+                .complete
+                .sink {
+                    search.stringValue = $0
+                }
+                .store(in: &subs)
         }
         
         deinit {

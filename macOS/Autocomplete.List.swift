@@ -6,9 +6,9 @@ extension Autocomplete {
     final class List: Collection<Cell, Info> {
         let found = PassthroughSubject<[Complete], Never>()
         let move = PassthroughSubject<(date: Date, direction: Move), Never>()
-        let enter = PassthroughSubject<Date, Never>()
+        let complete = PassthroughSubject<String, Never>()
         private let select = PassthroughSubject<CGPoint, Never>()
-        
+    
         required init?(coder: NSCoder) { nil }
         init(status: Status) {
             super.init(active: .activeAlways)
@@ -116,19 +116,9 @@ extension Autocomplete {
                                         .center(y: $0.rect.minY)
                                 }
                             self?.highlighted.send(info[index].id)
+                            self?.complete.send(info[index].access.value)
                         }
                 }
-                .store(in: &subs)
-            
-            enter
-                .combineLatest(highlighted)
-                .removeDuplicates {
-                    $0.0 == $1.0
-                }
-                .compactMap {
-                    $1
-                }
-                .subscribe(selected)
                 .store(in: &subs)
             
             selected
@@ -144,8 +134,6 @@ extension Autocomplete {
                 }
                 .store(in: &subs)
         }
-        
-        
         
         override func mouseUp(with: NSEvent) {
             switch with.clickCount {
