@@ -64,5 +64,4 @@ extension Options {
             present(share, animated: true)
         }
     }
-
 }
