@@ -2,15 +2,12 @@ import AppKit
 
 extension Ellipsis {
     final class Option: Control {
-        private(set) weak var text: Text!
-        
         required init?(coder: NSCoder) { nil }
         init(title: String, symbol: String) {
             let text = Text(vibrancy: false)
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .body)
             text.textColor = .labelColor
-            self.text = text
             
             let icon = Image(icon: symbol)
             icon.symbolConfiguration = .init(textStyle: .body, scale: .large)

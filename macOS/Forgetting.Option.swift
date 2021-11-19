@@ -2,21 +2,16 @@ import AppKit
 
 extension Forgetting {
     final class Option: Control {
-        private weak var text: Text!
-        private weak var image: Image!
-        
         required init?(coder: NSCoder) { nil }
         init(title: String, image: String) {
             let image = Image(icon: image)
             image.symbolConfiguration = .init(textStyle: .body, scale: .large)
                 .applying(.init(hierarchicalColor: .labelColor))
-            self.image = image
             
             let text = Text(vibrancy: true)
             text.stringValue = title
             text.textColor = .labelColor
             text.font = .preferredFont(forTextStyle: .callout)
-            self.text = text
             
             super.init(layer: true)
             layer!.cornerRadius = 6
