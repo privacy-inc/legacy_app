@@ -35,11 +35,11 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            let secure = Option(icon: "lock.fill", size: 11, color: .tertiaryLabelColor)
+            let secure = Option(icon: "lock.fill", size: 12, color: .tertiaryLabelColor)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
             
-            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 11, color: .tertiaryLabelColor)
+            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 12, color: .tertiaryLabelColor)
             insercure.toolTip = "Insecure"
             insercure.state = .hidden
             

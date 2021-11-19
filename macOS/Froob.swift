@@ -33,9 +33,9 @@ final class Froob: NSWindow {
         content.addSubview(plus)
         
         let description = Text(vibrancy: true)
-        description.attributedStringValue = .init(.with(markdown: Copy.froob, attributes: .init([
+        description.attributedStringValue = .with(markdown: Copy.froob, attributes: [
             .font: NSFont.preferredFont(forTextStyle: .title3),
-            .foregroundColor: NSColor.secondaryLabelColor])))
+            .foregroundColor: NSColor.secondaryLabelColor])
         content.addSubview(description)
         
         let action = Action(title: "Learn more", color: .systemBlue, foreground: .white)

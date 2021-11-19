@@ -91,9 +91,9 @@ extension Preferences {
         }
         
         private func updateNotifications(text: String) {
-            self.text.attributedStringValue = .init(.with(markdown: text, attributes: .init([
+            self.text.attributedStringValue = .with(markdown: text, attributes: [
                 .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.secondaryLabelColor])))
+                .foregroundColor: NSColor.secondaryLabelColor])
         }
     }
 }

@@ -11,11 +11,13 @@ extension Landing.History {
             addSubview(icon)
             
             let title = Text(vibrancy: true)
-            title.attributedStringValue = .init(.init(item.website.title, attributes:
-                                                            .init([.foregroundColor: NSColor.labelColor]))
-                                                    .with(truncating: .byTruncatingMiddle)
-                                                + .init(" " + remote.domain.minimal, attributes:
-                                                                .init([.foregroundColor: NSColor.tertiaryLabelColor])))
+            title.attributedStringValue = .make {
+                $0.append(.make(item.website.title, attributes: [
+                    .foregroundColor: NSColor.labelColor],
+                                lineBreak: .byTruncatingMiddle))
+                $0.append(.make(" " + remote.domain.minimal, attributes: [
+                    .foregroundColor: NSColor.tertiaryLabelColor]))
+            }
             title.font = .preferredFont(forTextStyle: .body)
             title.maximumNumberOfLines = 1
             title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)

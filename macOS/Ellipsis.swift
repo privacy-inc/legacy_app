@@ -119,24 +119,24 @@ final class Ellipsis: NSPopover {
                             }
                             .removeDuplicates())
             .sink { url, title in
-                let copy: AttributedString
-                
-                if title.isEmpty {
-                    copy = .init(url.absoluteString, attributes: .init([
-                        .font: NSFont.preferredFont(forTextStyle: .body),
-                        .foregroundColor: NSColor.secondaryLabelColor]))
-                } else {
-                    copy = .init(title, attributes: .init([
-                        .font: NSFont.preferredFont(forTextStyle: .title3),
-                        .foregroundColor: NSColor.labelColor]))
-                    + .newLine
-                    + .init(url.absoluteString, attributes: .init([
-                        .font: NSFont.preferredFont(forTextStyle: .body),
-                        .foregroundColor: NSColor.secondaryLabelColor]))
+                text.attributedStringValue = .make {
+                    if title.isEmpty {
+                        $0.append(.make(url.absoluteString, attributes: [
+                            .font: NSFont.preferredFont(forTextStyle: .body),
+                            .foregroundColor: NSColor.secondaryLabelColor],
+                                        lineBreak: .byTruncatingTail))
+                    } else {
+                        $0.append(.make(title, attributes: [
+                            .font: NSFont.preferredFont(forTextStyle: .title3),
+                            .foregroundColor: NSColor.labelColor],
+                                        lineBreak: .byTruncatingTail))
+                        $0.newLine()
+                        $0.append(.make(url.absoluteString, attributes: [
+                            .font: NSFont.preferredFont(forTextStyle: .body),
+                            .foregroundColor: NSColor.secondaryLabelColor],
+                                        lineBreak: .byTruncatingTail))
+                    }
                 }
-                
-                text.attributedStringValue = .init(copy
-                                                    .with(truncating: .byTruncatingTail))
             }
             .store(in: &subs)
         

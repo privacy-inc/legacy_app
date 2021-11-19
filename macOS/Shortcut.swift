@@ -15,7 +15,21 @@ final class Shortcut: NSPopover {
         contentViewController!.view = view
         
         let stats = Text(vibrancy: true)
-        stats.attributedStringValue = .init(statsString)
+        stats.attributedStringValue = .make {
+            $0.append(.make(NSApp.windowsOpen.formatted(), attributes: [
+                .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
+                .foregroundColor: NSColor.labelColor]))
+            $0.append(.make(NSApp.windowsOpen == 1 ? " window" : " windows", attributes: [
+                .font: NSFont.preferredFont(forTextStyle: .body),
+                .foregroundColor: NSColor.secondaryLabelColor]))
+            $0.newLine()
+            $0.append(.make(NSApp.tabsOpen.formatted(), attributes: [
+                .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
+                .foregroundColor: NSColor.labelColor]))
+            $0.append(.make(NSApp.tabsOpen == 1 ? " tab" : " tabs", attributes: [
+                .font: NSFont.preferredFont(forTextStyle: .body),
+                .foregroundColor: NSColor.secondaryLabelColor]))
+        }
         stats.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let close = Action(title: "Close all")
@@ -49,21 +63,5 @@ final class Shortcut: NSPopover {
         stack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         
         show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxY)
-    }
-    
-    private var statsString: AttributedString {
-        .init(NSApp.windowsOpen.formatted(), attributes: .init([
-            .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
-            .foregroundColor: NSColor.labelColor]))
-        + .init(NSApp.windowsOpen == 1 ? " window" : " windows", attributes: .init([
-            .font: NSFont.preferredFont(forTextStyle: .body),
-            .foregroundColor: NSColor.secondaryLabelColor]))
-        + .newLine
-        + .init(NSApp.tabsOpen.formatted(), attributes: .init([
-            .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
-            .foregroundColor: NSColor.labelColor]))
-        + .init(NSApp.tabsOpen == 1 ? " tab" : " tabs", attributes: .init([
-            .font: NSFont.preferredFont(forTextStyle: .body),
-            .foregroundColor: NSColor.secondaryLabelColor]))
     }
 }

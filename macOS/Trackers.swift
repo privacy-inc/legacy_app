@@ -40,12 +40,14 @@ final class Trackers: NSWindow {
             .map(\.events.prevented)
             .removeDuplicates()
             .sink { count in
-                title.attributedStringValue = .init(.init(count.formatted(), attributes: .init([
-                    .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular),
-                    .foregroundColor: NSColor.labelColor]))
-                                                    + .init(count == 1 ? " tracker so far" : " total trackers", attributes: .init([
-                                                        .font: NSFont.preferredFont(forTextStyle: .body),
-                                                        .foregroundColor: NSColor.secondaryLabelColor])))
+                title.attributedStringValue = .make {
+                    $0.append(.make(count.formatted(), attributes: [
+                        .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular),
+                        .foregroundColor: NSColor.labelColor]))
+                    $0.append(.make(count == 1 ? " tracker so far" : " total trackers", attributes: [
+                        .font: NSFont.preferredFont(forTextStyle: .body),
+                        .foregroundColor: NSColor.secondaryLabelColor]))
+                }
             }
             .store(in: &subs)
     }

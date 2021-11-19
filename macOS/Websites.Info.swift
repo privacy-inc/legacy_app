@@ -24,25 +24,25 @@ extension Websites {
             self.id = id
             self.mode = mode
             icon = website.access.icon
-            
-            let string: AttributedString
-            
-            switch website.access {
-            case let remote as Access.Remote:
-                string = .init(website.title, attributes: .init([
-                    .font: NSFont.preferredFont(forTextStyle: .title3),
-                    .foregroundColor: NSColor.labelColor]))
-                + .newLine
-                + .init(remote.domain.minimal, attributes: .init([
-                    .font: NSFont.preferredFont(forTextStyle: .body),
-                    .foregroundColor: NSColor.secondaryLabelColor]))
-            default:
-                string = .init(website.access.value, attributes: .init([
-                    .font: NSFont.preferredFont(forTextStyle: .body),
-                    .foregroundColor: NSColor.secondaryLabelColor]))
+            text = .make {
+                switch website.access {
+                case let remote as Access.Remote:
+                    $0.append(.make(website.title, attributes: [
+                        .font: NSFont.preferredFont(forTextStyle: .title3),
+                        .foregroundColor: NSColor.labelColor],
+                                    lineBreak: .byTruncatingTail))
+                    $0.newLine()
+                    $0.append(.make(remote.domain.minimal, attributes: [
+                        .font: NSFont.preferredFont(forTextStyle: .body),
+                        .foregroundColor: NSColor.secondaryLabelColor],
+                                    lineBreak: .byTruncatingTail))
+                default:
+                    $0.append(.make(website.access.value, attributes: [
+                        .font: NSFont.preferredFont(forTextStyle: .body),
+                        .foregroundColor: NSColor.secondaryLabelColor],
+                                    lineBreak: .byTruncatingTail))
+                }
             }
-            
-            text = .init(string.with(truncating: .byTruncatingTail))
         }
     }
 }

@@ -150,11 +150,12 @@ final class Activity: NSWindow {
                 let stats = $0.stats
                 let since = $0.since ?? .now
                 
-                title.attributedStringValue = .init(
-                    .init("Activity since ", attributes: .init([
+                title.attributedStringValue = .make {
+                    $0.append(.make("Activity since ", attributes: [
                         .foregroundColor: NSColor.labelColor]))
-                    + .init(since.formatted(.relative(presentation: .named, unitsStyle: .wide)), attributes: .init([
-                        .foregroundColor: NSColor.secondaryLabelColor])))
+                    $0.append(.make(since.formatted(.relative(presentation: .named, unitsStyle: .wide)), attributes: [
+                            .foregroundColor: NSColor.secondaryLabelColor]))
+                }
                 
                 events.stringValue = stats.websites.formatted()
                 trackers.stringValue = $0.prevented.formatted()

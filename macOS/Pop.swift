@@ -14,12 +14,16 @@ final class Pop: NSPopover {
         let text = Text(vibrancy: true)
         text.maximumNumberOfLines = 0
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        text.attributedStringValue = .init(
-            .init(title + "\n\n", attributes: .init([.font: NSFont.preferredFont(forTextStyle: .title2),
-                                           .foregroundColor: NSColor.tertiaryLabelColor]))
-            + .with(markdown: copy, attributes: .init([
-                .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.labelColor])))
+        text.attributedStringValue = .make {
+            $0.append(.make(title, attributes: [
+                .font: NSFont.preferredFont(forTextStyle: .title2),
+                .foregroundColor: NSColor.tertiaryLabelColor]))
+            $0.newLine()
+            $0.newLine()
+            $0.append(.with(markdown: copy, attributes: [
+                    .font: NSFont.preferredFont(forTextStyle: .body),
+                    .foregroundColor: NSColor.labelColor]))
+        }
         view.addSubview(text)
         
         text.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true

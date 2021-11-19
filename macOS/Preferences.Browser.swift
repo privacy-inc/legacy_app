@@ -19,9 +19,9 @@ extension Preferences {
             let text = Text(vibrancy: true)
             text.textColor = .secondaryLabelColor
             text.font = .preferredFont(forTextStyle: .callout)
-            text.attributedStringValue = .init(.with(markdown: Copy.browser, attributes: .init([
+            text.attributedStringValue = .with(markdown: Copy.browser, attributes: [
                 .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.secondaryLabelColor])))
+                .foregroundColor: NSColor.secondaryLabelColor])
             
             let option = Preferences.Option(title: "Make default Browser", symbol: "magnifyingglass")
             option

@@ -12,7 +12,15 @@ extension Plus {
             addSubview(check)
             
             let text = Text(vibrancy: true)
-            text.attributedStringValue = .init(message.with(alignment: .center))
+            text.attributedStringValue = .make {
+                $0.append(.make("We received your support", attributes: [
+                    .foregroundColor: NSColor.secondaryLabelColor],
+                                alignment: .center))
+                $0.newLine()
+                $0.append(.make("Thank you!", attributes: [
+                    .foregroundColor: NSColor.labelColor],
+                                alignment: .center))
+            }
             text.font = .preferredFont(forTextStyle: .body)
             addSubview(text)
             
@@ -21,13 +29,6 @@ extension Plus {
             
             text.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             text.topAnchor.constraint(equalTo: check.bottomAnchor, constant: 15).isActive = true
-        }
-        
-        private var message: AttributedString {
-            .init("We received your support\n", attributes: .init([
-                .foregroundColor: NSColor.secondaryLabelColor]))
-            + .init("Thank you!", attributes: .init([
-                .foregroundColor: NSColor.labelColor]))
         }
     }
 }

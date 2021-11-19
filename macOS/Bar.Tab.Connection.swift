@@ -17,15 +17,14 @@ extension Bar.Tab {
             contentViewController!.view.addSubview(icon)
             
             let message = Text(vibrancy: true)
-            message.textColor = .secondaryLabelColor
             message.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             
             contentViewController!.view.addSubview(message)
             
             icon.centerYAnchor.constraint(equalTo: contentViewController!.view.centerYAnchor).isActive = true
-            icon.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 20).isActive = true
+            icon.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 25).isActive = true
             
-            message.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 10).isActive = true
+            message.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 20).isActive = true
             message.centerYAnchor.constraint(equalTo: contentViewController!.view.centerYAnchor).isActive = true
             message.rightAnchor.constraint(lessThanOrEqualTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
             
@@ -38,18 +37,28 @@ extension Bar.Tab {
                 switch remote.url?.scheme {
                 case "https":
                     icon.image = .init(systemSymbolName: "lock.fill", accessibilityDescription: nil)
-                    message.attributedStringValue = .init(.init("Using an encrypted connnection to \(remote.domain.minimal)\n",
-                                                                attributes: .init([
-                                                                    .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .medium)]))
-                                                        + .init("Encryption with a digital certificate keeps information private as it's sent to or from the https website.", attributes:
-                                                                        .init([.font: NSFont.preferredFont(forTextStyle: .footnote)])))
+                    message.attributedStringValue = .make {
+                        $0.append(.make("Using an encrypted connnection to \(remote.domain.minimal)", attributes: [
+                            .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .medium),
+                            .foregroundColor: NSColor.labelColor]))
+                        $0.newLine()
+                        $0.newLine()
+                        $0.append(.make("Encryption with a digital certificate keeps information private as it's sent to or from the https website.", attributes: [
+                            .font: NSFont.preferredFont(forTextStyle: .footnote),
+                            .foregroundColor: NSColor.secondaryLabelColor]))
+                    }
                 case "http":
                     icon.image = .init(systemSymbolName: "exclamationmark.triangle.fill", accessibilityDescription: nil)
-                    message.attributedStringValue = .init(.init("Using an insecure connnection to \(remote.domain.minimal)\n",
-                                                                attributes: .init([
-                                                                    .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .medium)]))
-                                                        + .init("Information is not private and might be compromised as it's sent to or from the http website.", attributes:
-                                                                        .init([.font: NSFont.preferredFont(forTextStyle: .footnote)])))
+                    message.attributedStringValue = .make {
+                        $0.append(.make("Using an insecure connnection to \(remote.domain.minimal)", attributes: [
+                            .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .medium),
+                            .foregroundColor: NSColor.labelColor]))
+                        $0.newLine()
+                        $0.newLine()
+                        $0.append(.make("Information is not private and might be compromised as it's sent to or from the http website.", attributes: [
+                            .font: NSFont.preferredFont(forTextStyle: .footnote),
+                            .foregroundColor: NSColor.secondaryLabelColor]))
+                    }
                 default:
                     break
                 }

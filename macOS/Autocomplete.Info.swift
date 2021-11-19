@@ -9,27 +9,28 @@ extension Autocomplete {
         let access: AccessType
         
         init(complete: Complete, first: Bool) {
-            var string = AttributedString(complete.title, attributes: .init([
-                .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.labelColor]))
-                .with(truncating: .byTruncatingTail)
-            
-            if !complete.title.isEmpty {
-                string += .newLine
-            }
-            
-            if let domain = complete.domain {
-                string += .init(domain, attributes: .init([
-                    .font: NSFont.preferredFont(forTextStyle: .callout),
-                    .foregroundColor: NSColor.secondaryLabelColor]))
-            }
-            
-            string += .init(" " + complete.location.rawValue, attributes: .init([
-                .font: NSFont.preferredFont(forTextStyle: .callout),
-                .foregroundColor: NSColor.tertiaryLabelColor]))
-            
             id = complete.id
-            text = .init(string.with(truncating: .byTruncatingTail))
+            text = .make {
+                $0.append(.make(complete.title, attributes: [
+                    .font: NSFont.preferredFont(forTextStyle: .body),
+                    .foregroundColor: NSColor.labelColor],
+                                lineBreak: .byTruncatingTail))
+                
+                if !complete.title.isEmpty {
+                    $0.newLine()
+                }
+                
+                if let domain = complete.domain {
+                    $0.append(.make(domain, attributes: [
+                        .font: NSFont.preferredFont(forTextStyle: .callout),
+                        .foregroundColor: NSColor.secondaryLabelColor]))
+                }
+                
+                $0.append(.make(" " + complete.location.rawValue, attributes: [
+                    .font: NSFont.preferredFont(forTextStyle: .callout),
+                    .foregroundColor: NSColor.tertiaryLabelColor],
+                                lineBreak: .byTruncatingTail))
+            }
             access = complete.access
             self.first = first
         }

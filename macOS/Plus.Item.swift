@@ -10,15 +10,19 @@ extension Plus {
         init(product: Product) {
             super.init(frame: .zero)
             
-            let string = AttributedString(product.description + "\n\n", attributes: .init([
-                .font: NSFont.preferredFont(forTextStyle: .title3),
-                .foregroundColor: NSColor.secondaryLabelColor]))
-            + .init(product.displayPrice, attributes: .init([
-                .font: NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
-                .foregroundColor: NSColor.labelColor]))
-            
             let text = Text(vibrancy: true)
-            text.attributedStringValue = .init(string.with(alignment: .center))
+            text.attributedStringValue = .make {
+                $0.append(.make(product.description, attributes: [
+                    .font: NSFont.preferredFont(forTextStyle: .title3),
+                    .foregroundColor: NSColor.secondaryLabelColor],
+                                alignment: .center))
+                $0.newLine()
+                $0.newLine()
+                $0.append(.make(product.displayPrice, attributes: [
+                    .font: NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
+                    .foregroundColor: NSColor.labelColor],
+                                alignment: .center))
+            }
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             addSubview(text)
             
