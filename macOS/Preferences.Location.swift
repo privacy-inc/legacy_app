@@ -14,18 +14,14 @@ extension Preferences {
         override init() {
             super.init(identifier: "")
             label = "Location"
-            
             manager.delegate = self
-            
-            var copy = (try? AttributedString(markdown: Copy.location, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? .init(Copy.browser)
-            copy.setAttributes(.init([
-                .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.secondaryLabelColor]))
             
             let text = Text(vibrancy: true)
             text.textColor = .secondaryLabelColor
             text.font = .preferredFont(forTextStyle: .callout)
-            text.attributedStringValue = .init(copy)
+            text.attributedStringValue = .init(.with(markdown: Copy.location, attributes: .init([
+                .font: NSFont.preferredFont(forTextStyle: .body),
+                .foregroundColor: NSColor.secondaryLabelColor])))
             
             let option = Preferences.Option(title: "", symbol: "location")
             option

@@ -32,13 +32,10 @@ final class Froob: NSWindow {
             .applying(.init(hierarchicalColor: .labelColor))
         content.addSubview(plus)
         
-        var string = (try? AttributedString(markdown: Copy.froob, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? .init(Copy.froob)
-        string.setAttributes(.init([
-            .font: NSFont.preferredFont(forTextStyle: .title3),
-            .foregroundColor: NSColor.secondaryLabelColor]))
-        
         let description = Text(vibrancy: true)
-        description.attributedStringValue = .init(string)
+        description.attributedStringValue = .init(.with(markdown: Copy.froob, attributes: .init([
+            .font: NSFont.preferredFont(forTextStyle: .title3),
+            .foregroundColor: NSColor.secondaryLabelColor])))
         content.addSubview(description)
         
         let action = Action(title: "Learn more", color: .systemBlue, foreground: .white)

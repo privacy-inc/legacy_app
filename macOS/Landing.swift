@@ -9,6 +9,8 @@ final class Landing: NSView {
     init(status: Status) {
         super.init(frame: .zero)
         let flip = Flip()
+        flip.translatesAutoresizingMaskIntoConstraints = false
+        
         let scroll = NSScrollView()
         scroll.translatesAutoresizingMaskIntoConstraints = false
         scroll.documentView = flip
@@ -69,7 +71,6 @@ final class Landing: NSView {
         scroll.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         scroll.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
-        flip.translatesAutoresizingMaskIntoConstraints = false
         flip.topAnchor.constraint(equalTo: scroll.topAnchor).isActive = true
         flip.leftAnchor.constraint(equalTo: scroll.leftAnchor).isActive = true
         flip.rightAnchor.constraint(equalTo: scroll.rightAnchor).isActive = true

@@ -15,18 +15,15 @@ class Info: NSWindow {
         contentView = content
         center()
         
-        var copy = (try? AttributedString(markdown: copy, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? .init(copy)
-        copy.setAttributes(.init([
-            .font: NSFont.preferredFont(forTextStyle: .title3),
-            .foregroundColor: NSColor.secondaryLabelColor]))
-        
         let text = Text(vibrancy: true)
         text.maximumNumberOfLines = 0
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         text.attributedStringValue = .init(
             .init(title + "\n\n", attributes: .init([.font: NSFont.preferredFont(forTextStyle: .title1),
                                            .foregroundColor: NSColor.labelColor]))
-            + copy)
+            + .with(markdown: copy, attributes: .init([
+                .font: NSFont.preferredFont(forTextStyle: .title3),
+                .foregroundColor: NSColor.secondaryLabelColor])))
         content.addSubview(text)
         
         text.topAnchor.constraint(equalTo: content.topAnchor, constant: 70).isActive = true

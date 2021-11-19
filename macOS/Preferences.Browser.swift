@@ -16,15 +16,12 @@ extension Preferences {
             title.font = .preferredFont(forTextStyle: .headline)
             title.stringValue = "Default Browser"
             
-            var copy = (try? AttributedString(markdown: Copy.browser, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? .init(Copy.browser)
-            copy.setAttributes(.init([
-                .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.secondaryLabelColor]))
-            
             let text = Text(vibrancy: true)
             text.textColor = .secondaryLabelColor
             text.font = .preferredFont(forTextStyle: .callout)
-            text.attributedStringValue = .init(copy)
+            text.attributedStringValue = .init(.with(markdown: Copy.browser, attributes: .init([
+                .font: NSFont.preferredFont(forTextStyle: .body),
+                .foregroundColor: NSColor.secondaryLabelColor])))
             
             let option = Preferences.Option(title: "Make default Browser", symbol: "magnifyingglass")
             option

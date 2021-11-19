@@ -91,11 +91,9 @@ extension Preferences {
         }
         
         private func updateNotifications(text: String) {
-            var copy = (try? AttributedString(markdown: text, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? .init(text)
-            copy.setAttributes(.init([
+            self.text.attributedStringValue = .init(.with(markdown: text, attributes: .init([
                 .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.secondaryLabelColor]))
-            self.text.attributedStringValue = .init(copy)
+                .foregroundColor: NSColor.secondaryLabelColor])))
         }
     }
 }

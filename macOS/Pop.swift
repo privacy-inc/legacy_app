@@ -11,18 +11,15 @@ final class Pop: NSPopover {
         let view = NSView(frame: .zero)
         contentViewController!.view = view
         
-        var copy = (try? AttributedString(markdown: copy, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? .init(copy)
-        copy.setAttributes(.init([
-            .font: NSFont.preferredFont(forTextStyle: .body),
-            .foregroundColor: NSColor.labelColor]))
-        
         let text = Text(vibrancy: true)
         text.maximumNumberOfLines = 0
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         text.attributedStringValue = .init(
             .init(title + "\n\n", attributes: .init([.font: NSFont.preferredFont(forTextStyle: .title2),
                                            .foregroundColor: NSColor.tertiaryLabelColor]))
-            + copy)
+            + .with(markdown: copy, attributes: .init([
+                .font: NSFont.preferredFont(forTextStyle: .body),
+                .foregroundColor: NSColor.labelColor])))
         view.addSubview(text)
         
         text.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
