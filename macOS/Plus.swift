@@ -21,7 +21,7 @@ final class Plus: NSWindow {
         contentView = content
         center()
         
-        let image = Image(named: "Plus", vibrancy: true)
+        let image = Image(named: "Plus")
         image.imageScaling = .scaleNone
         content.addSubview(image)
         
@@ -75,7 +75,7 @@ final class Plus: NSWindow {
                     case .loading:
                         inner = NSView()
                         
-                        let image = Image(icon: "hourglass", vibrancy: false)
+                        let image = Image(icon: "hourglass")
                         image.symbolConfiguration = .init(textStyle: .largeTitle)
                             .applying(.init(hierarchicalColor: .init(named: "Dawn")!))
                         inner!.addSubview(image)

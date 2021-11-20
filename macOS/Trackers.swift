@@ -46,7 +46,7 @@ final class Trackers: NSWindow {
                         .foregroundColor: NSColor.labelColor]))
                     $0.append(.make(count == 1 ? " tracker so far" : " total trackers", attributes: [
                         .font: NSFont.preferredFont(forTextStyle: .body),
-                        .foregroundColor: NSColor.secondaryLabelColor]))
+                        .foregroundColor: NSColor.tertiaryLabelColor]))
                 }
             }
             .store(in: &subs)

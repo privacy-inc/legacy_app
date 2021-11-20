@@ -70,9 +70,7 @@ final class Ellipsis: NSPopover {
             disable,
             Separator(mode: .horizontal),
             share,
-            Separator(mode: .horizontal),
             bookmark,
-            Separator(mode: .horizontal),
             pause
         ])
         stack.spacing = 6
@@ -84,7 +82,7 @@ final class Ellipsis: NSPopover {
         stack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         stack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         stack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
-        stack.widthAnchor.constraint(equalToConstant: 280).isActive = true
+        stack.widthAnchor.constraint(equalToConstant: 240).isActive = true
     }
     
     private func header(web: Web) -> NSView {
@@ -94,7 +92,7 @@ final class Ellipsis: NSPopover {
         view.addSubview(icon)
         
         let text = Text(vibrancy: true)
-        text.maximumNumberOfLines = 2
+        text.maximumNumberOfLines = 3
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         view.addSubview(text)
         
@@ -104,7 +102,7 @@ final class Ellipsis: NSPopover {
         
         text.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
         text.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 10).isActive = true
-        text.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor).isActive = true
+        text.rightAnchor.constraint(lessThanOrEqualTo: view.rightAnchor, constant: -10).isActive = true
         
         web
             .publisher(for: \.url)
@@ -127,13 +125,13 @@ final class Ellipsis: NSPopover {
                                         lineBreak: .byTruncatingTail))
                     } else {
                         $0.append(.make(title, attributes: [
-                            .font: NSFont.preferredFont(forTextStyle: .title3),
+                            .font: NSFont.preferredFont(forTextStyle: .body),
                             .foregroundColor: NSColor.labelColor],
                                         lineBreak: .byTruncatingTail))
                         $0.newLine()
                         $0.append(.make(url.absoluteString, attributes: [
-                            .font: NSFont.preferredFont(forTextStyle: .body),
-                            .foregroundColor: NSColor.secondaryLabelColor],
+                            .font: NSFont.preferredFont(forTextStyle: .footnote),
+                            .foregroundColor: NSColor.tertiaryLabelColor],
                                         lineBreak: .byTruncatingTail))
                     }
                 }

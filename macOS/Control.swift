@@ -5,7 +5,7 @@ class Control: NSView {
     final var state = Control.State.on {
         didSet {
             guard state != oldValue else { return }
-            update()
+            updateLayer()
         }
     }
     
@@ -24,10 +24,10 @@ class Control: NSView {
             wantsLayer = layer
         }
         
-        update()
+        updateLayer()
     }
     
-    func update() {
+    override func updateLayer() {
         isHidden = state == .hidden
         alphaValue = state == .off ? 0.25 : 1
     }

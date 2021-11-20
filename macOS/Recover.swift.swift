@@ -6,7 +6,7 @@ final class Recover: NSView {
     init(error: Err) {
         super.init(frame: .zero)
         
-        let icon = Image(icon: "exclamationmark.triangle.fill", vibrancy: false)
+        let icon = Image(icon: "exclamationmark.triangle.fill")
         icon.symbolConfiguration = .init(textStyle: .largeTitle, scale: .large)
             .applying(.init(hierarchicalColor: .systemPink))
         addSubview(icon)

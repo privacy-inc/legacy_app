@@ -26,8 +26,8 @@ extension Landing.Edit {
             addSubview(title)
             
             let icon = Image(icon: card.id.symbol)
-            icon.contentTintColor = .labelColor
             icon.symbolConfiguration = .init(textStyle: .title3)
+                .applying(.init(hierarchicalColor: .secondaryLabelColor))
             addSubview(icon)
             
             heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -47,6 +47,10 @@ extension Landing.Edit {
             Task {
                 await cloud.turn(card: card.id, state: control.state == .on)
             }
+        }
+        
+        override var allowsVibrancy: Bool {
+            true
         }
     }
 }

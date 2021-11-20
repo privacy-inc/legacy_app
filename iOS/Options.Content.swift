@@ -123,9 +123,12 @@ extension Options {
         
         private func address(url: URL) -> some View {
             VStack(alignment: .leading) {
-                Text(verbatim: title ?? url.host ?? "")
-                    .foregroundStyle(.primary)
-                    .font(.footnote)
+                if let title = title,
+                   !title.isEmpty {
+                    Text(verbatim: title)
+                        .foregroundStyle(.primary)
+                        .font(.footnote)
+                }
                 Group {
                     switch url.scheme?.lowercased() {
                     case "https":

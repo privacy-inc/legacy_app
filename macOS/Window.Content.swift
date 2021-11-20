@@ -12,14 +12,6 @@ extension Window {
             state = .active
             material = .menu
             
-            let separator = Separator(mode: .horizontal)
-            separator.alphaValue = 0
-            addSubview(separator)
-            
-            separator.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-            separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            
             sub = status
                 .items
                 .combineLatest(status
@@ -39,9 +31,6 @@ extension Window {
 
                     self
                         .subviews
-                        .filter {
-                            $0 != separator
-                        }
                         .forEach {
                             $0.removeFromSuperview()
                         }
@@ -62,8 +51,9 @@ extension Window {
                     
                     view.translatesAutoresizingMaskIntoConstraints = false
                     self.addSubview(view)
+                    self.window?.makeFirstResponder(view)
                     
-                    view.topAnchor.constraint(equalTo: separator.bottomAnchor).isActive = true
+                    view.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
                     view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
                     view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
                     view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true

@@ -6,12 +6,11 @@ extension Landing.History {
         required init?(coder: NSCoder) { nil }
         init() {
             super.init(layer: true)
-            layer!.cornerCurve = .continuous
-            layer!.cornerRadius = 10
+            layer!.cornerRadius = 12
         }
         
-        final override func update() {
-            super.update()
+        override func updateLayer() {
+            super.updateLayer()
             
             switch state {
             case .pressed, .highlighted:

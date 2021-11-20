@@ -4,10 +4,15 @@ import Specs
 
 final class Landing: NSView {
     private var subs = Set<AnyCancellable>()
-    
+
     required init?(coder: NSCoder) { nil }
     init(status: Status) {
         super.init(frame: .zero)
+        
+        let separator = Separator(mode: .horizontal)
+        separator.isHidden = true
+        addSubview(separator)
+        
         let flip = Flip()
         flip.translatesAutoresizingMaskIntoConstraints = false
         
@@ -65,6 +70,10 @@ final class Landing: NSView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
         addSubview(stack)
+        
+        separator.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 2).isActive = true
+        separator.rightAnchor.constraint(equalTo: rightAnchor, constant: -2).isActive = true
         
         scroll.topAnchor.constraint(equalTo: topAnchor).isActive = true
         scroll.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
@@ -137,6 +146,24 @@ final class Landing: NSView {
                 if !cards.isEmpty {
                     flip.bottomAnchor.constraint(greaterThanOrEqualTo: top, constant: 60).isActive = true
                 }
+            }
+            .store(in: &subs)
+        
+        NotificationCenter
+            .default
+            .publisher(for: NSView.boundsDidChangeNotification)
+            .compactMap {
+                $0.object as? NSClipView
+            }
+            .filter {
+                $0 == scroll.contentView
+            }
+            .map {
+                $0.bounds.minY < 30
+            }
+            .removeDuplicates()
+            .sink {
+                separator.isHidden = $0
             }
             .store(in: &subs)
     }

@@ -145,12 +145,12 @@ extension Autocomplete {
         }
         
         func center(y: CGFloat) {
-            NSAnimationContext
-                .runAnimationGroup {
-                    $0.duration = 0.3
-                    $0.allowsImplicitAnimation = true
-                    contentView.bounds.origin.y = y - bounds.midY
-                }
+            contentView.bounds.origin.y = y - bounds.midY
+            contentView.layer?.add({
+                $0.duration = 0.2
+                $0.timingFunction = .init(name: .easeInEaseOut)
+                return $0
+            } (CABasicAnimation(keyPath: "bounds")), forKey: "bounds")
         }
     }
 }

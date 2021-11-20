@@ -17,6 +17,7 @@ final class Autocomplete: NSPanel {
         hasShadow = true
         
         let blur = NSVisualEffectView()
+        blur.frame = .init(origin: .zero, size: .init(width: 0, height: 4))
         blur.material = .hudWindow
         blur.state = .active
         blur.wantsLayer = true
@@ -27,12 +28,15 @@ final class Autocomplete: NSPanel {
         self.list = list
         blur.addSubview(list)
         
-        list.topAnchor.constraint(equalTo: blur.topAnchor).isActive = true
-        list.bottomAnchor.constraint(equalTo: blur.bottomAnchor).isActive = true
+        list.topAnchor.constraint(equalTo: blur.topAnchor, constant: 2).isActive = true
+        list.bottomAnchor.constraint(equalTo: blur.bottomAnchor, constant: -2).isActive = true
         list.leftAnchor.constraint(equalTo: blur.leftAnchor).isActive = true
         list.rightAnchor.constraint(equalTo: blur.rightAnchor).isActive = true
         
         adjust
+            .removeDuplicates {
+                $0.position == $1.position
+            }
             .combineLatest(list
                             .size
                             .map(\.height)
@@ -41,15 +45,16 @@ final class Autocomplete: NSPanel {
                             }
                             .removeDuplicates())
             .sink { [weak self] in
-                blur.frame.size = .init(width: $0.0.width, height: $0.1)
+                guard $1 > 0 else {
+                    self?.close()
+                    return
+                }
+                blur.frame.size = .init(width: $0.width, height: $1 + 4)
                 self?.setContentSize(blur.frame.size)
-                self?.setFrameTopLeftPoint($0.0.position)
+                self?.setFrameTopLeftPoint($0.position)
             }
             .store(in: &subs)
-    }
-    
-    func start() {
-        guard monitor == nil else { return }
+        
         monitor = NSEvent
             .addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown, .otherMouseDown]) { [weak self] event in
                 if self?.isVisible == true && event.window != self {

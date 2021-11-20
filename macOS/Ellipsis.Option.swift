@@ -10,26 +10,26 @@ extension Ellipsis {
             text.textColor = .labelColor
             
             let icon = Image(icon: symbol)
-            icon.symbolConfiguration = .init(textStyle: .body, scale: .large)
-            icon.contentTintColor = .labelColor
+            icon.symbolConfiguration = .init(textStyle: .body)
+                .applying(.init(hierarchicalColor: .labelColor))
             
             super.init(layer: true)
             layer!.cornerRadius = 8
             addSubview(text)
             addSubview(icon)
             
-            widthAnchor.constraint(equalToConstant: 280).isActive = true
-            heightAnchor.constraint(equalToConstant: 42).isActive = true
-            rightAnchor.constraint(equalTo: icon.rightAnchor, constant: 16).isActive = true
+            widthAnchor.constraint(equalToConstant: 240).isActive = true
+            heightAnchor.constraint(equalToConstant: 36).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             text.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
             
             icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            icon.centerXAnchor.constraint(equalTo: rightAnchor, constant: -26).isActive = true
         }
         
-        override func update() {
-            super.update()
+        override func updateLayer() {
+            super.updateLayer()
             
             switch state {
             case .pressed:

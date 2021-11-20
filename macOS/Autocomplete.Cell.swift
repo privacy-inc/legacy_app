@@ -1,13 +1,12 @@
 import AppKit
-import Combine
 
 extension Autocomplete {
     final class Cell: CollectionCell<Info> {
         static let size = CGSize(width: Bar.Tab.On.width - 24, height: 56)
-        private weak var text: CollectionCellText!
-        private weak var icon: CollectionCellImage!
+        private weak var text: Text!
+        private weak var icon: Icon!
         private weak var separator: Shape!
-        private var sub: AnyCancellable?
+        private weak var vibrant: Vibrant!
         
         override var item: CollectionItem<Info>? {
             didSet {
@@ -16,82 +15,71 @@ extension Autocomplete {
                     let item = item
                 else { return }
                 
+                separator.isHidden = item.info.first
+                
                 if item.rect != oldValue?.rect {
                     frame = item.rect
+                    vibrant.frame = bounds
                     
-                    let width = item.rect.size.width - 75
+                    let width = item.rect.size.width - 70
                     let height = item.info.text.height(for: width)
                     text.frame = .init(
                         x: 54,
                         y: (Self.size.height - height) / 2,
                         width: width,
                         height: height)
-                    separator.isHidden = item.info.first
                 }
                 
                 if item.info != oldValue?.info {
-                    text.string = item.info.text
-                    sub?.cancel()
-                    icon.contents = NSImage(systemSymbolName: "network", accessibilityDescription: nil)?
-                        .withSymbolConfiguration(.init(pointSize: 32, weight: .ultraLight)
-                                                    .applying(.init(hierarchicalColor: .tertiaryLabelColor)))
-                    
-                    Task
-                        .detached { [weak self] in
-                            await self?.update(icon: item.info.access.icon)
-                        }
+                    text.attributedStringValue = item.info.text
+                    icon.icon(icon: item.info.access.icon)
                 }
             }
         }
         
         required init?(coder: NSCoder) { nil }
-        override init(layer: Any) { super.init(layer: layer) }
         required init() {
-            super.init()
-            cornerCurve = .continuous
-            cornerRadius = 8
+            let vibrant = Vibrant(layer: true)
+            vibrant.layer!.cornerCurve = .continuous
+            vibrant.layer!.cornerRadius = 8
+            self.vibrant = vibrant
             
-            let icon = CollectionCellImage()
-            icon.cornerRadius = 6
+            let separator = Shape()
+            separator.fillColor = .clear
+            separator.lineWidth = 1
+            separator.path = .init(rect: .init(x: 20, y: 57, width: Self.size.width - 40, height: 0), transform: nil)
+            self.separator = separator
+            
+            super.init()
+            addSubview(vibrant)
+            layer!.masksToBounds = false
+            layer!.addSublayer(separator)
+            
+            let icon = Icon(size: 24)
+            icon.translatesAutoresizingMaskIntoConstraints = true
             icon.frame = .init(
                 x: 16,
                 y: 16,
                 width: 24,
                 height: 24)
-            addSublayer(icon)
+            addSubview(icon)
             self.icon = icon
             
-            let text = CollectionCellText()
-            addSublayer(text)
+            let text = Text(vibrancy: true)
+            text.translatesAutoresizingMaskIntoConstraints = true
+            addSubview(text)
             self.text = text
-            
-            let separator = Shape()
-            separator.fillColor = .clear
-            separator.lineWidth = 1
-            separator.strokeColor = NSColor.separatorColor.cgColor
-            separator.path = .init(rect: .init(x: 20, y: -1, width: Self.size.width - 40, height: 0), transform: nil)
-            addSublayer(separator)
-            self.separator = separator
         }
         
-        override func update() {
+        override func updateLayer() {
             switch state {
             case .highlighted, .pressed:
-                backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
+                vibrant.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
             default:
-                backgroundColor = .clear
+                vibrant.layer!.backgroundColor = .clear
             }
-        }
-        
-        private func update(icon: String?) async {
-            guard
-                let icon = icon,
-                let publisher = await favicon.publisher(for: icon)
-            else { return }
-            sub = publisher
-                .sink { [weak self] in
-                    self?.icon.contents = $0
-                }
+            
+            separator.strokeColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
         }
     }
 }

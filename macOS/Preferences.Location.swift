@@ -40,7 +40,7 @@ extension Preferences {
                 .store(in: &subs)
             self.option = option
             
-            let badge = Image(icon: "checkmark.circle.fill", vibrancy: false)
+            let badge = Image(icon: "checkmark.circle.fill")
             badge.symbolConfiguration = .init(textStyle: .title1)
                 .applying(.init(hierarchicalColor: .systemBlue))
             badge.isHidden = true

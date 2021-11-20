@@ -14,7 +14,7 @@ final class About: NSWindow {
         contentView = content
         center()
         
-        let image = Image(named: "Logo", vibrancy: false)
+        let image = Image(named: "Logo")
         image.imageScaling = .scaleNone
         content.addSubview(image)
         
@@ -36,7 +36,7 @@ final class About: NSWindow {
         disclaimer.textColor = .tertiaryLabelColor
         content.addSubview(disclaimer)
         
-        let heart = Image(icon: "heart", vibrancy: false)
+        let heart = Image(icon: "heart")
         heart.symbolConfiguration = .init(textStyle: .body)
             .applying(.init(paletteColors: [.systemPink]))
         content.addSubview(heart)

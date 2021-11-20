@@ -14,11 +14,11 @@ extension Trackers {
             
             let stack = NSStackView(views: trackers
                                         .map { item in
-                let text = Text(vibrancy: true)
-                text.stringValue = item
-                text.font = .preferredFont(forTextStyle: .body)
-                text.textColor = .secondaryLabelColor
-                return text
+                                            let text = Text(vibrancy: true)
+                                            text.stringValue = item
+                                            text.font = .preferredFont(forTextStyle: .body)
+                                            text.textColor = .secondaryLabelColor
+                                            return text
                                         })
             stack.orientation = .vertical
             view.addSubview(stack)

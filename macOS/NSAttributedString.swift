@@ -7,6 +7,24 @@ extension NSAttributedString {
         return mutable
     }
     
+    class func make(alignment: NSTextAlignment, transform: (NSMutableAttributedString) -> Void) -> NSAttributedString {
+        let mutable = NSMutableAttributedString()
+        transform(mutable)
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = alignment
+        mutable.addAttribute(.paragraphStyle, value: paragraph, range: .init(location: 0, length: mutable.length))
+        return mutable
+    }
+    
+    class func make(lineBreak: NSLineBreakMode, transform: (NSMutableAttributedString) -> Void) -> NSAttributedString {
+        let mutable = NSMutableAttributedString()
+        transform(mutable)
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = lineBreak
+        mutable.addAttribute(.paragraphStyle, value: paragraph, range: .init(location: 0, length: mutable.length))
+        return mutable
+    }
+    
     class func make(_ string: String, attributes: [NSAttributedString.Key : Any]) -> Self {
         .init(string: string, attributes: attributes)
     }
@@ -46,5 +64,16 @@ extension NSAttributedString {
                   height: .greatestFiniteMagnitude),
             nil)
             .height
+    }
+    
+    func width(for height: CGFloat) -> CGFloat {
+        CTFramesetterSuggestFrameSizeWithConstraints(
+            CTFramesetterCreateWithAttributedString(self),
+            CFRange(),
+            nil,
+            .init(width: .greatestFiniteMagnitude,
+                  height: height),
+            nil)
+            .width
     }
 }

@@ -15,10 +15,8 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
     init(active: NSTrackingArea.Options) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        
+
         let content = Flip()
-        content.layer = Layer()
-        content.wantsLayer = true
         documentView = content
         hasVerticalScroller = true
         verticalScroller!.controlSize = .mini
@@ -59,7 +57,7 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
                             }
                     }
                     .forEach {
-                        $0.removeFromSuperlayer()
+                        $0.removeFromSuperview()
                         $0.item = nil
                     }
                 
@@ -79,7 +77,7 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
                             } (Cell())
                         cell.state = .none
                         cell.item = item
-                        content.layer!.addSublayer(cell)
+                        content.addSubview(cell)
                     }
                 
                 self?.render.send()
@@ -166,10 +164,6 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
     final override func rightMouseDown(with: NSEvent) {
         highlight.send(point(with: with))
         super.rightMouseDown(with: with)
-    }
-    
-    final override var allowsVibrancy: Bool {
-        true
     }
     
     final func point(with: NSEvent) -> CGPoint {

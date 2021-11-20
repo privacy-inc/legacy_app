@@ -14,8 +14,7 @@ extension Bar.Tab.On {
             wantsLayer = true
             layer!.cornerRadius = 8
             layer!.cornerCurve = .continuous
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
-            
+
             let shape = Shape()
             shape.path = {
                 $0.move(to: .init(x: 0, y: 1))
@@ -24,7 +23,6 @@ extension Bar.Tab.On {
             } (CGMutablePath())
             shape.strokeStart = 0
             shape.strokeEnd = 0
-            shape.strokeColor = NSColor.controlAccentColor.cgColor
             shape.fillColor = .clear
             shape.lineWidth = 2
             shape.lineCap = .round
@@ -64,6 +62,11 @@ extension Bar.Tab.On {
                     return $0
                 } (CABasicAnimation(keyPath: "strokeStart")), forKey: "strokeStart")
             }
+        }
+        
+        override func updateLayer() {
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
+            shape.strokeColor = NSColor.controlAccentColor.cgColor
         }
         
         override var allowsVibrancy: Bool {

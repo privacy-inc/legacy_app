@@ -5,28 +5,38 @@ extension Shortcut {
         private weak var image: Image!
         
         required init?(coder: NSCoder) { nil }
-        init(icon: String, color: NSColor) {
-            let image = Image(icon: icon, vibrancy: false)
-            image.symbolConfiguration = .init(pointSize: 38, weight: .regular)
+        init() {
+            let image = Image()
             self.image = image
 
             super.init(layer: false)
             addSubview(image)
             widthAnchor.constraint(equalToConstant: 50).isActive = true
             heightAnchor.constraint(equalTo: widthAnchor).isActive = true
-            image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            image.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            
+            image.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            image.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            image.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            image.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         }
         
-        override func update() {
-            super.update()
+        override func updateLayer() {
+            super.updateLayer()
             
             switch state {
             case .pressed, .highlighted:
-                image.symbolConfiguration = image.symbolConfiguration!.applying(.init(hierarchicalColor: .labelColor))
+                image.image = .init(systemSymbolName: "flame.circle.fill", accessibilityDescription: nil)
+                image.symbolConfiguration = .init(pointSize: 38, weight: .regular)
+                    .applying(.init(hierarchicalColor: .labelColor))
             default:
-                image.symbolConfiguration = image.symbolConfiguration!.applying(.init(hierarchicalColor: .secondaryLabelColor))
+                image.image = .init(systemSymbolName: "flame.fill", accessibilityDescription: nil)
+                image.symbolConfiguration = .init(pointSize: 22, weight: .regular)
+                    .applying(.init(hierarchicalColor: .secondaryLabelColor))
             }
+        }
+
+        override var allowsVibrancy: Bool {
+            true
         }
     }
 }

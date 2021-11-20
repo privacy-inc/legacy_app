@@ -22,7 +22,7 @@ final class Pop: NSPopover {
             $0.newLine()
             $0.append(.with(markdown: copy, attributes: [
                     .font: NSFont.preferredFont(forTextStyle: .body),
-                    .foregroundColor: NSColor.labelColor]))
+                    .foregroundColor: NSColor.secondaryLabelColor]))
         }
         view.addSubview(text)
         

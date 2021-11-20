@@ -4,7 +4,7 @@ import Specs
 
 final class Icon: NSView {
     private weak var icon: NSImageView!
-    private weak var backup: NSImageView!
+    private weak var backup: Vibrant!
     private var sub: AnyCancellable?
     
     required init?(coder: NSCoder) { nil }
@@ -12,11 +12,15 @@ final class Icon: NSView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
-        let backup = Image(icon: "network")
-        backup.contentTintColor = .tertiaryLabelColor
-        backup.symbolConfiguration = .init(textStyle: .largeTitle, scale: .large)
+        let backup = Vibrant(layer: false)
+        backup.translatesAutoresizingMaskIntoConstraints = false
         self.backup = backup
         addSubview(backup)
+        
+        let network = Image(icon: "network")
+        network.symbolConfiguration = .init(pointSize: 40, weight: .thin)
+            .applying(.init(hierarchicalColor: .tertiaryLabelColor))
+        backup.addSubview(network)
         
         let icon = NSImageView()
         icon.wantsLayer = true
@@ -40,6 +44,11 @@ final class Icon: NSView {
         backup.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backup.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         backup.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        
+        network.topAnchor.constraint(equalTo: backup.topAnchor).isActive = true
+        network.bottomAnchor.constraint(equalTo: backup.bottomAnchor).isActive = true
+        network.leftAnchor.constraint(equalTo: backup.leftAnchor).isActive = true
+        network.rightAnchor.constraint(equalTo: backup.rightAnchor).isActive = true
     }
     
     override func hitTest(_: NSPoint) -> NSView? {

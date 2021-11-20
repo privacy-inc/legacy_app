@@ -115,3 +115,9 @@ extension Websites {
         }
     }
 }
+
+private extension String {
+    var capped: String {
+        count > 50 ? prefix(50) + "..." : self
+    }
+}

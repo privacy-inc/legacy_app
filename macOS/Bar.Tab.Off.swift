@@ -93,8 +93,8 @@ extension Bar.Tab {
                 .store(in: &subs)
         }
         
-        override func update() {
-            super.update()
+        override func updateLayer() {
+            super.updateLayer()
             
             switch state {
             case .pressed, .highlighted:

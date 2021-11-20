@@ -1,29 +1,23 @@
 import AppKit
 
-class CollectionCell<Info>: CALayer where Info : CollectionItemInfo {
+class CollectionCell<Info>: NSView where Info : CollectionItemInfo {
     var item: CollectionItem<Info>?
     
     required init?(coder: NSCoder) { nil }
-    override init(layer: Any) { super.init(layer: layer) }
-    required override init() {
-        super.init()
-    }
-    
-    func update() {
-        
+    required init() {
+        super.init(frame: .zero)
+        layer = Layer()
+        wantsLayer = true
+        updateLayer()
     }
     
     final var state = CollectionCellState.none {
         didSet {
-            update()
+            updateLayer()
         }
     }
     
-    final override func hitTest(_: CGPoint) -> CALayer? {
+    final override func hitTest(_: NSPoint) -> NSView? {
         nil
-    }
-    
-    final override class func defaultAction(forKey: String) -> CAAction? {
-        NSNull()
     }
 }

@@ -13,7 +13,7 @@ extension Activity {
             self.layer = layer
             wantsLayer = true
             shadow = NSShadow()
-            shadow!.shadowColor = .init(white: 0, alpha: 0.1)
+            shadow!.shadowColor = .init(white: 0, alpha: 0.2)
             layer.backgroundColor = NSColor.controlBackgroundColor.cgColor
             layer.cornerCurve = .continuous
             layer.cornerRadius = 14

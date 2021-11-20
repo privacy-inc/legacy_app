@@ -20,7 +20,7 @@ extension Trackers {
                         .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .regular),
                         .foregroundColor: NSColor.secondaryLabelColor]))
             }
-            count = .make {
+            count = .make(alignment: .right) {
                 $0.append(.make(report.trackers.count.formatted(), attributes: [
                         .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular),
                         .foregroundColor: NSColor.labelColor]))

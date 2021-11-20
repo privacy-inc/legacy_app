@@ -42,7 +42,7 @@ final class Shortcut: NSPopover {
             }
             .store(in: &subs)
         
-        let forget = Option(icon: "flame.circle.fill", color: .systemPink)
+        let forget = Option()
         forget
             .click
             .sink {

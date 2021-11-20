@@ -17,7 +17,7 @@ final class Froob: NSWindow {
         contentView = content
         center()
         
-        let image = Image(named: "Logo", vibrancy: false)
+        let image = Image(named: "Logo")
         image.imageScaling = .scaleNone
         content.addSubview(image)
         

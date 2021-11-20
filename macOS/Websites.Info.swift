@@ -27,11 +27,13 @@ extension Websites {
             text = .make {
                 switch website.access {
                 case let remote as Access.Remote:
-                    $0.append(.make(website.title, attributes: [
-                        .font: NSFont.preferredFont(forTextStyle: .body),
-                        .foregroundColor: NSColor.labelColor],
-                                    lineBreak: .byTruncatingTail))
-                    $0.newLine()
+                    if !website.title.isEmpty {
+                        $0.append(.make(website.title, attributes: [
+                            .font: NSFont.preferredFont(forTextStyle: .body),
+                            .foregroundColor: NSColor.labelColor],
+                                        lineBreak: .byTruncatingTail))
+                        $0.newLine()
+                    }
                     $0.append(.make(remote.domain.minimal, attributes: [
                         .font: NSFont.preferredFont(forTextStyle: .footnote),
                         .foregroundColor: NSColor.secondaryLabelColor],

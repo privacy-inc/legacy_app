@@ -22,12 +22,12 @@ final class Switch: NSView {
         addSubview(control)
         
         heightAnchor.constraint(equalToConstant: 38).isActive = true
-        widthAnchor.constraint(equalToConstant: 280).isActive = true
+        widthAnchor.constraint(equalToConstant: 240).isActive = true
         
         text.leftAnchor.constraint(equalTo: control.rightAnchor, constant: 10).isActive = true
         text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
-        control.leftAnchor.constraint(equalTo: leftAnchor, constant: 15).isActive = true
+        control.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
         control.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }

@@ -6,17 +6,18 @@ extension Bar.Tab {
         static let width = CGFloat(350)
         private weak var stack: NSStackView!
         private weak var status: Status!
+        private weak var background: Background!
+        private weak var autocomplete: Autocomplete?
         private var subs = Set<AnyCancellable>()
-        private let autocomplete: Autocomplete
         
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {
             self.status = status
-            autocomplete = .init(status: status)
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
             let background = Background()
+            self.background = background
             addSubview(background)
             
             let search = Search()
@@ -35,11 +36,11 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            let secure = Option(icon: "lock.fill", size: 12, color: .tertiaryLabelColor)
+            let secure = Option(icon: "lock.fill", size: 11, color: .tertiaryLabelColor)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
             
-            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 12, color: .tertiaryLabelColor)
+            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 11, color: .tertiaryLabelColor)
             insercure.toolTip = "Insecure"
             insercure.state = .hidden
             
@@ -55,11 +56,11 @@ extension Bar.Tab {
             forward.toolTip = "Forward"
             forward.state = .hidden
             
-            let reload = Option(icon: "arrow.clockwise", size: 12)
+            let reload = Option(icon: "arrow.clockwise", size: 11)
             reload.toolTip = "Reload"
             reload.state = .hidden
             
-            let stop = Option(icon: "xmark", size: 12)
+            let stop = Option(icon: "xmark", size: 11)
             stop.toolTip = "Stop"
             stop.state = .hidden
             
@@ -78,7 +79,7 @@ extension Bar.Tab {
             prompt.widthAnchor.constraint(equalToConstant: 28).isActive = true
             
             stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
-            stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -3).isActive = true
+            stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -6).isActive = true
             stack.topAnchor.constraint(equalTo: topAnchor).isActive = true
             stack.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             
@@ -159,51 +160,57 @@ extension Bar.Tab {
                     self?.window!.makeFirstResponder(search)
                 }
                 .store(in: &subs)
-            
-            autocomplete
-                .list
-                .complete
-                .sink {
-                    search.stringValue = $0
-                }
-                .store(in: &subs)
         }
         
         deinit {
-            autocomplete.close()
+            autocomplete?.close()
+        }
+        
+        override func updateLayer() {
+            background.updateLayer()
         }
         
         func controlTextDidChange(_ control: Notification) {
             guard let search = control.object as? Search else { return }
             
-            if !autocomplete.isVisible {
+            if self.autocomplete == nil {
+                let autocomplete = Autocomplete(status: status)
                 window!.addChildWindow(autocomplete, ordered: .above)
-                autocomplete.start()
                 
                 ;{
                     autocomplete.adjust.send((position: .init(x: $0.x - 3, y: $0.y - 6), width: bounds.width + 6))
                 } (window!.convertPoint(toScreen: convert(frame.origin, to: nil)))
+                
+                autocomplete
+                    .list
+                    .complete
+                    .sink {
+                        search.stringValue = $0
+                    }
+                    .store(in: &subs)
+                
+                self.autocomplete = autocomplete
             }
             
-            autocomplete.find(string: search.stringValue)
+            autocomplete?.find(string: search.stringValue)
         }
         
         func control(_ control: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
             case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
-                autocomplete.close()
+                autocomplete?.close()
                 window?.makeFirstResponder(window?.contentView)
             case #selector(insertNewline):
-                autocomplete.close()
+                autocomplete?.close()
                 Task
                     .detached(priority: .utility) { [weak self] in
                         await self?.status.searching(search: control.stringValue)
                     }
                 window!.makeFirstResponder(window!.contentView)
             case #selector(moveUp):
-                autocomplete.list.move.send((date: .init(), direction: .up))
+                autocomplete?.list.move.send((date: .init(), direction: .up))
             case #selector(moveDown):
-                autocomplete.list.move.send((date: .init(), direction: .down))
+                autocomplete?.list.move.send((date: .init(), direction: .down))
             default:
                 return false
             }

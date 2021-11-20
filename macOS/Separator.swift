@@ -11,9 +11,7 @@ final class Separator: NSView {
     init(mode: Mode) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        layer = Layer()
         wantsLayer = true
-        layer!.backgroundColor = NSColor.separatorColor.cgColor
         
         switch mode {
         case .horizontal:
@@ -21,6 +19,10 @@ final class Separator: NSView {
         case .vertical:
             widthAnchor.constraint(equalToConstant: 1).isActive = true
         }
+    }
+    
+    override func updateLayer() {
+        layer!.backgroundColor = NSColor.separatorColor.cgColor
     }
     
     override var allowsVibrancy: Bool {

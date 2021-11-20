@@ -5,9 +5,8 @@ final class Activity: NSWindow {
     private var subs = Set<AnyCancellable>()
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 1000, height: 300),
-                   styleMask: [.closable, .resizable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
-        minSize = .init(width: 1000, height: 300)
+        super.init(contentRect: .init(x: 0, y: 0, width: 550, height: 500),
+                   styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
         animationBehavior = .alertPanel
         toolbar = .init()
         isReleasedWhenClosed = false
@@ -27,24 +26,14 @@ final class Activity: NSWindow {
         let card = Card()
         content.addSubview(card)
         
-        let eventsTitle = Text(vibrancy: true)
-        eventsTitle.stringValue = "Events"
-        
-        let totalEvents = Text(vibrancy: true)
-        totalEvents.stringValue = "Total events"
-        
         let events = Text(vibrancy: true)
-        
-        let trackerEvents = Text(vibrancy: true)
-        trackerEvents.stringValue = "Tracker events"
-        
-        let trackers = Text(vibrancy: true)
+        content.addSubview(events)
         
         let websitesTitle = Text(vibrancy: true)
         websitesTitle.stringValue = "Websites"
         
         let totalWebsites = Text(vibrancy: true)
-        totalWebsites.stringValue = "Total websites"
+        totalWebsites.stringValue = "Total"
         
         let websites = Text(vibrancy: true)
         
@@ -59,7 +48,7 @@ final class Activity: NSWindow {
         trackersTitle.stringValue = "Trackers"
         
         let totalTrackers = Text(vibrancy: true)
-        totalTrackers.stringValue = "Total trackers"
+        totalTrackers.stringValue = "Total"
         
         let prevented = Text(vibrancy: true)
         
@@ -68,38 +57,29 @@ final class Activity: NSWindow {
         
         let most = Text(vibrancy: true)
         
-        [eventsTitle, websitesTitle, trackersTitle]
+        [websitesTitle, trackersTitle]
             .forEach {
                 $0.font = .preferredFont(forTextStyle: .title3)
                 $0.textColor = .tertiaryLabelColor
             }
         
-        [totalEvents, trackerEvents, totalWebsites, mostVisited, totalTrackers, mostPrevented]
+        [totalWebsites, mostVisited, totalTrackers, mostPrevented]
             .forEach {
                 $0.font = .preferredFont(forTextStyle: .footnote)
                 $0.textColor = .secondaryLabelColor
             }
         
-        [events, trackers, websites, prevented, most]
+        [websites, prevented]
             .forEach {
                 $0.font = .monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular)
                 $0.textColor = .labelColor
             }
         
-        [visited, prevented]
+        [visited, most]
             .forEach {
                 $0.font = .preferredFont(forTextStyle: .body)
                 $0.textColor = .labelColor
             }
-        
-        let stackEvents = NSStackView(views: [
-            eventsTitle,
-            Separator(mode: .horizontal),
-            totalEvents,
-            events,
-            Separator(mode: .horizontal),
-            trackerEvents,
-            trackers])
         
         let stackWebsites = NSStackView(views: [
             websitesTitle,
@@ -121,44 +101,69 @@ final class Activity: NSWindow {
             mostPrevented,
             most])
         
-        [stackEvents, stackWebsites, stackTrackers]
+        [stackWebsites, stackTrackers]
             .forEach {
                 $0.translatesAutoresizingMaskIntoConstraints = false
                 $0.orientation = .vertical
                 $0.alignment = .leading
                 content.addSubview($0)
                 
-                $0.topAnchor.constraint(equalTo: card.topAnchor).isActive = true
-                $0.bottomAnchor.constraint(equalTo: card.bottomAnchor).isActive = true
-                $0.widthAnchor.constraint(equalToConstant: 190).isActive = true
+                $0.topAnchor.constraint(equalTo: card.bottomAnchor, constant: 30).isActive = true
             }
         
         title.centerYAnchor.constraint(equalTo: content.topAnchor, constant: 26).isActive = true
         title.rightAnchor.constraint(equalTo: content.rightAnchor, constant: -26).isActive = true
         
-        card.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        card.leftAnchor.constraint(equalTo: content.leftAnchor, constant: 30).isActive = true
-        card.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -30).isActive = true
+        card.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
+        card.rightAnchor.constraint(equalTo: content.rightAnchor, constant: -30).isActive = true
+        card.heightAnchor.constraint(equalToConstant: 210).isActive = true
         
-        stackEvents.rightAnchor.constraint(equalTo: stackWebsites.leftAnchor, constant: -20).isActive = true
-        stackWebsites.rightAnchor.constraint(equalTo: stackTrackers.leftAnchor, constant: -20).isActive = true
-        stackTrackers.rightAnchor.constraint(equalTo: content.rightAnchor, constant: -30).isActive = true
+        events.topAnchor.constraint(equalTo: card.topAnchor, constant: 20).isActive = true
+        events.rightAnchor.constraint(equalTo: card.leftAnchor, constant: -30).isActive = true
+        
+        stackWebsites.leftAnchor.constraint(equalTo: content.leftAnchor, constant: 40).isActive = true
+        stackWebsites.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        
+        stackTrackers.rightAnchor.constraint(equalTo: content.rightAnchor, constant: -40).isActive = true
+        stackTrackers.widthAnchor.constraint(equalToConstant: 270).isActive = true
         
         cloud
             .map(\.events)
             .sink {
                 let stats = $0.stats
                 let since = $0.since ?? .now
+                let attempts = $0.prevented.formatted()
                 
                 title.attributedStringValue = .make {
                     $0.append(.make("Activity since ", attributes: [
-                        .foregroundColor: NSColor.labelColor]))
+                        .foregroundColor: NSColor.tertiaryLabelColor]))
                     $0.append(.make(since.formatted(.relative(presentation: .named, unitsStyle: .wide)), attributes: [
-                            .foregroundColor: NSColor.secondaryLabelColor]))
+                            .foregroundColor: NSColor.labelColor]))
                 }
                 
-                events.stringValue = stats.websites.formatted()
-                trackers.stringValue = $0.prevented.formatted()
+                events.attributedStringValue = .make {
+                    $0.append(.make(stats.websites.formatted(), attributes: [
+                        .foregroundColor: NSColor.labelColor,
+                        .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title1).pointSize, weight: .light)],
+                                    alignment: .right))
+                    $0.newLine()
+                    $0.append(.make("Web pages visited", attributes: [
+                        .foregroundColor: NSColor.tertiaryLabelColor,
+                        .font: NSFont.preferredFont(forTextStyle: .body)],
+                                    alignment: .right))
+                    $0.newLine()
+                    $0.newLine()
+                    $0.append(.make(attempts, attributes: [
+                        .foregroundColor: NSColor.labelColor,
+                        .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title1).pointSize, weight: .light)],
+                                    alignment: .right))
+                    $0.newLine()
+                    $0.append(.make("Trackings prevented", attributes: [
+                        .foregroundColor: NSColor.tertiaryLabelColor,
+                        .font: NSFont.preferredFont(forTextStyle: .body)],
+                                    alignment: .right))
+                }
+                
                 websites.stringValue = (stats.domains?.count ?? 0).formatted()
                 icon.icon(icon: stats.domains?.top.lowercased())
                 visited.stringValue = stats.domains?.top ?? ""

@@ -10,26 +10,23 @@ extension Autocomplete {
         
         init(complete: Complete, first: Bool) {
             id = complete.id
-            text = .make {
-                $0.append(.make(complete.title, attributes: [
-                    .font: NSFont.preferredFont(forTextStyle: .body),
-                    .foregroundColor: NSColor.labelColor],
-                                lineBreak: .byTruncatingTail))
-                
+            text = .make(lineBreak: .byTruncatingTail) {
                 if !complete.title.isEmpty {
+                    $0.append(.make(complete.title, attributes: [
+                        .font: NSFont.preferredFont(forTextStyle: .body),
+                        .foregroundColor: NSColor.labelColor]))
                     $0.newLine()
                 }
                 
                 if let domain = complete.domain {
                     $0.append(.make(domain, attributes: [
                         .font: NSFont.preferredFont(forTextStyle: .callout),
-                        .foregroundColor: NSColor.secondaryLabelColor]))
+                        .foregroundColor: NSColor.tertiaryLabelColor]))
                 }
                 
                 $0.append(.make(" " + complete.location.rawValue, attributes: [
                     .font: NSFont.preferredFont(forTextStyle: .callout),
-                    .foregroundColor: NSColor.tertiaryLabelColor],
-                                lineBreak: .byTruncatingTail))
+                    .foregroundColor: NSColor.tertiaryLabelColor]))
             }
             access = complete.access
             self.first = first

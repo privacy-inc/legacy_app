@@ -21,8 +21,8 @@ extension Bar.Tab {
             image.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         }
         
-        override func update() {
-            super.update()
+        override func updateLayer() {
+            super.updateLayer()
             
             switch state {
             case .pressed, .highlighted:
