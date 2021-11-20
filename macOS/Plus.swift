@@ -65,7 +65,7 @@ final class Plus: NSWindow {
         
         store
             .status
-            .sink { [weak self] status in
+            .sink { status in
                 inner?.removeFromSuperview()
 
                 if Defaults.isPremium {
@@ -82,14 +82,24 @@ final class Plus: NSWindow {
                         
                         image.centerXAnchor.constraint(equalTo: inner!.centerXAnchor).isActive = true
                         image.centerYAnchor.constraint(equalTo: inner!.centerYAnchor).isActive = true
+                        
                     case let .error(error):
-                        inner = self?.message(error: error)
+                        inner = NSView()
+                        
+                        let text = Text(vibrancy: true)
+                        text.font = .preferredFont(forTextStyle: .title3)
+                        text.alignment = .center
+                        text.textColor = .secondaryLabelColor
+                        text.stringValue = error
+                        text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+                        inner!.addSubview(text)
+                        
+                        text.centerXAnchor.constraint(equalTo: inner!.centerXAnchor).isActive = true
+                        text.centerYAnchor.constraint(equalTo: inner!.centerYAnchor).isActive = true
+                        text.widthAnchor.constraint(equalToConstant: 300).isActive = true
+                        
                     case let .products(products):
-                        if let product = products.first {
-                            inner = Item(product: product)
-                        } else {
-                            inner = self?.message(error: Copy.noPurchases)
-                        }
+                        inner = Item(product: products.first!)
                     }
                 }
                 
@@ -133,23 +143,5 @@ final class Plus: NSWindow {
     
     @objc func triggerCloseTab() {
         close()
-    }
-    
-    private func message(error: String) -> NSView {
-        let inner = NSView()
-        
-        let text = Text(vibrancy: true)
-        text.font = .preferredFont(forTextStyle: .title3)
-        text.alignment = .center
-        text.textColor = .secondaryLabelColor
-        text.stringValue = error
-        text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        inner.addSubview(text)
-        
-        text.centerXAnchor.constraint(equalTo: inner.centerXAnchor).isActive = true
-        text.centerYAnchor.constraint(equalTo: inner.centerYAnchor).isActive = true
-        text.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        
-        return inner
     }
 }

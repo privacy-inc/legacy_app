@@ -98,14 +98,7 @@ struct Plus: View {
                     .padding()
                     .allowsHitTesting(false)
             case let .products(products):
-                if let product = products.first {
-                    item(product: product)
-                } else {
-                    Text(Copy.noPurchases)
-                        .foregroundColor(.secondary)
-                        .padding()
-                        .allowsHitTesting(false)
-                }
+                item(product: products.first!)
             }
         }
         .listRowSeparator(.hidden)
