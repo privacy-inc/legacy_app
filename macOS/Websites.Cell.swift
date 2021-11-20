@@ -20,7 +20,7 @@ extension Websites {
                     frame = item.rect
                     separator.path = .init(rect: .init(x: 17, y: -0.5, width: item.rect.size.width - 34, height: 0), transform: nil)
                     
-                    let width = item.rect.size.width - 86
+                    let width = item.rect.size.width - 94
                     let height = item.info.text.height(for: width)
                     text.frame = .init(
                         x: 64,
