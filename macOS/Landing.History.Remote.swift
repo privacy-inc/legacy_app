@@ -11,10 +11,9 @@ extension Landing.History {
             addSubview(icon)
             
             let title = Text(vibrancy: true)
-            title.attributedStringValue = .make {
+            title.attributedStringValue = .make(lineBreak: .byTruncatingMiddle) {
                 $0.append(.make(item.website.title, attributes: [
-                    .foregroundColor: NSColor.labelColor],
-                                lineBreak: .byTruncatingMiddle))
+                    .foregroundColor: NSColor.labelColor]))
                 $0.append(.make(" " + remote.domain.minimal, attributes: [
                     .foregroundColor: NSColor.tertiaryLabelColor]))
             }

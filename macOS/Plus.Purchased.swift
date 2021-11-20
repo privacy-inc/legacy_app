@@ -12,14 +12,12 @@ extension Plus {
             addSubview(check)
             
             let text = Text(vibrancy: true)
-            text.attributedStringValue = .make {
+            text.attributedStringValue = .make(alignment: .center) {
                 $0.append(.make("We received your support", attributes: [
-                    .foregroundColor: NSColor.secondaryLabelColor],
-                                alignment: .center))
+                    .foregroundColor: NSColor.secondaryLabelColor]))
                 $0.newLine()
                 $0.append(.make("Thank you!", attributes: [
-                    .foregroundColor: NSColor.labelColor],
-                                alignment: .center))
+                    .foregroundColor: NSColor.labelColor]))
             }
             text.font = .preferredFont(forTextStyle: .body)
             addSubview(text)

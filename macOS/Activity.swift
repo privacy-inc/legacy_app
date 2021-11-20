@@ -141,27 +141,23 @@ final class Activity: NSWindow {
                             .foregroundColor: NSColor.labelColor]))
                 }
                 
-                events.attributedStringValue = .make {
+                events.attributedStringValue = .make(alignment: .right) {
                     $0.append(.make(stats.websites.formatted(), attributes: [
                         .foregroundColor: NSColor.labelColor,
-                        .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title1).pointSize, weight: .light)],
-                                    alignment: .right))
+                        .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title1).pointSize, weight: .light)]))
                     $0.newLine()
                     $0.append(.make("Web pages visited", attributes: [
                         .foregroundColor: NSColor.tertiaryLabelColor,
-                        .font: NSFont.preferredFont(forTextStyle: .body)],
-                                    alignment: .right))
+                        .font: NSFont.preferredFont(forTextStyle: .body)]))
                     $0.newLine()
                     $0.newLine()
                     $0.append(.make(attempts, attributes: [
                         .foregroundColor: NSColor.labelColor,
-                        .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title1).pointSize, weight: .light)],
-                                    alignment: .right))
+                        .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title1).pointSize, weight: .light)]))
                     $0.newLine()
                     $0.append(.make("Trackings prevented", attributes: [
                         .foregroundColor: NSColor.tertiaryLabelColor,
-                        .font: NSFont.preferredFont(forTextStyle: .body)],
-                                    alignment: .right))
+                        .font: NSFont.preferredFont(forTextStyle: .body)]))
                 }
                 
                 websites.stringValue = (stats.domains?.count ?? 0).formatted()

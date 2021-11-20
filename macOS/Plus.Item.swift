@@ -11,17 +11,15 @@ extension Plus {
             super.init(frame: .zero)
             
             let text = Text(vibrancy: true)
-            text.attributedStringValue = .make {
+            text.attributedStringValue = .make(alignment: .center) {
                 $0.append(.make(product.description, attributes: [
                     .font: NSFont.preferredFont(forTextStyle: .title3),
-                    .foregroundColor: NSColor.secondaryLabelColor],
-                                alignment: .center))
+                    .foregroundColor: NSColor.secondaryLabelColor]))
                 $0.newLine()
                 $0.newLine()
                 $0.append(.make(product.displayPrice, attributes: [
                     .font: NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
-                    .foregroundColor: NSColor.labelColor],
-                                alignment: .center))
+                    .foregroundColor: NSColor.labelColor]))
             }
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             addSubview(text)

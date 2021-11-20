@@ -117,22 +117,19 @@ final class Ellipsis: NSPopover {
                             }
                             .removeDuplicates())
             .sink { url, title in
-                text.attributedStringValue = .make {
+                text.attributedStringValue = .make(lineBreak: .byTruncatingTail) {
                     if title.isEmpty {
                         $0.append(.make(url.absoluteString, attributes: [
                             .font: NSFont.preferredFont(forTextStyle: .body),
-                            .foregroundColor: NSColor.secondaryLabelColor],
-                                        lineBreak: .byTruncatingTail))
+                            .foregroundColor: NSColor.secondaryLabelColor]))
                     } else {
                         $0.append(.make(title, attributes: [
                             .font: NSFont.preferredFont(forTextStyle: .body),
-                            .foregroundColor: NSColor.labelColor],
-                                        lineBreak: .byTruncatingTail))
+                            .foregroundColor: NSColor.labelColor]))
                         $0.newLine()
                         $0.append(.make(url.absoluteString, attributes: [
                             .font: NSFont.preferredFont(forTextStyle: .footnote),
-                            .foregroundColor: NSColor.tertiaryLabelColor],
-                                        lineBreak: .byTruncatingTail))
+                            .foregroundColor: NSColor.tertiaryLabelColor]))
                     }
                 }
             }
