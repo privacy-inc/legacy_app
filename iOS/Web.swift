@@ -40,21 +40,24 @@ final class Web: Webview, UIViewRepresentable {
                                 .init(userInterfaceStyle: dark ? .dark : .light))
         
         underPageBackgroundColor = background
-        publisher(for: \.themeColor)
-            .sink { [weak self] theme in
-                guard
-                    dark,
-                    settings.dark,
-                    let color = theme
-                else {
-                    self?.underPageBackgroundColor = background
-                    return
+        
+        if !dark {
+            publisher(for: \.themeColor)
+                .sink { [weak self] theme in
+                    guard
+                        dark,
+                        settings.dark,
+                        let color = theme
+                    else {
+                        self?.underPageBackgroundColor = background
+                        return
+                    }
+                    var alpha = CGFloat()
+                    color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
+                    self?.underPageBackgroundColor = alpha == 0 ? background : color
                 }
-                var alpha = CGFloat()
-                color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
-                self?.underPageBackgroundColor = alpha == 0 ? background : color
-            }
-            .store(in: &subs)
+                .store(in: &subs)
+        }
     }
     
     deinit {
