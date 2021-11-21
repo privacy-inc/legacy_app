@@ -34,12 +34,12 @@ class Control: NSView {
         alphaValue = state == .off ? 0.25 : 1
     }
     
-    override func mouseEntered(with: NSEvent) {
+    final override func mouseEntered(with: NSEvent) {
         guard state == .on || state == .pressed else { return }
         state = .highlighted
     }
     
-    override func mouseExited(with: NSEvent) {
+    final override func mouseExited(with: NSEvent) {
         guard state == .highlighted || state == .pressed else { return }
         state = .on
     }
