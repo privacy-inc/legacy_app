@@ -8,6 +8,10 @@ extension Landing {
         required init?(coder: NSCoder) { nil }
         init() {
             super.init(title: "Trackers", icon: "shield.lefthalf.filled")
+            icon.symbolConfiguration = icon
+                .symbolConfiguration!
+                .applying(.init(hierarchicalColor: .init(named: "Shades")!))
+            
             first.font = .monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .regular)
             
             card

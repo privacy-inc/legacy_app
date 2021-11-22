@@ -18,7 +18,6 @@ extension Landing {
             
             let icon = Image(icon: icon)
             icon.symbolConfiguration = .init(textStyle: .largeTitle)
-                .applying(.init(hierarchicalColor: .init(named: "Shades")!))
             self.icon = icon
             card.addSubview(icon)
             
