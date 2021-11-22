@@ -20,7 +20,7 @@ final class Activity: NSWindow {
         setFrameAutosaveName("Activity")
         
         let title = Text(vibrancy: true)
-        title.font = .preferredFont(forTextStyle: .body)
+        title.font = .preferredFont(forTextStyle: .title3)
         content.addSubview(title)
         
         let card = Card()

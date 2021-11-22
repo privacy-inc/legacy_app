@@ -31,9 +31,9 @@ extension Landing.Edit {
             addSubview(icon)
             
             heightAnchor.constraint(equalToConstant: 40).isActive = true
-            rightAnchor.constraint(equalTo: icon.rightAnchor, constant: 15).isActive = true
+            rightAnchor.constraint(equalTo: icon.rightAnchor).isActive = true
             
-            control.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
+            control.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
             control.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
             title.leftAnchor.constraint(equalTo: control.rightAnchor, constant: 10).isActive = true

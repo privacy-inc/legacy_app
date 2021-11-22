@@ -21,10 +21,10 @@ extension Landing {
             self.stack = stack
             view.addSubview(stack)
             
-            stack.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
-            stack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
-            stack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-            stack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
+            stack.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+            stack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40).isActive = true
+            stack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 45).isActive = true
+            stack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -45).isActive = true
             
             Task {
                 await order(cards: cloud.model.cards)
@@ -35,7 +35,7 @@ extension Landing {
             let title = Text(vibrancy: true)
             title.stringValue = "Configure"
             title.font = .preferredFont(forTextStyle: .title3)
-            title.textColor = .tertiaryLabelColor
+            title.textColor = .secondaryLabelColor
             
             stack.setViews([title] + cards
                             .map {

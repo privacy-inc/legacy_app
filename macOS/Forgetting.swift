@@ -17,7 +17,7 @@ final class Forgetting: NSPopover {
         let title = Text(vibrancy: true)
         title.stringValue = "Forget"
         title.font = .preferredFont(forTextStyle: .title3)
-        title.textColor = .tertiaryLabelColor
+        title.textColor = .secondaryLabelColor
         
         let cache = Option(title: "Cache", image: "trash")
         cache

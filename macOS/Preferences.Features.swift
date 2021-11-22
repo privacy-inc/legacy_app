@@ -20,6 +20,7 @@ extension Preferences {
                                             screen])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.orientation = .vertical
+            stack.alignment = .leading
             stack.spacing = 10
             view!.addSubview(stack)
             
