@@ -1,12 +1,10 @@
 import AppKit
 
 extension Preferences {
-    final class Javascript: NSTabViewItem {
+    final class Javascript: Tab {
         required init?(coder: NSCoder) { nil }
-        override init() {
-            super.init(identifier: "")
-            label = "JavaScript"
-            
+        init() {
+            super.init(size: .init(width: 440, height: 240), title: "JavaScript", symbol: "xmark.octagon")
             let scripts = Switch(title: "Scripts enabled", target: self, action: #selector(scripts))
             let stop = Switch(title: "Stop scripts when loaded", target: self, action: #selector(stop))
             let third = Switch(title: "Block third-party scripts", target: self, action: #selector(third))
@@ -18,10 +16,10 @@ extension Preferences {
                                             third])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.orientation = .vertical
-            stack.spacing = 8
+            stack.spacing = 10
             view!.addSubview(stack)
             
-            stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 40).isActive = true
+            stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 30).isActive = true
             stack.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             
             Task {

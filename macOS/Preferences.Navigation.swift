@@ -1,29 +1,57 @@
 import AppKit
 
 extension Preferences {
-    final class Navigation: NSTabViewItem {
+    final class Navigation: Tab {
         required init?(coder: NSCoder) { nil }
-        override init() {
-            super.init(identifier: "")
-            label = "Navigation"
+        init() {
+            super.init(size: .init(width: 500, height: 520), title: "Navigation", symbol: "arrow.triangle.branch")
             
-            let engine = Segmented(title: "Search engine", labels: ["Google", "Ecosia"], target: self, action: #selector(engine))
-            let level = Segmented(title: "Privacy level", labels: ["Block trackers", "Standard"], target: self, action: #selector(level))
-            let connection = Segmented(title: "Connection encryption", labels: ["Enforce https", "Allow http"], target: self, action: #selector(connection))
-            let cookies = Segmented(title: "Cookies", labels: ["Block all", "Accept"], target: self, action: #selector(cookies))
-            let autoplay = Segmented(title: "Autoplay", labels: ["None", "Audio", "Video", "All"], target: self, action: #selector(autoplay))
+            let engine = Segmented(
+                symbol: "magnifyingglass",
+                title: "Search engine",
+                labels: ["Google", "Ecosia"],
+                target: self,
+                action: #selector(engine))
+            let level = Segmented(
+                symbol: "shield.lefthalf.filled",
+                title: "Privacy level",
+                labels: ["Block trackers", "Standard"],
+                target: self,
+                action: #selector(level))
+            let connection = Segmented(
+                symbol: "lock",
+                title: "Connection encryption",
+                labels: ["Enforce https", "Allow http"],
+                target: self,
+                action: #selector(connection))
+            let cookies = Segmented(
+                symbol: "pawprint",
+                title: "Cookies",
+                labels: ["Block all", "Accept"],
+                target: self,
+                action: #selector(cookies))
+            let autoplay = Segmented(
+                symbol: "play.rectangle",
+                title: "Autoplay",
+                labels: ["None", "Audio", "Video", "All"],
+                target: self,
+                action: #selector(autoplay))
             
             let stack = NSStackView(views: [engine,
+                                            Separator(mode: .horizontal),
                                             level,
+                                            Separator(mode: .horizontal),
                                             connection,
+                                            Separator(mode: .horizontal),
                                             cookies,
+                                            Separator(mode: .horizontal),
                                             autoplay])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.orientation = .vertical
-            stack.spacing = 20
+            stack.spacing = 15
             view!.addSubview(stack)
             
-            stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 20).isActive = true
+            stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 30).isActive = true
             stack.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             
             Task {

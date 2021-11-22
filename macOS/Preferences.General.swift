@@ -3,7 +3,7 @@ import Combine
 import UserNotifications
 
 extension Preferences {
-    final class General: NSTabViewItem {
+    final class General: Tab {
         private weak var option: Preferences.Option!
         private weak var text: Text!
         private weak var badge: Image!
@@ -11,18 +11,17 @@ extension Preferences {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        override init() {
-            super.init(identifier: "")
-            label = "General"
+        init() {
+            super.init(size: .init(width: 460, height: 340), title: "General", symbol: "gear")
             
             let title = Text(vibrancy: true)
             title.textColor = .labelColor
-            title.font = .preferredFont(forTextStyle: .headline)
+            title.font = .preferredFont(forTextStyle: .title2)
             title.stringValue = "Notifications"
             
             let text = Text(vibrancy: true)
             text.textColor = .secondaryLabelColor
-            text.font = .preferredFont(forTextStyle: .callout)
+            text.font = .preferredFont(forTextStyle: .title3)
             self.text = text
             
             let option = Preferences.Option(title: "", symbol: "app.badge")
@@ -46,7 +45,7 @@ extension Preferences {
                 .store(in: &subs)
             
             let badge = Image(icon: "checkmark.circle.fill")
-            badge.symbolConfiguration = .init(textStyle: .title1)
+            badge.symbolConfiguration = .init(pointSize: 35, weight: .thin)
                 .applying(.init(hierarchicalColor: .systemBlue))
             badge.isHidden = true
             self.badge = badge
@@ -54,13 +53,13 @@ extension Preferences {
             let stack = NSStackView(views: [title, text, badge, option])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.orientation = .vertical
-            stack.spacing = 20
+            stack.spacing = 30
             view!.addSubview(stack)
             
             stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 30).isActive = true
             stack.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             
-            text.widthAnchor.constraint(lessThanOrEqualToConstant: 260).isActive = true
+            text.widthAnchor.constraint(lessThanOrEqualToConstant: 340).isActive = true
             
             Task {
                 await checkNotifications()

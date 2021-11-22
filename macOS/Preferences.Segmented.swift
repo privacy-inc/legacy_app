@@ -5,29 +5,43 @@ extension Preferences {
         private(set) weak var control: NSSegmentedControl!
         
         required init?(coder: NSCoder) { nil }
-        init(title: String, labels: [String], target: NSTabViewItem, action: Selector) {
+        init(symbol: String, title: String, labels: [String], target: NSTabViewItem, action: Selector) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
+            let icon = Image(icon: symbol)
+            icon.symbolConfiguration = .init(textStyle: .title2)
+                .applying(.init(hierarchicalColor: .secondaryLabelColor))
+            addSubview(icon)
+            
             let text = Text(vibrancy: true)
-            text.font = .preferredFont(forTextStyle: .body)
-            text.textColor = .tertiaryLabelColor
+            text.font = .preferredFont(forTextStyle: .title3)
+            text.textColor = .secondaryLabelColor
             text.stringValue = title
             addSubview(text)
             
             let control = NSSegmentedControl(labels: labels, trackingMode: .selectOne, target: target, action: action)
             control.translatesAutoresizingMaskIntoConstraints = false
+            control.segmentDistribution = .fit
+            control.segmentStyle = .rounded
             self.control = control
             addSubview(control)
             
-            text.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            text.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            bottomAnchor.constraint(equalTo: control.bottomAnchor).isActive = true
+            widthAnchor.constraint(equalToConstant: 300).isActive = true
             
-            control.topAnchor.constraint(equalTo: text.bottomAnchor, constant: 5).isActive = true
-            control.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            icon.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+            icon.centerXAnchor.constraint(equalTo: leftAnchor, constant: 15).isActive = true
+            
+            text.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 34).isActive = true
+            
+            control.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 15).isActive = true
             control.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            control.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-            control.widthAnchor.constraint(equalToConstant: 280).isActive = true
+        }
+        
+        override var allowsVibrancy: Bool {
+            true
         }
     }
 }

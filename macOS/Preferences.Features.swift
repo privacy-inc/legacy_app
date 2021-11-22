@@ -1,11 +1,10 @@
 import AppKit
 
 extension Preferences {
-    final class Features: NSTabViewItem {
+    final class Features: Tab {
         required init?(coder: NSCoder) { nil }
-        override init() {
-            super.init(identifier: "")
-            label = "Features"
+        init() {
+            super.init(size: .init(width: 440, height: 300), title: "Features", symbol: "switch.2")
             
             let dark = Switch(title: "Force dark mode", target: self, action: #selector(dark))
             let popups = Switch(title: "Block pop-ups", target: self, action: #selector(popups))
@@ -21,10 +20,10 @@ extension Preferences {
                                             screen])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.orientation = .vertical
-            stack.spacing = 8
+            stack.spacing = 10
             view!.addSubview(stack)
             
-            stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 40).isActive = true
+            stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 30).isActive = true
             stack.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             
             Task {

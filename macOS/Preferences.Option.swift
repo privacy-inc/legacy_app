@@ -6,7 +6,7 @@ extension Preferences {
         
         required init?(coder: NSCoder) { nil }
         init(title: String, symbol: String) {
-            let text = Text(vibrancy: false)
+            let text = Text(vibrancy: true)
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .body)
             text.textColor = .secondaryLabelColor
@@ -14,14 +14,14 @@ extension Preferences {
             
             let icon = Image(icon: symbol)
             icon.symbolConfiguration = .init(textStyle: .body)
-            icon.contentTintColor = .secondaryLabelColor
+                .applying(.init(hierarchicalColor: .secondaryLabelColor))
             
             super.init(layer: true)
             layer!.cornerRadius = 6
             addSubview(text)
             addSubview(icon)
             
-            heightAnchor.constraint(equalToConstant: 32).isActive = true
+            heightAnchor.constraint(equalToConstant: 34).isActive = true
             rightAnchor.constraint(equalTo: icon.rightAnchor, constant: 16).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
