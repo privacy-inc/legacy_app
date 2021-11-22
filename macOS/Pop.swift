@@ -17,7 +17,7 @@ final class Pop: NSPopover {
         text.attributedStringValue = .make {
             $0.append(.make(title, attributes: [
                 .font: NSFont.preferredFont(forTextStyle: .title2),
-                .foregroundColor: NSColor.tertiaryLabelColor]))
+                .foregroundColor: NSColor.labelColor]))
             $0.newLine()
             $0.newLine()
             $0.append(.with(markdown: copy, attributes: [
