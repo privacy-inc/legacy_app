@@ -8,7 +8,7 @@ final class Shortcut: NSPopover {
     init(origin: NSView) {
         super.init()
         behavior = .transient
-        contentSize = .init(width: 200, height: 220)
+        contentSize = .init(width: 200, height: 200)
         contentViewController = .init()
         
         let view = NSView(frame: .init(origin: .zero, size: contentSize))
@@ -17,18 +17,18 @@ final class Shortcut: NSPopover {
         let stats = Text(vibrancy: true)
         stats.attributedStringValue = .make {
             $0.append(.make(NSApp.windowsOpen.formatted(), attributes: [
-                .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
+                .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .light),
                 .foregroundColor: NSColor.labelColor]))
             $0.append(.make(NSApp.windowsOpen == 1 ? " window" : " windows", attributes: [
                 .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.secondaryLabelColor]))
+                .foregroundColor: NSColor.tertiaryLabelColor]))
             $0.newLine()
             $0.append(.make(NSApp.tabsOpen.formatted(), attributes: [
-                .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular),
+                .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .light),
                 .foregroundColor: NSColor.labelColor]))
             $0.append(.make(NSApp.tabsOpen == 1 ? " tab" : " tabs", attributes: [
                 .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.secondaryLabelColor]))
+                .foregroundColor: NSColor.tertiaryLabelColor]))
         }
         stats.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
@@ -52,7 +52,7 @@ final class Shortcut: NSPopover {
             }
             .store(in: &subs)
         
-        let stack = NSStackView(views: [forget, .init(), Separator(mode: .horizontal), stats, Separator(mode: .horizontal), close])
+        let stack = NSStackView(views: [forget, .init(), Separator(mode: .horizontal), stats, close])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
         view.addSubview(stack)

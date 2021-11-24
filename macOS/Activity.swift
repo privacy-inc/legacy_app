@@ -9,6 +9,7 @@ final class Activity: NSWindow {
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
         animationBehavior = .alertPanel
         toolbar = .init()
+        isMovableByWindowBackground = true
         isReleasedWhenClosed = false
         titlebarAppearsTransparent = true
         

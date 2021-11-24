@@ -5,13 +5,13 @@ extension Forgetting {
         required init?(coder: NSCoder) { nil }
         init(title: String, image: String) {
             let image = Image(icon: image)
-            image.symbolConfiguration = .init(textStyle: .body, scale: .large)
-                .applying(.init(hierarchicalColor: .labelColor))
+            image.symbolConfiguration = .init(textStyle: .title3, scale: .large)
+                .applying(.init(hierarchicalColor: .secondaryLabelColor))
             
             let text = Text(vibrancy: true)
             text.stringValue = title
-            text.textColor = .labelColor
-            text.font = .preferredFont(forTextStyle: .callout)
+            text.textColor = .secondaryLabelColor
+            text.font = .preferredFont(forTextStyle: .body)
             
             super.init(layer: true)
             layer!.cornerRadius = 6

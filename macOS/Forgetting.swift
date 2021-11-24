@@ -14,10 +14,13 @@ final class Forgetting: NSPopover {
         let view = NSView(frame: .init(origin: .zero, size: contentSize))
         contentViewController!.view = view
         
+        let vibrant = Vibrant(layer: false)
+        
         let title = Text(vibrancy: true)
         title.stringValue = "Forget"
         title.font = .preferredFont(forTextStyle: .title3)
-        title.textColor = .secondaryLabelColor
+        title.textColor = .labelColor
+        vibrant.addSubview(title)
         
         let cache = Option(title: "Cache", image: "trash")
         cache
@@ -57,11 +60,17 @@ final class Forgetting: NSPopover {
             }
             .store(in: &subs)
         
-        let stack = NSStackView(views: [title, Separator(mode: .horizontal), cache, history, activity, everything])
+        let stack = NSStackView(views: [vibrant, cache, history, activity, everything])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
         stack.alignment = .leading
         view.addSubview(stack)
+        
+        vibrant.rightAnchor.constraint(equalTo: title.rightAnchor).isActive = true
+        
+        title.topAnchor.constraint(equalTo: vibrant.topAnchor).isActive = true
+        title.bottomAnchor.constraint(equalTo: vibrant.bottomAnchor, constant: -16).isActive = true
+        title.leftAnchor.constraint(equalTo: vibrant.leftAnchor, constant: 12).isActive = true
         
         stack.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
         stack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
