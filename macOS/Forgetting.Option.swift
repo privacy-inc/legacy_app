@@ -34,7 +34,7 @@ extension Forgetting {
             
             switch state {
             case .pressed, .highlighted:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
             default:
                 layer!.backgroundColor = .clear
             }
