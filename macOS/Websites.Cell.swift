@@ -27,8 +27,6 @@ extension Websites {
                         y: (Self.height - height) / 2,
                         width: width,
                         height: height)
-                    
-                    
                 }
                 
                 if item.info != oldValue?.info {

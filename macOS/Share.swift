@@ -23,7 +23,7 @@ final class Share: NSPopover {
                 
                 guard let url = web.url else { return }
                 NSSharingServicePicker(items: [url])
-                    .show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxY)
+                    .show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxX)
             }
             .store(in: &subs)
         
