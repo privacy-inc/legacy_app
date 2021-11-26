@@ -1,6 +1,4 @@
 import AppKit
-import Combine
-import UserNotifications
 
 extension Preferences {
     class Tab: NSTabViewItem {
