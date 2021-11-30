@@ -183,6 +183,13 @@ final class Menu: NSMenu, NSMenuDelegate {
                 $0.target = web
             },
             .separator(),
+            .child("Back", #selector(Web.goBack(_:)), "[") {
+                $0.target = web
+            },
+            .child("Forward", #selector(Web.goForward(_:)), "]") {
+                $0.target = web
+            },
+            .separator(),
             .child("Actual Size", #selector(Web.actualSize), "0") {
                 $0.target = web
             },
