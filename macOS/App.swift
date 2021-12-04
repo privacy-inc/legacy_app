@@ -33,8 +33,6 @@ import Specs
             case .none:
                 break
             }
-            
-            await cloud.migrate()
         }
 
         registerForRemoteNotifications()
@@ -81,10 +79,14 @@ import Specs
     }
 
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {
-        event
-            .paramDescriptor(forKeyword: keyDirectObject)
-            .flatMap(\.stringValue?.removingPercentEncoding)
-            .flatMap(URL.init(string:))
-            .map(NSApp.open(url:))
+        cloud
+            .ready
+            .notify(queue: DispatchQueue.main) {
+                event
+                    .paramDescriptor(forKeyword: keyDirectObject)
+                    .flatMap(\.stringValue?.removingPercentEncoding)
+                    .flatMap(URL.init(string:))
+                    .map(NSApp.open(url:))
+            }
     }
 }

@@ -7,7 +7,6 @@ extension Window {
         }
         
         case
-        froob,
-        report
+        froob
     }
 }

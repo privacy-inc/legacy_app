@@ -16,27 +16,24 @@ struct Window: View {
                 switch $0 {
                 case .froob:
                     Froob()
-                case .report:
-                    Report()
                 }
             }
             .onOpenURL { url in
-                switch url.scheme {
-                case "privacy":
-                    switch url.host {
-                    case "report":
-                        modal = .report
-                    default:
-                        status.flow = .search
-                    }
-                default:
-                    UIApplication.shared.hide()
-                    status.flow = .tabs
-                    Task
-                        .detached(priority: .utility) {
-                            await status.url(url: url)
+                cloud
+                    .ready
+                    .notify(queue: .main) {
+                        switch url.scheme {
+                        case "privacy":
+                            status.flow = .search
+                        default:
+                            UIApplication.shared.hide()
+                            status.flow = .tabs
+                            Task
+                                .detached(priority: .utility) {
+                                    await status.url(url: url)
+                                }
                         }
-                }
+                    }
             }
             .task {
                 status.dark = scheme == .dark
@@ -49,8 +46,6 @@ struct Window: View {
                 case .none:
                     break
                 }
-                
-                await cloud.migrate()
             }
     }
 }
