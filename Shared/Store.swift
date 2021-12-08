@@ -1,7 +1,6 @@
 import StoreKit
 import UserNotifications
 import Combine
-import Specs
 
 struct Store {
     let status = CurrentValueSubject<Status, Never>(.loading)
