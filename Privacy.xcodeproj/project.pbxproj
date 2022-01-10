@@ -246,7 +246,6 @@
 		CEEBA5C927302A1C0079928E /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C827302A1C0079928E /* Menu.swift */; };
 		CEEE59D02721B6780038952A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEEE59CF2721B6780038952A /* Assets.xcassets */; };
 		CEEE59D62721B6790038952A /* Privacy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CEEE59D52721B6790038952A /* Privacy.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		CEEE59E12721B67A0038952A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEEE59E02721B67A0038952A /* Assets.xcassets */; };
 		CEEE59E82721B67A0038952A /* Privacy.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CEEE59CD2721B6770038952A /* Privacy.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CEF006572733F98800D0A1EB /* NSSavePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF006562733F98800D0A1EB /* NSSavePanel.swift */; };
 		CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
@@ -536,7 +535,6 @@
 		CEEE59CD2721B6770038952A /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEE59CF2721B6780038952A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEEE59D52721B6790038952A /* Privacy.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Privacy.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEEE59E02721B67A0038952A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEEE59E52721B67A0038952A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF006562733F98800D0A1EB /* NSSavePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSavePanel.swift; sourceTree = "<group>"; };
 		CEF5548226FDD4F000FE0E9C /* Webview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
@@ -871,7 +869,6 @@
 				CEA73CC02723249500AB65CB /* Forget.Item.swift */,
 				CEA73CBE2723128200AB65CB /* Forget.swift */,
 				CEA73CBC2723084900AB65CB /* Trackers.swift */,
-				CEEE59E02721B67A0038952A /* Assets.xcassets */,
 			);
 			path = "watchOS Extension";
 			sourceTree = "<group>";
@@ -1042,7 +1039,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE54EDBB2722E1FB006588DA /* Colours.xcassets in Resources */,
-				CEEE59E12721B67A0038952A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
