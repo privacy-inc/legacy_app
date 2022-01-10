@@ -62,7 +62,7 @@ No In-App Purchases available at the moment, try again later.
 """
     
     static let froob = """
-By purchasing _Privacy +_ you support research and development at _Privacy Inc_ and for *Privacy Browser*.
+By purchasing _Privacy +_ you support research and development at _Privacy Inc_ and for **Privacy Browser**.
 
 _Privacy +_ is an In-App Purchase, it is non-consumable, meaning it is a **1 time only** purchase and you can use it both on iOS and macOS.
 """
