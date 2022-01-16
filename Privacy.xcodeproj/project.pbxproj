@@ -1344,7 +1344,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "Download files to your folder.";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2021 Privacy Inc";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2022 Privacy Inc";
 				INFOPLIST_KEY_NSLocationUsageDescription = "This website wants to access your location. It could be to provide maps, directions or location services. This is independent from the app.";
 				INFOPLIST_KEY_NSPrincipalClass = Privacy.App;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1392,7 +1392,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "Download files to your folder.";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2021 Privacy Inc";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2022 Privacy Inc";
 				INFOPLIST_KEY_NSLocationUsageDescription = "This website wants to access your location. It could be to provide maps, directions or location services. This is independent from the app.";
 				INFOPLIST_KEY_NSPrincipalClass = Privacy.App;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1709,8 +1709,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "watchOS Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
 				INFOPLIST_KEY_LSApplicationCategoryType = Privacy;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2021 Privacy Inc";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2022 Privacy Inc";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1777,8 +1778,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "watchOS Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
 				INFOPLIST_KEY_LSApplicationCategoryType = Privacy;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2021 Privacy Inc";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2022 Privacy Inc";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
