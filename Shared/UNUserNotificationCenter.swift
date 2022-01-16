@@ -23,9 +23,7 @@ extension UNUserNotificationCenter {
         let delivered = await deliveredNotifications()
         removeDeliveredNotifications(withIdentifiers: delivered
                                         .map(\.request.identifier)
-                                        .filter {
-                                            $0 != notification.request.identifier
-                                        })
-        return .banner
+                                        .filter { $0 != notification.request.identifier })
+        return notification.request.trigger == nil ? .banner : .badge
     }
 }
