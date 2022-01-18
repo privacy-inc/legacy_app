@@ -1,17 +1,18 @@
 import SwiftUI
 
 @main struct App: SwiftUI.App {
+    @State private var selection = 0
     @Environment(\.scenePhase) private var phase
     @WKExtensionDelegateAdaptor(Delegate.self) private var delegate
     
     var body: some Scene {
         WindowGroup {
-            TabView {
+            TabView(selection: $selection) {
                 Activity()
                 Trackers()
                 Forget()
             }
-            .onAppear {
+            .task {
                 cloud.pull.send()
             }
         }
