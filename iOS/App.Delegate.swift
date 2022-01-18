@@ -28,5 +28,13 @@ extension App {
         func paymentQueue(_: SKPaymentQueue, updatedTransactions: [SKPaymentTransaction]) {
     
         }
+        
+        func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken: Data) {
+            
+        }
+        
+        func application(_: UIApplication, didFailToRegisterForRemoteNotificationsWithError: Error) {
+            
+        }
     }
 }

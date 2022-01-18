@@ -73,6 +73,14 @@ import Specs
         await center.present(notification)
     }
     
+    func application(_: NSApplication, didRegisterForRemoteNotificationsWithDeviceToken: Data) {
+        
+    }
+    
+    func application(_: NSApplication, didFailToRegisterForRemoteNotificationsWithError: Error) {
+        
+    }
+    
     @objc override func orderFrontStandardAboutPanel(_ sender: Any?) {
         (anyWindow() ?? About())
             .makeKeyAndOrderFront(nil)
