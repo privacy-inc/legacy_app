@@ -41,6 +41,10 @@ import Specs
         Task {
             _ = await UNUserNotificationCenter.request()
         }
+        
+        cloud.ready.notify(queue: .main) {
+            cloud.pull.send()
+        }
     }
     
     func applicationDidBecomeActive(_: Notification) {

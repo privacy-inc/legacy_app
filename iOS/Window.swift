@@ -36,6 +36,10 @@ struct Window: View {
                     }
             }
             .task {
+                cloud.ready.notify(queue: .main) {
+                    cloud.pull.send()
+                }
+                
                 status.dark = scheme == .dark
                 
                 switch Defaults.action {
