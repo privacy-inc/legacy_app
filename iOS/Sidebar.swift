@@ -3,10 +3,8 @@ import Specs
 
 struct Sidebar: View {
     @Binding var presented: Bool
-    let clear: () -> Void
     let access: (AccessType) -> Void
     let history: (UInt16) -> Void
-    @State private var forget = false
     
     var body: some View {
         NavigationView {
@@ -34,32 +32,6 @@ struct Sidebar: View {
                             .frame(height: 34)
                             .allowsHitTesting(false)
                             .contentShape(Rectangle())
-                    }
-                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        forget = true
-                    } label: {
-                        HStack {
-                            Image(systemName: "flame.fill")
-                                .font(.callout)
-                                .foregroundColor(.init("Dawn"))
-                            Text("Forget")
-                                .font(.footnote)
-                        }
-                        .allowsHitTesting(false)
-                    }
-                    .confirmationDialog("Forget", isPresented: $forget, titleVisibility: .visible) {
-                        Button("Cache", action: Forget.cache)
-                        Button("History") {
-                            Forget.history()
-                            clear()
-                        }
-                        Button("Activity", action: Forget.activity)
-                        Button("Everything", role: .destructive) {
-                            Forget.everything()
-                            clear()
-                        }
                     }
                 }
             }

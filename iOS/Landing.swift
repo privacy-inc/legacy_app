@@ -12,6 +12,7 @@ struct Landing: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
+            Clear(clear: clear)
             ForEach(cards) {
                 switch $0.id {
                 case .trackers:
@@ -46,7 +47,7 @@ struct Landing: View {
                         .allowsHitTesting(false)
                 }
                 .sheet(isPresented: $sidebar) {
-                    Sidebar(presented: $sidebar, clear: clear, access: access, history: history)
+                    Sidebar(presented: $sidebar, access: access, history: history)
                 }
                 
                 Spacer()
