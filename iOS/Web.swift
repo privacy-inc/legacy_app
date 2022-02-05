@@ -87,7 +87,8 @@ final class Web: Webview, UIViewRepresentable {
     }
 
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        if (action.targetFrame == nil && action.navigationType == .other) || action.navigationType == .linkActivated {
+        if action.sourceFrame.isMainFrame,
+            (action.targetFrame == nil && action.navigationType == .other) || action.navigationType == .linkActivated {
             _ = action
                 .request
                 .url

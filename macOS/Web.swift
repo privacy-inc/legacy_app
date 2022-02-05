@@ -55,12 +55,14 @@ final class Web: Webview, NSTextFinderBarContainer {
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         switch action.navigationType {
         case .linkActivated:
-            _ = action
-                .request
-                .url
-                .map(load)
+            if action.sourceFrame.isMainFrame {
+                _ = action
+                    .request
+                    .url
+                    .map(load)
+            }
         case .other:
-            if action.targetFrame == nil {
+            if action.targetFrame == nil && action.sourceFrame.isMainFrame {
                 action
                     .request
                     .url
