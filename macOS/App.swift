@@ -69,8 +69,10 @@ import Specs
     }
     
     func application(_ app: NSApplication, open: [URL]) {
-        open
-            .forEach(app.open(url:))
+        cloud.ready.notify(queue: .main) {
+            open
+                .forEach(app.open(url:))
+        }
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
@@ -93,7 +95,7 @@ import Specs
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {
         cloud
             .ready
-            .notify(queue: DispatchQueue.main) {
+            .notify(queue: .main) {
                 event
                     .paramDescriptor(forKeyword: keyDirectObject)
                     .flatMap(\.stringValue?.removingPercentEncoding)
