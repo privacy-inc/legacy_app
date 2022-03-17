@@ -1,34 +1,32 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Domains",
-        "repositoryURL": "https://github.com/privacy-inc/domains.git",
-        "state": {
-          "branch": "main",
-          "revision": "0448eceecc9913a17931c8f74f4a0126e66970bb",
-          "version": null
-        }
-      },
-      {
-        "package": "Archivable",
-        "repositoryURL": "https://github.com/archivable/package.git",
-        "state": {
-          "branch": "main",
-          "revision": "d70e9e58e8b3bad3f9e793acda198ed44e25b656",
-          "version": null
-        }
-      },
-      {
-        "package": "Specs",
-        "repositoryURL": "https://github.com/privacy-inc/specs.git",
-        "state": {
-          "branch": "main",
-          "revision": "ba2775d2863075cd3df7b7b2b415b3fc5c5b9867",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "domains",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/privacy-inc/domains.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e81be3b7cbb380e7ad882612f8c1c3d5f67f7984"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "package",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/archivable/package.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "15193042edd33e75875ce5aef64762e466fa7d3e"
+      }
+    },
+    {
+      "identity" : "specs",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/privacy-inc/specs.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a8ed798d178650f80ef8591a25152a409921e917"
+      }
+    }
+  ],
+  "version" : 2
 }
