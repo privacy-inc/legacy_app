@@ -4,8 +4,7 @@ import UniformTypeIdentifiers
 import UserNotifications
 import Specs
 
-final class Web: Webview, NSTextFinderBarContainer {
-    weak var finder: NSTextFinder?
+final class Web: Webview {
     let item: UUID
     private weak var status: Status!
     private var destination = Destination.tab(true)
@@ -146,48 +145,6 @@ final class Web: Webview, NSTextFinderBarContainer {
         }
     }
     
-    var findBarView: NSView? {
-        didSet {
-            oldValue?.removeFromSuperview()
-            
-            guard let finder = (window as? Window)?.findbar else { return }
-            findBarView
-                .map {
-                    $0.removeFromSuperview()
-                    finder.view = $0
-                }
-        }
-    }
-    
-    var isFindBarVisible = false {
-        didSet {
-            if !isFindBarVisible {
-                guard let finder = (window as? Window)?.findbar else { return }
-                finder.reset()
-            }
-        }
-    }
-    
-    func findBarViewDidChangeHeight() {
-        
-    }
-    
-    override func performTextFinderAction(_ sender: Any?) {
-        (sender as? NSMenuItem)
-            .flatMap {
-                NSTextFinder.Action(rawValue: $0.tag)
-            }
-            .map {
-                finder?.performAction($0)
-
-                switch $0 {
-                case .showFindInterface:
-                    finder?.findBarContainer?.isFindBarVisible = true
-                default: break
-                }
-            }
-    }
-    
     func tryAgain() {
         if case let .error(_, error) = status.item.flow {
             load(error.url)
@@ -265,10 +222,6 @@ final class Web: Webview, NSTextFinderBarContainer {
             .detached(priority: .utility) {
                 await UNUserNotificationCenter.send(message: "Link URL copied")
             }
-    }
-    
-    @objc func findAction(_ sender: Any?) {
-        performTextFinderAction(sender)
     }
     
     @MainActor @objc func exportAsPdf() {

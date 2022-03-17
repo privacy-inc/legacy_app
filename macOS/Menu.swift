@@ -121,10 +121,10 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var editItems: [NSMenuItem] {
-        var web: Web?
+        var content: Window.Content?
         if let window = NSApp.keyWindow as? Window,
            case let .web(item) = window.status.item.flow {
-            web = item
+            content = item.superview as? Window.Content
         }
         
         return [
@@ -138,23 +138,23 @@ final class Menu: NSMenu, NSMenuDelegate {
             .child("Select All", #selector(NSText.selectAll), "a"),
             .separator(),
             .parent("Find", [
-                .child("Find", #selector(Web.findAction), "f") {
+                .child("Find", #selector(Window.Content.findAction), "f") {
                     $0.tag = .init(NSTextFinder.Action.showFindInterface.rawValue)
-                    $0.target = web
+                    $0.target = content
                 },
-                .child("Find Next", #selector(Web.findAction), "g") {
+                .child("Find Next", #selector(Window.Content.findAction), "g") {
                     $0.tag = .init(NSTextFinder.Action.nextMatch.rawValue)
-                    $0.target = web
+                    $0.target = content
                 },
-                .child("Find Previous", #selector(Web.findAction), "G") {
+                .child("Find Previous", #selector(Window.Content.findAction), "G") {
                     $0.tag = .init(NSTextFinder.Action.previousMatch.rawValue)
-                    $0.target = web
+                    $0.target = content
                 },
                 .separator(),
-                .child("Hide Find Banner", #selector(Web.findAction), "F") {
+                .child("Hide Find Banner", #selector(Window.Content.findAction), "F") {
                     $0.tag = .init(NSTextFinder.Action.hideFindInterface.rawValue)
-                    $0.isEnabled = web?.isFindBarVisible == true
-                    $0.target = web
+                    $0.isEnabled = content?.isFindBarVisible == true
+                    $0.target = content
                 }
             ]) {
                 $0.submenu!.autoenablesItems = false

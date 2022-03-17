@@ -10,7 +10,7 @@ final class Window: NSWindow, NSWindowDelegate {
     }
     
     let status: Status
-    private(set) weak var findbar: Findbar!
+    private weak var findbar: Findbar!
     
     private init(status: Status) {
         self.status = status
