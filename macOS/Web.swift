@@ -91,7 +91,7 @@ final class Web: Webview {
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
         menu.remove(id: "WKMenuItemIdentifierSearchWeb")
-        
+
         if let image = menu.remove(id: "WKMenuItemIdentifierOpenImageInNewWindow") {
             let here = image.immitate(with: "Open Image", action: #selector(here(item:)))
             here.target = self

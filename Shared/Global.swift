@@ -5,5 +5,5 @@ let cloud = Cloud<Archive>.new(identifier: "iCloud.privacy")
 
 #if os(iOS) || os(macOS)
 let favicon = Favicon()
-let store = Store()
+var store = Store()
 #endif

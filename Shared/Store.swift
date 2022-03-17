@@ -4,6 +4,7 @@ import Combine
 
 struct Store {
     let status = CurrentValueSubject<Status, Never>(.loading)
+    private var restored = false
     
     init() {
         Task
@@ -57,10 +58,12 @@ struct Store {
         }
     }
     
-    @MainActor func restore() async {
+    @MainActor mutating func restore() async {
         status.send(.loading)
         
-        try? await AppStore.sync()
+        if restored {
+            try? await AppStore.sync()
+        }
         
         for await result in Transaction.currentEntitlements {
             if case let .verified(safe) = result {
@@ -69,6 +72,7 @@ struct Store {
         }
         
         await load()
+        restored = true
     }
     
     func purchase(legacy: SKProduct) async {
