@@ -1,6 +1,6 @@
 import AppKit
 
-final class Finder: NSTitlebarAccessoryViewController {
+final class Findbar: NSTitlebarAccessoryViewController {
     func reset() {
         view = .init()
         view.frame.size.height = 1

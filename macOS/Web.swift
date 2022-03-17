@@ -5,10 +5,10 @@ import UserNotifications
 import Specs
 
 final class Web: Webview, NSTextFinderBarContainer {
+    weak var finder: NSTextFinder?
     let item: UUID
     private weak var status: Status!
     private var destination = Destination.tab(true)
-    private let finder = NSTextFinder()
     
     required init?(coder: NSCoder) { nil }
     init(status: Status,
@@ -35,9 +35,6 @@ final class Web: Webview, NSTextFinderBarContainer {
         layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
         
         configuration.userContentController.addScriptMessageHandler(Location(), contentWorld: .page, name: Script.location.method)
-        
-        finder.client = self
-        finder.findBarContainer = self
     }
     
     override func external(_ url: URL) {
@@ -153,7 +150,7 @@ final class Web: Webview, NSTextFinderBarContainer {
         didSet {
             oldValue?.removeFromSuperview()
             
-            guard let finder = (window as? Window)?.finder else { return }
+            guard let finder = (window as? Window)?.findbar else { return }
             findBarView
                 .map {
                     $0.removeFromSuperview()
@@ -165,7 +162,7 @@ final class Web: Webview, NSTextFinderBarContainer {
     var isFindBarVisible = false {
         didSet {
             if !isFindBarVisible {
-                guard let finder = (window as? Window)?.finder else { return }
+                guard let finder = (window as? Window)?.findbar else { return }
                 finder.reset()
             }
         }
@@ -181,11 +178,11 @@ final class Web: Webview, NSTextFinderBarContainer {
                 NSTextFinder.Action(rawValue: $0.tag)
             }
             .map {
-                finder.performAction($0)
+                finder?.performAction($0)
 
                 switch $0 {
                 case .showFindInterface:
-                    finder.findBarContainer?.isFindBarVisible = true
+                    finder?.findBarContainer?.isFindBarVisible = true
                 default: break
                 }
             }

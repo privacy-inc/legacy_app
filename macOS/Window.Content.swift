@@ -4,9 +4,10 @@ import Combine
 extension Window {
     final class Content: NSVisualEffectView {
         private var sub: AnyCancellable?
+        private let finder = NSTextFinder()
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, finder: Finder) {
+        init(status: Status, findbar: Findbar) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             state = .active
@@ -40,13 +41,16 @@ extension Window {
                     switch item.flow {
                     case .landing:
                         view = Landing(status: status)
-                        finder.isHidden = true
+                        findbar.isHidden = true
                     case let .web(web):
+                        web.finder = self.finder
+                        self.finder.client = web
+                        self.finder.findBarContainer = web
                         view = web
-                        finder.isHidden = false
+                        findbar.isHidden = false
                     case let .error(_, error):
                         view = Recover(error: error)
-                        finder.isHidden = true
+                        findbar.isHidden = true
                     }
                     
                     view.translatesAutoresizingMaskIntoConstraints = false

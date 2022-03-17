@@ -10,7 +10,7 @@ final class Window: NSWindow, NSWindowDelegate {
     }
     
     let status: Status
-    private(set) weak var finder: Finder!
+    private(set) weak var findbar: Findbar!
     
     private init(status: Status) {
         self.status = status
@@ -29,8 +29,8 @@ final class Window: NSWindow, NSWindowDelegate {
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
         
-        let finder = Finder()
-        contentView = Content(status: status, finder: finder)
+        let finder = Findbar()
+        contentView = Content(status: status, findbar: finder)
         delegate = self
         
         let top = NSTitlebarAccessoryViewController()
@@ -40,7 +40,7 @@ final class Window: NSWindow, NSWindowDelegate {
 
         finder.layoutAttribute = .bottom
         finder.reset()
-        self.finder = finder
+        self.findbar = finder
         addTitlebarAccessoryViewController(finder)
     }
     
