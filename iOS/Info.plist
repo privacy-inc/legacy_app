@@ -91,11 +91,6 @@
 		<string>audio</string>
 		<string>remote-notification</string>
 	</array>
-	<key>UILaunchScreen</key>
-	<dict>
-		<key>UIImageName</key>
-		<string>Logo</string>
-	</dict>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
