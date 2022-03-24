@@ -16,7 +16,7 @@ extension UNUserNotificationCenter {
     }
     
     static func request() async {
-        _ = try? await current().requestAuthorization(options: [.alert])
+        _ = try? await current().requestAuthorization(options: [.alert, .criticalAlert, .provisional])
     }
     
     func present(_ notification: UNNotification) async -> UNNotificationPresentationOptions {
@@ -24,6 +24,11 @@ extension UNUserNotificationCenter {
         removeDeliveredNotifications(withIdentifiers: delivered
                                         .map(\.request.identifier)
                                         .filter { $0 != notification.request.identifier })
-        return notification.request.trigger == nil ? .banner : .badge
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
+            self?.removeAllDeliveredNotifications()
+        }
+        
+        return notification.request.content.userInfo["aps"] == nil ? .banner : []
     }
 }

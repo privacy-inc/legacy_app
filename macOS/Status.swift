@@ -148,7 +148,7 @@ final class Status {
         current.send(current.value)
     }
     
-    @MainActor func access(access: AccessType) async {
+    @MainActor func access(access: any AccessType) async {
         await open(id: cloud.open(access: access))
     }
     

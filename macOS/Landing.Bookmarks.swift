@@ -61,6 +61,7 @@ extension Landing {
                 .click
                 .sink {
                     Task {
+                        
                         await status.access(access: bookmark.access)
                     }
                 }
