@@ -7,7 +7,7 @@ import Specs
 final class Web: Webview {
     let item: UUID
     private weak var status: Status!
-    private var destination = Destination.tab(true)
+    private var destination = Destination.here
     
     required init?(coder: NSCoder) { nil }
     init(status: Status,
@@ -80,7 +80,7 @@ final class Web: Webview {
                                     await self?.download(url: url)
                                 }
                         }
-                        destination = .tab(true)
+                        destination = .here
                     }
             }
         default:
