@@ -15,13 +15,11 @@ final class Menu: NSMenu, NSMenuDelegate {
         shortcut.button!.menu = .init()
         shortcut.button!.sendAction(on: [.leftMouseUp, .rightMouseUp])
         shortcut.button!.menu!.items = [
-            .child("Show Privacy", #selector(NSApplication.show)),
+            .child("Show", #selector(NSApplication.show)),
             .separator(),
             .child("New Window", #selector(triggerNewWindowRegardless)) {
                 $0.target = self
-            },
-            .separator(),
-            .child("Quit Privacy", #selector(NSApplication.terminate))]
+            }]
     }
     
     private var app: NSMenuItem {
