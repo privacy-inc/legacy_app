@@ -19,7 +19,7 @@ import Specs
     
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
-        Window.new()
+        Window(status: .init())
     }
     
     func applicationDidFinishLaunching(_: Notification) {
@@ -61,7 +61,7 @@ import Specs
                     $0.deminiaturize(nil)
                 }
         } else {
-            Window.new()
+            Window(status: .init())
         }
         return false
     }

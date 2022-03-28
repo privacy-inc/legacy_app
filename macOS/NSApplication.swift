@@ -54,7 +54,7 @@ extension NSApplication {
             Task {
                 let status = Status()
                 await status.open(id: id)
-                Window.new(status: status)
+                Window(status: status)
             }
         }
     }
@@ -69,7 +69,7 @@ extension NSApplication {
             Task {
                 let status = Status()
                 await status.access(access: access)
-                Window.new(status: status)
+                Window(status: status)
             }
         }
     }
@@ -86,7 +86,7 @@ extension NSApplication {
         Task {
             let status = Status()
             await status.url(url: url)
-            Window.new(status: status)
+            Window(status: status)
         }
     }
     

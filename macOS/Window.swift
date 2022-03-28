@@ -1,20 +1,10 @@
 import AppKit
 
 final class Window: NSWindow, NSWindowDelegate {
-    class func new() {
-        new(status: .init())
-    }
-    
-    class func new(status: Status) {
-        Window(status: status).makeKeyAndOrderFront(nil)
-    }
-    
     let status: Status
-    private weak var findbar: Findbar!
     
-    private init(status: Status) {
+    @discardableResult init(status: Status) {
         self.status = status
-        
         super.init(contentRect: .init(x: 0,
                                       y: 0,
                                       width: NSScreen.main!.frame.width * 0.5,
@@ -28,9 +18,6 @@ final class Window: NSWindow, NSWindowDelegate {
         setFrameAutosaveName("Window")
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
-        
-        let finder = Findbar()
-        contentView = Content(status: status, findbar: finder)
         delegate = self
         
         let top = NSTitlebarAccessoryViewController()
@@ -38,10 +25,11 @@ final class Window: NSWindow, NSWindowDelegate {
         top.layoutAttribute = .top
         addTitlebarAccessoryViewController(top)
 
-        finder.layoutAttribute = .bottom
-        finder.reset()
-        self.findbar = finder
-        addTitlebarAccessoryViewController(finder)
+        let findbar = Findbar()
+        contentView = Content(status: status, findbar: findbar)
+        addTitlebarAccessoryViewController(findbar)
+        
+        makeKeyAndOrderFront(nil)
     }
     
     override func close() {

@@ -101,11 +101,11 @@ final class Status {
             shift()
         }
         
-        Window.new(status: .init(item: items
-                                    .value
-                                    .remove {
-                                        $0.id == id
-                                    }!))
+        Window(status: .init(item: items
+            .value
+            .remove {
+                $0.id == id
+            }!))
     }
     
     @MainActor func change(flow: Flow, id: UUID) {

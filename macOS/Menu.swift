@@ -234,7 +234,7 @@ final class Menu: NSMenu, NSMenuDelegate {
             .windows
             .compactMap { item in
                 
-                var title = "Privacy"
+                var title = "New tab"
                 var add: NSWindow? = item
                 
                 switch item {
@@ -322,17 +322,17 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     @objc private func triggerNewWindow() {
-        Window.new()
+        Window(status: .init())
     }
     
     @objc private func triggerNewWindowRegardless() {
         NSApp.activate(ignoringOtherApps: true)
-        Window.new()
+        Window(status: .init())
     }
     
     @objc private func triggerNewTab() {
         guard let window = NSApp.activeWindow else {
-            Window.new()
+            Window(status: .init())
             return
         }
         
