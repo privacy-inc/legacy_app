@@ -23,7 +23,12 @@ import Specs
     }
     
     func applicationDidFinishLaunching(_: Notification) {
-        Task {
+        registerForRemoteNotifications()
+        UNUserNotificationCenter.current().delegate = self
+
+        cloud.ready.notify(queue: .main) {
+            cloud.pull.send()
+            
             switch Defaults.action {
             case .rate:
                 SKStoreReviewController.requestReview()
@@ -33,17 +38,10 @@ import Specs
             case .none:
                 break
             }
-        }
-
-        registerForRemoteNotifications()
-        UNUserNotificationCenter.current().delegate = self
-        
-        Task {
-            _ = await UNUserNotificationCenter.request()
-        }
-        
-        cloud.ready.notify(queue: .main) {
-            cloud.pull.send()
+            
+            Task {
+                _ = await UNUserNotificationCenter.request()
+            }
         }
     }
     
