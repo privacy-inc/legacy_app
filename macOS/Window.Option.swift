@@ -1,6 +1,6 @@
 import AppKit
 
-extension Bar.Tab {
+extension Window {
     final class Option: Control {
         private weak var image: Image!
         private let color: NSColor

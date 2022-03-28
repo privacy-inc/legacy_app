@@ -24,11 +24,16 @@ final class Window: NSWindow, NSWindowDelegate {
         top.view = Bar(status: status)
         top.layoutAttribute = .top
         addTitlebarAccessoryViewController(top)
+        
+        let bottom = NSTitlebarAccessoryViewController()
+        bottom.view = Subbar(status: status)
+        bottom.layoutAttribute = .bottom
+        addTitlebarAccessoryViewController(bottom)
 
         let findbar = Findbar()
-        contentView = Content(status: status, findbar: findbar)
         addTitlebarAccessoryViewController(findbar)
         
+        contentView = Content(status: status, findbar: findbar)
         makeKeyAndOrderFront(nil)
     }
     

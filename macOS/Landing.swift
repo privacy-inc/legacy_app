@@ -8,7 +8,7 @@ final class Landing: NSView {
     required init?(coder: NSCoder) { nil }
     init(status: Status) {
         super.init(frame: .zero)
-        
+        /*
         let separator = Separator(mode: .horizontal)
         separator.isHidden = true
         addSubview(separator)
@@ -29,7 +29,7 @@ final class Landing: NSView {
         let guide = NSView()
         guide.translatesAutoresizingMaskIntoConstraints = false
         flip.addSubview(guide)
-        
+        */
         let configure = Option(icon: "slider.vertical.3")
         configure
             .click
@@ -71,6 +71,10 @@ final class Landing: NSView {
         stack.orientation = .vertical
         addSubview(stack)
         
+        stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -27).isActive = true
+        stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -30).isActive = true
+        
+        /*
         separator.topAnchor.constraint(equalTo: topAnchor).isActive = true
         separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 2).isActive = true
         separator.rightAnchor.constraint(equalTo: rightAnchor, constant: -2).isActive = true
@@ -85,9 +89,6 @@ final class Landing: NSView {
         flip.rightAnchor.constraint(equalTo: scroll.rightAnchor).isActive = true
         flip.bottomAnchor.constraint(greaterThanOrEqualTo: scroll.bottomAnchor).isActive = true
 
-        stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -27).isActive = true
-        stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -30).isActive = true
-        
         guide.topAnchor.constraint(equalTo: flip.topAnchor).isActive = true
         guide.heightAnchor.constraint(equalToConstant: 0).isActive = true
         guide.leftAnchor.constraint(greaterThanOrEqualTo: flip.leftAnchor, constant: 150).isActive = true
@@ -166,6 +167,8 @@ final class Landing: NSView {
                 separator.isHidden = $0
             }
             .store(in: &subs)
+         
+         */
     }
     
     override func mouseDown(with: NSEvent) {

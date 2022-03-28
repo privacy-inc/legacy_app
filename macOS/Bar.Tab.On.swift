@@ -27,7 +27,7 @@ extension Bar.Tab {
             prompt.symbolConfiguration = .init(pointSize: 12, weight: .regular)
             prompt.contentTintColor = .tertiaryLabelColor
             
-            let close = Option(icon: "xmark.app.fill")
+            let close = Window.Option(icon: "xmark.app.fill")
             close.toolTip = "Close tab"
             close
                 .click
@@ -36,31 +36,31 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            let secure = Option(icon: "lock.fill", size: 11, color: .tertiaryLabelColor)
+            let secure = Window.Option(icon: "lock.fill", size: 11, color: .tertiaryLabelColor)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
             
-            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 11, color: .tertiaryLabelColor)
+            let insercure = Window.Option(icon: "exclamationmark.triangle.fill", size: 11, color: .tertiaryLabelColor)
             insercure.toolTip = "Insecure"
             insercure.state = .hidden
             
-            let options = Option(icon: "ellipsis.circle.fill", size: 14)
+            let options = Window.Option(icon: "ellipsis.circle.fill", size: 14)
             options.toolTip = "Options"
             options.state = .hidden
             
-            let back = Option(icon: "chevron.backward", size: 13)
+            let back = Window.Option(icon: "chevron.backward", size: 13)
             back.toolTip = "Back"
             back.state = .hidden
             
-            let forward = Option(icon: "chevron.forward", size: 13)
+            let forward = Window.Option(icon: "chevron.forward", size: 13)
             forward.toolTip = "Forward"
             forward.state = .hidden
             
-            let reload = Option(icon: "arrow.clockwise", size: 11)
+            let reload = Window.Option(icon: "arrow.clockwise", size: 11)
             reload.toolTip = "Reload"
             reload.state = .hidden
             
-            let stop = Option(icon: "xmark", size: 11)
+            let stop = Window.Option(icon: "xmark", size: 11)
             stop.toolTip = "Stop"
             stop.state = .hidden
             
@@ -221,13 +221,13 @@ extension Bar.Tab {
                             status: Status,
                             item: UUID,
                             search: Search,
-                            secure: Option,
-                            insecure: Option,
-                            back: Option,
-                            forward: Option,
-                            reload: Option,
-                            stop: Option,
-                            options: Option) {
+                            secure: Window.Option,
+                            insecure: Window.Option,
+                            back: Window.Option,
+                            forward: Window.Option,
+                            reload: Window.Option,
+                            stop: Window.Option,
+                            options: Window.Option) {
             web
                 .publisher(for: \.url)
                 .compactMap {
