@@ -26,13 +26,17 @@ extension Search {
         }
         
         override func focusRingMaskBounds(forFrame: NSRect, in: NSView) -> NSRect {
-            forFrame
-                .ring
+            controlView
+                .flatMap {
+                    $0.superview.map(forFrame.ring(superview:))
+                } ?? .zero
         }
         
         override func drawFocusRingMask(withFrame: NSRect, in: NSView) {
-            NSBezierPath(roundedRect: withFrame
-                            .ring, xRadius: 8, yRadius: 8).fill()
+            NSBezierPath(roundedRect: controlView
+                .flatMap {
+                    $0.superview.map(withFrame.ring(superview:))
+                } ?? .zero, xRadius: 8, yRadius: 8).fill()
         }
     }
 }
@@ -43,7 +47,7 @@ private extension NSRect {
             .offsetBy(dx: 0, dy: -1)
     }
     
-    var ring: Self {
-        .init(x: minX - 30.5, y: minY + 0.25, width: width + 36, height: height - 1.5)
+    func ring(superview: NSView) -> Self {
+        .init(x: minX - 30.5, y: minY + 0.25, width: superview.frame.width + 10, height: height - 1.5)
     }
 }
