@@ -6,6 +6,8 @@ final class Status {
     let current: CurrentValueSubject<UUID, Never>
     let items: CurrentValueSubject<[Item], Never>
     let search = PassthroughSubject<Void, Never>()
+    let widthOn = CurrentValueSubject<CGFloat, Never>(0)
+    let widthOff = CurrentValueSubject<CGFloat, Never>(0)
 
     var item: Item {
         items

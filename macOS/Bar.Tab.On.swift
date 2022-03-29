@@ -3,7 +3,6 @@ import Combine
 
 extension Bar.Tab {
     final class On: NSView, NSTextFieldDelegate {
-        static let width = CGFloat(350)
         private weak var stack: NSStackView!
         private weak var status: Status!
         private weak var background: Background!
@@ -13,6 +12,7 @@ extension Bar.Tab {
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {
             self.status = status
+            
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
@@ -69,7 +69,8 @@ extension Bar.Tab {
             stack.spacing = 0
             addSubview(stack)
             
-            widthAnchor.constraint(equalToConstant: Self.width).isActive = true
+            let widthConstraint = widthAnchor.constraint(equalToConstant: status.widthOn.value)
+            widthConstraint.isActive = true
             
             background.topAnchor.constraint(equalTo: topAnchor).isActive = true
             background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -158,6 +159,14 @@ extension Bar.Tab {
                 .search
                 .sink { [weak self] in
                     self?.window!.makeFirstResponder(search)
+                }
+                .store(in: &subs)
+            
+            status
+                .widthOn
+                .dropFirst()
+                .sink {
+                    widthConstraint.constant = $0
                 }
                 .store(in: &subs)
         }

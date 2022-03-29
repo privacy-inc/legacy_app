@@ -2,7 +2,6 @@ import AppKit
 
 extension Autocomplete {
     final class Cell: CollectionCell<Info> {
-        static let size = CGSize(width: Bar.Tab.On.width - 24, height: 56)
         private weak var text: Text!
         private weak var icon: Icon!
         private weak var separator: Shape!
@@ -16,6 +15,7 @@ extension Autocomplete {
                 else { return }
                 
                 separator.isHidden = item.info.first
+                separator.path = .init(rect: .init(x: 20, y: 57, width: item.rect.width - 40, height: 0), transform: nil)
                 
                 if item.rect != oldValue?.rect {
                     frame = item.rect
@@ -25,7 +25,7 @@ extension Autocomplete {
                     let height = item.info.text.height(for: width)
                     text.frame = .init(
                         x: 54,
-                        y: (Self.size.height - height) / 2,
+                        y: (item.rect.height - height) / 2,
                         width: width,
                         height: height)
                 }
@@ -47,7 +47,6 @@ extension Autocomplete {
             let separator = Shape()
             separator.fillColor = .clear
             separator.lineWidth = 1
-            separator.path = .init(rect: .init(x: 20, y: 57, width: Self.size.width - 40, height: 0), transform: nil)
             self.separator = separator
             
             super.init()

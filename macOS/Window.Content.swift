@@ -3,12 +3,14 @@ import Combine
 
 extension Window {
     final class Content: NSVisualEffectView, NSTextFinderBarContainer {
+        private weak var status: Status!
         private weak var findbar: Findbar!
         private var sub: AnyCancellable?
         private let finder = NSTextFinder()
         
         required init?(coder: NSCoder) { nil }
         init(status: Status, findbar: Findbar) {
+            self.status = status
             self.findbar = findbar
             
             super.init(frame: .zero)
@@ -64,6 +66,19 @@ extension Window {
                     view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
                     view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
                 }
+        }
+        
+        override var frame: NSRect {
+            didSet {
+                if frame.width > 600 {
+                    let delta = frame.width - 600
+                    status.widthOn.value = min(450, 200 + delta)
+                    status.widthOff.value = min(150, 70 + delta)
+                } else {
+                    status.widthOn.value = 200
+                    status.widthOff.value = 70
+                }
+            }
         }
         
         var findBarView: NSView? {

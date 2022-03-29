@@ -28,7 +28,8 @@ final class Window: NSWindow, NSWindowDelegate {
         let bottom = NSTitlebarAccessoryViewController()
         bottom.view = Subbar(status: status)
         bottom.layoutAttribute = .bottom
-        addTitlebarAccessoryViewController(bottom)
+//        addTitlebarAccessoryViewController(bottom)
+        #warning("use for downloads")
 
         let findbar = Findbar()
         addTitlebarAccessoryViewController(findbar)

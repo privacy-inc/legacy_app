@@ -52,8 +52,8 @@ extension Bar.Tab {
             close.state = .hidden
             self.close = close
             
-            let width = widthAnchor.constraint(equalToConstant: 80)
-            width.isActive = true
+            let widthConstraint = widthAnchor.constraint(equalToConstant: status.widthOff.value)
+            widthConstraint.isActive = true
             
             close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
             close.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -88,7 +88,14 @@ extension Bar.Tab {
                 .sink { [weak self] (web: Web) in
                     self?.web(web: web)
                     empty.removeFromSuperview()
-                    width.constant = 150
+                }
+                .store(in: &subs)
+            
+            status
+                .widthOff
+                .dropFirst()
+                .sink {
+                    widthConstraint.constant = $0
                 }
                 .store(in: &subs)
         }

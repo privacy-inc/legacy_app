@@ -26,8 +26,6 @@ extension Bar {
             }
         }
         
-        let item: UUID
-        
         weak var right: Tab?
         weak var left: Tab? {
             didSet {
@@ -37,6 +35,8 @@ extension Bar {
                     }
             }
         }
+        
+        let item: UUID
         
         private weak var rightGuide: NSLayoutConstraint? {
             didSet {

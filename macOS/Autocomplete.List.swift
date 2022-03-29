@@ -56,9 +56,9 @@ extension Autocomplete {
                                                 rect: .init(
                                                     x: 12,
                                                     y: $0.y,
-                                                    width: Cell.size.width,
-                                                    height: Cell.size.height)))
-                            $0.y += Cell.size.height + 2
+                                                    width: status.widthOn.value - 24,
+                                                    height: 56)))
+                            $0.y += 58
                         }
                     self?.items.send(result.items)
                     self?.size.send(.init(width: 0, height: result.y + vertical))
