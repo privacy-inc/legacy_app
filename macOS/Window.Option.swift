@@ -9,7 +9,6 @@ extension Window {
         init(icon: String, size: CGFloat = 16, color: NSColor = .secondaryLabelColor) {
             let image = Image(icon: icon)
             image.symbolConfiguration = .init(pointSize: size, weight: .regular)
-            image.contentTintColor = .secondaryLabelColor
             self.image = image
             self.color = color
             

@@ -40,6 +40,9 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
+            let trackers = Trackers(status: status, item: item)
+            trackers.state = .hidden
+            
             let secure = Window.Option(icon: "lock.fill", size: 12, color: .tertiaryLabelColor)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
@@ -68,7 +71,7 @@ extension Bar.Tab {
             stop.toolTip = "Stop"
             stop.state = .hidden
             
-            let stack = NSStackView(views: [prompt, close, search, secure, insercure, back, forward, reload, stop, options])
+            let stack = NSStackView(views: [prompt, close, search, trackers, secure, insercure, back, forward, reload, stop, options])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.spacing = 0
             addSubview(stack)
@@ -156,6 +159,7 @@ extension Bar.Tab {
                     
                     background.listen(web: web)
                     options.state = .on
+                    trackers.state = .on
                 }
                 .store(in: &subs)
             

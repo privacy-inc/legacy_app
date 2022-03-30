@@ -8,7 +8,7 @@ extension Bar.Tab.On {
         
         override var frame: NSRect {
             didSet {
-                shape?.path = {
+                shape.path = {
                     $0.move(to: .init(x: 0, y: 1.3))
                     $0.addLine(to: .init(x: frame.width, y: 1.3))
                     return $0
@@ -18,13 +18,6 @@ extension Bar.Tab.On {
         
         required init?(coder: NSCoder) { nil }
         init() {
-            super.init(frame: .zero)
-            translatesAutoresizingMaskIntoConstraints = false
-            layer = Layer()
-            wantsLayer = true
-            layer!.cornerRadius = 8
-            layer!.cornerCurve = .continuous
-
             let shape = Shape()
             shape.strokeStart = 0
             shape.strokeEnd = 0
@@ -32,8 +25,15 @@ extension Bar.Tab.On {
             shape.lineWidth = 2
             shape.lineCap = .round
             shape.lineJoin = .round
-            layer!.addSublayer(shape)
             self.shape = shape
+            
+            super.init(frame: .zero)
+            translatesAutoresizingMaskIntoConstraints = false
+            layer = Layer()
+            wantsLayer = true
+            layer!.cornerRadius = 8
+            layer!.cornerCurve = .continuous
+            layer!.addSublayer(shape)
         }
         
         func listen(web: Web) {
