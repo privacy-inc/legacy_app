@@ -6,6 +6,16 @@ extension Bar.Tab.On {
         private weak var shape: Shape!
         private var subscription: AnyCancellable?
         
+        override var frame: NSRect {
+            didSet {
+                shape?.path = {
+                    $0.move(to: .init(x: 0, y: 1.3))
+                    $0.addLine(to: .init(x: frame.width, y: 1.3))
+                    return $0
+                } (CGMutablePath())
+            }
+        }
+        
         required init?(coder: NSCoder) { nil }
         init() {
             super.init(frame: .zero)
@@ -44,12 +54,6 @@ extension Bar.Tab.On {
                             $0.delegate = self
                             return $0
                         } (CABasicAnimation(keyPath: "strokeEnd")), forKey: "strokeEnd")
-                    } else {
-                        self?.shape.path = {
-                            $0.move(to: .init(x: 0, y: 1.3))
-                            $0.addLine(to: .init(x: self?.frame.width ?? 0, y: 1.3))
-                            return $0
-                        } (CGMutablePath())
                     }
                 }
         }
