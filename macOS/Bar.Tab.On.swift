@@ -40,11 +40,11 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            let secure = Window.Option(icon: "lock.fill", size: 11, color: .tertiaryLabelColor)
+            let secure = Window.Option(icon: "lock.fill", size: 12, color: .tertiaryLabelColor)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
             
-            let insercure = Window.Option(icon: "exclamationmark.triangle.fill", size: 11, color: .tertiaryLabelColor)
+            let insercure = Window.Option(icon: "exclamationmark.triangle.fill", size: 13, color: .tertiaryLabelColor)
             insercure.toolTip = "Insecure"
             insercure.state = .hidden
             
@@ -60,11 +60,11 @@ extension Bar.Tab {
             forward.toolTip = "Forward"
             forward.state = .hidden
             
-            let reload = Window.Option(icon: "arrow.clockwise", size: 11)
+            let reload = Window.Option(icon: "arrow.clockwise", size: 12)
             reload.toolTip = "Reload"
             reload.state = .hidden
             
-            let stop = Window.Option(icon: "xmark", size: 11)
+            let stop = Window.Option(icon: "xmark", size: 12)
             stop.toolTip = "Stop"
             stop.state = .hidden
             
