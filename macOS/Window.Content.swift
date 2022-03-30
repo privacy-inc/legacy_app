@@ -70,14 +70,9 @@ extension Window {
         
         override var frame: NSRect {
             didSet {
-                if frame.width > 600 {
-                    let delta = frame.width - 600
-                    status.widthOn.value = min(450, 200 + delta)
-                    status.widthOff.value = min(150, 70 + delta)
-                } else {
-                    status.widthOn.value = 200
-                    status.widthOff.value = 70
-                }
+                let delta = frame.width - 600
+                status.widthOn.value = max(min(500, 250 + delta), 250)
+                status.widthOff.value = max(min(160, 30 + delta), 30)
             }
         }
         

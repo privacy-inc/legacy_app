@@ -23,9 +23,13 @@ extension Bar.Tab {
             let search = Search()
             search.delegate = self
             
-            let prompt = Image(icon: "magnifyingglass")
-            prompt.symbolConfiguration = .init(pointSize: 12, weight: .regular)
-            prompt.contentTintColor = .tertiaryLabelColor
+            let prompt = Window.Option(icon: "magnifyingglass", size: 12, color: .tertiaryLabelColor)
+            prompt.toolTip = "Search"
+            prompt.down
+                .sink {
+                    status.search.send()
+                }
+                .store(in: &subs)
             
             let close = Window.Option(icon: "xmark.app.fill")
             close.toolTip = "Close tab"
@@ -92,7 +96,7 @@ extension Bar.Tab {
                 .removeDuplicates()
                 .sink {
                     close.state = $0 == 1 ? .hidden : .on
-                    prompt.isHidden = $0 != 1
+                    prompt.state = $0 != 1 ? .hidden : .on
                 }
                 .store(in: &subs)
             

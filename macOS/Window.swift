@@ -12,7 +12,7 @@ final class Window: NSWindow, NSWindowDelegate {
                    styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView],
                    backing: .buffered,
                    defer: false)
-        minSize = .init(width: 600, height: 300)
+        minSize = .init(width: 500, height: 200)
         toolbar = .init()
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
