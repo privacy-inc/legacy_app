@@ -25,7 +25,7 @@ extension Bar.Tab {
             
             let prompt = Window.Option(icon: "magnifyingglass", size: 12, color: .tertiaryLabelColor)
             prompt.toolTip = "Search"
-            prompt.down
+            prompt.click
                 .sink {
                     status.search.send()
                 }
