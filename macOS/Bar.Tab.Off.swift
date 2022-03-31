@@ -5,7 +5,7 @@ import Specs
 extension Bar.Tab {
     final class Off: Control {
         private var subs = Set<AnyCancellable>()
-        private weak var close: Window.Option!
+        private weak var close: Option!
         private weak var icon: Icon!
         private weak var title: Text!
         
@@ -40,7 +40,7 @@ extension Bar.Tab {
             self.title = title
             addSubview(title)
             
-            let close = Window.Option(icon: "xmark.app.fill")
+            let close = Option(icon: "xmark.app.fill")
             close.toolTip = "Close tab"
             close
                 .click

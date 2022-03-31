@@ -64,7 +64,7 @@ extension Bar {
             menu!.autoenablesItems = false
             translatesAutoresizingMaskIntoConstraints = false
             
-            heightAnchor.constraint(equalToConstant: 28).isActive = true
+            heightAnchor.constraint(equalToConstant: Bar.height).isActive = true
         }
         
         func align(left: NSLayoutXAxisAnchor) {

@@ -2,6 +2,8 @@ import AppKit
 import Combine
 
 final class Bar: NSVisualEffectView {
+    static let height = CGFloat(28)
+    
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }

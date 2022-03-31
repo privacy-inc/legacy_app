@@ -13,7 +13,7 @@ extension Bar {
             layer!.cornerCurve = .continuous
             
             addSubview(image)
-            widthAnchor.constraint(equalToConstant: 28).isActive = true
+            widthAnchor.constraint(equalToConstant: Bar.height).isActive = true
             heightAnchor.constraint(equalTo: widthAnchor).isActive = true
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             image.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

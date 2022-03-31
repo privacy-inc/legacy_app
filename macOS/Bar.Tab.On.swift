@@ -23,7 +23,7 @@ extension Bar.Tab {
             let search = Search()
             search.delegate = self
             
-            let prompt = Window.Option(icon: "magnifyingglass", size: 12, color: .tertiaryLabelColor)
+            let prompt = Option(icon: "magnifyingglass", size: 12, color: .tertiaryLabelColor)
             prompt.toolTip = "Search"
             prompt.click
                 .sink {
@@ -31,7 +31,7 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            let close = Window.Option(icon: "xmark.app.fill")
+            let close = Option(icon: "xmark.app.fill")
             close.toolTip = "Close tab"
             close
                 .click
@@ -43,31 +43,31 @@ extension Bar.Tab {
             let trackers = Trackers(status: status, item: item)
             trackers.state = .hidden
             
-            let secure = Window.Option(icon: "lock.fill", size: 12, color: .tertiaryLabelColor)
+            let secure = Option(icon: "lock.fill", size: 12, color: .tertiaryLabelColor)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
             
-            let insercure = Window.Option(icon: "exclamationmark.triangle.fill", size: 13, color: .tertiaryLabelColor)
+            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 13, color: .tertiaryLabelColor)
             insercure.toolTip = "Insecure"
             insercure.state = .hidden
             
-            let options = Window.Option(icon: "ellipsis.circle.fill", size: 14)
+            let options = Option(icon: "ellipsis.circle.fill", size: 14)
             options.toolTip = "Options"
             options.state = .hidden
             
-            let back = Window.Option(icon: "chevron.backward", size: 13)
+            let back = Option(icon: "chevron.backward", size: 13)
             back.toolTip = "Back"
             back.state = .hidden
             
-            let forward = Window.Option(icon: "chevron.forward", size: 13)
+            let forward = Option(icon: "chevron.forward", size: 13)
             forward.toolTip = "Forward"
             forward.state = .hidden
             
-            let reload = Window.Option(icon: "arrow.clockwise", size: 12)
+            let reload = Option(icon: "arrow.clockwise", size: 12)
             reload.toolTip = "Reload"
             reload.state = .hidden
             
-            let stop = Window.Option(icon: "xmark", size: 12)
+            let stop = Option(icon: "xmark", size: 12)
             stop.toolTip = "Stop"
             stop.state = .hidden
             
@@ -83,8 +83,6 @@ extension Bar.Tab {
             background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             background.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
             background.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            
-            prompt.widthAnchor.constraint(equalToConstant: 28).isActive = true
             
             stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
             stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -6).isActive = true
@@ -238,13 +236,13 @@ extension Bar.Tab {
                             status: Status,
                             item: UUID,
                             search: Search,
-                            secure: Window.Option,
-                            insecure: Window.Option,
-                            back: Window.Option,
-                            forward: Window.Option,
-                            reload: Window.Option,
-                            stop: Window.Option,
-                            options: Window.Option) {
+                            secure: Option,
+                            insecure: Option,
+                            back: Option,
+                            forward: Option,
+                            reload: Option,
+                            stop: Option,
+                            options: Option) {
             web
                 .publisher(for: \.url)
                 .compactMap {

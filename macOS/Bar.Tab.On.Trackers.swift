@@ -12,11 +12,10 @@ extension Bar.Tab.On {
             self.image = image
             
             let text = Text(vibrancy: true)
-            text.stringValue = "32342323"
+            text.stringValue = "99"
             text.maximumNumberOfLines = 1
             text.lineBreakMode = .byTruncatingTail
             text.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
-//            text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             self.text = text
             
             super.init(layer: true)
@@ -24,13 +23,8 @@ extension Bar.Tab.On {
             addSubview(text)
             layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
             
-            widthAnchor.constraint(lessThanOrEqualToConstant: 80).isActive = true
-            rightAnchor.constraint(equalTo: text.rightAnchor, constant: 5).isActive = true
-            heightAnchor.constraint(equalTo: widthAnchor).isActive = true
-            
-            let width = widthAnchor.constraint(equalToConstant: 80)
-            width.priority = .defaultHigh
-            width.isActive = true
+            widthAnchor.constraint(equalToConstant: 60).isActive = true
+            heightAnchor.constraint(equalToConstant: Bar.height).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             image.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true

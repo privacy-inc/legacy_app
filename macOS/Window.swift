@@ -26,7 +26,7 @@ final class Window: NSWindow, NSWindowDelegate {
         addTitlebarAccessoryViewController(top)
         
         let bottom = NSTitlebarAccessoryViewController()
-        bottom.view = Subbar(status: status)
+//        bottom.view = Subbar(status: status)
         bottom.layoutAttribute = .bottom
 //        addTitlebarAccessoryViewController(bottom)
         #warning("use for downloads")

@@ -1,7 +1,7 @@
 import AppKit
 import Combine
 
-final class Subbar: NSVisualEffectView {
+/*final class Subbar: NSVisualEffectView {
     private weak var stop: Window.Option!
     private weak var reload: Window.Option!
     private var subs = Set<AnyCancellable>()
@@ -86,3 +86,4 @@ final class Subbar: NSVisualEffectView {
             .store(in: &subs)
     }
 }
+*/

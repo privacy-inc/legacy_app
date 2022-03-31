@@ -1,6 +1,6 @@
 import AppKit
 
-extension Window {
+extension Bar.Tab {
     final class Option: Control {
         private weak var image: Image!
         private let color: NSColor
@@ -14,7 +14,7 @@ extension Window {
             
             super.init(layer: false)
             addSubview(image)
-            widthAnchor.constraint(equalToConstant: 28).isActive = true
+            widthAnchor.constraint(equalToConstant: Bar.height).isActive = true
             heightAnchor.constraint(equalTo: widthAnchor).isActive = true
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             image.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
