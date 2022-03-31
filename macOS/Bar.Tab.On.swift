@@ -23,7 +23,7 @@ extension Bar.Tab {
             let search = Search()
             search.delegate = self
             
-            let prompt = Option(icon: "magnifyingglass", size: 12, color: .tertiaryLabelColor)
+            let prompt = Option(icon: "magnifyingglass", size: 12)
             prompt.toolTip = "Search"
             prompt.click
                 .sink {
@@ -43,11 +43,11 @@ extension Bar.Tab {
             let trackers = Trackers(status: status, item: item)
             trackers.state = .hidden
             
-            let secure = Option(icon: "lock.fill", size: 12, color: .tertiaryLabelColor)
+            let secure = Option(icon: "lock.fill", size: 12)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
             
-            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 13, color: .tertiaryLabelColor)
+            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 13)
             insercure.toolTip = "Insecure"
             insercure.state = .hidden
             
@@ -71,7 +71,7 @@ extension Bar.Tab {
             stop.toolTip = "Stop"
             stop.state = .hidden
             
-            let stack = NSStackView(views: [prompt, close, search, trackers, secure, insercure, back, forward, reload, stop, options])
+            let stack = NSStackView(views: [prompt, close, search, secure, insercure, back, forward, reload, stop, options, trackers])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.spacing = 0
             addSubview(stack)

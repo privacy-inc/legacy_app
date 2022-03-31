@@ -3,14 +3,12 @@ import AppKit
 extension Bar.Tab {
     final class Option: Control {
         private weak var image: Image!
-        private let color: NSColor
         
         required init?(coder: NSCoder) { nil }
-        init(icon: String, size: CGFloat = 16, color: NSColor = .secondaryLabelColor) {
+        init(icon: String, size: CGFloat = 16) {
             let image = Image(icon: icon)
             image.symbolConfiguration = .init(pointSize: size, weight: .regular)
             self.image = image
-            self.color = color
             
             super.init(layer: false)
             addSubview(image)
@@ -27,7 +25,7 @@ extension Bar.Tab {
             case .pressed, .highlighted:
                 image.contentTintColor = .labelColor
             default:
-                image.contentTintColor = color
+                image.contentTintColor = .secondaryLabelColor
             }
         }
         

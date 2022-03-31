@@ -2,35 +2,44 @@ import AppKit
 
 extension Bar.Tab.On {
     final class Trackers: Control {
-        private weak var image: Image!
+        private weak var shield: Image!
+        private weak var infinity: Image!
         private weak var text: Text!
         
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {
-            let image = Image(icon: "shield.lefthalf.filled")
-            image.symbolConfiguration = .init(pointSize: 12, weight: .regular)
-            self.image = image
+            let shield = Image(icon: "shield.lefthalf.filled")
+            shield.symbolConfiguration = .init(pointSize: 13, weight: .regular)
+            self.shield = shield
+            
+            let infinity = Image(icon: "infinity")
+            infinity.symbolConfiguration = .init(pointSize: 13, weight: .regular)
+            infinity.isHidden = true
+            self.infinity = infinity
             
             let text = Text(vibrancy: true)
-            text.stringValue = "99"
             text.maximumNumberOfLines = 1
             text.lineBreakMode = .byTruncatingTail
             text.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
+            text.isHidden = true
             self.text = text
             
-            super.init(layer: true)
-            addSubview(image)
+            super.init(layer: false)
+            addSubview(shield)
             addSubview(text)
-            layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
+            addSubview(infinity)
             
-            widthAnchor.constraint(equalToConstant: 60).isActive = true
+            widthAnchor.constraint(equalToConstant: 49).isActive = true
             heightAnchor.constraint(equalToConstant: Bar.height).isActive = true
             
-            image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            image.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
+            shield.leftAnchor.constraint(equalTo: leftAnchor, constant: 7).isActive = true
+            shield.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
-            text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.leftAnchor.constraint(equalTo: image.rightAnchor).isActive = true
+            text.centerXAnchor.constraint(equalTo: rightAnchor, constant: -17).isActive = true
+            text.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -0.5).isActive = true
+            
+            infinity.centerXAnchor.constraint(equalTo: text.centerXAnchor).isActive = true
+            infinity.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         }
         
         override func updateLayer() {
@@ -38,11 +47,13 @@ extension Bar.Tab.On {
             
             switch state {
             case .pressed, .highlighted:
-                image.contentTintColor = .labelColor
+                shield.contentTintColor = .labelColor
                 text.textColor = .labelColor
+                infinity.contentTintColor = .labelColor
             default:
-                image.contentTintColor = .tertiaryLabelColor
-                text.textColor = .tertiaryLabelColor
+                shield.contentTintColor = .secondaryLabelColor
+                text.textColor = .secondaryLabelColor
+                infinity.contentTintColor = .secondaryLabelColor
             }
         }
         
