@@ -1,4 +1,4 @@
-import AppKit
+/*import AppKit
 import Specs
 
 extension Bar.Tab {
@@ -67,3 +67,4 @@ extension Bar.Tab {
         }
     }
 }
+*/

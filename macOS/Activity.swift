@@ -1,4 +1,4 @@
-import AppKit
+/*import AppKit
 import Combine
 
 final class Activity: NSWindow {
@@ -174,3 +174,4 @@ final class Activity: NSWindow {
         close()
     }
 }
+*/

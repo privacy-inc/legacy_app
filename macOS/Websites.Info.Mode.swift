@@ -1,4 +1,4 @@
-import Foundation
+/*import Foundation
 import Specs
 
 extension Websites.Info {
@@ -31,3 +31,4 @@ extension Websites.Info {
         }
     }
 }
+*/

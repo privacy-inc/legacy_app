@@ -6,7 +6,7 @@ extension Bar.Tab {
         private weak var stack: NSStackView!
         private weak var status: Status!
         private weak var background: Background!
-        private weak var autocomplete: Autocomplete?
+//        private weak var autocomplete: Autocomplete?
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
@@ -178,7 +178,7 @@ extension Bar.Tab {
         }
         
         deinit {
-            autocomplete?.close()
+//            autocomplete?.close()
         }
         
         override func updateLayer() {
@@ -188,47 +188,47 @@ extension Bar.Tab {
         func controlTextDidChange(_ control: Notification) {
             guard let search = control.object as? Search else { return }
             
-            if self.autocomplete == nil {
-                let autocomplete = Autocomplete(status: status)
-                window!.addChildWindow(autocomplete, ordered: .above)
-                
-                ;{
-                    autocomplete.adjust.send((position: .init(x: $0.x - 3, y: $0.y - 6), width: bounds.width + 6))
-                } (window!.convertPoint(toScreen: convert(frame.origin, to: nil)))
-                
-                autocomplete
-                    .list
-                    .complete
-                    .sink {
-                        search.stringValue = $0
-                    }
-                    .store(in: &subs)
-                
-                self.autocomplete = autocomplete
-            }
-            
-            autocomplete?.find(string: search.stringValue)
+//            if self.autocomplete == nil {
+//                let autocomplete = Autocomplete(status: status)
+//                window!.addChildWindow(autocomplete, ordered: .above)
+//
+//                ;{
+//                    autocomplete.adjust.send((position: .init(x: $0.x - 3, y: $0.y - 6), width: bounds.width + 6))
+//                } (window!.convertPoint(toScreen: convert(frame.origin, to: nil)))
+//
+//                autocomplete
+//                    .list
+//                    .complete
+//                    .sink {
+//                        search.stringValue = $0
+//                    }
+//                    .store(in: &subs)
+//
+//                self.autocomplete = autocomplete
+//            }
+//
+//            autocomplete?.find(string: search.stringValue)
         }
         
         func control(_ control: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
-            switch doCommandBy {
-            case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
-                autocomplete?.close()
-                window?.makeFirstResponder(window?.contentView)
-            case #selector(insertNewline):
-                autocomplete?.close()
-                Task
-                    .detached(priority: .utility) { [weak self] in
-                        await self?.status.searching(search: control.stringValue)
-                    }
-                window!.makeFirstResponder(window!.contentView)
-            case #selector(moveUp):
-                autocomplete?.list.move.send((date: .init(), direction: .up))
-            case #selector(moveDown):
-                autocomplete?.list.move.send((date: .init(), direction: .down))
-            default:
-                return false
-            }
+//            switch doCommandBy {
+//            case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
+//                autocomplete?.close()
+//                window?.makeFirstResponder(window?.contentView)
+//            case #selector(insertNewline):
+//                autocomplete?.close()
+//                Task
+//                    .detached(priority: .utility) { [weak self] in
+//                        await self?.status.searching(search: control.stringValue)
+//                    }
+//                window!.makeFirstResponder(window!.contentView)
+//            case #selector(moveUp):
+//                autocomplete?.list.move.send((date: .init(), direction: .up))
+//            case #selector(moveDown):
+//                autocomplete?.list.move.send((date: .init(), direction: .down))
+//            default:
+//                return false
+//            }
             return true
         }
         
@@ -397,21 +397,21 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            secure
-                .click
-                .sink {
-                    Connection(history: web.history)
-                        .show(relativeTo: secure.bounds, of: secure, preferredEdge: .maxY)
-                }
-                .store(in: &subs)
-            
-            insecure
-                .click
-                .sink {
-                    Connection(history: web.history)
-                        .show(relativeTo: insecure.bounds, of: insecure, preferredEdge: .maxY)
-                }
-                .store(in: &subs)
+//            secure
+//                .click
+//                .sink {
+//                    Connection(history: web.history)
+//                        .show(relativeTo: secure.bounds, of: secure, preferredEdge: .maxY)
+//                }
+//                .store(in: &subs)
+//            
+//            insecure
+//                .click
+//                .sink {
+//                    Connection(history: web.history)
+//                        .show(relativeTo: insecure.bounds, of: insecure, preferredEdge: .maxY)
+//                }
+//                .store(in: &subs)
             
             options
                 .click

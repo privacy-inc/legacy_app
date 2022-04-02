@@ -56,10 +56,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             }
             .removeDuplicates()
             .sink { title in
-                Task
-                    .detached(priority: .utility) {
-                        await cloud.update(title: title, history: history)
-                    }
+//                Task
+//                    .detached(priority: .utility) {
+//                        await cloud.update(title: title, history: history)
+//                    }
             }
             .store(in: &subs)
 
@@ -69,10 +69,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             }
             .removeDuplicates()
             .sink { url in
-                Task
-                    .detached(priority: .utility) {
-                        await cloud.update(url: url, history: history)
-                    }
+//                Task
+//                    .detached(priority: .utility) {
+//                        await cloud.update(url: url, history: history)
+//                    }
             }
             .store(in: &subs)
         
@@ -94,31 +94,31 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         
     }
     
-    func error(error: Err) {
+    func error(error: Specs.Fail) {
 
     }
     
     func webView(_: WKWebView, didFinish: WKNavigation!) {
-        Task {
-            guard
-                let access = await cloud.website(history: history)?.access,
-                await favicon.request(for: access),
-                let url = try? await (evaluateJavaScript(Script.favicon.method)) as? String
-            else { return }
-            await favicon.received(url: url, for: access)
-        }
-        
-        if !settings.timers {
-            evaluateJavaScript(Script.unpromise.script)
-        }
+//        Task {
+//            guard
+//                let access = await cloud.website(history: history)?.access,
+//                await favicon.request(for: access),
+//                let url = try? await (evaluateJavaScript(Script.favicon.method)) as? String
+//            else { return }
+//            await favicon.received(url: url, for: access)
+//        }
+//        
+//        if !settings.timers {
+//            evaluateJavaScript(Script.unpromise.script)
+//        }
     }
     
     @MainActor final func access() async {
-        await cloud
-            .website(history: history)
-            .map {
-                load($0.access)
-            }
+//        await cloud
+//            .website(history: history)
+//            .map {
+//                load($0.access)
+//            }
     }
     
     final func clear() {
@@ -134,40 +134,40 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
         
     final func error(url: URL, description: String) {
-        progress.send(1)
-        error(error: .init(url: url, description: description))
-        
-        Task
-            .detached(priority: .utility) { [weak self] in
-                guard let history = self?.history else { return }
-                await cloud.update(url: url, history: history)
-                await cloud.update(title: description, history: history)
-            }
+//        progress.send(1)
+//        error(error: .init(url: url, description: description))
+//
+//        Task
+//            .detached(priority: .utility) { [weak self] in
+//                guard let history = self?.history else { return }
+//                await cloud.update(url: url, history: history)
+//                await cloud.update(title: description, history: history)
+//            }
     }
     
-    @MainActor final func load(_ access: AccessType) {
-        switch access {
-        case let remote as Access.Remote:
-            remote
-                .url
-                .map {
-                    load($0)
-                }
-        case let other as Access.Other:
-            other
-                .url
-                .map {
-                    load($0)
-                }
-        case let local as Access.Local:
-            local
-                .open { file, directory in
-                    loadFileURL(file, allowingReadAccessTo: directory)
-                }
-        default:
-            break
-        }
-    }
+//    @MainActor final func load(_ access: AccessType) {
+//        switch access {
+//        case let remote as Access.Remote:
+//            remote
+//                .url
+//                .map {
+//                    load($0)
+//                }
+//        case let other as Access.Other:
+//            other
+//                .url
+//                .map {
+//                    load($0)
+//                }
+//        case let local as Access.Local:
+//            local
+//                .open { file, directory in
+//                    loadFileURL(file, allowingReadAccessTo: directory)
+//                }
+//        default:
+//            break
+//        }
+//    }
     
     final func webView(_: WKWebView, respondTo: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
         settings.http
@@ -191,7 +191,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
-        switch await cloud.policy(history: history, url: decidePolicyFor.request.url!) {
+        switch await cloud.policy(request: decidePolicyFor.request.url!, from: url!) {
         case .allow:
             if decidePolicyFor.shouldPerformDownload {
                 return (.download, preferences)

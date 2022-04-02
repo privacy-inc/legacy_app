@@ -40,7 +40,7 @@ final class Web: Webview {
         NSWorkspace.shared.open(url)
     }
     
-    override func error(error: Err) {
+    override func error(error: Specs.Fail) {
         status.change(flow: .error(self, error), id: item)
     }
     

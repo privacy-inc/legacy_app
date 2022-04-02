@@ -1,4 +1,4 @@
-import AppKit
+/*import AppKit
 import Specs
 
 extension Autocomplete {
@@ -41,3 +41,4 @@ extension Autocomplete {
         }
     }
 }
+*/

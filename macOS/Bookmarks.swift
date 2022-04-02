@@ -1,4 +1,4 @@
-import AppKit
+/*import AppKit
 import Combine
 
 final class Bookmarks: Websites {
@@ -46,3 +46,4 @@ final class Bookmarks: Websites {
             .store(in: &subs)
     }
 }
+*/

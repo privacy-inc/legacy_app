@@ -58,7 +58,7 @@ extension NSApplication {
             }
         }
     }
-    
+    /*
     @MainActor func open(access: AccessType) {
         if let window = activeWindow {
             Task {
@@ -73,6 +73,7 @@ extension NSApplication {
             }
         }
     }
+    */
     
     func silent(url: URL) {
         if let window = activeWindow {
@@ -121,23 +122,23 @@ extension NSApplication {
     }
     
     @objc func showTrackers() {
-        (anyWindow() ?? Trackers())
-            .makeKeyAndOrderFront(nil)
+//        (anyWindow() ?? Trackers())
+//            .makeKeyAndOrderFront(nil)
     }
     
     @objc func showActivity() {
-        (anyWindow() ?? Activity())
-            .makeKeyAndOrderFront(nil)
+//        (anyWindow() ?? Activity())
+//            .makeKeyAndOrderFront(nil)
     }
     
     @objc func showHistory() {
-        (anyWindow() ?? History())
-            .makeKeyAndOrderFront(nil)
+//        (anyWindow() ?? History())
+//            .makeKeyAndOrderFront(nil)
     }
     
     @objc func showBookmarks() {
-        (anyWindow() ?? Bookmarks())
-            .makeKeyAndOrderFront(nil)
+//        (anyWindow() ?? Bookmarks())
+//            .makeKeyAndOrderFront(nil)
     }
     
     @objc func showPreferencesWindow(_ sender: Any?) {

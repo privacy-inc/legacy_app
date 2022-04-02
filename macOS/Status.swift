@@ -44,8 +44,8 @@ final class Status {
             return
         }
         
-        await cloud.update(url: url, history: web.history)
-        await cloud.update(title: title, history: web.history)
+//        await cloud.update(url: url, history: web.history)
+//        await cloud.update(title: title, history: web.history)
         await change(flow: .web(web))
     }
     
@@ -122,51 +122,51 @@ final class Status {
     }
     
     @MainActor func searching(search: String) async {
-        do {
-            switch item.flow {
-            case .landing:
-                try await history(id: cloud.search(search))
-            case let .web(web):
-                try await cloud.search(search, history: web.history)
-                await web.access()
-            case let .error(web, _):
-                try await cloud.search(search, history: web.history)
-                await web.access()
-                change(flow: .web(web))
-            }
-        } catch {
-            
-        }
+//        do {
+//            switch item.flow {
+//            case .landing:
+//                try await history(id: cloud.search(search))
+//            case let .web(web):
+//                try await cloud.search(search, history: web.history)
+//                await web.access()
+//            case let .error(web, _):
+//                try await cloud.search(search, history: web.history)
+//                await web.access()
+//                change(flow: .web(web))
+//            }
+//        } catch {
+//            
+//        }
     }
     
     @MainActor func url(url: URL) async {
-        await open(id: await cloud.open(url: url))
+//        await open(id: await cloud.open(url: url))
     }
     
     @MainActor func silent(url: URL) async {
-        let web = await Web(status: self, item: .init(), history: cloud.open(url: url), settings: cloud.model.settings.configuration)
-        items.value.append(.init(id: web.item, web: web))
-        await web.access()
-        current.send(current.value)
+//        let web = await Web(status: self, item: .init(), history: cloud.open(url: url), settings: cloud.model.settings.configuration)
+//        items.value.append(.init(id: web.item, web: web))
+//        await web.access()
+//        current.send(current.value)
     }
-    
-    @MainActor func access(access: any AccessType) async {
-        await open(id: cloud.open(access: access))
-    }
-    
-    @MainActor func reaccess(access: AccessType) async {
-        switch item.flow {
-        case .landing:
-            await history(id: cloud.open(access: access))
-        case let .web(web):
-            await cloud.open(access: access, history: web.history)
-            await web.access()
-        case let .error(web, _):
-            await cloud.open(access: access, history: web.history)
-            await web.access()
-            change(flow: .web(web))
-        }
-    }
+//
+//    @MainActor func access(access: any AccessType) async {
+//        await open(id: cloud.open(access: access))
+//    }
+//
+//    @MainActor func reaccess(access: AccessType) async {
+//        switch item.flow {
+//        case .landing:
+//            await history(id: cloud.open(access: access))
+//        case let .web(web):
+//            await cloud.open(access: access, history: web.history)
+//            await web.access()
+//        case let .error(web, _):
+//            await cloud.open(access: access, history: web.history)
+//            await web.access()
+//            change(flow: .web(web))
+//        }
+//    }
     
     @MainActor func open(id: UInt16) async {
         switch item.flow {

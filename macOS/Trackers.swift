@@ -1,4 +1,4 @@
-import AppKit
+/*import AppKit
 import Combine
 
 final class Trackers: NSWindow {
@@ -100,3 +100,4 @@ final class Trackers: NSWindow {
         close()
     }
 }
+*/

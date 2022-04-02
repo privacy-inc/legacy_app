@@ -1,4 +1,4 @@
-import Foundation
+/*import Foundation
 
 extension Autocomplete {
     enum Move {
@@ -7,3 +7,4 @@ extension Autocomplete {
         down
     }
 }
+*/

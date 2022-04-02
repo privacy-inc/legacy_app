@@ -143,8 +143,6 @@
 		CE84E62E273D4BD60071429B /* Landing.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E62D273D4BD60071429B /* Landing.Option.swift */; };
 		CE84E630273D52FF0071429B /* Landing.Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E62F273D52FF0071429B /* Landing.Edit.swift */; };
 		CE84E632273D557B0071429B /* Landing.Edit.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E631273D557B0071429B /* Landing.Edit.Item.swift */; };
-		CE84E634273D56110071429B /* Card.ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E633273D56110071429B /* Card.ID.swift */; };
-		CE84E635273D56400071429B /* Card.ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E633273D56110071429B /* Card.ID.swift */; };
 		CE862AA7270C869F0039630B /* Webview.Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE862AA6270C869F0039630B /* Webview.Code.swift */; };
 		CE8AF27C26FF698A00F6655F /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8AF27B26FF698A00F6655F /* Global.swift */; };
 		CE8BA2ED272D72E500E2D73F /* Bar.Tab.Off.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8BA2EC272D72E500E2D73F /* Bar.Tab.Off.swift */; };
@@ -441,7 +439,6 @@
 		CE84E62D273D4BD60071429B /* Landing.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Option.swift; sourceTree = "<group>"; };
 		CE84E62F273D52FF0071429B /* Landing.Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.swift; sourceTree = "<group>"; };
 		CE84E631273D557B0071429B /* Landing.Edit.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.Item.swift; sourceTree = "<group>"; };
-		CE84E633273D56110071429B /* Card.ID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.ID.swift; sourceTree = "<group>"; };
 		CE862AA6270C869F0039630B /* Webview.Code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.Code.swift; sourceTree = "<group>"; };
 		CE8AF27B26FF698A00F6655F /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		CE8BA2EC272D72E500E2D73F /* Bar.Tab.Off.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.Off.swift; sourceTree = "<group>"; };
@@ -827,7 +824,6 @@
 			isa = PBXGroup;
 			children = (
 				CE99B052272173EB0077BAC6 /* Configuration.storekit */,
-				CE84E633273D56110071429B /* Card.ID.swift */,
 				CE9DFA0E27061D5400D69810 /* Copy.swift */,
 				CE80B8B7271EDE5E001A7BEC /* Forget.swift */,
 				CE8AF27B26FF698A00F6655F /* Global.swift */,
@@ -1181,7 +1177,6 @@
 				CE743007272981EA00F5F5B8 /* CollectionCellState.swift in Sources */,
 				CE3576B327281CE4005854B5 /* Copy.swift in Sources */,
 				CE7430122729874200F5F5B8 /* Landing.Section.swift in Sources */,
-				CE84E634273D56110071429B /* Card.ID.swift in Sources */,
 				CE19EC8D2736A54300A412FC /* Pop.swift in Sources */,
 				CEBCAAD42732B66D00B9D49C /* Shortcut.Action.swift in Sources */,
 				CE5D41AB272C240D00AEBE0F /* Landing.History.Other.swift in Sources */,
@@ -1252,7 +1247,6 @@
 				CE99B051272167660077BAC6 /* Plus.Banner.Model.swift in Sources */,
 				CE63F094271453CC00918E54 /* Options.Share.swift in Sources */,
 				CE8422C727171D83007D7A0B /* Recover.swift in Sources */,
-				CE84E635273D56400071429B /* Card.ID.swift in Sources */,
 				CE470A6F26FA2284002D560A /* Landing.Activity.swift in Sources */,
 				CE470A6426F9DE8F002D560A /* Landing.Section.swift in Sources */,
 				CE383746270DD0FC006A8FE7 /* Trackers.swift in Sources */,

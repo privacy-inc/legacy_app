@@ -1,4 +1,4 @@
-import AppKit
+/*import AppKit
 
 extension Autocomplete {
     final class Cell: CollectionCell<Info> {
@@ -82,3 +82,4 @@ extension Autocomplete {
         }
     }
 }
+*/

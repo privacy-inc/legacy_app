@@ -124,33 +124,33 @@ extension Bar.Tab {
         }
         
         private func web(web: Web) {
-            web
-                .publisher(for: \.url)
-                .flatMap { _ in
-                    Future<AccessType?, Never> { promise in
-                        Task {
-                            guard let access = await cloud.website(history: web.history)?.access else {
-                                promise(.success(nil))
-                                return
-                            }
-                            promise(.success(access))
-                        }
-                    }
-                }
-                .compactMap {
-                    $0
-                }
-                .sink { [weak self] access in
-                    self?.icon.icon(icon: access.icon)
-                    
-                    switch access {
-                    case let remote as Access.Remote:
-                        self?.title.stringValue = remote.domain.minimal
-                    default:
-                        self?.title.stringValue = access.value
-                    }
-                }
-                .store(in: &subs)
+//            web
+//                .publisher(for: \.url)
+//                .flatMap { _ in
+//                    Future<AccessType?, Never> { promise in
+//                        Task {
+//                            guard let access = await cloud.website(history: web.history)?.access else {
+//                                promise(.success(nil))
+//                                return
+//                            }
+//                            promise(.success(access))
+//                        }
+//                    }
+//                }
+//                .compactMap {
+//                    $0
+//                }
+//                .sink { [weak self] access in
+//                    self?.icon.icon(icon: access.icon)
+//                    
+//                    switch access {
+//                    case let remote as Access.Remote:
+//                        self?.title.stringValue = remote.domain.minimal
+//                    default:
+//                        self?.title.stringValue = access.value
+//                    }
+//                }
+//                .store(in: &subs)
         }
     }
 }

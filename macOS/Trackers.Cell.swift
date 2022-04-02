@@ -1,4 +1,4 @@
-import AppKit
+/*import AppKit
 
 extension Trackers {
     final class Cell: CollectionCell<Info> {
@@ -102,3 +102,4 @@ extension Trackers {
         }
     }
 }
+*/

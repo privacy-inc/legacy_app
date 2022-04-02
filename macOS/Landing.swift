@@ -29,7 +29,7 @@ final class Landing: NSView {
         let guide = NSView()
         guide.translatesAutoresizingMaskIntoConstraints = false
         flip.addSubview(guide)
-        */
+        
         let configure = Option(icon: "slider.vertical.3")
         configure
             .click
@@ -74,7 +74,7 @@ final class Landing: NSView {
         stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -27).isActive = true
         stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -30).isActive = true
         
-        /*
+        
         separator.topAnchor.constraint(equalTo: topAnchor).isActive = true
         separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 2).isActive = true
         separator.rightAnchor.constraint(equalTo: rightAnchor, constant: -2).isActive = true

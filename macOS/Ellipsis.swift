@@ -42,7 +42,8 @@ final class Ellipsis: NSPopover {
                 Task
                     .detached {
                         await UNUserNotificationCenter.send(message: "Bookmark added!")
-                        await cloud.bookmark(history: web.history)
+                        #warning("bookmark")
+//                        await cloud.bookmark(history: web.history)
                     }
             }
             .store(in: &subs)
@@ -135,10 +136,10 @@ final class Ellipsis: NSPopover {
             }
             .store(in: &subs)
         
-        Task {
-            guard let image = await cloud.website(history: web.history)?.access.icon else { return }
-            icon.icon(icon: image)
-        }
+//        Task {
+//            guard let image = await cloud.website(history: web.history)?.access.icon else { return }
+//            icon.icon(icon: image)
+//        }
         
         return view
     }

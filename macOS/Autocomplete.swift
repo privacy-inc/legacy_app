@@ -1,4 +1,4 @@
-import AppKit
+/*import AppKit
 import Combine
 
 final class Autocomplete: NSPanel {
@@ -78,3 +78,4 @@ final class Autocomplete: NSPanel {
         }
     }
 }
+*/

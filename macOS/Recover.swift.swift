@@ -3,7 +3,7 @@ import Specs
 
 final class Recover: NSView {
     required init?(coder: NSCoder) { nil }
-    init(error: Err) {
+    init(error: Fail) {
         super.init(frame: .zero)
         
         let icon = Image(icon: "exclamationmark.triangle.fill")

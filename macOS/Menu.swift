@@ -263,14 +263,14 @@ final class Menu: NSMenu, NSMenuDelegate {
                     title = "Support Privacy"
                 case is Preferences:
                     title = "Preferences"
-                case is Trackers:
-                    title = "Trackers"
-                case is Activity:
-                    title = "Activity"
-                case is History:
-                    title = "History"
-                case is Bookmarks:
-                    title = "Bookmarks"
+//                case is Trackers:
+//                    title = "Trackers"
+//                case is Activity:
+//                    title = "Activity"
+//                case is History:
+//                    title = "History"
+//                case is Bookmarks:
+//                    title = "Bookmarks"
                 default:
                     add = nil
                 }

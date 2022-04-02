@@ -6,6 +6,6 @@ extension Status {
         case
         landing,
         web(Web),
-        error(Web, Err)
+        error(Web, Fail)
     }
 }

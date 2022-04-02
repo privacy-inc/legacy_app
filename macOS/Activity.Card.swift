@@ -1,4 +1,4 @@
-import AppKit
+/*import AppKit
 import Combine
 
 extension Activity {
@@ -42,3 +42,4 @@ extension Activity {
         }
     }
 }
+*/

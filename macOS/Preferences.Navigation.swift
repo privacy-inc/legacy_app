@@ -58,8 +58,8 @@ extension Preferences {
                 let settings = await cloud.model.settings
                 await MainActor
                     .run {
-                        engine.control.selectedSegment = settings.search.engine == .google ? 0 : 1
-                        level.control.selectedSegment = settings.policy.level == .secure ? 0 : 1
+                        engine.control.selectedSegment = settings.search == .google ? 0 : 1
+                        level.control.selectedSegment = settings.policy == .secure ? 0 : 1
                         connection.control.selectedSegment = settings.configuration.http ? 1 : 0
                         cookies.control.selectedSegment = settings.configuration.cookies ? 1 : 0
                         

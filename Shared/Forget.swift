@@ -11,20 +11,20 @@ enum Forget {
     }
     
     static func history() {
-        Task
-            .detached(priority: .utility) {
-                await cloud.forgetHistory()
-                await favicon.clear()
-                await UNUserNotificationCenter.send(message: "Forgot history!")
-            }
+//        Task
+//            .detached(priority: .utility) {
+//                await cloud.forgetHistory()
+//                await favicon.clear()
+//                await UNUserNotificationCenter.send(message: "Forgot history!")
+//            }
     }
     
     static func activity() {
-        Task
-            .detached(priority: .utility) {
-                await cloud.forgetActivity()
-                await UNUserNotificationCenter.send(message: "Forgot activity!")
-            }
+//        Task
+//            .detached(priority: .utility) {
+//                await cloud.forgetActivity()
+//                await UNUserNotificationCenter.send(message: "Forgot activity!")
+//            }
     }
     
     static func everything() {
