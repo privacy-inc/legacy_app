@@ -3,11 +3,13 @@ import Combine
 
 final class Bar: NSVisualEffectView {
     static let height = CGFloat(28)
-    
+    private weak var status: Status!
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
     init(status: Status) {
+        self.status = status
+        
         super.init(frame: .zero)
         state = .active
         material = .menu
@@ -99,5 +101,13 @@ final class Bar: NSVisualEffectView {
                     }
             }
             .store(in: &subs)
+    }
+    
+    override var frame: NSRect {
+        didSet {
+            let delta = (frame.width - 500) / 3
+            status.widthOn.value = max(min(450, 270 + delta), 270)
+            status.widthOff.value = max(min(160, 30 + delta), 30)
+        }
     }
 }

@@ -25,16 +25,20 @@ final class Window: NSWindow, NSWindowDelegate {
         top.layoutAttribute = .top
         addTitlebarAccessoryViewController(top)
         
-        let bottom = NSTitlebarAccessoryViewController()
+//        let bottom = NSTitlebarAccessoryViewController()
 //        bottom.view = Subbar(status: status)
-        bottom.layoutAttribute = .bottom
+//        bottom.layoutAttribute = .bottom
 //        addTitlebarAccessoryViewController(bottom)
         #warning("use for downloads")
 
         let findbar = Findbar()
         addTitlebarAccessoryViewController(findbar)
         
-        contentView = Content(status: status, findbar: findbar)
+        let content = NSVisualEffectView()
+        content.state = .active
+        content.material = .menu
+        content.translatesAutoresizingMaskIntoConstraints = false
+        contentView = content
         makeKeyAndOrderFront(nil)
     }
     
