@@ -6,7 +6,7 @@
       "location" : "https://github.com/privacy-inc/domains.git",
       "state" : {
         "branch" : "main",
-        "revision" : "e81be3b7cbb380e7ad882612f8c1c3d5f67f7984"
+        "revision" : "00487271ec60240ba87198aefd37c6b2e8c2e485"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/privacy-inc/specs.git",
       "state" : {
         "branch" : "main",
-        "revision" : "13bf72c48d6d43c462c9fba3d9a24388e5688ac1"
+        "revision" : "8652e90ae0149a43d803fda8b871fad0953c3a4e"
       }
     }
   ],
