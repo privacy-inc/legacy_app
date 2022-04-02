@@ -5,7 +5,7 @@ extension Window {
     final class Content: NSVisualEffectView, NSTextFinderBarContainer {
         private weak var status: Status!
         private weak var findbar: Findbar!
-        private var sub: AnyCancellable?
+        private var subs = Set<AnyCancellable>()
         private let finder = NSTextFinder()
         
         required init?(coder: NSCoder) { nil }
@@ -19,7 +19,14 @@ extension Window {
             material = .menu
             finder.findBarContainer = self
             
-            sub = status
+//            cloud
+//                .sink {
+//                    print($0.bookmarks)
+//                    print($0.history)
+//                }
+//                .store(in: &subs)
+            
+            status
                 .items
                 .combineLatest(status
                                 .current)
@@ -41,9 +48,9 @@ extension Window {
                         .forEach {
                             $0.removeFromSuperview()
                         }
-                    
+
                     let view: NSView
-                    
+
                     switch item.flow {
                     case .landing:
                         view = Landing(status: status)
@@ -56,16 +63,17 @@ extension Window {
                         view = Recover(error: error)
                         findbar.isHidden = true
                     }
-                    
+
                     view.translatesAutoresizingMaskIntoConstraints = false
                     self.addSubview(view)
                     self.window?.makeFirstResponder(view)
-                    
+
                     view.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
                     view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
                     view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
                     view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
                 }
+                .store(in: &subs)
         }
         
         override var frame: NSRect {

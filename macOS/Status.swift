@@ -122,26 +122,28 @@ final class Status {
     }
     
     @MainActor func searching(search: String) async {
-//        do {
-//            switch item.flow {
-//            case .landing:
-//                try await history(id: cloud.search(search))
-//            case let .web(web):
+        do {
+            switch item.flow {
+            case .landing:
+                try await open(url: cloud.search(search))
+            case let .web(web):
+                break
 //                try await cloud.search(search, history: web.history)
 //                await web.access()
-//            case let .error(web, _):
+            case let .error(web, _):
+                break
 //                try await cloud.search(search, history: web.history)
 //                await web.access()
 //                change(flow: .web(web))
-//            }
-//        } catch {
-//            
-//        }
+            }
+        } catch {
+            
+        }
     }
     
-    @MainActor func url(url: URL) async {
+//    @MainActor func url(url: URL) async {
 //        await open(id: await cloud.open(url: url))
-    }
+//    }
     
     @MainActor func silent(url: URL) async {
 //        let web = await Web(status: self, item: .init(), history: cloud.open(url: url), settings: cloud.model.settings.configuration)
@@ -189,10 +191,16 @@ final class Status {
             }!
     }
     
-    @MainActor private func history(id: UInt16) async {
-        let web = await Web(status: self, item: current.value, history: id, settings: cloud.model.settings.configuration)
+    @MainActor func open(url: URL) async {
+        let web = await Web(status: self, item: current.value, history: 0, settings: cloud.model.settings.configuration)
         change(flow: .web(web))
-        await web.access()
+        web.load(url)
+    }
+    
+    @MainActor private func history(id: UInt16) async {
+//        let web = await Web(status: self, item: current.value, history: id, settings: cloud.model.settings.configuration)
+//        change(flow: .web(web))
+//        await web.access()
     }
     
     @MainActor private func change(flow: Flow) {

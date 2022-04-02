@@ -36,7 +36,7 @@ extension NSApplication {
     func open(url: URL) {
         if let window = activeWindow {
             Task {
-                await window.status.url(url: url)
+                await window.status.open(url: url)
                 window.makeKeyAndOrderFront(nil)
             }
         } else {
@@ -86,7 +86,7 @@ extension NSApplication {
     func newWindow(url: URL) {
         Task {
             let status = Status()
-            await status.url(url: url)
+            await status.open(url: url)
             Window(status: status)
         }
     }

@@ -211,24 +211,26 @@ extension Bar.Tab {
         }
         
         func control(_ control: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
-//            switch doCommandBy {
-//            case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
+            switch doCommandBy {
+            case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
 //                autocomplete?.close()
-//                window?.makeFirstResponder(window?.contentView)
-//            case #selector(insertNewline):
+                window?.makeFirstResponder(window?.contentView)
+            case #selector(insertNewline):
 //                autocomplete?.close()
-//                Task
-//                    .detached(priority: .utility) { [weak self] in
-//                        await self?.status.searching(search: control.stringValue)
-//                    }
-//                window!.makeFirstResponder(window!.contentView)
-//            case #selector(moveUp):
+                Task
+                    .detached(priority: .utility) { [weak self] in
+                        await self?.status.searching(search: control.stringValue)
+                    }
+                window!.makeFirstResponder(window!.contentView)
+            case #selector(moveUp):
+                break
 //                autocomplete?.list.move.send((date: .init(), direction: .up))
-//            case #selector(moveDown):
+            case #selector(moveDown):
+                break
 //                autocomplete?.list.move.send((date: .init(), direction: .down))
-//            default:
-//                return false
-//            }
+            default:
+                return false
+            }
             return true
         }
         
