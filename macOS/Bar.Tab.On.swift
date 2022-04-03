@@ -208,6 +208,10 @@ extension Bar.Tab {
 //            }
 //
 //            autocomplete?.find(string: search.stringValue)
+            
+            Task {
+                await status.websites.send(cloud.list(filter: search.stringValue))
+            }
         }
         
         func control(_ control: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {

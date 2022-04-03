@@ -3,9 +3,6 @@ import Combine
 import Specs
 
 final class List: Collection<ListCell, ListInfo> {
-     let found = PassthroughSubject<[Website], Never>()
-     let move = PassthroughSubject<(date: Date, up: Bool), Never>()
-     let complete = PassthroughSubject<String, Never>()
      private let select = PassthroughSubject<CGPoint, Never>()
  
      required init?(coder: NSCoder) { nil }
@@ -18,13 +15,15 @@ final class List: Collection<ListCell, ListInfo> {
          let info = CurrentValueSubject<[ListInfo], Never>([])
          let selected = PassthroughSubject<ListInfo.ID, Never>()
          
-         found
+         status
+             .websites
              .sink { [weak self] _ in
                  self?.contentView.bounds.origin.y = 0
              }
              .store(in: &subs)
 
-         found
+         status
+             .websites
              .removeDuplicates {
                  $0.map(\.id) == $1.map(\.id)
              }
@@ -79,12 +78,18 @@ final class List: Collection<ListCell, ListInfo> {
              .subscribe(selected)
              .store(in: &subs)
          
-         move
+         status
+             .up
+             .map { up -> (up: Bool, date: Date) in
+                 (up: up, date: Date())
+             }
              .combineLatest(info,
                             highlighted,
                             items)
-             .removeDuplicates {
-                 $0.0.0 == $1.0.0
+             .removeDuplicates { (first: (move: (up: Bool, date: Date), _, _, _),
+                                  second: (move: (up: Bool, date: Date), _, _, _)) -> Bool in
+                 
+                 first.move.date == second.move.date
              }
              .sink { [weak self] move, info, highlighted, items in
                  (info
@@ -112,7 +117,7 @@ final class List: Collection<ListCell, ListInfo> {
                                      .center(y: $0.rect.minY)
                              }
                          self?.highlighted.send(info[index].id)
-                         self?.complete.send(info[index].id)
+                         status.complete.send(info[index].id)
                      }
              }
              .store(in: &subs)

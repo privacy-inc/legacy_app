@@ -77,7 +77,7 @@ final class Window: NSWindow, NSWindowDelegate {
 
                 switch item.flow {
                 case .list:
-                    place(Landing(status: status))
+                    place(List(status: status))
                     findbar.isHidden = true
                 case let .web(web):
 //                    self.finder.client = web
