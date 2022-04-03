@@ -19,12 +19,12 @@ extension Window {
             material = .menu
             finder.findBarContainer = self
             
-//            cloud
-//                .sink {
-//                    print($0.bookmarks)
-//                    print($0.history)
-//                }
-//                .store(in: &subs)
+            cloud
+                .sink {
+                    print($0.bookmarks)
+                    print($0.history)
+                }
+                .store(in: &subs)
             
             status
                 .items
@@ -38,7 +38,7 @@ extension Window {
                 }
                 .removeDuplicates()
                 .removeDuplicates {
-                    $0.flow == .landing && $1.flow == .landing
+                    $0.flow == .list && $1.flow == .list
                 }
                 .sink { [weak self] item in
                     guard let self = self else { return }
@@ -52,7 +52,7 @@ extension Window {
                     let view: NSView
 
                     switch item.flow {
-                    case .landing:
+                    case .list:
                         view = Landing(status: status)
                         findbar.isHidden = true
                     case let .web(web):

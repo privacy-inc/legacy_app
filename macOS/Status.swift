@@ -18,7 +18,7 @@ final class Status {
     }
     
     convenience init() {
-        self.init(item: .init(flow: .landing))
+        self.init(item: .init(flow: .list))
     }
     
     init(item: Item) {
@@ -27,7 +27,7 @@ final class Status {
     }
     
     func addTab() {
-        let item = Item(flow: .landing)
+        let item = Item(flow: .list)
         items.value.append(item)
         current.send(item.id)
     }
@@ -124,7 +124,7 @@ final class Status {
     @MainActor func searching(search: String) async {
         do {
             switch item.flow {
-            case .landing:
+            case .list:
                 try await open(url: cloud.search(search))
             case let .web(web):
                 break

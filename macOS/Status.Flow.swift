@@ -4,7 +4,7 @@ import Specs
 extension Status {
     enum Flow: Equatable {
         case
-        landing,
+        list,
         web(Web),
         error(Web, Fail)
     }

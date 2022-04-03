@@ -19,7 +19,6 @@ import Specs
     
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
-        Window(status: .init())
     }
     
     func applicationDidFinishLaunching(_: Notification) {
@@ -29,14 +28,18 @@ import Specs
         cloud.ready.notify(queue: .main) {
             cloud.pull.send()
             
-            switch Defaults.action {
-            case .rate:
-                SKStoreReviewController.requestReview()
-            case .froob:
-                (NSApp.anyWindow() ?? Froob())
-                    .makeKeyAndOrderFront(nil)
-            case .none:
-                break
+            Window(status: .init())
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                switch Defaults.action {
+                case .rate:
+                    SKStoreReviewController.requestReview()
+                case .froob:
+                    (NSApp.anyWindow() ?? Froob())
+                        .makeKeyAndOrderFront(nil)
+                case .none:
+                    break
+                }
             }
             
             Task {

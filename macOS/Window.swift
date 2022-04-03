@@ -1,7 +1,9 @@
 import AppKit
+import Combine
 
 final class Window: NSWindow, NSWindowDelegate {
     let status: Status
+    private var subs = Set<AnyCancellable>()
     
     @discardableResult init(status: Status) {
         self.status = status
@@ -40,6 +42,60 @@ final class Window: NSWindow, NSWindowDelegate {
         content.translatesAutoresizingMaskIntoConstraints = false
         contentView = content
         makeKeyAndOrderFront(nil)
+        
+        cloud
+            .sink {
+                print($0.bookmarks)
+                print($0.history)
+            }
+            .store(in: &subs)
+        
+        let place = { [weak self] (view: NSView) -> Void in
+            view.translatesAutoresizingMaskIntoConstraints = false
+            content.addSubview(view)
+            self?.makeFirstResponder(view)
+
+            view.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
+            view.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
+            view.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
+            view.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
+        }
+        
+        status
+            .items
+            .combineLatest(status
+                            .current)
+            .compactMap { items, current in
+                items
+                    .first {
+                        $0.id == current
+                    }
+            }
+            .removeDuplicates()
+            .removeDuplicates {
+                $0.flow == .list && $1.flow == .list
+            }
+            .sink { item in
+                content
+                    .subviews
+                    .forEach {
+                        $0.removeFromSuperview()
+                    }
+
+                switch item.flow {
+                case .list:
+                    place(Landing(status: status))
+                    findbar.isHidden = true
+                case let .web(web):
+//                    self.finder.client = web
+                    place(web)
+                    findbar.isHidden = false
+                case let .error(_, error):
+                    place(Recover(error: error))
+                    findbar.isHidden = true
+                }
+            }
+            .store(in: &subs)
     }
     
     override func close() {

@@ -112,7 +112,7 @@ extension Bar.Tab {
                         }
                 }
                 .filter {
-                    if case .landing = $0.flow {
+                    if case .list = $0.flow {
                         return true
                     }
                     return false
