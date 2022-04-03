@@ -1,6 +1,6 @@
 import AppKit
 
-class CollectionCell<Info>: NSView where Info : CollectionItemInfo {
+class CollectionCell<Info>: NSView where Info : Identifiable & Hashable {
     var item: CollectionItem<Info>?
     
     required init?(coder: NSCoder) { nil }

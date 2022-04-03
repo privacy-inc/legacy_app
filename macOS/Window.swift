@@ -43,13 +43,6 @@ final class Window: NSWindow, NSWindowDelegate {
         contentView = content
         makeKeyAndOrderFront(nil)
         
-        cloud
-            .sink {
-                print($0.bookmarks)
-                print($0.history)
-            }
-            .store(in: &subs)
-        
         let place = { [weak self] (view: NSView) -> Void in
             view.translatesAutoresizingMaskIntoConstraints = false
             content.addSubview(view)
