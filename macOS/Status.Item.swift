@@ -2,17 +2,21 @@ import Foundation
 
 extension Status {
     struct Item: Equatable {
-        var flow: Flow
         let id: UUID
+        let flow: Flow
         
         init(flow: Flow) {
             self.flow = flow
             id = .init()
         }
         
-        init(id: UUID, web: Web) {
-            self.flow = .web(web)
+        private init(id: UUID, flow: Flow) {
             self.id = id
+            self.flow = flow
+        }
+        
+        func with(flow: Flow) -> Self {
+            .init(id: id, flow: flow)
         }
         
         func clear() {

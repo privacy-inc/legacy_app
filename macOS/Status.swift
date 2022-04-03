@@ -117,7 +117,7 @@ final class Status {
                 $0.id == id
             }
             .map { index in
-                items.value[index].flow = flow
+                items.value[index] = items.value[index].with(flow: flow)
             }
     }
     
@@ -171,16 +171,16 @@ final class Status {
 //    }
     
     @MainActor func open(id: UInt16) async {
-        switch item.flow {
-        case .landing:
-            await history(id: id)
-        case .web, .error:
-            let web = await Web(status: self, item: .init(), history: id, settings: cloud.model.settings.configuration)
-            let item = Item(id: web.item, web: web)
-            items.value.append(item)
-            current.send(web.item)
-            await web.access()
-        }
+//        switch item.flow {
+//        case .landing:
+//            await history(id: id)
+//        case .web, .error:
+//            let web = await Web(status: self, item: .init(), history: id, settings: cloud.model.settings.configuration)
+//            let item = Item(id: web.item, web: web)
+//            items.value.append(item)
+//            current.send(web.item)
+//            await web.access()
+//        }
     }
     
     private var index: Int {
@@ -204,7 +204,7 @@ final class Status {
     }
     
     @MainActor private func change(flow: Flow) {
-        items.value[index].flow = flow
+        items.value[index] = items.value[index].with(flow: flow)
     }
     
     private func shift() {
