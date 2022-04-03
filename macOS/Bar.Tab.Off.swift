@@ -22,7 +22,7 @@ extension Bar.Tab {
                 .store(in: &subs)
             
             let icon = Icon(size: 18)
-            icon.icon(icon: nil)
+            icon.icon(website: nil)
             self.icon = icon
             addSubview(icon)
             

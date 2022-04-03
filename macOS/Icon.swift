@@ -55,20 +55,20 @@ final class Icon: NSView {
         nil
     }
     
-    func icon(icon: String?) {
+    func icon(website: String?) {
         Task
             .detached { [weak self] in
-                await self?.update(icon: icon)
+                await self?.update(website: website)
             }
     }
     
-    @MainActor private func update(icon: String?) async {
-        self.icon.isHidden = true
+    @MainActor private func update(website: String?) async {
+        icon.isHidden = true
         backup.isHidden = false
         sub?.cancel()
         guard
-            let icon = icon,
-            let publisher = await favicon.publisher(for: icon)
+            let website = website,
+            let publisher = await favicon.publisher(for: website)
         else { return }
         sub = publisher
             .sink { [weak self] in
