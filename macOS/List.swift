@@ -4,7 +4,7 @@ import Specs
 
 final class List: Collection<ListCell, ListInfo> {
      let found = PassthroughSubject<[Website], Never>()
-     let move = PassthroughSubject<(date: Date, direction: Move), Never>()
+     let move = PassthroughSubject<(date: Date, up: Bool), Never>()
      let complete = PassthroughSubject<String, Never>()
      private let select = PassthroughSubject<CGPoint, Never>()
  
@@ -32,7 +32,7 @@ final class List: Collection<ListCell, ListInfo> {
                  $0
                      .enumerated()
                      .map { item in
-                         .init(complete: item.1, first: item.0 == 0)
+                         .init(website: item.1, first: item.0 == 0)
                      }
              }
              .subscribe(info)
@@ -93,17 +93,14 @@ final class List: Collection<ListCell, ListInfo> {
                      }
                      ?? (info.isEmpty
                          ? nil
-                         : move.1 == .down
-                             ? info.count - 1
-                             : 0))
+                         : move.up ? 0 : info.count - 1))
                      .map { (index: Int) in
-                         move.1 == .down
-                             ? index < info.count - 1
-                                 ? index + 1
-                                 : 0
-                             : index > 0
-                                 ? index - 1
-                                 : info.count - 1
+                         move.up ? index > 0
+                                    ? index - 1
+                                    : info.count - 1
+                                : index < info.count - 1
+                                    ? index + 1
+                                    : 0
                      }
                      .map { index in
                          items
