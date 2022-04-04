@@ -41,12 +41,16 @@ final class List: Collection<ListCell, ListInfo> {
              .dropFirst()
              .removeDuplicates()
              .sink { [weak self] in
-                 guard !$0.isEmpty else {
+                 guard
+                    !$0.isEmpty,
+                    let totalWidth = self?.frame.width
+                 else {
                      self?.items.send([])
                      self?.size.send(.init(width: 0, height: 0))
                      return
                  }
                  
+                 let width = min(totalWidth - 24, 426)
                  let result = $0
                      .reduce(into: (items: Set<CollectionItem<ListInfo>>(), y: vertical)) {
                          $0.items.insert(.init(
@@ -54,9 +58,9 @@ final class List: Collection<ListCell, ListInfo> {
                                              rect: .init(
                                                  x: 12,
                                                  y: $0.y,
-                                                 width: status.widthOn.value - 24,
-                                                 height: 56)))
-                         $0.y += 58
+                                                 width: width,
+                                                 height: 48)))
+                         $0.y += 50
                      }
                  self?.items.send(result.items)
                  self?.size.send(.init(width: 0, height: result.y + vertical))

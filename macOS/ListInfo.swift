@@ -12,15 +12,14 @@ struct ListInfo: Identifiable, Hashable {
     let website: Website
     
     init(website: Website, first: Bool) {
-        text = .make(lineBreak: .byTruncatingTail) {
+        text = .make {
             if !website.title.isEmpty {
                 $0.append(.make(website.title, attributes: [
-                    .font: NSFont.preferredFont(forTextStyle: .body),
+                    .font: NSFont.preferredFont(forTextStyle: .callout),
                     .foregroundColor: NSColor.labelColor]))
-                $0.newLine()
             }
             
-            $0.append(.make(website.id.domainMinimal, attributes: [
+            $0.append(.make(" " + website.id.domainMinimal, attributes: [
                 .font: NSFont.preferredFont(forTextStyle: .callout),
                 .foregroundColor: NSColor.tertiaryLabelColor]))
         }

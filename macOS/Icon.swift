@@ -4,23 +4,16 @@ import Specs
 
 final class Icon: NSView {
     private weak var icon: NSImageView!
-    private weak var backup: Vibrant!
+    private weak var width: NSLayoutConstraint!
     private var sub: AnyCancellable?
+    private let size: CGFloat
     
     required init?(coder: NSCoder) { nil }
     init(size: CGFloat = 32) {
+        self.size = size
+        
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        
-        let backup = Vibrant(layer: false)
-        backup.translatesAutoresizingMaskIntoConstraints = false
-        self.backup = backup
-        addSubview(backup)
-        
-        let network = Image(icon: "network")
-        network.symbolConfiguration = .init(pointSize: 40, weight: .thin)
-            .applying(.init(hierarchicalColor: .tertiaryLabelColor))
-        backup.addSubview(network)
         
         let icon = NSImageView()
         icon.wantsLayer = true
@@ -32,23 +25,14 @@ final class Icon: NSView {
         self.icon = icon
         addSubview(icon)
         
-        widthAnchor.constraint(equalToConstant: size).isActive = true
         heightAnchor.constraint(equalToConstant: size).isActive = true
+        width = widthAnchor.constraint(equalToConstant: 0)
+        width.isActive = true
         
         icon.topAnchor.constraint(equalTo: topAnchor).isActive = true
         icon.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         icon.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         icon.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        
-        backup.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        backup.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        backup.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        backup.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        
-        network.topAnchor.constraint(equalTo: backup.topAnchor).isActive = true
-        network.bottomAnchor.constraint(equalTo: backup.bottomAnchor).isActive = true
-        network.leftAnchor.constraint(equalTo: backup.leftAnchor).isActive = true
-        network.rightAnchor.constraint(equalTo: backup.rightAnchor).isActive = true
     }
     
     override func hitTest(_: NSPoint) -> NSView? {
@@ -63,18 +47,18 @@ final class Icon: NSView {
     }
     
     @MainActor private func update(website: String?) async {
+        width.constant = 0
         icon.isHidden = true
-        backup.isHidden = false
         sub?.cancel()
         guard
             let website = website,
             let publisher = await favicon.publisher(for: website)
         else { return }
         sub = publisher
-            .sink { [weak self] in
+            .sink { [weak self, size] in
+                self?.width.constant = size
                 self?.icon.image = $0
                 self?.icon.isHidden = false
-                self?.backup.isHidden = true
             }
     }
 }

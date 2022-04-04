@@ -44,7 +44,6 @@ final class Window: NSWindow, NSWindowDelegate {
         makeKeyAndOrderFront(nil)
         
         let place = { [weak self] (view: NSView) -> Void in
-            view.translatesAutoresizingMaskIntoConstraints = false
             content.addSubview(view)
             self?.makeFirstResponder(view)
 
@@ -79,6 +78,9 @@ final class Window: NSWindow, NSWindowDelegate {
                 case .list:
                     place(List(status: status))
                     findbar.isHidden = true
+                    Task {
+                        await status.websites.send(cloud.list(filter: ""))
+                    }
                 case let .web(web):
 //                    self.finder.client = web
                     place(web)

@@ -14,19 +14,11 @@ final class ListCell: CollectionCell<ListInfo> {
             else { return }
             
             separator.isHidden = item.info.first
-            separator.path = .init(rect: .init(x: 20, y: 57, width: item.rect.width - 40, height: 0), transform: nil)
+            separator.path = .init(rect: .init(x: 30, y: item.rect.height + 1, width: item.rect.width - 60, height: 0), transform: nil)
             
             if item.rect != oldValue?.rect {
                 frame = item.rect
                 vibrant.frame = bounds
-                
-                let width = item.rect.size.width - 70
-                let height = item.info.text.height(for: width)
-                text.frame = .init(
-                    x: 54,
-                    y: (item.rect.height - height) / 2,
-                    width: width,
-                    height: height)
             }
             
             if item.info != oldValue?.info {
@@ -40,7 +32,7 @@ final class ListCell: CollectionCell<ListInfo> {
     required init() {
         let vibrant = Vibrant(layer: true)
         vibrant.layer!.cornerCurve = .continuous
-        vibrant.layer!.cornerRadius = 8
+        vibrant.layer!.cornerRadius = 12
         self.vibrant = vibrant
         
         let separator = Shape()
@@ -54,29 +46,33 @@ final class ListCell: CollectionCell<ListInfo> {
         layer!.addSublayer(separator)
         
         let icon = Icon()
-        icon.translatesAutoresizingMaskIntoConstraints = true
-        icon.frame = .init(
-            x: 16,
-            y: 16,
-            width: 24,
-            height: 24)
         addSubview(icon)
         self.icon = icon
         
         let text = Text(vibrancy: true)
-        text.translatesAutoresizingMaskIntoConstraints = true
+        text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        text.maximumNumberOfLines = 3
         addSubview(text)
         self.text = text
+        
+        icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
+        
+        text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        text.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 4).isActive = true
+        text.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
+        text.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 1).isActive = true
+        text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -1).isActive = true
     }
     
     override func updateLayer() {
         switch state {
         case .highlighted, .pressed:
-            vibrant.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+            vibrant.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.07).cgColor
         default:
             vibrant.layer!.backgroundColor = .clear
         }
         
-        separator.strokeColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+        separator.strokeColor = NSColor.labelColor.withAlphaComponent(0.07).cgColor
     }
 }
