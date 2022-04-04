@@ -12,7 +12,6 @@ final class Web: Webview {
     required init?(coder: NSCoder) { nil }
     init(status: Status,
          item: UUID,
-         history: UInt16,
          settings: Specs.Settings.Configuration) {
         
         self.status = status
@@ -65,7 +64,7 @@ final class Web: Webview {
                     .map { url in
                         switch destination {
                         case .here:
-                            load(url)
+                            load(url: url)
                         case let .tab(change):
                             if change {
                                 NSApp.open(url: url)
@@ -147,7 +146,7 @@ final class Web: Webview {
     
     func tryAgain() {
         if case let .error(_, error) = status.item.flow {
-            load(error.url)
+            load(url: error.url)
             status.change(flow: .web(self), id: item)
         }
     }

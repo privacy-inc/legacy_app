@@ -14,7 +14,7 @@ final class ListCell: CollectionCell<ListInfo> {
             else { return }
             
             separator.isHidden = item.info.first
-            separator.path = .init(rect: .init(x: 30, y: item.rect.height + 1, width: item.rect.width - 60, height: 0), transform: nil)
+            separator.path = .init(rect: .init(x: 40, y: item.rect.height + 1, width: item.rect.width - 80, height: 0), transform: nil)
             
             if item.rect != oldValue?.rect {
                 frame = item.rect
@@ -51,7 +51,7 @@ final class ListCell: CollectionCell<ListInfo> {
         
         let text = Text(vibrancy: true)
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        text.maximumNumberOfLines = 3
+        text.maximumNumberOfLines = 2
         addSubview(text)
         self.text = text
         
@@ -59,8 +59,8 @@ final class ListCell: CollectionCell<ListInfo> {
         icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
         
         text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        text.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 4).isActive = true
-        text.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
+        text.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 8).isActive = true
+        text.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
         text.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 1).isActive = true
         text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -1).isActive = true
     }

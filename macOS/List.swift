@@ -59,8 +59,8 @@ final class List: Collection<ListCell, ListInfo> {
                                                  x: 12,
                                                  y: $0.y,
                                                  width: width,
-                                                 height: 48)))
-                         $0.y += 50
+                                                 height: 50)))
+                         $0.y += 52
                      }
                  self?.items.send(result.items)
                  self?.size.send(.init(width: 0, height: result.y + vertical))

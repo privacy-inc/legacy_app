@@ -195,9 +195,9 @@ final class Status {
     }
     
     @MainActor func open(url: URL) async {
-        let web = await Web(status: self, item: current.value, history: 0, settings: cloud.model.settings.configuration)
+        let web = await Web(status: self, item: current.value, settings: cloud.model.settings.configuration)
         change(flow: .web(web))
-        web.load(url)
+        web.load(url: url)
     }
     
     @MainActor private func history(id: UInt16) async {

@@ -9,7 +9,7 @@ final class Icon: NSView {
     private let size: CGFloat
     
     required init?(coder: NSCoder) { nil }
-    init(size: CGFloat = 32) {
+    init(size: CGFloat = 24) {
         self.size = size
         
         super.init(frame: .zero)

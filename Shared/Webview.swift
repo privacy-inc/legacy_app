@@ -47,29 +47,21 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
         
-        publisher(for: \.title)
-            .compactMap {
-                $0
-            }
-            .removeDuplicates()
-            .sink { title in
-//                Task
-//                    .detached(priority: .utility) {
-//                        await cloud.update(title: title, history: history)
-//                    }
-            }
-            .store(in: &subs)
-
         publisher(for: \.url)
             .compactMap {
                 $0
             }
             .removeDuplicates()
-            .sink { url in
-//                Task
-//                    .detached(priority: .utility) {
-//                        await cloud.update(url: url, history: history)
-//                    }
+            .combineLatest(publisher(for: \.title)
+                .compactMap {
+                    $0
+                }
+                .removeDuplicates())
+            .sink { url, title in
+                Task
+                    .detached(priority: .utility) {
+                        await cloud.history(url: url, title: title)
+                    }
             }
             .store(in: &subs)
         
@@ -95,27 +87,19 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
 
     }
     
-    func webView(_: WKWebView, didFinish: WKNavigation!) {
-//        Task {
-//            guard
-//                let access = await cloud.website(history: history)?.access,
-//                await favicon.request(for: access),
-//                let url = try? await (evaluateJavaScript(Script.favicon.method)) as? String
-//            else { return }
-//            await favicon.received(url: url, for: access)
-//        }
-//        
-//        if !settings.timers {
-//            evaluateJavaScript(Script.unpromise.script)
-//        }
-    }
-    
-    @MainActor final func access() async {
-//        await cloud
-//            .website(history: history)
-//            .map {
-//                load($0.access)
-//            }
+    func webView(_ webView: WKWebView, didFinish: WKNavigation!) {
+        Task {
+            guard
+                let website = webView.url?.absoluteString,
+                await favicon.request(for: website),
+                let url = try? await (webView.evaluateJavaScript(Script.favicon.method)) as? String
+            else { return }
+            await favicon.received(url: url, for: website)
+        }
+        
+        if !settings.timers {
+            evaluateJavaScript(Script.unpromise.script)
+        }
     }
     
     final func clear() {
@@ -126,8 +110,19 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.userContentController.removeScriptMessageHandler(forName: Script.location.method)
     }
     
-    final func load(_ url: URL) {
-        load(.init(url: url))
+    final func load(url: URL) {
+        switch Router.with(url: url) {
+        case .remote, .deeplink, .embed:
+            load(.init(url: url))
+        case let .local(data):
+            _ = data
+                .bookmark
+                .map { directory in
+                    loadFileURL(url, allowingReadAccessTo: directory)
+                }
+        }
+        
+        
     }
         
     final func error(url: URL, description: String) {
