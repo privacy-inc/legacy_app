@@ -29,6 +29,7 @@ extension Search {
             let field = UITextField()
             field.translatesAutoresizingMaskIntoConstraints = false
             field.keyboardType = .webSearch
+            field.textContentType = .URL
             field.clearButtonMode = .always
             field.autocorrectionType = .no
             field.autocapitalizationType = .none
