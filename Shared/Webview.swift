@@ -4,17 +4,14 @@ import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     final var subs = Set<AnyCancellable>()
-    final let history: UInt16
     final let progress = PassthroughSubject<Double, Never>()
     private let settings: Specs.Settings.Configuration
     
     required init?(coder: NSCoder) { nil }
     @MainActor init(configuration: WKWebViewConfiguration,
-                    history: UInt16,
                     settings: Specs.Settings.Configuration,
                     dark: Bool) {
         
-        self.history = history
         self.settings = settings
         
         configuration.suppressesIncrementalRendering = false

@@ -25,7 +25,7 @@ final class Web: Webview {
         
         configuration.userContentController.addUserScript(.init(source: Script.location.script, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         
-        super.init(configuration: configuration, history: history, settings: settings, dark: NSApp.effectiveAppearance.name != .aqua)
+        super.init(configuration: configuration, settings: settings, dark: NSApp.effectiveAppearance.name != .aqua)
         translatesAutoresizingMaskIntoConstraints = false
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15"
 

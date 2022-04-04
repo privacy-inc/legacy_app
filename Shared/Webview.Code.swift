@@ -1,5 +1,4 @@
 import Foundation
-import SwiftUI
 
 extension Webview {
     enum Code: Int {
