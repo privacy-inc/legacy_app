@@ -6,28 +6,13 @@ extension NSApplication {
         effectiveAppearance.name != .aqua
     }
     
-    var windowsOpen: Int {
-        windows
-            .filter {
-                $0 is Window
-            }
-            .count
-    }
-    
-    var tabsOpen: Int {
-        windows
-            .compactMap {
-                $0 as? Window
-            }
-            .map {
-                $0
-                    .status
-                    .items
-                    .value
-                    .count
-            }
-            .reduce(0, +)
-    }
+//    var windowsOpen: Int {
+//        windows
+//            .filter {
+//                $0 is Window
+//            }
+//            .count
+//    }
     
     var activeWindow: Window? {
         keyWindow as? Window ?? anyWindow()
@@ -41,7 +26,7 @@ extension NSApplication {
                 window.makeKeyAndOrderFront(nil)
             }
         } else {
-            newWindow(url: url)
+            window(url: url)
         }
     }
     
@@ -54,22 +39,12 @@ extension NSApplication {
         }
     }
     
-    func newWindow(url: URL) {
+    func window(url: URL) {
         Task {
             let status = Status()
             await status.open(url: url, id: status.current.value)
-            Window(status: status)
+            window(status: status)
         }
-    }
-    
-    func closeAllWindows() {
-        windows
-            .compactMap {
-                $0 as? Window
-            }
-            .forEach {
-                $0.close()
-            }
     }
     
     func anyWindow<T>() -> T? {
@@ -78,6 +53,10 @@ extension NSApplication {
                 $0 as? T
             }
             .first
+    }
+    
+    @objc func newWindow() {
+        window(status: .init())
     }
     
     @objc func show() {
@@ -92,33 +71,7 @@ extension NSApplication {
             }
     }
     
-    @objc func showTrackers() {
-//        (anyWindow() ?? Trackers())
-//            .makeKeyAndOrderFront(nil)
-    }
-    
-    @objc func showActivity() {
-//        (anyWindow() ?? Activity())
-//            .makeKeyAndOrderFront(nil)
-    }
-    
-    @objc func showHistory() {
-//        (anyWindow() ?? History())
-//            .makeKeyAndOrderFront(nil)
-    }
-    
-    @objc func showBookmarks() {
-//        (anyWindow() ?? Bookmarks())
-//            .makeKeyAndOrderFront(nil)
-    }
-    
-    @objc func showPreferencesWindow(_ sender: Any?) {
-        (anyWindow() ?? Preferences())
-            .makeKeyAndOrderFront(nil)
-    }
-    
-    @objc func showPrivacyPlus() {
-        (NSApp.anyWindow() ?? Plus())
-            .makeKeyAndOrderFront(nil)
+    private func window(status: Status) {
+        Window(status: status).makeKeyAndOrderFront(nil)
     }
 }

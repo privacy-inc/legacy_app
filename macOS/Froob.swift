@@ -43,7 +43,7 @@ final class Froob: NSWindow {
         sub = action
             .click
             .sink { [weak self] in
-                NSApp.showPrivacyPlus()
+//                NSApp.showPrivacyPlus()
                 self?.close()
             }
         

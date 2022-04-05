@@ -31,7 +31,7 @@ extension Preferences {
             sub = option
                 .click
                 .sink {
-                    NSApp.showPrivacyPlus()
+//                    NSApp.showPrivacyPlus()
                 }
             addSubview(option)
             

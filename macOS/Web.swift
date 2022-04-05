@@ -72,7 +72,7 @@ final class Web: Webview {
                                 NSApp.silent(url: url)
                             }
                         case .window:
-                            NSApp.newWindow(url: url)
+                            NSApp.window(url: url)
                         case .download:
                             Task
                                 .detached(priority: .utility) { [weak self] in

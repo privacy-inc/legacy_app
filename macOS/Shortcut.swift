@@ -15,29 +15,29 @@ final class Shortcut: NSPopover {
         contentViewController!.view = view
         
         let stats = Text(vibrancy: true)
-        stats.attributedStringValue = .make {
-            $0.append(.make(NSApp.windowsOpen.formatted(), attributes: [
-                .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .light),
-                .foregroundColor: NSColor.labelColor]))
-            $0.append(.make(NSApp.windowsOpen == 1 ? " window" : " windows", attributes: [
-                .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.tertiaryLabelColor]))
-            $0.newLine()
-            $0.append(.make(NSApp.tabsOpen.formatted(), attributes: [
-                .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .light),
-                .foregroundColor: NSColor.labelColor]))
-            $0.append(.make(NSApp.tabsOpen == 1 ? " tab" : " tabs", attributes: [
-                .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.tertiaryLabelColor]))
-        }
+//        stats.attributedStringValue = .make {
+//            $0.append(.make(NSApp.windowsOpen.formatted(), attributes: [
+//                .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .light),
+//                .foregroundColor: NSColor.labelColor]))
+//            $0.append(.make(NSApp.windowsOpen == 1 ? " window" : " windows", attributes: [
+//                .font: NSFont.preferredFont(forTextStyle: .body),
+//                .foregroundColor: NSColor.tertiaryLabelColor]))
+//            $0.newLine()
+//            $0.append(.make(NSApp.tabsOpen.formatted(), attributes: [
+//                .font: NSFont.monospacedSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .light),
+//                .foregroundColor: NSColor.labelColor]))
+//            $0.append(.make(NSApp.tabsOpen == 1 ? " tab" : " tabs", attributes: [
+//                .font: NSFont.preferredFont(forTextStyle: .body),
+//                .foregroundColor: NSColor.tertiaryLabelColor]))
+//        }
         stats.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let close = Action(title: "Close all")
-        close.state = NSApp.windowsOpen > 0 ? .on : .off
+//        close.state = NSApp.windowsOpen > 0 ? .on : .off
         close
             .click
             .sink { [weak self] in
-                NSApp.closeAllWindows()
+                NSApp.closeAll()
                 self?.close()
             }
             .store(in: &subs)

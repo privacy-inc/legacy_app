@@ -26,13 +26,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         .parent("Privacy", [
             .child("About", #selector(NSApplication.orderFrontStandardAboutPanel(_:))),
             .separator(),
-            .child("Preferences...", #selector(NSApplication.showPreferencesWindow), ","),
-            .separator(),
-            .child("Trackers", #selector(NSApplication.showTrackers)),
-            .child("Activity", #selector(NSApplication.showActivity)),
-            .separator(),
-            .child("Bookmarks", #selector(NSApplication.showBookmarks)),
-            .child("History", #selector(NSApplication.showHistory)),
+            .child("Preferences...", #selector(App.showPreferencesWindow), ","),
             .separator(),
             .child("Hide", #selector(NSApplication.hide), "h"),
             .child("Hide Others", #selector(NSApplication.hideOtherApplications), "h") {
@@ -51,8 +45,8 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     private var fileItems: [NSMenuItem] {
         var items: [NSMenuItem] = [
-            .child("New Window", #selector(triggerNewWindow), "n") {
-                $0.target = self
+            .child("New Window", #selector(NSApplication.newWindow), "n") {
+                $0.target = NSApp
             },
             .child("New Tab", #selector(triggerNewTab), "t") {
                 $0.target = self
@@ -296,8 +290,6 @@ final class Menu: NSMenu, NSMenuDelegate {
                 $0.target = self
             },
             .separator(),
-            .child("Privacy +", #selector(NSApp.showPrivacyPlus)),
-            .separator(),
             .child("Rate on the App Store", #selector(triggerRate)) {
                 $0.target = self
             },
@@ -321,18 +313,14 @@ final class Menu: NSMenu, NSMenuDelegate {
         }
     }
     
-    @objc private func triggerNewWindow() {
-        Window(status: .init())
-    }
-    
     @objc private func triggerNewWindowRegardless() {
         NSApp.activate(ignoringOtherApps: true)
-        Window(status: .init())
+        NSApp.newWindow()
     }
     
     @objc private func triggerNewTab() {
         guard let window = NSApp.activeWindow else {
-            Window(status: .init())
+            NSApp.newWindow()
             return
         }
         

@@ -28,7 +28,7 @@ import Specs
         cloud.ready.notify(queue: .main) {
             cloud.pull.send()
             
-            Window(status: .init())
+            self.newWindow()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 switch Defaults.action {
@@ -40,10 +40,10 @@ import Specs
                 case .none:
                     break
                 }
-            }
-            
-            Task {
-                _ = await UNUserNotificationCenter.request()
+                
+                Task {
+                    _ = await UNUserNotificationCenter.request()
+                }
             }
         }
     }
@@ -64,7 +64,7 @@ import Specs
                     $0.deminiaturize(nil)
                 }
         } else {
-            Window(status: .init())
+            newWindow()
         }
         return false
     }
@@ -92,7 +92,12 @@ import Specs
         (anyWindow() ?? About())
             .makeKeyAndOrderFront(nil)
     }
-
+    
+    @objc func showPreferencesWindow(_ sender: Any?) {
+        (anyWindow() ?? Preferences())
+            .makeKeyAndOrderFront(nil)
+    }
+    
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {
         cloud
             .ready

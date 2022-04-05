@@ -5,7 +5,7 @@ final class Window: NSWindow, NSWindowDelegate {
     let status: Status
     private var subs = Set<AnyCancellable>()
     
-    @discardableResult init(status: Status) {
+    init(status: Status) {
         self.status = status
         super.init(contentRect: .init(x: 0,
                                       y: 0,
@@ -41,7 +41,6 @@ final class Window: NSWindow, NSWindowDelegate {
         content.material = .menu
         content.translatesAutoresizingMaskIntoConstraints = false
         contentView = content
-        makeKeyAndOrderFront(nil)
         
         let place = { [weak self] (view: NSView) -> Void in
             content.addSubview(view)
