@@ -121,9 +121,7 @@ final class Status {
             case .list:
                 try await open(url: cloud.search(string), id: id)
             case let .web(web):
-                break
-//                try await cloud.search(search, history: web.history)
-//                await web.access()
+                try await web.load(url: cloud.search(string))
             case let .error(web, _):
                 break
 //                try await cloud.search(search, history: web.history)

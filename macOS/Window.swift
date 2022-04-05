@@ -76,7 +76,7 @@ final class Window: NSWindow, NSWindowDelegate {
 
                 switch item.flow {
                 case .list:
-                    place(List(status: status))
+                    place(List(status: status, id: item.id))
                     findbar.isHidden = true
                     Task {
                         await status.websites.send(cloud.list(filter: ""))
