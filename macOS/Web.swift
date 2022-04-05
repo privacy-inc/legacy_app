@@ -152,10 +152,10 @@ final class Web: Webview {
     }
     
     func dismiss() {
-        Task
-            .detached(priority: .utility) { [weak self] in
-                await self?.status.dismiss()
-            }
+//        Task
+//            .detached(priority: .utility) { [weak self] in
+//                await self?.status.dismiss()
+//            }
     }
     
     @objc func share(_ item: NSMenuItem) {

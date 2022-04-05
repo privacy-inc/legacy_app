@@ -5,7 +5,7 @@ import Specs
 final class Status {
     let current: CurrentValueSubject<UUID, Never>
     let items: CurrentValueSubject<[Item], Never>
-    let search = PassthroughSubject<Void, Never>()
+    let focus = PassthroughSubject<Void, Never>()
     let websites = PassthroughSubject<[Website], Never>()
     let up = PassthroughSubject<Bool, Never>()
     let complete = PassthroughSubject<String, Never>()
@@ -35,46 +35,46 @@ final class Status {
         current.send(item.id)
     }
     
-    func dismiss() async {
-        guard
-            case let .error(web, _) = item.flow,
-            let url = await web.url,
-            let title = await web.title
-        else {
-            let current = current.value
-            addTab()
-            close(id: current)
-            return
-        }
-        
-//        await cloud.update(url: url, history: web.history)
-//        await cloud.update(title: title, history: web.history)
-        await change(flow: .web(web))
-    }
+//    func dismiss() async {
+//        guard
+//            case let .error(web, _) = item.flow,
+//            let url = await web.url,
+//            let title = await web.title
+//        else {
+//            let current = current.value
+//            addTab()
+//            close(id: current)
+//            return
+//        }
+//
+////        await cloud.update(url: url, history: web.history)
+////        await cloud.update(title: title, history: web.history)
+//        await change(flow: .web(web), index: index)
+//    }
     
-    func nextTab() {
-        let index = index
-        if index > 0 {
-            current.value = items.value[index - 1].id
-        } else {
-            current.value = items.value.last!.id
-        }
-    }
+//    func nextTab() {
+//        let index = index
+//        if index > 0 {
+//            current.value = items.value[index - 1].id
+//        } else {
+//            current.value = items.value.last!.id
+//        }
+//    }
     
-    func previousTab() {
-        let index = index
-        if index < items.value.count - 1 {
-            current.value = items.value[index + 1].id
-        } else {
-            current.value = items.value.first!.id
-        }
-    }
+//    func previousTab() {
+//        let index = index
+//        if index < items.value.count - 1 {
+//            current.value = items.value[index + 1].id
+//        } else {
+//            current.value = items.value.first!.id
+//        }
+//    }
     
     func close(id: UUID) {
         guard items.value.count > 1 else { return }
         
         if current.value == id {
-            shift()
+            shift(id: id)
         }
         
         items
@@ -103,7 +103,7 @@ final class Status {
     
     func moveToNewWindow(id: UUID) {
         if current.value == id {
-            shift()
+            shift(id: id)
         }
         
         Window(status: .init(item: items
@@ -113,22 +113,13 @@ final class Status {
             }!))
     }
     
-    @MainActor func change(flow: Flow, id: UUID) {
-        items
-            .value
-            .firstIndex {
-                $0.id == id
-            }
-            .map { index in
-                items.value[index] = items.value[index].with(flow: flow)
-            }
-    }
     
-    @MainActor func searching(search: String) async {
+    
+    @MainActor func search(string: String, id: UUID) async {
         do {
             switch item.flow {
             case .list:
-                try await open(url: cloud.search(search))
+                try await open(url: cloud.search(string), id: id)
             case let .web(web):
                 break
 //                try await cloud.search(search, history: web.history)
@@ -144,78 +135,38 @@ final class Status {
         }
     }
     
-//    @MainActor func url(url: URL) async {
-//        await open(id: await cloud.open(url: url))
-//    }
-    
-    @MainActor func silent(url: URL) async {
+//    @MainActor func silent(url: URL) async {
 //        let web = await Web(status: self, item: .init(), history: cloud.open(url: url), settings: cloud.model.settings.configuration)
 //        items.value.append(.init(id: web.item, web: web))
 //        await web.access()
 //        current.send(current.value)
-    }
-//
-//    @MainActor func access(access: any AccessType) async {
-//        await open(id: cloud.open(access: access))
-//    }
-//
-//    @MainActor func reaccess(access: AccessType) async {
-//        switch item.flow {
-//        case .landing:
-//            await history(id: cloud.open(access: access))
-//        case let .web(web):
-//            await cloud.open(access: access, history: web.history)
-//            await web.access()
-//        case let .error(web, _):
-//            await cloud.open(access: access, history: web.history)
-//            await web.access()
-//            change(flow: .web(web))
-//        }
 //    }
     
-    @MainActor func open(id: UInt16) async {
-//        switch item.flow {
-//        case .landing:
-//            await history(id: id)
-//        case .web, .error:
-//            let web = await Web(status: self, item: .init(), history: id, settings: cloud.model.settings.configuration)
-//            let item = Item(id: web.item, web: web)
-//            items.value.append(item)
-//            current.send(web.item)
-//            await web.access()
-//        }
-    }
-    
-    private var index: Int {
-        items
-            .value
-            .firstIndex {
-                $0.id == current.value
-            }!
-    }
-    
-    @MainActor func open(url: URL) async {
+    @MainActor func open(url: URL, id: UUID) async {
         let web = await Web(status: self, item: current.value, settings: cloud.model.settings.configuration)
-        change(flow: .web(web))
+        change(flow: .web(web), id: id)
         web.load(url: url)
     }
     
-    @MainActor private func history(id: UInt16) async {
-//        let web = await Web(status: self, item: current.value, history: id, settings: cloud.model.settings.configuration)
-//        change(flow: .web(web))
-//        await web.access()
-    }
-    
-    @MainActor private func change(flow: Flow) {
+    @MainActor func change(flow: Flow, id: UUID) {
+        let index = index(of: id)
         items.value[index] = items.value[index].with(flow: flow)
     }
     
-    private func shift() {
-        let index = index
+    private func shift(id: UUID) {
+        let index = index(of: id)
         if index > 0 {
             current.value = items.value[index - 1].id
         } else {
             current.value = items.value[index + 1].id
         }
+    }
+    
+    private func index(of: UUID) -> Int {
+        items
+            .value
+            .firstIndex {
+                $0.id == of
+            }!
     }
 }

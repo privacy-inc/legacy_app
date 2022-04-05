@@ -124,7 +124,7 @@ final class Window: NSWindow, NSWindowDelegate {
     }
     
     @objc func triggerSearch() {
-        status.search.send()
+        status.focus.send()
     }
     
     @objc func triggerCloseTab() {
@@ -136,10 +136,10 @@ final class Window: NSWindow, NSWindowDelegate {
     }
     
     @objc func triggerNextTab() {
-        status.nextTab()
+//        status.nextTab()
     }
     
     @objc func triggerPreviousTab() {
-        status.previousTab()
+//        status.previousTab()
     }
 }

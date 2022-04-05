@@ -111,18 +111,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     final func load(url: URL) {
-        switch Router.with(url: url) {
-        case .remote, .deeplink, .embed:
-            load(.init(url: url))
-        case let .local(data):
-            _ = data
-                .bookmark
-                .map { directory in
-                    loadFileURL(url, allowingReadAccessTo: directory)
-                }
-        }
-        
-        
+        load(.init(url: url))
     }
         
     final func error(url: URL, description: String) {

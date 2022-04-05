@@ -35,8 +35,9 @@ extension NSApplication {
     
     func open(url: URL) {
         if let window = activeWindow {
+            let id = window.status.current.value
             Task {
-                await window.status.open(url: url)
+                await window.status.open(url: url, id: id)
                 window.makeKeyAndOrderFront(nil)
             }
         } else {
@@ -44,49 +45,19 @@ extension NSApplication {
         }
     }
     
-    @MainActor func open(id: UInt16) {
-        if let window = activeWindow {
-            Task {
-                await window.status.open(id: id)
-                window.makeKeyAndOrderFront(nil)
-            }
-        } else {
-            Task {
-                let status = Status()
-                await status.open(id: id)
-                Window(status: status)
-            }
-        }
-    }
-    /*
-    @MainActor func open(access: AccessType) {
-        if let window = activeWindow {
-            Task {
-                await window.status.access(access: access)
-                window.makeKeyAndOrderFront(nil)
-            }
-        } else {
-            Task {
-                let status = Status()
-                await status.access(access: access)
-                Window(status: status)
-            }
-        }
-    }
-    */
-    
     func silent(url: URL) {
         if let window = activeWindow {
-            Task {
-                await window.status.silent(url: url)
-            }
+            let id = window.status.current.value
+//            Task {
+//                await window.status.silent(url: url)
+//            }
         }
     }
     
     func newWindow(url: URL) {
         Task {
             let status = Status()
-            await status.open(url: url)
+            await status.open(url: url, id: status.current.value)
             Window(status: status)
         }
     }

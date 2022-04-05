@@ -8,10 +8,12 @@ extension Bar.Tab {
         private weak var background: Background!
 //        private weak var autocomplete: Autocomplete?
         private var subs = Set<AnyCancellable>()
+        private let id: UUID
         
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {
             self.status = status
+            self.id = item
             
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +29,7 @@ extension Bar.Tab {
             prompt.toolTip = "Search"
             prompt.click
                 .sink {
-                    status.search.send()
+                    status.focus.send()
                 }
                 .store(in: &subs)
             
@@ -162,7 +164,7 @@ extension Bar.Tab {
                 .store(in: &subs)
             
             status
-                .search
+                .focus
                 .sink { [weak self] in
                     self?.window!.makeFirstResponder(search)
                 }
@@ -223,7 +225,8 @@ extension Bar.Tab {
 //                autocomplete?.close()
                 Task
                     .detached(priority: .utility) { [weak self] in
-                        await self?.status.searching(search: control.stringValue)
+                        guard let id = self?.id else { return }
+                        await self?.status.search(string: control.stringValue, id: id)
                     }
                 window!.makeFirstResponder(window!.contentView)
             case #selector(moveUp):
