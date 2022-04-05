@@ -62,7 +62,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         
         guard
             let window = NSApp.keyWindow as? Window,
-            case let .web(web) = window.status.item.flow,
+            case let .web(web) = window.status.flow(of: window.status.current.value),
             let url = web.url
         else { return items }
         
@@ -115,7 +115,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     private var editItems: [NSMenuItem] {
         var content: Window.Content?
         if let window = NSApp.keyWindow as? Window,
-           case let .web(item) = window.status.item.flow {
+           case let .web(item) = window.status.flow(of: window.status.current.value) {
             content = item.superview as? Window.Content
         }
         
@@ -163,7 +163,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         var web: Web?
         
         if let window = NSApp.keyWindow as? Window,
-           case let .web(item) = window.status.item.flow {
+           case let .web(item) = window.status.flow(of: window.status.current.value) {
             web = item
         }
         
@@ -233,7 +233,7 @@ final class Menu: NSMenu, NSMenuDelegate {
                 
                 switch item {
                 case let window as Window:
-                    switch window.status.item.flow {
+                    switch window.status.flow(of: window.status.current.value) {
                     case let .web(web):
                         web
                             .title

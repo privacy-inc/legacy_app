@@ -1,4 +1,4 @@
-import Foundation
+import AppKit
 import Combine
 import Specs
 
@@ -12,14 +12,6 @@ final class Status {
     let widthOn = CurrentValueSubject<_, Never>(CGFloat())
     let widthOff = CurrentValueSubject<_, Never>(CGFloat())
 
-    var item: Item {
-        items
-            .value
-            .first {
-                $0.id == current.value
-            }!
-    }
-    
     convenience init() {
         self.init(item: .init(flow: .list))
     }
@@ -82,9 +74,6 @@ final class Status {
             .remove {
                 $0.id == id
             }
-            .map {
-                $0.clear()
-            }
     }
     
     func close(except: UUID) {
@@ -93,55 +82,58 @@ final class Status {
         items
             .value
             .removeAll {
-                guard $0.id == except else {
-                    $0.clear()
-                    return true
-                }
-                return false
+                $0.id != except
             }
     }
     
-    func moveToNewWindow(id: UUID) {
+    func toNewWindow(id: UUID) {
         if current.value == id {
             shift(id: id)
         }
-        
-        Window(status: .init(item: items
+        NSApp.window(status: .init(item: items
             .value
             .remove {
                 $0.id == id
             }!))
     }
     
-    
+    func flow(of id: UUID) -> Flow {
+        items
+            .value
+            .first {
+                $0.id == id
+            }!
+            .flow
+    }
     
     @MainActor func search(string: String, id: UUID) async {
-        do {
-            switch item.flow {
-            case .list:
-                try await open(url: cloud.search(string), id: id)
-            case let .web(web):
-                try await web.load(url: cloud.search(string))
-            case let .error(web, _):
-                break
-//                try await cloud.search(search, history: web.history)
-//                await web.access()
-//                change(flow: .web(web))
-            }
-        } catch {
-            
+        guard let url = try? await cloud.search(string) else { return }
+        
+        switch flow(of: id) {
+        case .list:
+            await open(url: url, id: id)
+        case let .web(web):
+            web.load(url: url)
+        case let .error(web, _):
+            web.load(url: url)
+            change(flow: .web(web), id: id)
         }
     }
     
-//    @MainActor func silent(url: URL) async {
-//        let web = await Web(status: self, item: .init(), history: cloud.open(url: url), settings: cloud.model.settings.configuration)
-//        items.value.append(.init(id: web.item, web: web))
-//        await web.access()
-//        current.send(current.value)
-//    }
+    @MainActor func open(url: URL, change: Bool) async {
+        let id = UUID()
+        let web = await Web(status: self, item: id, settings: cloud.model.settings.configuration)
+        let item = Item(id: id, flow: .web(web))
+        items.value.append(item)
+        web.load(url: url)
+        
+        if change {
+            current.send(item.id)
+        }
+    }
     
     @MainActor func open(url: URL, id: UUID) async {
-        let web = await Web(status: self, item: current.value, settings: cloud.model.settings.configuration)
+        let web = await Web(status: self, item: id, settings: cloud.model.settings.configuration)
         change(flow: .web(web), id: id)
         web.load(url: url)
     }

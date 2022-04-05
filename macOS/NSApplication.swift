@@ -6,14 +6,6 @@ extension NSApplication {
         effectiveAppearance.name != .aqua
     }
     
-//    var windowsOpen: Int {
-//        windows
-//            .filter {
-//                $0 is Window
-//            }
-//            .count
-//    }
-    
     var activeWindow: Window? {
         keyWindow as? Window ?? anyWindow()
     }
@@ -22,7 +14,12 @@ extension NSApplication {
         if let window = activeWindow {
             let id = window.status.current.value
             Task {
-                await window.status.open(url: url, id: id)
+                if window.status.flow(of: id) == .list {
+                    await window.status.open(url: url, id: id)
+                } else {
+                    await window.status.open(url: url, change: true)
+                }
+                
                 window.makeKeyAndOrderFront(nil)
             }
         } else {
@@ -55,6 +52,10 @@ extension NSApplication {
             .first
     }
     
+    func window(status: Status) {
+        Window(status: status).makeKeyAndOrderFront(nil)
+    }
+    
     @objc func newWindow() {
         window(status: .init())
     }
@@ -69,9 +70,5 @@ extension NSApplication {
             .forEach {
                 $0.close()
             }
-    }
-    
-    private func window(status: Status) {
-        Window(status: status).makeKeyAndOrderFront(nil)
     }
 }

@@ -79,6 +79,14 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         }
     }
     
+    deinit {
+        stopLoading()
+        uiDelegate = nil
+        navigationDelegate = nil
+        
+        configuration.userContentController.removeScriptMessageHandler(forName: Script.location.method)
+    }
+    
     func external(_ url: URL) {
         
     }
@@ -100,14 +108,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         if !settings.timers {
             evaluateJavaScript(Script.unpromise.script)
         }
-    }
-    
-    final func clear() {
-        stopLoading()
-        uiDelegate = nil
-        navigationDelegate = nil
-        
-        configuration.userContentController.removeScriptMessageHandler(forName: Script.location.method)
     }
     
     final func load(url: URL) {

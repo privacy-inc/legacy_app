@@ -97,7 +97,7 @@ extension Bar {
         }
         
         @objc private func moveToWindow() {
-            status.moveToNewWindow(id: item)
+            status.toNewWindow(id: item)
         }
     }
 }

@@ -92,16 +92,6 @@ final class Window: NSWindow, NSWindowDelegate {
             .store(in: &subs)
     }
     
-    override func close() {
-        status
-            .items
-            .value
-            .forEach {
-                $0.clear()
-            }
-        super.close()
-    }
-    
     func windowDidEnterFullScreen(_: Notification) {
         titlebarAccessoryViewControllers
             .compactMap {

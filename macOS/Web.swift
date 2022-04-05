@@ -145,7 +145,7 @@ final class Web: Webview {
     }
     
     func tryAgain() {
-        if case let .error(_, error) = status.item.flow {
+        if case let .error(_, error) = status.flow(of: item) {
             load(url: error.url)
             status.change(flow: .web(self), id: item)
         }
