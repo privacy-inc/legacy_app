@@ -1,9 +1,8 @@
 import AppKit
 import Combine
 
-final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer, NSTextFinderClient {
+final class Window: NSWindow, NSWindowDelegate, NSTextFinderClient {
     let status: Status
-    private weak var findbar: NSTitlebarAccessoryViewController!
     private var subs = Set<AnyCancellable>()
     private let finder = NSTextFinder()
     
@@ -23,7 +22,6 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer, NSText
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
         delegate = self
-        finder.findBarContainer = self
         finder.isIncrementalSearchingEnabled = true
         finder.incrementalSearchingShouldDimContentView = true
         
@@ -44,7 +42,6 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer, NSText
         findbar.view.frame.size.height = 1
         findbar.layoutAttribute = .bottom
         addTitlebarAccessoryViewController(findbar)
-        self.findbar = findbar
         
         let content = NSVisualEffectView()
         content.state = .active
@@ -91,7 +88,9 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer, NSText
                         await status.websites.send(cloud.list(filter: ""))
                     }
                 case let .web(web):
+                    web.findbar = findbar
                     self?.finder.client = web
+                    self?.finder.findBarContainer = web
                     place(web)
                 case let .error(_, error):
                     self?.finder.client = self
@@ -119,31 +118,6 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer, NSText
             .forEach {
                 $0.material = .menu
             }
-    }
-    
-    var findBarView: NSView? {
-        didSet {
-            oldValue?.removeFromSuperview()
-            
-            findBarView
-                .map {
-                    $0.removeFromSuperview()
-                    findbar.view = $0
-                }
-        }
-    }
-    
-    var isFindBarVisible = false {
-        didSet {
-            if !isFindBarVisible {
-                findbar.view = .init()
-                findbar.view.frame.size.height = 1
-            }
-        }
-    }
-    
-    func findBarViewDidChangeHeight() {
-        
     }
     
     @objc override func performTextFinderAction(_ sender: Any?) {
