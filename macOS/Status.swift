@@ -27,23 +27,6 @@ final class Status {
         current.send(item.id)
     }
     
-//    func dismiss() async {
-//        guard
-//            case let .error(web, _) = item.flow,
-//            let url = await web.url,
-//            let title = await web.title
-//        else {
-//            let current = current.value
-//            addTab()
-//            close(id: current)
-//            return
-//        }
-//
-////        await cloud.update(url: url, history: web.history)
-////        await cloud.update(title: title, history: web.history)
-//        await change(flow: .web(web), index: index)
-//    }
-    
     func next(id: UUID) {
         let index = index(of: id)
         if index > 0 {

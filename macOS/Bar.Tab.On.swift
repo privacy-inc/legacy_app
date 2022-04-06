@@ -360,7 +360,7 @@ extension Bar.Tab {
                     case .web:
                         web.reload()
                     case .message:
-                        web.tryAgain()
+                        web.retry()
                     default:
                         break
                     }

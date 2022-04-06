@@ -149,7 +149,7 @@ final class Web: Webview {
         }
     }
     
-    func tryAgain() {
+    func retry() {
         if case let .message(_, url, _, _) = status.flow(of: item),
            let url = url {
             status.change(flow: .web(self), id: item)
@@ -158,10 +158,16 @@ final class Web: Webview {
     }
     
     func dismiss() {
-//        Task
-//            .detached(priority: .utility) { [weak self] in
-//                await self?.status.dismiss()
-//            }
+        guard
+            case .message = status.flow(of: item),
+            url != nil
+        else {
+            status.addTab()
+            status.close(id: item)
+            return
+        }
+
+        status.change(flow: .web(self), id: item)
     }
     
     @objc func share(_ item: NSMenuItem) {

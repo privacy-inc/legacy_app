@@ -174,7 +174,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                     guard $0 else { return }
                     error(url: decidePolicyFor.request.url, description: "There was an error")
                 }
-            return (.cancel, preferences)
         case .block:
             decidePolicyFor
                 .targetFrame
@@ -183,14 +182,12 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                     guard $0 else { return }
                     error(url: decidePolicyFor.request.url, description: "Blocked")
                 }
-            return (.cancel, preferences)
         case .deeplink:
             deeplink(url: decidePolicyFor.request.url!)
-            return (.cancel, preferences)
         case .privacy:
             privacy(url: decidePolicyFor.request.url!)
-            return (.cancel, preferences)
         }
+        return (.cancel, preferences)
     }
     
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction) async -> WKNavigationActionPolicy {
