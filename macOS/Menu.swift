@@ -113,13 +113,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var editItems: [NSMenuItem] {
-        var content: Window.Content?
-        if let window = NSApp.keyWindow as? Window,
-           case let .web(item) = window.status.flow(of: window.status.current.value) {
-            content = item.superview as? Window.Content
-        }
-        
-        return [
+        [
             .child("Undo", Selector(("undo:")), "z"),
             .child("Redo", Selector(("redo:")), "Z"),
             .separator(),
@@ -130,23 +124,23 @@ final class Menu: NSMenu, NSMenuDelegate {
             .child("Select All", #selector(NSText.selectAll), "a"),
             .separator(),
             .parent("Find", [
-                .child("Find", #selector(Window.Content.findAction), "f") {
+                .child("Find", #selector(Window.performTextFinderAction), "f") {
                     $0.tag = .init(NSTextFinder.Action.showFindInterface.rawValue)
-                    $0.target = content
+                    $0.target = NSApp.keyWindow as? NSTextFinderBarContainer
                 },
-                .child("Find Next", #selector(Window.Content.findAction), "g") {
+                .child("Find Next", #selector(Window.performTextFinderAction), "g") {
                     $0.tag = .init(NSTextFinder.Action.nextMatch.rawValue)
-                    $0.target = content
+                    $0.target = NSApp.keyWindow as? NSTextFinderBarContainer
                 },
-                .child("Find Previous", #selector(Window.Content.findAction), "G") {
+                .child("Find Previous", #selector(Window.performTextFinderAction), "G") {
                     $0.tag = .init(NSTextFinder.Action.previousMatch.rawValue)
-                    $0.target = content
+                    $0.target = NSApp.keyWindow as? NSTextFinderBarContainer
                 },
                 .separator(),
-                .child("Hide Find Banner", #selector(Window.Content.findAction), "F") {
+                .child("Hide Find Banner", #selector(Window.performTextFinderAction), "F") {
                     $0.tag = .init(NSTextFinder.Action.hideFindInterface.rawValue)
-                    $0.isEnabled = content?.isFindBarVisible == true
-                    $0.target = content
+                    $0.isEnabled = (NSApp.keyWindow as? NSTextFinderBarContainer)?.isFindBarVisible == true
+                    $0.target = NSApp.keyWindow as? NSTextFinderBarContainer
                 }
             ]) {
                 $0.submenu!.autoenablesItems = false

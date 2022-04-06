@@ -1,9 +1,11 @@
 import AppKit
 import Combine
 
-final class Window: NSWindow, NSWindowDelegate {
+final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer, NSTextFinderClient {
     let status: Status
+    private weak var findbar: NSTitlebarAccessoryViewController!
     private var subs = Set<AnyCancellable>()
+    private let finder = NSTextFinder()
     
     init(status: Status) {
         self.status = status
@@ -21,20 +23,28 @@ final class Window: NSWindow, NSWindowDelegate {
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
         delegate = self
+        finder.findBarContainer = self
+        finder.isIncrementalSearchingEnabled = true
+        finder.incrementalSearchingShouldDimContentView = true
         
-        let top = NSTitlebarAccessoryViewController()
-        top.view = Bar(status: status)
-        top.layoutAttribute = .top
-        addTitlebarAccessoryViewController(top)
         
-//        let bottom = NSTitlebarAccessoryViewController()
-//        bottom.view = Subbar(status: status)
-//        bottom.layoutAttribute = .bottom
-//        addTitlebarAccessoryViewController(bottom)
-        #warning("use for downloads")
+        let bar = NSTitlebarAccessoryViewController()
+        bar.view = Bar(status: status)
+        bar.layoutAttribute = .top
+        addTitlebarAccessoryViewController(bar)
+        
+        let downloads = NSTitlebarAccessoryViewController()
+        downloads.view = Downloads(status: status)
+        downloads.view.frame.size.height = 1
+        downloads.layoutAttribute = .bottom
+        addTitlebarAccessoryViewController(downloads)
 
-        let findbar = Findbar()
+        let findbar = NSTitlebarAccessoryViewController()
+        findbar.view = .init()
+        findbar.view.frame.size.height = 1
+        findbar.layoutAttribute = .bottom
         addTitlebarAccessoryViewController(findbar)
+        self.findbar = findbar
         
         let content = NSVisualEffectView()
         content.state = .active
@@ -66,7 +76,7 @@ final class Window: NSWindow, NSWindowDelegate {
             .removeDuplicates {
                 $0.flow == .list && $1.flow == .list
             }
-            .sink { item in
+            .sink { [weak self] item in
                 content
                     .subviews
                     .forEach {
@@ -75,18 +85,17 @@ final class Window: NSWindow, NSWindowDelegate {
 
                 switch item.flow {
                 case .list:
+                    self?.finder.client = self
                     place(List(status: status, id: item.id))
-                    findbar.isHidden = true
                     Task {
                         await status.websites.send(cloud.list(filter: ""))
                     }
                 case let .web(web):
-//                    self.finder.client = web
+                    self?.finder.client = web
                     place(web)
-                    findbar.isHidden = false
                 case let .error(_, error):
+                    self?.finder.client = self
                     place(Recover(error: error))
-                    findbar.isHidden = true
                 }
             }
             .store(in: &subs)
@@ -109,6 +118,47 @@ final class Window: NSWindow, NSWindowDelegate {
             }
             .forEach {
                 $0.material = .menu
+            }
+    }
+    
+    var findBarView: NSView? {
+        didSet {
+            oldValue?.removeFromSuperview()
+            
+            findBarView
+                .map {
+                    $0.removeFromSuperview()
+                    findbar.view = $0
+                }
+        }
+    }
+    
+    var isFindBarVisible = false {
+        didSet {
+            if !isFindBarVisible {
+                findbar.view = .init()
+                findbar.view.frame.size.height = 1
+            }
+        }
+    }
+    
+    func findBarViewDidChangeHeight() {
+        
+    }
+    
+    @objc override func performTextFinderAction(_ sender: Any?) {
+        (sender as? NSMenuItem)
+            .flatMap {
+                NSTextFinder.Action(rawValue: $0.tag)
+            }
+            .map {
+                finder.performAction($0)
+
+                switch $0 {
+                case .showFindInterface:
+                    finder.findBarContainer?.isFindBarVisible = true
+                default: break
+                }
             }
     }
     
