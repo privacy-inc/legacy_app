@@ -212,6 +212,7 @@ extension Bar.Tab {
 //            autocomplete?.find(string: search.stringValue)
             
             Task {
+                #warning("need to sync with cloud")
                 await status.websites.send(cloud.list(filter: search.stringValue))
             }
         }
