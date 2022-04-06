@@ -44,23 +44,23 @@ final class Status {
 //        await change(flow: .web(web), index: index)
 //    }
     
-//    func nextTab() {
-//        let index = index
-//        if index > 0 {
-//            current.value = items.value[index - 1].id
-//        } else {
-//            current.value = items.value.last!.id
-//        }
-//    }
+    func next(id: UUID) {
+        let index = index(of: id)
+        if index > 0 {
+            current.value = items.value[index - 1].id
+        } else {
+            current.value = items.value.last!.id
+        }
+    }
     
-//    func previousTab() {
-//        let index = index
-//        if index < items.value.count - 1 {
-//            current.value = items.value[index + 1].id
-//        } else {
-//            current.value = items.value.first!.id
-//        }
-//    }
+    func previous(id: UUID) {
+        let index = index(of: id)
+        if index < items.value.count - 1 {
+            current.value = items.value[index + 1].id
+        } else {
+            current.value = items.value.first!.id
+        }
+    }
     
     func close(id: UUID) {
         guard items.value.count > 1 else { return }
@@ -114,7 +114,7 @@ final class Status {
             await open(url: url, id: id)
         case let .web(web):
             web.load(url: url)
-        case let .error(web, _):
+        case let .message(web, _, _, _):
             web.load(url: url)
             change(flow: .web(web), id: id)
         }

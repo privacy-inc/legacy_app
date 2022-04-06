@@ -35,12 +35,17 @@ final class Web: Webview {
         configuration.userContentController.addScriptMessageHandler(Location(), contentWorld: .page, name: Script.location.method)
     }
     
-    override func external(_ url: URL) {
+    override func deeplink(url: URL) {
         NSWorkspace.shared.open(url)
+        message(url: url, title: "Deeplink opened", icon: "paperplane.circle.fill")
     }
     
-    override func error(error: Specs.Fail) {
-        status.change(flow: .error(self, error), id: item)
+    override func privacy(url: URL) {
+        message(url: url, title: "Privacy deeplink", icon: "eyeglasses")
+    }
+    
+    override func message(url: URL?, title: String, icon: String) {
+        status.change(flow: .message(self, url, title, icon), id: item)
     }
     
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
@@ -145,9 +150,10 @@ final class Web: Webview {
     }
     
     func tryAgain() {
-        if case let .error(_, error) = status.flow(of: item) {
-            load(url: error.url)
+        if case let .message(_, url, _, _) = status.flow(of: item),
+           let url = url {
             status.change(flow: .web(self), id: item)
+            load(url: url)
         }
     }
     

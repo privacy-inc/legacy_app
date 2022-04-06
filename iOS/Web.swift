@@ -68,7 +68,7 @@ final class Web: Webview, UIViewRepresentable {
         _ = try? await evaluateJavaScript(Script.text(size: size))
     }
     
-    override func external(_ url: URL) {
+    override func deeplink(_ url: URL) {
         UIApplication.shared.open(url)
     }
     

@@ -238,8 +238,8 @@ final class Menu: NSMenu, NSMenuDelegate {
                             .map {
                                 title = $0.capped
                             }
-                    case let .error(_, error):
-                        title = error.description.capped
+                    case let .message(_, _, message, _):
+                        title = message.capped
                     default:
                         break
                     }

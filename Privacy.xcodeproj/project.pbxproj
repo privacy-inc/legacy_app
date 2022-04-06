@@ -144,7 +144,6 @@
 		CE84E62E273D4BD60071429B /* Landing.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E62D273D4BD60071429B /* Landing.Option.swift */; };
 		CE84E630273D52FF0071429B /* Landing.Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E62F273D52FF0071429B /* Landing.Edit.swift */; };
 		CE84E632273D557B0071429B /* Landing.Edit.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE84E631273D557B0071429B /* Landing.Edit.Item.swift */; };
-		CE862AA7270C869F0039630B /* Webview.Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE862AA6270C869F0039630B /* Webview.Code.swift */; };
 		CE8AF27C26FF698A00F6655F /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8AF27B26FF698A00F6655F /* Global.swift */; };
 		CE8BA2ED272D72E500E2D73F /* Bar.Tab.Off.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8BA2EC272D72E500E2D73F /* Bar.Tab.Off.swift */; };
 		CE8BA2EF272D741900E2D73F /* Status.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8BA2EE272D741900E2D73F /* Status.Item.swift */; };
@@ -214,7 +213,6 @@
 		CEB5580D274409FC00B19D62 /* Plus.Banner.Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5580C274409FC00B19D62 /* Plus.Banner.Layer.swift */; };
 		CEBB8BDF2728258300016F2C /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB8BDE2728258300016F2C /* Status.swift */; };
 		CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
-		CEBB8BE12728320000016F2C /* Webview.Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE862AA6270C869F0039630B /* Webview.Code.swift */; };
 		CEBB8BE32728353900016F2C /* Webview.iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB8BE22728353900016F2C /* Webview.iOS.swift */; };
 		CEBCAAD42732B66D00B9D49C /* Shortcut.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCAAD32732B66D00B9D49C /* Shortcut.Action.swift */; };
 		CEBCAAD62732B83D00B9D49C /* Shortcut.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCAAD52732B83D00B9D49C /* Shortcut.Option.swift */; };
@@ -226,7 +224,7 @@
 		CEBFC845273163B300EFDA17 /* Landing.History.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC844273163B300EFDA17 /* Landing.History.Item.swift */; };
 		CEBFC8472731686300EFDA17 /* Bar.Tab.On.Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC8462731686300EFDA17 /* Bar.Tab.On.Background.swift */; };
 		CEBFC84927316A7000EFDA17 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC84827316A7000EFDA17 /* Shape.swift */; };
-		CEBFC84B273178BE00EFDA17 /* Recover.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC84A273178BE00EFDA17 /* Recover.swift.swift */; };
+		CEBFC84B273178BE00EFDA17 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC84A273178BE00EFDA17 /* Message.swift */; };
 		CECBDE1A273E6AA00023B88F /* Websites.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECBDE19273E6AA00023B88F /* Websites.swift */; };
 		CED093C62742B71D0015196A /* Preferences.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED093C52742B71D0015196A /* Preferences.Bar.swift */; };
 		CED093C82742B8560015196A /* Preferences.Promotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED093C72742B8560015196A /* Preferences.Promotion.swift */; };
@@ -440,7 +438,6 @@
 		CE84E62D273D4BD60071429B /* Landing.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Option.swift; sourceTree = "<group>"; };
 		CE84E62F273D52FF0071429B /* Landing.Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.swift; sourceTree = "<group>"; };
 		CE84E631273D557B0071429B /* Landing.Edit.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.Item.swift; sourceTree = "<group>"; };
-		CE862AA6270C869F0039630B /* Webview.Code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.Code.swift; sourceTree = "<group>"; };
 		CE8AF27B26FF698A00F6655F /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		CE8BA2EC272D72E500E2D73F /* Bar.Tab.Off.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.Off.swift; sourceTree = "<group>"; };
 		CE8BA2EE272D741900E2D73F /* Status.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.Item.swift; sourceTree = "<group>"; };
@@ -517,7 +514,7 @@
 		CEBFC844273163B300EFDA17 /* Landing.History.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Item.swift; sourceTree = "<group>"; };
 		CEBFC8462731686300EFDA17 /* Bar.Tab.On.Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.On.Background.swift; sourceTree = "<group>"; };
 		CEBFC84827316A7000EFDA17 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
-		CEBFC84A273178BE00EFDA17 /* Recover.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recover.swift.swift; sourceTree = "<group>"; };
+		CEBFC84A273178BE00EFDA17 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CECBDE19273E6AA00023B88F /* Websites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Websites.swift; sourceTree = "<group>"; };
 		CED093C52742B71D0015196A /* Preferences.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Bar.swift; sourceTree = "<group>"; };
 		CED093C72742B8560015196A /* Preferences.Promotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Promotion.swift; sourceTree = "<group>"; };
@@ -651,6 +648,7 @@
 				CE25B83D27F9B542003FCB31 /* ListCell.swift */,
 				CE25B83F27F9B55B003FCB31 /* ListInfo.swift */,
 				CEEBA5C827302A1C0079928E /* Menu.swift */,
+				CEBFC84A273178BE00EFDA17 /* Message.swift */,
 				CE3576AF27281C25005854B5 /* NSApplication.swift */,
 				CE660AC1273AA978009A800E /* NSAttributedString.swift */,
 				CEEBA5C2272FFA540079928E /* NSMenu.swift */,
@@ -678,7 +676,6 @@
 				CE6BFE9327380AD000ECF118 /* Preferences.Segmented.swift */,
 				CE4312642736D25B00DA0F99 /* Preferences.swift */,
 				CE72F036274BC66A0012E08A /* Preferences.Tab.swift */,
-				CEBFC84A273178BE00EFDA17 /* Recover.swift.swift */,
 				CE8BA2FA272D9B7700E2D73F /* Search.Cell.Editor.swift */,
 				CE8BA2F8272D9B6300E2D73F /* Search.Cell.swift */,
 				CE8BA2F6272D9B3E00E2D73F /* Search.swift */,
@@ -836,7 +833,6 @@
 				CEA169DF271059CD00173AE7 /* Timeline.swift */,
 				CEAAFB2E27009ED400149F0C /* Transaction.swift */,
 				CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */,
-				CE862AA6270C869F0039630B /* Webview.Code.swift */,
 				CEF5548226FDD4F000FE0E9C /* Webview.swift */,
 				CE46B4EA26F7982200A5B5BB /* Colours.xcassets */,
 				CE470A6C26FA1DB2002D560A /* Images.xcassets */,
@@ -1060,7 +1056,7 @@
 			files = (
 				CE6C7281273D6D60007972FC /* Websites.List.swift in Sources */,
 				CE742FFE2729759900F5F5B8 /* Landing.swift in Sources */,
-				CEBFC84B273178BE00EFDA17 /* Recover.swift.swift in Sources */,
+				CEBFC84B273178BE00EFDA17 /* Message.swift in Sources */,
 				CE660AC0273AA42D009A800E /* Trackers.Info.swift in Sources */,
 				CE3576B527281CFD005854B5 /* Store.State.swift in Sources */,
 				CEAFF0182741531A00A9F744 /* Autocomplete.List.swift in Sources */,
@@ -1191,7 +1187,6 @@
 				CE3576B427281CF7005854B5 /* Store.Item.swift in Sources */,
 				CEABD1F9272AE8C600F56852 /* Landing.Bookmarks.Other.swift in Sources */,
 				CE8BA2F1272D7DBD00E2D73F /* Bar.Tab.Layer.swift in Sources */,
-				CEBB8BE12728320000016F2C /* Webview.Code.swift in Sources */,
 				CE3576B727281D20005854B5 /* Transaction.swift in Sources */,
 				CE120D8D27328C4F00DE517E /* Shortcut.swift in Sources */,
 			);
@@ -1203,7 +1198,6 @@
 			files = (
 				CE29640C2726AFF5000C3E5B /* Window.Modal.swift in Sources */,
 				CEAAFB2B27009E9600149F0C /* Store.State.swift in Sources */,
-				CE862AA7270C869F0039630B /* Webview.Code.swift in Sources */,
 				CE7DAB7826FB49CE00BEAA0F /* UIApplication.swift in Sources */,
 				CE4047ED2707235000E101D1 /* Listed.swift in Sources */,
 				CE9DFA112706275C00D69810 /* Landing.Bookmarks.Item.swift in Sources */,

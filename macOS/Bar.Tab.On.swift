@@ -137,7 +137,7 @@ extension Bar.Tab {
                 }
                 .compactMap {
                     switch $0.flow {
-                    case let .web(web), let .error(web, _):
+                    case let .web(web), let .message(web, _, _, _):
                         return web
                     default:
                         return nil
@@ -282,10 +282,10 @@ extension Bar.Tab {
                         
                         search.stringValue = string
                         
-                    case let .error(_, error):
+                    case let .message(_, url, _, _):
                         secure.state = .hidden
                         insecure.state = .hidden
-                        search.stringValue = error.url.absoluteString
+                        search.stringValue = url?.absoluteString ?? ""
                     default:
                         break
                     }
@@ -342,7 +342,7 @@ extension Bar.Tab {
                             :  canGoBack
                                 ? .off
                                 : .hidden
-                    case .error:
+                    case .message:
                         back.state = .on
                         forward.state = canGoForward ? .on : .off
                     default:
@@ -359,7 +359,7 @@ extension Bar.Tab {
                     switch flow {
                     case .web:
                         web.reload()
-                    case .error:
+                    case .message:
                         web.tryAgain()
                     default:
                         break
@@ -382,7 +382,7 @@ extension Bar.Tab {
                     switch flow {
                     case .web:
                         web.goBack()
-                    case .error:
+                    case .message:
                         web.dismiss()
                     default:
                         break
@@ -397,7 +397,7 @@ extension Bar.Tab {
                     
                     guard
                         let flow = status.items.value.first(where: { $0.id == item })?.flow,
-                        case .error = flow
+                        case .message = flow
                     else { return }
                     status.change(flow: .web(web), id: item)
                 }

@@ -91,10 +91,10 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
                 case let .web(web):
                     self?.finder.client = web
                     place(web)
-                case let .error(_, error):
+                case let .message(_, url, title, icon):
                     self?.isFindBarVisible = false
                     self?.finder.client = nil
-                    place(Recover(error: error))
+                    place(Message(url: url, title: title, icon: icon))
                 }
             }
             .store(in: &subs)
@@ -171,10 +171,10 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
     }
     
     @objc func triggerNextTab() {
-//        status.nextTab()
+        status.next(id: status.current.value)
     }
     
     @objc func triggerPreviousTab() {
-//        status.previousTab()
+        status.previous(id: status.current.value)
     }
 }

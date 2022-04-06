@@ -92,11 +92,15 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.userContentController.removeScriptMessageHandler(forName: Script.location.method)
     }
     
-    func external(_ url: URL) {
+    func deeplink(url: URL) {
         
     }
     
-    func error(error: Specs.Fail) {
+    func privacy(url: URL) {
+        
+    }
+    
+    func message(url: URL?, title: String, icon: String) {
 
     }
     
@@ -119,41 +123,16 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         load(.init(url: url))
     }
         
-    final func error(url: URL, description: String) {
-//        progress.send(1)
-//        error(error: .init(url: url, description: description))
-//
-//        Task
-//            .detached(priority: .utility) { [weak self] in
-//                guard let history = self?.history else { return }
-//                await cloud.update(url: url, history: history)
-//                await cloud.update(title: description, history: history)
-//            }
+    func error(url: URL?, description: String) {
+        progress.send(1)
+        message(url: url, title: description, icon: "exclamationmark.triangle.fill")
+
+        Task
+            .detached(priority: .utility) {
+                guard let url = url else { return }
+                await cloud.history(url: url, title: description)
+            }
     }
-    
-//    @MainActor final func load(_ access: AccessType) {
-//        switch access {
-//        case let remote as Access.Remote:
-//            remote
-//                .url
-//                .map {
-//                    load($0)
-//                }
-//        case let other as Access.Other:
-//            other
-//                .url
-//                .map {
-//                    load($0)
-//                }
-//        case let local as Access.Local:
-//            local
-//                .open { file, directory in
-//                    loadFileURL(file, allowingReadAccessTo: directory)
-//                }
-//        default:
-//            break
-//        }
-//    }
     
     final func webView(_: WKWebView, respondTo: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
         settings.http
@@ -164,7 +143,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
         guard
             (withError as NSError).code != NSURLErrorCancelled,
-            (withError as NSError).code != Code.frameLoadInterrupted.rawValue
+            (withError as NSError).code != Invalid.frameLoadInterrupted.rawValue
         else { return }
         
         error(url: (withError as? URLError)
@@ -172,8 +151,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                 ?? url
                 ?? {
                     $0?["NSErrorFailingURLKey"] as? URL
-                } (withError._userInfo as? [String : Any])
-                ?? URL(string: "about:blank")!, description: withError.localizedDescription)
+                } (withError._userInfo as? [String : Any]), description: withError.localizedDescription)
     }
     
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
@@ -194,7 +172,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                 .map(\.isMainFrame)
                 .map {
                     guard $0 else { return }
-                    error(url: decidePolicyFor.request.url!, description: "There was an error")
+                    error(url: decidePolicyFor.request.url, description: "There was an error")
                 }
             return (.cancel, preferences)
         case .block:
@@ -203,13 +181,14 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                 .map(\.isMainFrame)
                 .map {
                     guard $0 else { return }
-                    error(url: decidePolicyFor.request.url!, description: "Blocked")
+                    error(url: decidePolicyFor.request.url, description: "Blocked")
                 }
             return (.cancel, preferences)
         case .deeplink:
-            external(decidePolicyFor.request.url!)
+            deeplink(url: decidePolicyFor.request.url!)
             return (.cancel, preferences)
         case .privacy:
+            privacy(url: decidePolicyFor.request.url!)
             return (.cancel, preferences)
         }
     }
@@ -238,7 +217,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     final func download(_ download: WKDownload, didFailWithError: Error, resumeData: Data?) {
-        error(url: download.originalRequest?.url ?? URL(string: "about:blank")!,
+        error(url: download.originalRequest?.url,
               description: (didFailWithError as NSError).localizedDescription)
     }
     

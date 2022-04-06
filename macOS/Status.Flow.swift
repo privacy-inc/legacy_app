@@ -6,6 +6,6 @@ extension Status {
         case
         list,
         web(Web),
-        error(Web, Fail)
+        message(Web, URL?, String, String)
     }
 }

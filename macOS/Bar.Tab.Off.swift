@@ -78,7 +78,7 @@ extension Bar.Tab {
                 }
                 .compactMap {
                     switch $0.flow {
-                    case let .web(web), let .error(web, _):
+                    case let .web(web), let .message(web, _, _, _):
                         return web
                     default:
                         return nil
