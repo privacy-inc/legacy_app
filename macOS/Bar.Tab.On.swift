@@ -272,18 +272,6 @@ extension Bar.Tab {
                     
                     switch flow {
                     case .web:
-                        switch url.scheme?.lowercased() {
-                        case "https":
-                            secure.state = .on
-                            insecure.state = .hidden
-                        case "http":
-                            secure.state = .hidden
-                            insecure.state = .on
-                        default:
-                            secure.state = .hidden
-                            insecure.state = .hidden
-                        }
-                        
                         var string = url
                             .absoluteString
                             .replacingOccurrences(of: "https://", with: "")
@@ -303,6 +291,15 @@ extension Bar.Tab {
                     }
                     
                     search.undoManager?.removeAllActions()
+                }
+                .store(in: &subs)
+            
+            web
+                .publisher(for: \.hasOnlySecureContent)
+                .removeDuplicates()
+                .sink {
+                    secure.state = $0 ? .on : .hidden
+                    insecure.state = $0 ? .hidden : .on
                 }
                 .store(in: &subs)
             
