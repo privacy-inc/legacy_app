@@ -50,6 +50,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
+        allowsMagnification = true
         
         publisher(for: \.url)
             .compactMap {
