@@ -3,9 +3,9 @@ import Combine
 
 final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
     let status: Status
+    let finder = NSTextFinder()
     private weak var findbar: NSTitlebarAccessoryViewController!
     private var subs = Set<AnyCancellable>()
-    private let finder = NSTextFinder()
     
     init(status: Status) {
         self.status = status
@@ -147,7 +147,7 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
             .map(\.tag)
             .flatMap(NSTextFinder.Action.init(rawValue:))
             .map {
-                guard finder.client != nil else { return }
+                guard finder.validateAction($0) else { return }
                 finder.performAction($0)
 
                 switch $0 {

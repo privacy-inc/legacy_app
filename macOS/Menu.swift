@@ -125,15 +125,19 @@ final class Menu: NSMenu, NSMenuDelegate {
             .separator(),
             .parent("Find", [
                 .child("Find", #selector(Window.performTextFinderAction), "f") {
-                    $0.tag = .init(NSTextFinder.Action.showFindInterface.rawValue)
+                    let action = NSTextFinder.Action.showFindInterface
+                    $0.tag = .init(action.rawValue)
+                    $0.isEnabled = (NSApp.keyWindow as? Window)?.finder.validateAction(action) == true
                     $0.target = NSApp.keyWindow as? NSTextFinderBarContainer
                 },
                 .child("Find Next", #selector(Window.performTextFinderAction), "g") {
                     $0.tag = .init(NSTextFinder.Action.nextMatch.rawValue)
+                    $0.isEnabled = (NSApp.keyWindow as? NSTextFinderBarContainer)?.isFindBarVisible == true
                     $0.target = NSApp.keyWindow as? NSTextFinderBarContainer
                 },
                 .child("Find Previous", #selector(Window.performTextFinderAction), "G") {
                     $0.tag = .init(NSTextFinder.Action.previousMatch.rawValue)
+                    $0.isEnabled = (NSApp.keyWindow as? NSTextFinderBarContainer)?.isFindBarVisible == true
                     $0.target = NSApp.keyWindow as? NSTextFinderBarContainer
                 },
                 .separator(),
