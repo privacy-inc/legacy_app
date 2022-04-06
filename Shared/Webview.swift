@@ -188,9 +188,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                 preferences.allowsContentJavaScript = settings.javascript
                 return (.allow, preferences)
             }
-        case .external:
-            external(decidePolicyFor.request.url!)
-            return (.cancel, preferences)
         case .ignore:
             decidePolicyFor
                 .targetFrame
@@ -208,6 +205,11 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                     guard $0 else { return }
                     error(url: decidePolicyFor.request.url!, description: "Blocked")
                 }
+            return (.cancel, preferences)
+        case .deeplink:
+            external(decidePolicyFor.request.url!)
+            return (.cancel, preferences)
+        case .privacy:
             return (.cancel, preferences)
         }
     }

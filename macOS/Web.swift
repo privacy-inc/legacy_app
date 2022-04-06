@@ -4,52 +4,10 @@ import UniformTypeIdentifiers
 import UserNotifications
 import Specs
 
-final class Web: Webview, NSTextFinderBarContainer {
+final class Web: Webview {
     let item: UUID
     private weak var status: Status!
     private var destination = Destination.here
-    
-    weak var findbar: NSTitlebarAccessoryViewController!
-    
-    var findBarView: NSView? {
-        didSet {
-            oldValue?.removeFromSuperview()
-            
-            findBarView
-                .map {
-                    $0.removeFromSuperview()
-                    findbar.view = $0
-                }
-        }
-    }
-    
-    var isFindBarVisible = false {
-        didSet {
-            if !isFindBarVisible {
-                findbar.view = .init()
-                findbar.view.frame.size.height = 1
-            }
-        }
-    }
-    
-    func findBarViewDidChangeHeight() {
-        
-    }
-    
-    func contentView() -> NSView? {
-        return self
-    }
-    
-    override func scrollRangeToVisible(_ range: NSRange) {
-        fatalError()
-    }
-    
-    
-    class RetainPtr {
-        var value1: Any?
-//        var value2: Any?
-    }
-    
     
     required init?(coder: NSCoder) { nil }
     init(status: Status,
@@ -75,24 +33,6 @@ final class Web: Webview, NSTextFinderBarContainer {
         layer?.backgroundColor = NSColor.windowBackgroundColor.cgColor
         
         configuration.userContentController.addScriptMessageHandler(Location(), contentWorld: .page, name: Script.location.method)
-        
-        print(String(cString: (value(forKey: "scrollView") as? NSValue)!.objCType))
-        let val = value(forKey: "scrollView") as! NSValue
-        
-        var bufferSize = NSInteger();
-        
-        
-//        NSGetSizeAndAlignment(val.obj, &bufferSize, nil);
-//        void* buffer = malloc(bufferSize);
-        print(bufferSize)
-
-//        var sc = UnsafeMutableRawPointer.allocate(byteCount: 40, alignment:  MemoryLayout<NSScrollView>.alignment)
-        var sc: AnyObject?
-        keyvalue
-        val.getValue(&sc)
-        print(sc)
-        
-//        print(NSClassFromString(String(cString: val.objCType)))
     }
     
     override func external(_ url: URL) {

@@ -1,8 +1,9 @@
 import AppKit
 import Combine
 
-final class Window: NSWindow, NSWindowDelegate, NSTextFinderClient {
+final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
     let status: Status
+    private weak var findbar: NSTitlebarAccessoryViewController!
     private var subs = Set<AnyCancellable>()
     private let finder = NSTextFinder()
     
@@ -22,9 +23,7 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderClient {
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
         delegate = self
-        finder.isIncrementalSearchingEnabled = true
-        finder.incrementalSearchingShouldDimContentView = true
-        
+        finder.findBarContainer = self
         
         let bar = NSTitlebarAccessoryViewController()
         bar.view = Bar(status: status)
@@ -42,6 +41,7 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderClient {
         findbar.view.frame.size.height = 1
         findbar.layoutAttribute = .bottom
         addTitlebarAccessoryViewController(findbar)
+        self.findbar = findbar
         
         let content = NSVisualEffectView()
         content.state = .active
@@ -82,18 +82,18 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderClient {
 
                 switch item.flow {
                 case .list:
-                    self?.finder.client = self
+                    self?.isFindBarVisible = false
+                    self?.finder.client = nil
                     place(List(status: status, id: item.id))
                     Task {
                         await status.websites.send(cloud.list(filter: ""))
                     }
                 case let .web(web):
-                    web.findbar = findbar
                     self?.finder.client = web
-                    self?.finder.findBarContainer = web
                     place(web)
                 case let .error(_, error):
-                    self?.finder.client = self
+                    self?.isFindBarVisible = false
+                    self?.finder.client = nil
                     place(Recover(error: error))
                 }
             }
@@ -120,12 +120,34 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderClient {
             }
     }
     
+    var findBarView: NSView? {
+        didSet {
+            findBarView
+                .map {
+                    findbar.view = $0
+                }
+        }
+    }
+    
+    var isFindBarVisible = false {
+        didSet {
+            if !isFindBarVisible {
+                findbar.view = .init()
+                findbar.view.frame.size.height = 1
+            }
+        }
+    }
+    
+    func findBarViewDidChangeHeight() {
+        
+    }
+    
     @objc override func performTextFinderAction(_ sender: Any?) {
         (sender as? NSMenuItem)
-            .flatMap {
-                NSTextFinder.Action(rawValue: $0.tag)
-            }
+            .map(\.tag)
+            .flatMap(NSTextFinder.Action.init(rawValue:))
             .map {
+                guard finder.client != nil else { return }
                 finder.performAction($0)
 
                 switch $0 {
@@ -136,7 +158,7 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderClient {
             }
     }
     
-    @objc func triggerSearch() {
+    @objc func triggerFocus() {
         status.focus.send()
     }
     

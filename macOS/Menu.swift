@@ -51,7 +51,7 @@ final class Menu: NSMenu, NSMenuDelegate {
             .child("New Tab", #selector(triggerNewTab), "t") {
                 $0.target = self
             },
-            .child("Open Location", #selector(Window.triggerSearch), "l"),
+            .child("Open Location", #selector(Window.triggerFocus), "l"),
             .separator(),
             .child("Close Window", #selector(Window.close), "W"),
             .child("Close All Windows", #selector(NSApp.closeAll), "w") {
