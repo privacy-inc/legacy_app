@@ -38,13 +38,9 @@ extension Preferences {
                 action: #selector(autoplay))
             
             let stack = NSStackView(views: [engine,
-                                            Separator(mode: .horizontal),
                                             level,
-                                            Separator(mode: .horizontal),
                                             connection,
-                                            Separator(mode: .horizontal),
                                             cookies,
-                                            Separator(mode: .horizontal),
                                             autoplay])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.orientation = .vertical

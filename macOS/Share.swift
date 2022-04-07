@@ -83,17 +83,11 @@ final class Share: NSPopover {
         
         let stack = NSStackView(views: [
             copy,
-            Separator(mode: .horizontal),
             service,
-            Separator(mode: .horizontal),
             save,
-            Separator(mode: .horizontal),
             pdf,
-            Separator(mode: .horizontal),
             snapshot,
-            Separator(mode: .horizontal),
             archive,
-            Separator(mode: .horizontal),
             print
         ])
         stack.spacing = 4

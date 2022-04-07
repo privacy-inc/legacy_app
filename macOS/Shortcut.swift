@@ -52,7 +52,7 @@ final class Shortcut: NSPopover {
             }
             .store(in: &subs)
         
-        let stack = NSStackView(views: [forget, .init(), Separator(mode: .horizontal), stats, close])
+        let stack = NSStackView(views: [forget, .init(), stats, close])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
         view.addSubview(stack)

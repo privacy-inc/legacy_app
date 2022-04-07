@@ -44,9 +44,9 @@ final class Plus: NSWindow {
         why
             .click
             .sink {
-                let pop = Pop(title: "Why purchases", copy: Copy.why)
-                pop.show(relativeTo: why.bounds, of: why, preferredEdge: .maxY)
-                pop.contentViewController!.view.window!.makeKey()
+//                let pop = Pop(title: "Why purchases", copy: Copy.why)
+//                pop.show(relativeTo: why.bounds, of: why, preferredEdge: .maxY)
+//                pop.contentViewController!.view.window!.makeKey()
             }
             .store(in: &subs)
         
@@ -55,9 +55,9 @@ final class Plus: NSWindow {
         alternatives
             .click
             .sink {
-                let pop = Pop(title: "Alternatives", copy: Copy.alternatives)
-                pop.show(relativeTo: alternatives.bounds, of: alternatives, preferredEdge: .maxY)
-                pop.contentViewController!.view.window!.makeKey()
+//                let pop = Pop(title: "Alternatives", copy: Copy.alternatives)
+//                pop.show(relativeTo: alternatives.bounds, of: alternatives, preferredEdge: .maxY)
+//                pop.contentViewController!.view.window!.makeKey()
             }
             .store(in: &subs)
         

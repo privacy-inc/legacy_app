@@ -3,7 +3,7 @@ import AppKit
 final class ListCell: CollectionCell<ListInfo> {
     private weak var text: Text!
     private weak var icon: Icon!
-    private weak var separator: Shape!
+    private weak var separator: CAShapeLayer!
     private weak var vibrant: Vibrant!
     
     override var item: CollectionItem<ListInfo>? {
@@ -35,7 +35,7 @@ final class ListCell: CollectionCell<ListInfo> {
         vibrant.layer!.cornerRadius = 12
         self.vibrant = vibrant
         
-        let separator = Shape()
+        let separator = CAShapeLayer()
         separator.fillColor = .clear
         separator.lineWidth = 1
         self.separator = separator

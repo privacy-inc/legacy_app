@@ -72,7 +72,9 @@ import Specs
     func application(_ app: NSApplication, open: [URL]) {
         cloud.ready.notify(queue: .main) {
             open
-                .forEach(app.open(url:))
+                .forEach {
+                    NSApp.open(url: $0, change: true)
+                }
         }
     }
     
@@ -106,7 +108,9 @@ import Specs
                     .paramDescriptor(forKeyword: keyDirectObject)
                     .flatMap(\.stringValue?.removingPercentEncoding)
                     .flatMap(URL.init(string:))
-                    .map(NSApp.open(url:))
+                    .map {
+                        NSApp.open(url: $0, change: true)
+                    }
             }
     }
 }

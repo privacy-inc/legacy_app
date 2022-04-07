@@ -10,29 +10,20 @@ extension NSApplication {
         keyWindow as? Window ?? anyWindow()
     }
     
-    func open(url: URL) {
+    func open(url: URL, change: Bool) {
         if let window = activeWindow {
             let id = window.status.current.value
             Task {
                 if window.status.flow(of: id) == .list {
                     await window.status.open(url: url, id: id)
                 } else {
-                    await window.status.open(url: url, change: true)
+                    await window.status.open(url: url, change: change)
                 }
                 
                 window.makeKeyAndOrderFront(nil)
             }
         } else {
             window(url: url)
-        }
-    }
-    
-    func silent(url: URL) {
-        if let window = activeWindow {
-            let id = window.status.current.value
-//            Task {
-//                await window.status.silent(url: url)
-//            }
         }
     }
     

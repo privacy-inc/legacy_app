@@ -3,7 +3,7 @@ import Combine
 
 extension Bar.Tab.On {
     final class Background: NSView, CAAnimationDelegate {
-        private weak var shape: Shape!
+        private weak var shape: CAShapeLayer!
         private var subscription: AnyCancellable?
         
         override var frame: NSRect {
@@ -18,7 +18,7 @@ extension Bar.Tab.On {
         
         required init?(coder: NSCoder) { nil }
         init() {
-            let shape = Shape()
+            let shape = CAShapeLayer()
             shape.strokeStart = 0
             shape.strokeEnd = 0
             shape.fillColor = .clear

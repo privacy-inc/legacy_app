@@ -71,11 +71,7 @@ final class Web: Webview {
                         case .here:
                             load(url: url)
                         case let .tab(change):
-                            if change {
-                                NSApp.open(url: url)
-                            } else {
-                                NSApp.silent(url: url)
-                            }
+                            NSApp.open(url: url, change: change)
                         case .window:
                             NSApp.window(url: url)
                         case .download:
@@ -192,7 +188,7 @@ final class Web: Webview {
                 case let .success(data) = $0,
                 let name = self?.url?.file("webarchive")
             else { return }
-            NSSavePanel.save(data: data, name: name, types: [.webArchive])
+//            NSSavePanel.save(data: data, name: name, types: [.webArchive])
         }
     }
     
@@ -245,7 +241,7 @@ final class Web: Webview {
                 let name = url?.file("pdf"),
                 let pdf = try? await pdf()
             else { return }
-            NSSavePanel.save(data: pdf, name: name, types: [.pdf])
+//            NSSavePanel.save(data: pdf, name: name, types: [.pdf])
         }
     }
     
@@ -267,7 +263,7 @@ final class Web: Webview {
                     let tiff = image.tiffRepresentation,
                     let data = NSBitmapImageRep(data: tiff)?.representation(using: .png, properties: [:])
                 else { return }
-                NSSavePanel.save(data: data, name: name, types: [.png])
+//                NSSavePanel.save(data: data, name: name, types: [.png])
             }
         }
     }
@@ -277,8 +273,8 @@ final class Web: Webview {
             .download
             .map { download in
                 (try? Data(contentsOf: download))
-                    .map {
-                        NSSavePanel.save(data: $0, name: download.lastPathComponent, types: types)
+                    .map { _ in
+//                        NSSavePanel.save(data: $0, name: download.lastPathComponent, types: types)
                     }
             }
     }
@@ -287,7 +283,7 @@ final class Web: Webview {
         guard let (data, _) = try? await URLSession.shared.data(from: url, delegate: nil) else { return }
         await MainActor
             .run {
-                NSSavePanel.save(data: data, name: url.lastPathComponent, types: [])
+//                NSSavePanel.save(data: data, name: url.lastPathComponent, types: [])
             }
     }
     

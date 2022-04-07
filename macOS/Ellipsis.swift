@@ -67,9 +67,7 @@ final class Ellipsis: NSPopover {
         
         let stack = NSStackView(views: [
             header(web: web),
-            Separator(mode: .horizontal),
             disable,
-            Separator(mode: .horizontal),
             share,
             bookmark,
             pause

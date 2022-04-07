@@ -335,7 +335,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     @objc private func triggerWebsite() {
-        NSApp.open(url: URL(string: "https://goprivacy.app")!)
+        NSApp.open(url: URL(string: "https://goprivacy.app")!, change: true)
     }
     
     @objc private func triggerPolicy() {

@@ -12,11 +12,8 @@ extension Preferences {
             let screen = Switch(title: "Remove screen blockers", target: self, action: #selector(screen))
             
             let stack = NSStackView(views: [dark,
-                                            Separator(mode: .horizontal),
                                             popups,
-                                            Separator(mode: .horizontal),
                                             ads,
-                                            Separator(mode: .horizontal),
                                             screen])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.orientation = .vertical

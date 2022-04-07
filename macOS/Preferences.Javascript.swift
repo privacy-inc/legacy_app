@@ -10,9 +10,7 @@ extension Preferences {
             let third = Switch(title: "Block third-party scripts", target: self, action: #selector(third))
             
             let stack = NSStackView(views: [scripts,
-                                            Separator(mode: .horizontal),
                                             stop,
-                                            Separator(mode: .horizontal),
                                             third])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.orientation = .vertical
