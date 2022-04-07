@@ -1,12 +1,12 @@
-/*import AppKit
+import AppKit
 
-extension Landing {
-    final class Option: Control {
+extension Control {
+    final class Symbol: Control {
         private weak var image: Image!
         
         required init?(coder: NSCoder) { nil }
-        init(icon: String) {
-            let image = Image(icon: icon)
+        init(_ name: String) {
+            let image = Image(icon: name)
             image.symbolConfiguration = .init(pointSize: 18, weight: .regular)
             image.contentTintColor = .secondaryLabelColor
             self.image = image
@@ -34,5 +34,5 @@ extension Landing {
             true
         }
     }
+
 }
-*/

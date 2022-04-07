@@ -198,6 +198,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     private var window: NSMenuItem {
         .parent("Window", windowItems) {
             $0.submenu!.delegate = self
+            $0.submenu!.autoenablesItems = false
         }
     }
     
@@ -207,15 +208,19 @@ final class Menu: NSMenu, NSMenuDelegate {
             .child("Zoom", #selector(NSWindow.zoom)),
             .separator(),
             .child("Show Previous Tab", #selector(Window.triggerPreviousTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
+                $0.isEnabled = ((NSApp.keyWindow as? Window)?.status.items.value.count ?? 0) > 1
                 $0.keyEquivalentModifierMask = [.control, .shift]
             },
             .child("Show Next Tab", #selector(Window.triggerNextTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
+                $0.isEnabled = ((NSApp.keyWindow as? Window)?.status.items.value.count ?? 0) > 1
                 $0.keyEquivalentModifierMask = [.control]
             },
             .child("Alternate Previous Tab", #selector(Window.triggerPreviousTab), "{") {
+                $0.isEnabled = ((NSApp.keyWindow as? Window)?.status.items.value.count ?? 0) > 1
                 $0.keyEquivalentModifierMask = [.command]
             },
             .child("Alternate Next Tab", #selector(Window.triggerNextTab), "}") {
+                $0.isEnabled = ((NSApp.keyWindow as? Window)?.status.items.value.count ?? 0) > 1
                 $0.keyEquivalentModifierMask = [.command]
             },
             .separator(),

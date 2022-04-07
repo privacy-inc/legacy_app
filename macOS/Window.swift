@@ -84,7 +84,7 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
                 case .list:
                     self?.isFindBarVisible = false
                     self?.finder.client = nil
-                    place(List(status: status, width: 426))
+                    place(Landing(status: status))
                     status.filter.send("")
                 case let .web(web):
                     self?.finder.client = web
