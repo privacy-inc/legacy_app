@@ -255,14 +255,6 @@ final class Menu: NSMenu, NSMenuDelegate {
                     title = "Support Privacy"
                 case is Preferences:
                     title = "Preferences"
-//                case is Trackers:
-//                    title = "Trackers"
-//                case is Activity:
-//                    title = "Activity"
-//                case is History:
-//                    title = "History"
-//                case is Bookmarks:
-//                    title = "Bookmarks"
                 default:
                     add = nil
                 }
@@ -365,6 +357,6 @@ final class Menu: NSMenu, NSMenuDelegate {
 
 private extension String {
     var capped: String {
-        count > 50 ? prefix(50) + "..." : self
+        count > 40 ? prefix(40) + "..." : self
     }
 }

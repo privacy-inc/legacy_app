@@ -106,8 +106,8 @@ final class Bar: NSVisualEffectView {
     override var frame: NSRect {
         didSet {
             let delta = (frame.width - 500) / 3
-            status.widthOn.value = max(min(450, 270 + delta), 270)
-            status.widthOff.value = max(min(160, 30 + delta), 30)
+            status.widthOn.value = max(min(450, 240 + delta), 240)
+            status.widthOff.value = max(min(160, 50 + delta), 50)
         }
     }
 }
