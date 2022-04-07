@@ -17,18 +17,15 @@ extension Web {
                 manager!.delegate = self
             }
             
-            guard
-                didReceive.name == Script.location.method,
-                accept
-            else {
+            manager!.requestLocation()
+            
+            guard didReceive.name == Script.location.method else {
                 fail()
                 return
             }
             
             if let location = location {
                 send(location: location)
-            } else {
-                manager!.requestLocation()
             }
         }
         
@@ -45,26 +42,12 @@ extension Web {
         
         func locationManagerDidChangeAuthorization(_: CLLocationManager) {
             switch manager?.authorizationStatus {
-            case .authorized, .authorizedAlways, .authorizedWhenInUse:
-                if handler != nil {
-                    manager?.requestLocation()
-                }
+            case .notDetermined:
+                manager?.requestLocation()
             case .denied, .restricted:
                 fail()
             default:
                 break
-            }
-        }
-        
-        private var accept: Bool {
-            switch manager?.authorizationStatus {
-            case .authorized, .authorizedAlways, .authorizedWhenInUse:
-                return true
-            case .notDetermined:
-                manager?.requestWhenInUseAuthorization()
-                return true
-            default:
-                return false
             }
         }
         

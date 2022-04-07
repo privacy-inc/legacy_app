@@ -58,7 +58,7 @@ final class Menu: NSMenu, NSMenuDelegate {
                 $0.target = NSApp
                 $0.keyEquivalentModifierMask = [.option, .command]
             },
-            .child("Close Tab", #selector(Window.triggerCloseTab), "w")]
+            .child("Close Tab", #selector(NSWindow.triggerCloseTab), "w")]
         
         guard
             let window = NSApp.keyWindow as? Window,

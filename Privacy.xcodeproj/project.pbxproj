@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE0816552705C56B00E2D44E /* Tab.Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0816542705C56B00E2D44E /* Tab.Loading.swift */; };
+		CE09C06227FF15A20032A303 /* NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09C06127FF15A20032A303 /* NSWindow.swift */; };
 		CE0F2D4927074C5400B63060 /* Landing.Edit.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0F2D4827074C5400B63060 /* Landing.Edit.Content.swift */; };
 		CE120D8D27328C4F00DE517E /* Shortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE120D8C27328C4F00DE517E /* Shortcut.swift */; };
 		CE17244926F8E9B300C2CED5 /* Status.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE17244826F8E9B300C2CED5 /* Status.Flow.swift */; };
@@ -304,6 +305,7 @@
 
 /* Begin PBXFileReference section */
 		CE0816542705C56B00E2D44E /* Tab.Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.swift; sourceTree = "<group>"; };
+		CE09C06127FF15A20032A303 /* NSWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSWindow.swift; sourceTree = "<group>"; };
 		CE0F2D4827074C5400B63060 /* Landing.Edit.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.Content.swift; sourceTree = "<group>"; };
 		CE120D8C27328C4F00DE517E /* Shortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcut.swift; sourceTree = "<group>"; };
 		CE12DAFB2721AEF7005870BF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -692,6 +694,7 @@
 				CE5F1278272EB93E002D0AD2 /* Web.swift */,
 				CE3F56D02728361300A022CC /* Webview.macOS.swift */,
 				CE3576B127281C3F005854B5 /* Window.swift */,
+				CE09C06127FF15A20032A303 /* NSWindow.swift */,
 				CE1936B3272804D100476227 /* Assets.xcassets */,
 			);
 			path = macOS;
@@ -1142,6 +1145,7 @@
 				CE8BA2FB272D9B7700E2D73F /* Search.Cell.Editor.swift in Sources */,
 				CEAFF016274152E300A9F744 /* Autocomplete.Move.swift in Sources */,
 				CE4312692736D25C00DA0F99 /* Preferences.swift in Sources */,
+				CE09C06227FF15A20032A303 /* NSWindow.swift in Sources */,
 				CEBB8BDF2728258300016F2C /* Status.swift in Sources */,
 				CEB22E9227355208001C77E0 /* Web.Destination.swift in Sources */,
 				CEB558082743F18500B19D62 /* Plus.Banner.Shine.swift in Sources */,
@@ -1329,7 +1333,6 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "Download files to your folder.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2022 Privacy Inc";
-				INFOPLIST_KEY_NSLocationUsageDescription = "This website wants to access your location. It could be to provide maps, directions or location services. This is independent from the app.";
 				INFOPLIST_KEY_NSPrincipalClass = Privacy.App;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1377,7 +1380,6 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "Download files to your folder.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2022 Privacy Inc";
-				INFOPLIST_KEY_NSLocationUsageDescription = "This website wants to access your location. It could be to provide maps, directions or location services. This is independent from the app.";
 				INFOPLIST_KEY_NSPrincipalClass = Privacy.App;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -63,8 +63,4 @@ final class Froob: NSWindow {
         action.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
         action.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -40).isActive = true
     }
-    
-    @objc func triggerCloseTab() {
-        close()
-    }
 }

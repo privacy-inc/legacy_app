@@ -12,8 +12,4 @@ final class Preferences: NSWindow {
         center()
         setFrameAutosaveName("Preferences")
     }
-    
-    @objc func triggerCloseTab() {
-        close()
-    }
 }

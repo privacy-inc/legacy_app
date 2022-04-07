@@ -140,8 +140,4 @@ final class Plus: NSWindow {
             await store.load()
         }
     }
-    
-    @objc func triggerCloseTab() {
-        close()
-    }
 }

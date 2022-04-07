@@ -56,8 +56,4 @@ final class About: NSWindow {
         heart.centerYAnchor.constraint(equalTo: disclaimer.centerYAnchor).isActive = true
         heart.leftAnchor.constraint(equalTo: disclaimer.rightAnchor).isActive = true
     }
-    
-    @objc func triggerCloseTab() {
-        close()
-    }
 }

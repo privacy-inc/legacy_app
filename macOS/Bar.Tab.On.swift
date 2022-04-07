@@ -25,6 +25,13 @@ extension Bar.Tab {
             let search = Search()
             search.delegate = self
             
+            status
+                .complete
+                .sink {
+                    search.stringValue = $0
+                }
+                .store(in: &subs)
+            
             let prompt = Option(icon: "magnifyingglass", size: 12)
             prompt.toolTip = "Search"
             prompt.click
@@ -198,13 +205,7 @@ extension Bar.Tab {
 //                    autocomplete.adjust.send((position: .init(x: $0.x - 3, y: $0.y - 6), width: bounds.width + 6))
 //                } (window!.convertPoint(toScreen: convert(frame.origin, to: nil)))
 //
-//                autocomplete
-//                    .list
-//                    .complete
-//                    .sink {
-//                        search.stringValue = $0
-//                    }
-//                    .store(in: &subs)
+//
 //
 //                self.autocomplete = autocomplete
 //            }
@@ -228,11 +229,9 @@ extension Bar.Tab {
                     }
                 window!.makeFirstResponder(window!.contentView)
             case #selector(moveUp):
-                break
-//                autocomplete?.list.move.send((date: .init(), direction: .up))
+                status.up.send(true)
             case #selector(moveDown):
-                break
-//                autocomplete?.list.move.send((date: .init(), direction: .down))
+                status.up.send(false)
             default:
                 return false
             }

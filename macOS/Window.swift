@@ -160,7 +160,7 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
         status.focus.send()
     }
     
-    @objc func triggerCloseTab() {
+    @objc override func triggerCloseTab() {
         guard status.items.value.count > 1 else {
             close()
             return
