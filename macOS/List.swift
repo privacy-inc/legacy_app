@@ -23,26 +23,31 @@ final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
         let selected = PassthroughSubject<ListInfo.ID, Never>()
         
         status
-            .websites
+            .filter
+            .removeDuplicates()
             .sink { [weak self] _ in
                 self?.contentView.bounds.origin.y = 0
             }
             .store(in: &subs)
         
-        status
-            .websites
-            .removeDuplicates {
-                $0.map(\.id) == $1.map(\.id)
-            }
-            .map {
-                $0
-                    .enumerated()
-                    .map { item in
-                            .init(website: item.1, first: item.0 == 0)
-                    }
-            }
-            .subscribe(info)
-            .store(in: &subs)
+        cloud
+            .combineLatest(status
+                .filter
+                .removeDuplicates()) {
+                    $0.websites(filter: $1)
+                }
+                .removeDuplicates {
+                    $0.map(\.id) == $1.map(\.id)
+                }
+                .map {
+                    $0
+                        .enumerated()
+                        .map { item in
+                                .init(website: item.1, first: item.0 == 0)
+                        }
+                }
+                .subscribe(info)
+                .store(in: &subs)
         
         info
             .dropFirst()
