@@ -20,7 +20,7 @@ final class Plus: NSWindow {
         content.material = .menu
         contentView = content
         center()
-        
+        /*
         let image = Image(named: "Plus")
         image.imageScaling = .scaleNone
         content.addSubview(image)
@@ -138,6 +138,6 @@ final class Plus: NSWindow {
         
         Task {
             await store.load()
-        }
+        }*/
     }
 }

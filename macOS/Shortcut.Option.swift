@@ -1,6 +1,7 @@
 import AppKit
 
 extension Shortcut {
+    /*
     final class Option: Control {
         private weak var image: Image!
         
@@ -38,5 +39,5 @@ extension Shortcut {
         override var allowsVibrancy: Bool {
             true
         }
-    }
+    }*/
 }

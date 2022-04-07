@@ -41,7 +41,7 @@ final class Shortcut: NSPopover {
                 self?.close()
             }
             .store(in: &subs)
-        
+        /*
         let forget = Option()
         forget
             .click
@@ -62,6 +62,6 @@ final class Shortcut: NSPopover {
         stack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         stack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         
-        show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxY)
+        show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxY)*/
     }
 }

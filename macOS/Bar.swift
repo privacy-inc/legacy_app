@@ -17,7 +17,7 @@ final class Bar: NSVisualEffectView {
         let animate = PassthroughSubject<Date, Never>()
         var tabs = [Tab]()
         
-        let plus = Option(icon: "plus")
+        let plus = Control.Symbol("plus", point: 16, size: Self.height)
         plus.toolTip = "New tab"
         plus
             .click

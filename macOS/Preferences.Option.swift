@@ -12,7 +12,7 @@ extension Preferences {
             text.textColor = .secondaryLabelColor
             self.text = text
             
-            let icon = Image(icon: symbol)
+            let icon = NSImageView(image: .init(systemSymbolName: symbol, accessibilityDescription: nil) ?? .init())
             icon.symbolConfiguration = .init(textStyle: .body)
                 .applying(.init(hierarchicalColor: .secondaryLabelColor))
             

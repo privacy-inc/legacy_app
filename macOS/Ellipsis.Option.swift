@@ -9,7 +9,8 @@ extension Ellipsis {
             text.font = .preferredFont(forTextStyle: .body)
             text.textColor = .labelColor
             
-            let icon = Image(icon: symbol)
+            let icon = NSImageView(image: .init(systemSymbolName: symbol, accessibilityDescription: nil) ?? .init())
+            icon.translatesAutoresizingMaskIntoConstraints = false
             icon.symbolConfiguration = .init(textStyle: .body)
                 .applying(.init(hierarchicalColor: .labelColor))
             

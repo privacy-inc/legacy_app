@@ -3,6 +3,7 @@ import Combine
 import UserNotifications
 
 extension Preferences {
+    /*
     final class Browser: Tab {
         private var subs = Set<AnyCancellable>()
         
@@ -68,5 +69,5 @@ extension Preferences {
                 }
                 ?? false
         }
-    }
+    }*/
 }

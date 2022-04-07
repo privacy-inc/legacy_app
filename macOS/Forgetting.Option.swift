@@ -4,7 +4,8 @@ extension Forgetting {
     final class Option: Control {
         required init?(coder: NSCoder) { nil }
         init(title: String, image: String) {
-            let image = Image(icon: image)
+            let image = NSImageView(image: .init(systemSymbolName: image, accessibilityDescription: nil) ?? .init())
+            image.translatesAutoresizingMaskIntoConstraints = false
             image.symbolConfiguration = .init(textStyle: .title3, scale: .large)
                 .applying(.init(hierarchicalColor: .secondaryLabelColor))
             

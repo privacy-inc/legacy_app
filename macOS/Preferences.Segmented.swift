@@ -9,7 +9,7 @@ extension Preferences {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
-            let icon = Image(icon: symbol)
+            let icon = NSImageView(image: .init(systemSymbolName: symbol, accessibilityDescription: nil) ?? .init())
             icon.symbolConfiguration = .init(textStyle: .title2)
                 .applying(.init(hierarchicalColor: .secondaryLabelColor))
             addSubview(icon)

@@ -7,12 +7,12 @@ extension Preferences {
             super.init(nibName: nil, bundle: nil)
             tabStyle = .toolbar
             tabViewItems = [
-                General(),
-                Browser(),
+//                General(),
+//                Browser(),
                 Navigation(),
                 Features(),
                 Javascript(),
-                Location()
+//                Location()
             ]
         }
         

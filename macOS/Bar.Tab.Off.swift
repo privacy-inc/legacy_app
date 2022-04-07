@@ -5,7 +5,7 @@ import Specs
 extension Bar.Tab {
     final class Off: Control {
         private var subs = Set<AnyCancellable>()
-        private weak var close: Option!
+        private weak var close: Symbol!
         private weak var icon: Icon!
         private weak var title: Text!
         
@@ -26,11 +26,6 @@ extension Bar.Tab {
             self.icon = icon
             addSubview(icon)
             
-            let empty = Image(icon: "sparkles")
-            empty.symbolConfiguration = .init(textStyle: .body)
-            empty.contentTintColor = .tertiaryLabelColor
-            addSubview(empty)
-            
             let title = Text(vibrancy: true)
             title.font = .preferredFont(forTextStyle: .body)
             title.textColor = .secondaryLabelColor
@@ -40,7 +35,7 @@ extension Bar.Tab {
             self.title = title
             addSubview(title)
             
-            let close = Option(icon: "xmark.app.fill")
+            let close = Symbol("xmark.app.fill", point: 16, size: Bar.height)
             close.toolTip = "Close tab"
             close
                 .click
@@ -60,9 +55,6 @@ extension Bar.Tab {
             
             icon.centerXAnchor.constraint(equalTo: close.centerXAnchor).isActive = true
             icon.centerYAnchor.constraint(equalTo: close.centerYAnchor).isActive = true
-            
-            empty.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
-            empty.rightAnchor.constraint(equalTo: rightAnchor, constant: -24).isActive = true
             
             title.leftAnchor.constraint(equalTo: close.rightAnchor).isActive = true
             title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
@@ -87,7 +79,6 @@ extension Bar.Tab {
                 .first()
                 .sink { [weak self] (web: Web) in
                     self?.web(web: web)
-                    empty.removeFromSuperview()
                 }
                 .store(in: &subs)
             

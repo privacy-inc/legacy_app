@@ -2,7 +2,7 @@ import AppKit
 import StoreKit
 import Combine
 
-extension Plus {
+extension Plus {/*
     final class Item: NSView {
         private var subs = Set<AnyCancellable>()
         
@@ -65,5 +65,5 @@ extension Plus {
             restore.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             restore.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         }
-    }
+    }*/
 }

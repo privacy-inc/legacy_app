@@ -9,7 +9,7 @@ extension Share {
             text.font = .preferredFont(forTextStyle: .body)
             text.textColor = .labelColor
             
-            let icon = Image(icon: symbol)
+            let icon = NSImageView(image: .init(systemSymbolName: symbol, accessibilityDescription: nil) ?? .init())
             icon.symbolConfiguration = .init(textStyle: .body)
             icon.contentTintColor = .labelColor
             

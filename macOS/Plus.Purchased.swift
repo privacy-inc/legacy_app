@@ -6,7 +6,7 @@ extension Plus {
         init() {
             super.init(frame: .zero)
             
-            let check = Image(icon: "checkmark.circle.fill")
+            let check = NSImageView(image: .init(systemSymbolName: "checkmark.circle.fill", accessibilityDescription: nil) ?? .init())
             check.symbolConfiguration = .init(pointSize: 30, weight: .regular)
                 .applying(.init(hierarchicalColor: .init(named: "Shades")!))
             addSubview(check)

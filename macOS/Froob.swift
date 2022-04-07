@@ -7,6 +7,7 @@ final class Froob: NSWindow {
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 460, height: 500),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
+        /*
         animationBehavior = .alertPanel
         toolbar = .init()
         isReleasedWhenClosed = false
@@ -61,6 +62,6 @@ final class Froob: NSWindow {
         description.widthAnchor.constraint(equalToConstant: 380).isActive = true
         
         action.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
-        action.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -40).isActive = true
+        action.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -40).isActive = true*/
     }
 }

@@ -1,4 +1,4 @@
-import AppKit
+/*import AppKit
 import Combine
 import CoreLocation
 
@@ -86,3 +86,4 @@ extension Preferences {
         }
     }
 }
+*/

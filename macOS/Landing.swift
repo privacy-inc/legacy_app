@@ -13,7 +13,7 @@ final class Landing: NSView {
         let list = List(status: status, width: 426)
         addSubview(list)
         
-        let configure = Control.Symbol("slider.vertical.3")
+        let configure = Control.Symbol("slider.vertical.3", point: 18, size: 40)
         configure
             .click
             .sink {
@@ -21,7 +21,7 @@ final class Landing: NSView {
             }
             .store(in: &subs)
         
-        let forget = Control.Symbol("flame")
+        let forget = Control.Symbol("flame", point: 18, size: 40)
         forget
             .click
             .sink {

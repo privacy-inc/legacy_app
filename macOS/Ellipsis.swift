@@ -11,7 +11,7 @@ final class Ellipsis: NSPopover {
         self.web = web
         
         super.init()
-        behavior = .semitransient
+        behavior = .transient
         contentSize = .zero
         contentViewController = .init()
         

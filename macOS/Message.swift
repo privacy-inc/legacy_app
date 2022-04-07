@@ -7,7 +7,8 @@ final class Message: NSView {
         translatesAutoresizingMaskIntoConstraints = false
         alphaValue = 0
         
-        let icon = Image(icon: icon)
+        let icon = NSImageView(image: .init(systemSymbolName: icon, accessibilityDescription: nil) ?? .init())
+        icon.translatesAutoresizingMaskIntoConstraints = false
         icon.symbolConfiguration = .init(pointSize: 45, weight: .ultraLight)
             .applying(.init(hierarchicalColor: .secondaryLabelColor))
         addSubview(icon)

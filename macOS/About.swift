@@ -14,7 +14,8 @@ final class About: NSWindow {
         contentView = content
         center()
         
-        let image = Image(named: "Logo")
+        let image = NSImageView(image: .init(named: "Logo") ?? .init())
+        image.translatesAutoresizingMaskIntoConstraints = false
         image.imageScaling = .scaleNone
         content.addSubview(image)
         
@@ -36,7 +37,7 @@ final class About: NSWindow {
         disclaimer.textColor = .tertiaryLabelColor
         content.addSubview(disclaimer)
         
-        let heart = Image(icon: "heart")
+        let heart = NSImageView(image: .init(systemSymbolName: "heart", accessibilityDescription: nil) ?? .init())
         heart.symbolConfiguration = .init(textStyle: .body)
             .applying(.init(paletteColors: [.systemPink]))
         content.addSubview(heart)

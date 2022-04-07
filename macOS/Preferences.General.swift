@@ -2,7 +2,7 @@ import AppKit
 import Combine
 import UserNotifications
 
-extension Preferences {
+extension Preferences {/*
     final class General: Tab {
         private weak var option: Preferences.Option!
         private weak var text: Text!
@@ -95,4 +95,5 @@ extension Preferences {
                 .foregroundColor: NSColor.secondaryLabelColor])
         }
     }
+    */
 }

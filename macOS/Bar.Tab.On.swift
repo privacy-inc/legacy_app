@@ -32,7 +32,7 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            let prompt = Option(icon: "magnifyingglass", size: 12)
+            let prompt = Control.Symbol("magnifyingglass", point: 12, size: Bar.height)
             prompt.toolTip = "Search"
             prompt.click
                 .sink {
@@ -40,7 +40,7 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            let close = Option(icon: "xmark.app.fill")
+            let close = Control.Symbol("xmark.app.fill", point: 16, size: Bar.height)
             close.toolTip = "Close tab"
             close
                 .click
@@ -52,31 +52,31 @@ extension Bar.Tab {
             let trackers = Trackers(status: status, item: item)
             trackers.state = .hidden
             
-            let secure = Option(icon: "lock.fill", size: 12)
+            let secure = Control.Symbol("lock.fill", point: 12, size: Bar.height)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
             
-            let insercure = Option(icon: "exclamationmark.triangle.fill", size: 13)
+            let insercure = Control.Symbol("exclamationmark.triangle.fill", point: 13, size: Bar.height)
             insercure.toolTip = "Insecure"
             insercure.state = .hidden
             
-            let options = Option(icon: "ellipsis.circle.fill", size: 14)
+            let options = Control.Symbol("ellipsis.circle.fill", point: 14, size: Bar.height)
             options.toolTip = "Options"
             options.state = .hidden
             
-            let back = Option(icon: "chevron.backward", size: 13)
+            let back = Control.Symbol("chevron.backward", point: 13, size: Bar.height)
             back.toolTip = "Back"
             back.state = .hidden
             
-            let forward = Option(icon: "chevron.forward", size: 13)
+            let forward = Control.Symbol("chevron.forward", point: 13, size: Bar.height)
             forward.toolTip = "Forward"
             forward.state = .hidden
             
-            let reload = Option(icon: "arrow.clockwise", size: 12)
+            let reload = Control.Symbol("arrow.clockwise", point: 12, size: Bar.height)
             reload.toolTip = "Reload"
             reload.state = .hidden
             
-            let stop = Option(icon: "xmark", size: 12)
+            let stop = Control.Symbol("xmark", point: 12, size: Bar.height)
             stop.toolTip = "Stop"
             stop.state = .hidden
             
@@ -242,13 +242,13 @@ extension Bar.Tab {
                             status: Status,
                             item: UUID,
                             search: Search,
-                            secure: Option,
-                            insecure: Option,
-                            back: Option,
-                            forward: Option,
-                            reload: Option,
-                            stop: Option,
-                            options: Option) {
+                            secure: Control.Symbol,
+                            insecure: Control.Symbol,
+                            back: Control.Symbol,
+                            forward: Control.Symbol,
+                            reload: Control.Symbol,
+                            stop: Control.Symbol,
+                            options: Control.Symbol) {
             web
                 .publisher(for: \.url)
                 .compactMap {
