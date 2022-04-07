@@ -8,7 +8,7 @@ final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
     private let select = PassthroughSubject<CGPoint, Never>()
     
     required init?(coder: NSCoder) { nil }
-    init(status: Status, id: UUID) {
+    init(status: Status, id: UUID, width: CGFloat?) {
         self.status = status
         self.id = id
         
@@ -55,14 +55,13 @@ final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
             .sink { [weak self] in
                 guard
                     !$0.isEmpty,
-                    let totalWidth = self?.frame.width
+                    let width = width ?? self.map(\.frame.width).map({ $0 - 24 })
                 else {
                     self?.items.send([])
                     self?.size.send(.init(width: 0, height: 0))
                     return
                 }
                 
-                let width = min(totalWidth - 24, 426)
                 let result = $0
                     .reduce(into: (items: Set<CollectionItem<ListInfo>>(), y: vertical)) {
                         $0.items.insert(.init(
