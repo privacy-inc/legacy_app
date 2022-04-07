@@ -39,14 +39,14 @@ final class Icon: NSView {
         nil
     }
     
-    func icon(website: String?) {
+    func icon(website: URL?) {
         Task
             .detached { [weak self] in
                 await self?.update(website: website)
             }
     }
     
-    @MainActor private func update(website: String?) async {
+    @MainActor private func update(website: URL?) async {
         width.constant = 0
         icon.isHidden = true
         sub?.cancel()

@@ -4,15 +4,14 @@ import Specs
 
 final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
     private weak var status: Status!
-    private let id: UUID
     private let select = PassthroughSubject<CGPoint, Never>()
     
     required init?(coder: NSCoder) { nil }
-    init(status: Status, id: UUID, width: CGFloat?) {
+    init(status: Status, width: CGFloat?) {
         self.status = status
-        self.id = id
         
         super.init(active: .activeAlways)
+        alphaValue = 0
         scrollerInsets.top = 8
         scrollerInsets.bottom = 8
         menu = .init()
@@ -145,10 +144,18 @@ final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
                 //                 self?.window?.close()
                 
                 Task {
-                    await status.open(url: URL(string: website.id)!, id: id)
+                    await status.open(url: URL(string: website.id)!, id: status.current.value)
                 }
             }
             .store(in: &subs)
+        
+        NSAnimationContext
+            .runAnimationGroup {
+                $0.duration = 0.4
+                $0.allowsImplicitAnimation = true
+                $0.timingFunction = .init(name: .easeInEaseOut)
+                animator().alphaValue = 1
+            }
     }
     
     override func mouseUp(with: NSEvent) {
@@ -176,17 +183,17 @@ final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
     }
     
     @objc private func open() {
-        highlighted
+        _ = highlighted
             .value
             .map { url in
                 Task {
-                    await status.open(url: URL(string: url)!, id: id)
+                    await status.open(url: URL(string: url)!, id: status.current.value)
                 }
             }
     }
     
     @objc private func delete() {
-        highlighted
+        _ = highlighted
             .value
             .map { url in
                 Task {

@@ -23,7 +23,7 @@ final class ListCell: CollectionCell<ListInfo> {
             
             if item.info != oldValue?.info {
                 text.attributedStringValue = item.info.text
-                icon.icon(website: item.info.website.id)
+                icon.icon(website: .init(string: item.info.website.id))
             }
         }
     }

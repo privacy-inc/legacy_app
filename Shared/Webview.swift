@@ -107,7 +107,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     func webView(_ webView: WKWebView, didFinish: WKNavigation!) {
         Task {
             guard
-                let website = webView.url?.absoluteString,
+                let website = webView.url,
                 await favicon.request(for: website),
                 let url = try? await (webView.evaluateJavaScript(Script.favicon.method)) as? String
             else { return }

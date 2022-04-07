@@ -5,6 +5,7 @@ final class Message: NSView {
     init(url: URL?, title: String, icon: String) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        alphaValue = 0
         
         let icon = Image(icon: icon)
         icon.symbolConfiguration = .init(pointSize: 45, weight: .ultraLight)
@@ -37,5 +38,13 @@ final class Message: NSView {
         text.topAnchor.constraint(greaterThanOrEqualTo: icon.topAnchor).isActive = true
         text.bottomAnchor.constraint(lessThanOrEqualTo: icon.bottomAnchor).isActive = true
         text.widthAnchor.constraint(lessThanOrEqualToConstant: 260).isActive = true
+        
+        NSAnimationContext
+            .runAnimationGroup {
+                $0.duration = 0.4
+                $0.allowsImplicitAnimation = true
+                $0.timingFunction = .init(name: .easeInEaseOut)
+                animator().alphaValue = 1
+            }
     }
 }

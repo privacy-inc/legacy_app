@@ -19,7 +19,7 @@ struct ListInfo: Identifiable, Hashable {
                     .foregroundColor: NSColor.labelColor]))
             }
             
-            $0.append(.make(" " + website.id.domainMinimal, attributes: [
+            $0.append(.make(" " + website.id.domain, attributes: [
                 .font: NSFont.preferredFont(forTextStyle: .callout),
                 .foregroundColor: NSColor.tertiaryLabelColor]))
         }
