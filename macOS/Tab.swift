@@ -1,7 +1,7 @@
 import AppKit
 
 final class Tab: NSView, NSMenuDelegate {
-    let item: UUID
+    let id: UUID
     private let status: Status
     
     var current: Bool {
@@ -29,9 +29,9 @@ final class Tab: NSView, NSMenuDelegate {
     }
     
     required init?(coder: NSCoder) { nil }
-    init(status: Status, item: UUID, current: Bool) {
+    init(status: Status, id: UUID, current: Bool) {
         self.status = status
-        self.item = item
+        self.id = id
         self.current = current
         
         super.init(frame: .zero)
@@ -73,9 +73,9 @@ final class Tab: NSView, NSMenuDelegate {
         
         let view: NSView
         if current {
-            view = On(status: status, item: item)
+            view = On(status: status, item: id)
         } else {
-            view = Off(status: status, item: item)
+            view = Off(status: status, item: id)
         }
         addSubview(view)
         rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
@@ -86,14 +86,14 @@ final class Tab: NSView, NSMenuDelegate {
     }
     
     @objc private func closeTab() {
-        status.close(id: item)
+        status.close(id: id)
     }
     
     @objc private func closeOthers() {
-        status.close(except: item)
+        status.close(except: id)
     }
     
     @objc private func moveToWindow() {
-        status.toNewWindow(id: item)
+        status.toNewWindow(id: id)
     }
 }

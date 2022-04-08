@@ -40,7 +40,7 @@ final class Bar: NSVisualEffectView {
                 var items = $0
                 tabs = tabs
                     .filter { tab in
-                        guard items.remove(where: { $0.id == tab.item }) == nil else { return true }
+                        guard items.remove(where: { $0.id == tab.id }) == nil else { return true }
                         tab.left?.right = tab.right
                         tab.right?.left = tab.left
                         tab.removeFromSuperview()
@@ -49,7 +49,7 @@ final class Bar: NSVisualEffectView {
                 
                 items
                     .forEach {
-                        let tab = Tab(status: status, item: $0.id, current: $0.id == status.current.value)
+                        let tab = Tab(status: status, id: $0.id, current: $0.id == status.current.value)
                         content.addSubview(tab)
                         
                         tabs.last?.right = tab
@@ -68,7 +68,7 @@ final class Bar: NSVisualEffectView {
             .sink { current in
                 tabs
                     .forEach { tab in
-                        tab.current = tab.item == current
+                        tab.current = tab.id == current
                     }
             }
             .store(in: &subs)
@@ -81,7 +81,7 @@ final class Bar: NSVisualEffectView {
                 .width)
             .debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)
             .sink { current, _, _ in
-                guard let x = tabs.first(where: { $0.item == current })?.frame.maxX else { return }
+                guard let x = tabs.first(where: { $0.id == current })?.frame.maxX else { return }
                 left.constant = min(content.frame.width - x + left.constant - 10, 0)
                 
                 NSAnimationContext
