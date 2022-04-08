@@ -1,10 +1,8 @@
 import AppKit
-import Combine
 
 extension Tab {
     final class Progress: NSView, CAAnimationDelegate {
-        private weak var shape: CAShapeLayer!
-        private var subscription: AnyCancellable?
+        weak var shape: CAShapeLayer!
         
         override var frame: NSRect {
             didSet {
@@ -34,28 +32,6 @@ extension Tab {
             layer!.cornerRadius = 8
             layer!.cornerCurve = .continuous
             layer!.addSublayer(shape)
-        }
-        
-        func listen(web: Web) {
-            subscription = web
-                .progress
-                .removeDuplicates()
-                .sink { [weak self] progress in
-                    
-                    guard progress != 1 || self?.shape.strokeEnd != 0 else { return }
-                    
-                    self?.shape.strokeStart = 0
-                    self?.shape.strokeEnd = .init(progress)
-                    
-                    if progress == 1 {
-                        self?.shape.add({
-                            $0.duration = 1
-                            $0.timingFunction = .init(name: .easeInEaseOut)
-                            $0.delegate = self
-                            return $0
-                        } (CABasicAnimation(keyPath: "strokeEnd")), forKey: "strokeEnd")
-                    }
-                }
         }
         
         func animationDidStop(_: CAAnimation, finished: Bool) {

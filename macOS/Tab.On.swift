@@ -152,11 +152,67 @@ extension Tab {
                 }
                 .first()
                 .sink { [weak self] (web: Web) in
-                    search.listen(web: web, status: status, id: id)
-                    progress.listen(web: web)
-                    
                     options.state = .on
                     trackers.state = .on
+                    
+                    self?.add(web
+                        .publisher(for: \.url)
+                        .compactMap {
+                            $0
+                        }
+                        .removeDuplicates()
+                        .combineLatest(status
+                                        .items
+                                        .compactMap {
+                                            $0
+                                                .first {
+                                                    $0.id == id
+                                                }?
+                                                .flow
+                                        }
+                                        .removeDuplicates())
+                        .sink { url, flow in
+                            switch flow {
+                            case .web:
+                                var string = url
+                                    .absoluteString
+                                    .replacingOccurrences(of: "https://", with: "")
+                                
+                                if string.last == "/" {
+                                    string.removeLast()
+                                }
+                                
+                                search.stringValue = string
+                                
+                            case let .message(_, url, title, _):
+                                search.stringValue = url?.absoluteString ?? title
+                                secure.state = .hidden
+                                insecure.state = .hidden
+                            default:
+                                break
+                            }
+                            
+                            search.undoManager?.removeAllActions()
+                        })
+                    
+                    self?.add(web
+                        .progress
+                        .removeDuplicates()
+                        .sink { value in
+                            guard value != 1 || progress.shape.strokeEnd != 0 else { return }
+                            
+                            progress.shape.strokeStart = 0
+                            progress.shape.strokeEnd = .init(value)
+                            
+                            if value == 1 {
+                                progress.shape.add({
+                                    $0.duration = 1
+                                    $0.timingFunction = .init(name: .easeInEaseOut)
+                                    $0.delegate = progress
+                                    return $0
+                                } (CABasicAnimation(keyPath: "strokeEnd")), forKey: "strokeEnd")
+                            }
+                        })
                     
                     self?.add(web
                         .publisher(for: \.hasOnlySecureContent)
@@ -258,27 +314,6 @@ extension Tab {
                             else { return }
                             status.change(flow: .web(web), id: id)
                         })
-                }
-                .store(in: &subs)
-            
-            status
-                .items
-                .compactMap {
-                    $0
-                        .first {
-                            $0.id == id
-                        }?
-                        .flow
-                }
-                .removeDuplicates()
-                .sink {
-                    switch $0 {
-                    case .message:
-                        secure.state = .hidden
-                        insecure.state = .hidden
-                    default:
-                        break
-                    }
                 }
                 .store(in: &subs)
             
