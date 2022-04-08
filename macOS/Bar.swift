@@ -20,6 +20,9 @@ final class Bar: NSVisualEffectView {
         content.translatesAutoresizingMaskIntoConstraints = false
         addSubview(content)
         
+        let left = content.leftAnchor.constraint(equalTo: leftAnchor)
+        left.isActive = true
+        
         let plus = Control.Symbol("plus", point: 16, size: Self.height)
         plus.toolTip = "New tab"
         plus
@@ -73,28 +76,28 @@ final class Bar: NSVisualEffectView {
         status
             .current
             .combineLatest(status
-                .items) { _, _ in
-                    Date()
-                }
-                .removeDuplicates {
-                    $1.timeIntervalSince1970 - $0.timeIntervalSince1970 < 1
-                }
-                .sink { [weak self] _ in
-                    NSAnimationContext
-                        .runAnimationGroup {
-                            $0.allowsImplicitAnimation = true
-                            $0.duration = 0.3
-                            self?.layoutSubtreeIfNeeded()
-                        }
-                }
-                .store(in: &subs)
+                .items,
+                           status
+                .width)
+            .debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)
+            .sink { current, _, _ in
+                guard let x = tabs.first(where: { $0.item == current })?.frame.maxX else { return }
+                left.constant = min(content.frame.width - x + left.constant - 10, 0)
+                
+                NSAnimationContext
+                    .runAnimationGroup {
+                        $0.allowsImplicitAnimation = true
+                        $0.duration = 0.3
+                        content.layoutSubtreeIfNeeded()
+                    }
+            }
+            .store(in: &subs)
         
         plus.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         plus.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -8).isActive = true
         
         content.topAnchor.constraint(equalTo: topAnchor).isActive = true
         content.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        content.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         content.rightAnchor.constraint(equalTo: plus.leftAnchor).isActive = true
     }
     
