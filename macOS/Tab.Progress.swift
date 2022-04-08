@@ -1,8 +1,8 @@
 import AppKit
 import Combine
 
-extension Bar.Tab.On {
-    final class Background: NSView, CAAnimationDelegate {
+extension Tab {
+    final class Progress: NSView, CAAnimationDelegate {
         private weak var shape: CAShapeLayer!
         private var subscription: AnyCancellable?
         

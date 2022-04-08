@@ -1,10 +1,10 @@
 import AppKit
 import Combine
 
-extension Bar.Tab {
+extension Tab {
     final class On: NSView, NSTextFieldDelegate {
         private weak var stack: NSStackView!
-        private weak var background: Background!
+        private weak var progress: Progress!
 //        private weak var autocomplete: Autocomplete?
         private var subs = Set<AnyCancellable>()
         private let id: UUID
@@ -18,9 +18,9 @@ extension Bar.Tab {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
-            let background = Background()
-            self.background = background
-            addSubview(background)
+            let progress = Progress()
+            self.progress = progress
+            addSubview(progress)
             
             let search = Search()
             search.delegate = self
@@ -85,13 +85,13 @@ extension Bar.Tab {
             stack.spacing = 0
             addSubview(stack)
             
-            let widthConstraint = widthAnchor.constraint(equalToConstant: status.widthOn.value)
+            let widthConstraint = widthAnchor.constraint(equalToConstant: status.width.value.on)
             widthConstraint.isActive = true
             
-            background.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-            background.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            background.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            progress.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            progress.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            progress.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            progress.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
             
             stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
             stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -6).isActive = true
@@ -164,7 +164,7 @@ extension Bar.Tab {
                                  stop: stop,
                                  options: options)
                     
-                    background.listen(web: web)
+                    progress.listen(web: web)
                     options.state = .on
                     trackers.state = .on
                 }
@@ -178,10 +178,10 @@ extension Bar.Tab {
                 .store(in: &subs)
             
             status
-                .widthOn
+                .width
                 .dropFirst()
                 .sink {
-                    widthConstraint.constant = $0
+                    widthConstraint.constant = $0.on
                 }
                 .store(in: &subs)
         }
@@ -191,7 +191,7 @@ extension Bar.Tab {
         }
         
         override func updateLayer() {
-            background.updateLayer()
+            progress.updateLayer()
         }
         
         func controlTextDidChange(_ control: Notification) {

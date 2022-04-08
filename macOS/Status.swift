@@ -9,8 +9,7 @@ struct Status {
     let filter = PassthroughSubject<String, Never>()
     let up = PassthroughSubject<Bool, Never>()
     let complete = PassthroughSubject<String, Never>()
-    let widthOn = CurrentValueSubject<_, Never>(CGFloat())
-    let widthOff = CurrentValueSubject<_, Never>(CGFloat())
+    let width = CurrentValueSubject<_, Never>((on: CGFloat(), off: CGFloat()))
 
     init() {
         self.init(item: .init(flow: .list))

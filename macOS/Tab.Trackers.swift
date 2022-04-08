@@ -1,6 +1,6 @@
 import AppKit
 
-extension Bar.Tab.On {
+extension Tab {
     final class Trackers: Control {
         private weak var text: Text!
         

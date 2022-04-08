@@ -2,7 +2,7 @@ import AppKit
 import Combine
 import Specs
 
-extension Bar.Tab {
+extension Tab {
     final class Off: Control {
         private var subs = Set<AnyCancellable>()
         private weak var close: Symbol!
@@ -47,7 +47,7 @@ extension Bar.Tab {
             close.state = .hidden
             self.close = close
             
-            let widthConstraint = widthAnchor.constraint(equalToConstant: status.widthOff.value)
+            let widthConstraint = widthAnchor.constraint(equalToConstant: status.width.value.off)
             widthConstraint.isActive = true
             
             close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
@@ -83,10 +83,10 @@ extension Bar.Tab {
                 .store(in: &subs)
             
             status
-                .widthOff
+                .width
                 .dropFirst()
                 .sink {
-                    widthConstraint.constant = $0
+                    widthConstraint.constant = $0.off
                 }
                 .store(in: &subs)
         }
