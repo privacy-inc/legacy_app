@@ -2,7 +2,7 @@ import AppKit
 import Combine
 import Specs
 
-final class Status {
+struct Status {
     let current: CurrentValueSubject<UUID, Never>
     let items: CurrentValueSubject<[Item], Never>
     let focus = PassthroughSubject<Void, Never>()
@@ -12,7 +12,7 @@ final class Status {
     let widthOn = CurrentValueSubject<_, Never>(CGFloat())
     let widthOff = CurrentValueSubject<_, Never>(CGFloat())
 
-    convenience init() {
+    init() {
         self.init(item: .init(flow: .list))
     }
     

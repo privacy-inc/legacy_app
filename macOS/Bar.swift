@@ -3,8 +3,8 @@ import Combine
 
 final class Bar: NSVisualEffectView {
     static let height = CGFloat(28)
-    private weak var status: Status!
     private var subs = Set<AnyCancellable>()
+    private let status: Status
     
     required init?(coder: NSCoder) { nil }
     init(status: Status) {

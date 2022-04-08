@@ -2,6 +2,9 @@ import AppKit
 
 extension Bar {
     final class Tab: NSView, NSMenuDelegate {
+        let item: UUID
+        private let status: Status
+        
         var current = false {
             didSet {
                 guard subviews.isEmpty || current != oldValue else { return }
@@ -36,8 +39,6 @@ extension Bar {
             }
         }
         
-        let item: UUID
-        
         private weak var rightGuide: NSLayoutConstraint? {
             didSet {
                 oldValue?.isActive = false
@@ -51,8 +52,6 @@ extension Bar {
                 leftGuide?.isActive = true
             }
         }
-        
-        private weak var status: Status!
         
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {

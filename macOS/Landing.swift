@@ -10,6 +10,12 @@ final class Landing: NSView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
+        let empty = Text(vibrancy: true)
+        empty.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .medium)
+        empty.textColor = .secondaryLabelColor
+        empty.isHidden = true
+        addSubview(empty)
+        
         let list = List(status: status, width: 426)
         addSubview(list)
         
@@ -41,6 +47,9 @@ final class Landing: NSView {
         list.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         list.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         list.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        
+        empty.topAnchor.constraint(equalTo: topAnchor, constant: 50).isActive = true
+        empty.leftAnchor.constraint(equalTo: leftAnchor, constant: 50).isActive = true
     }
     
     override func mouseDown(with: NSEvent) {

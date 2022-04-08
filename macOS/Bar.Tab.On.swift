@@ -4,11 +4,11 @@ import Combine
 extension Bar.Tab {
     final class On: NSView, NSTextFieldDelegate {
         private weak var stack: NSStackView!
-        private weak var status: Status!
         private weak var background: Background!
 //        private weak var autocomplete: Autocomplete?
         private var subs = Set<AnyCancellable>()
         private let id: UUID
+        private let status: Status
         
         required init?(coder: NSCoder) { nil }
         init(status: Status, item: UUID) {

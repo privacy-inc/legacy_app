@@ -3,7 +3,7 @@ import Combine
 import Specs
 
 final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
-    private weak var status: Status!
+    private let status: Status
     private let select = PassthroughSubject<CGPoint, Never>()
     
     required init?(coder: NSCoder) { nil }

@@ -19,13 +19,13 @@ final class Forget: NSView {
             .sink {
                 NSApp.closeAll()
                 
-//                Task
-//                    .detached(priority: .utility) {
-//                        await Webview.clear()
-//                        await favicon.clear()
-//                        await cloud.forget()
-//                        await UNUserNotificationCenter.send(message: "Forgot everything!")
-//                    }
+                Task
+                    .detached(priority: .utility) {
+                        await Webview.clear()
+                        await favicon.clear()
+                        await cloud.forget()
+                        await UNUserNotificationCenter.send(message: "Forgot everything!")
+                    }
             }
             .store(in: &subs)
         addSubview(control)

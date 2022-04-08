@@ -6,8 +6,8 @@ import Specs
 
 final class Web: Webview {
     let item: UUID
-    private weak var status: Status!
     private var destination = Destination.here
+    private let status: Status
     
     required init?(coder: NSCoder) { nil }
     init(status: Status,
