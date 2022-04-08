@@ -73,9 +73,9 @@ final class Tab: NSView, NSMenuDelegate {
         
         let view: NSView
         if current {
-            view = On(status: status, item: id)
+            view = On(status: status, id: id)
         } else {
-            view = Off(status: status, item: id)
+            view = Off(status: status, id: id)
         }
         addSubview(view)
         rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true

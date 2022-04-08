@@ -11,9 +11,9 @@ extension Tab {
         private let status: Status
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, item: UUID) {
+        init(status: Status, id: UUID) {
             self.status = status
-            self.id = item
+            self.id = id
             
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
@@ -45,11 +45,11 @@ extension Tab {
             close
                 .click
                 .sink {
-                    status.close(id: item)
+                    status.close(id: id)
                 }
                 .store(in: &subs)
             
-            let trackers = Trackers(status: status, item: item)
+            let trackers = Trackers(status: status, item: id)
             trackers.state = .hidden
             
             let secure = Control.Symbol("lock.fill", point: 12, size: Bar.height)
@@ -117,7 +117,7 @@ extension Tab {
                 .compactMap {
                     $0
                         .first {
-                            $0.id == item
+                            $0.id == id
                         }
                 }
                 .filter {
@@ -139,7 +139,7 @@ extension Tab {
                 .compactMap {
                     $0
                         .first {
-                            $0.id == item
+                            $0.id == id
                         }
                 }
                 .compactMap {
@@ -154,7 +154,7 @@ extension Tab {
                 .sink { [weak self] (web: Web) in
                     self?.listen(web: web,
                                  status: status,
-                                 item: item,
+                                 id: id,
                                  search: search,
                                  secure: secure,
                                  insecure: insercure,
@@ -240,7 +240,7 @@ extension Tab {
         
         private func listen(web: Web,
                             status: Status,
-                            item: UUID,
+                            id: UUID,
                             search: Search,
                             secure: Control.Symbol,
                             insecure: Control.Symbol,
@@ -260,7 +260,7 @@ extension Tab {
                                 .compactMap {
                                     $0
                                         .first {
-                                            $0.id == item
+                                            $0.id == id
                                         }?
                                         .flow
                                 }
@@ -320,7 +320,7 @@ extension Tab {
                                 .compactMap {
                                     $0
                                         .first {
-                                            $0.id == item
+                                            $0.id == id
                                         }?
                                         .flow
                                 }
@@ -351,7 +351,7 @@ extension Tab {
             reload
                 .click
                 .sink {
-                    guard let flow = status.items.value.first(where: { $0.id == item })?.flow else { return }
+                    guard let flow = status.items.value.first(where: { $0.id == id })?.flow else { return }
                     
                     switch flow {
                     case .web:
@@ -374,7 +374,7 @@ extension Tab {
             back
                 .click
                 .sink {
-                    guard let flow = status.items.value.first(where: { $0.id == item })?.flow else { return }
+                    guard let flow = status.items.value.first(where: { $0.id == id })?.flow else { return }
                     
                     switch flow {
                     case .web:
@@ -393,10 +393,10 @@ extension Tab {
                     web.goForward()
                     
                     guard
-                        let flow = status.items.value.first(where: { $0.id == item })?.flow,
+                        let flow = status.items.value.first(where: { $0.id == id })?.flow,
                         case .message = flow
                     else { return }
-                    status.change(flow: .web(web), id: item)
+                    status.change(flow: .web(web), id: id)
                 }
                 .store(in: &subs)
             

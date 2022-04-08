@@ -10,14 +10,14 @@ extension Tab {
         private weak var title: Text!
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, item: UUID) {
+        init(status: Status, id: UUID) {
             super.init(layer: true)
             layer!.cornerRadius = 8
             layer!.cornerCurve = .continuous
             
             click
                 .sink {
-                    status.current.send(item)
+                    status.current.send(id)
                 }
                 .store(in: &subs)
             
@@ -40,7 +40,7 @@ extension Tab {
             close
                 .click
                 .sink {
-                    status.close(id: item)
+                    status.close(id: id)
                 }
                 .store(in: &subs)
             addSubview(close)
@@ -65,7 +65,7 @@ extension Tab {
                 .compactMap {
                     $0
                         .first {
-                            $0.id == item
+                            $0.id == id
                         }
                 }
                 .compactMap {
