@@ -1,20 +1,19 @@
 import AppKit
 
-extension Shortcut {
-    final class Action: Control {
+extension Control {
+    final class Title: Control {
         required init?(coder: NSCoder) { nil }
-        init(title: String) {
+        init(_ title: String) {
             let text = Text(vibrancy: true)
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .body)
             text.textColor = .labelColor
             
             super.init(layer: true)
-            layer!.cornerRadius = 5
+            layer!.cornerRadius = 6
             addSubview(text)
             
-            heightAnchor.constraint(equalToConstant: 26).isActive = true
-            widthAnchor.constraint(equalToConstant: 86).isActive = true
+            heightAnchor.constraint(equalToConstant: 29).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             text.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

@@ -35,9 +35,6 @@ final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
                 .removeDuplicates()) {
                     $0.websites(filter: $1)
                 }
-                .removeDuplicates {
-                    $0.map(\.id) == $1.map(\.id)
-                }
                 .map {
                     $0
                         .enumerated()
@@ -202,7 +199,7 @@ final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
             }
     }
     
-    func center(y: CGFloat) {
+    private func center(y: CGFloat) {
         contentView.bounds.origin.y = y - bounds.midY
         contentView.layer?.add({
             $0.duration = 0.2

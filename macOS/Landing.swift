@@ -25,9 +25,7 @@ final class Landing: NSView {
         forget
             .click
             .sink {
-//                let pop = Forgetting(behaviour: .semitransient)
-//                pop.show(relativeTo: forget.bounds, of: forget, preferredEdge: .maxY)
-//                pop.contentViewController!.view.window!.makeKey()
+                NSPopover().show(Forget(), from: forget, edge: .minY)
             }
             .store(in: &subs)
         

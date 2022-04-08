@@ -2,10 +2,6 @@ import AppKit
 import Specs
 
 extension NSApplication {
-    var dark: Bool {
-        effectiveAppearance.name != .aqua
-    }
-    
     var activeWindow: Window? {
         keyWindow as? Window ?? anyWindow()
     }
@@ -58,6 +54,9 @@ extension NSApplication {
     
     @objc func closeAll() {
         windows
+            .filter {
+                $0 != (NSApp.mainMenu as! Menu).shortcut.button?.window
+            }
             .forEach {
                 $0.close()
             }

@@ -34,5 +34,4 @@ extension Control {
             true
         }
     }
-
 }

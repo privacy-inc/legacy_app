@@ -3,7 +3,7 @@ import StoreKit
 import Specs
 
 final class Menu: NSMenu, NSMenuDelegate {
-    private let shortcut = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    let shortcut = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
     required init(coder: NSCoder) { super.init(coder: coder) }
     init() {
@@ -352,8 +352,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         case .rightMouseUp:
             NSMenu.popUpContextMenu(button.menu!, with: event, for: button)
         case .leftMouseUp:
-            let shortcut = Shortcut(origin: button)
-            shortcut.contentViewController!.view.window!.makeKey()
+            NSPopover().show(Shortcut(), from: button, edge: .maxY)
         default:
             break
         }
