@@ -56,9 +56,9 @@ extension Tab {
             secure.toolTip = "Secure connection"
             secure.state = .hidden
             
-            let insercure = Control.Symbol("exclamationmark.triangle.fill", point: 13, size: Bar.height)
-            insercure.toolTip = "Insecure"
-            insercure.state = .hidden
+            let insecure = Control.Symbol("exclamationmark.triangle.fill", point: 13, size: Bar.height)
+            insecure.toolTip = "Insecure"
+            insecure.state = .hidden
             
             let options = Control.Symbol("ellipsis.circle.fill", point: 14, size: Bar.height)
             options.toolTip = "Options"
@@ -80,7 +80,7 @@ extension Tab {
             stop.toolTip = "Stop"
             stop.state = .hidden
             
-            let stack = NSStackView(views: [prompt, close, search, secure, insercure, back, forward, reload, stop, options, trackers])
+            let stack = NSStackView(views: [prompt, close, search, secure, insecure, back, forward, reload, stop, options, trackers])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.spacing = 0
             addSubview(stack)
@@ -152,21 +152,133 @@ extension Tab {
                 }
                 .first()
                 .sink { [weak self] (web: Web) in
-                    self?.listen(web: web,
-                                 status: status,
-                                 id: id,
-                                 search: search,
-                                 secure: secure,
-                                 insecure: insercure,
-                                 back: back,
-                                 forward: forward,
-                                 reload: reload,
-                                 stop: stop,
-                                 options: options)
-                    
+                    search.listen(web: web, status: status, id: id)
                     progress.listen(web: web)
+                    
                     options.state = .on
                     trackers.state = .on
+                    
+                    self?.add(web
+                        .publisher(for: \.hasOnlySecureContent)
+                        .removeDuplicates()
+                        .sink {
+                            secure.state = $0 ? .on : .hidden
+                            insecure.state = $0 ? .hidden : .on
+                        })
+                    
+                    self?.add(web
+                        .publisher(for: \.isLoading)
+                        .removeDuplicates()
+                        .sink {
+                            stop.state = $0 ? .on : .hidden
+                            reload.state = $0 ? .hidden : .on
+                        })
+                    
+                    self?.add(web
+                        .publisher(for: \.canGoBack)
+                        .removeDuplicates()
+                        .combineLatest(
+                            web
+                                .publisher(for: \.canGoForward)
+                                .removeDuplicates(), status
+                                        .items
+                                        .compactMap {
+                                            $0
+                                                .first {
+                                                    $0.id == id
+                                                }?
+                                                .flow
+                                        }
+                                        .removeDuplicates())
+                        .sink { canGoBack, canGoForward , flow in
+                            switch flow {
+                            case .web:
+                                back.state = canGoBack
+                                    ? .on
+                                    : canGoForward
+                                        ? .off
+                                        : .hidden
+                                forward.state = canGoForward
+                                    ? .on
+                                    :  canGoBack
+                                        ? .off
+                                        : .hidden
+                            case .message:
+                                back.state = .on
+                                forward.state = canGoForward ? .on : .off
+                            default:
+                                break
+                            }
+                        })
+                    
+                    self?.add(reload
+                        .click
+                        .sink {
+                            guard let flow = status.items.value.first(where: { $0.id == id })?.flow else { return }
+                            
+                            switch flow {
+                            case .web:
+                                web.reload()
+                            case .message:
+                                web.retry()
+                            default:
+                                break
+                            }
+                        })
+                    
+                    self?.add(stop
+                        .click
+                        .sink {
+                            web.stopLoading()
+                        })
+                    
+                    self?.add(back
+                        .click
+                        .sink {
+                            guard let flow = status.items.value.first(where: { $0.id == id })?.flow else { return }
+                            
+                            switch flow {
+                            case .web:
+                                web.goBack()
+                            case .message:
+                                web.dismiss()
+                            default:
+                                break
+                            }
+                        })
+                    
+                    self?.add(forward
+                        .click
+                        .sink {
+                            web.goForward()
+                            
+                            guard
+                                let flow = status.items.value.first(where: { $0.id == id })?.flow,
+                                case .message = flow
+                            else { return }
+                            status.change(flow: .web(web), id: id)
+                        })
+                }
+                .store(in: &subs)
+            
+            status
+                .items
+                .compactMap {
+                    $0
+                        .first {
+                            $0.id == id
+                        }?
+                        .flow
+                }
+                .removeDuplicates()
+                .sink {
+                    switch $0 {
+                    case .message:
+                        secure.state = .hidden
+                        insecure.state = .hidden
+                    default:
+                        break
+                    }
                 }
                 .store(in: &subs)
             
@@ -238,192 +350,8 @@ extension Tab {
             return true
         }
         
-        private func listen(web: Web,
-                            status: Status,
-                            id: UUID,
-                            search: Search,
-                            secure: Control.Symbol,
-                            insecure: Control.Symbol,
-                            back: Control.Symbol,
-                            forward: Control.Symbol,
-                            reload: Control.Symbol,
-                            stop: Control.Symbol,
-                            options: Control.Symbol) {
-            web
-                .publisher(for: \.url)
-                .compactMap {
-                    $0
-                }
-                .removeDuplicates()
-                .combineLatest(status
-                                .items
-                                .compactMap {
-                                    $0
-                                        .first {
-                                            $0.id == id
-                                        }?
-                                        .flow
-                                }
-                                .removeDuplicates())
-                .sink { url, flow in
-                    
-                    switch flow {
-                    case .web:
-                        var string = url
-                            .absoluteString
-                            .replacingOccurrences(of: "https://", with: "")
-                        
-                        if string.last == "/" {
-                            string.removeLast()
-                        }
-                        
-                        search.stringValue = string
-                        
-                    case let .message(_, url, _, _):
-                        secure.state = .hidden
-                        insecure.state = .hidden
-                        search.stringValue = url?.absoluteString ?? ""
-                    default:
-                        break
-                    }
-                    
-                    search.undoManager?.removeAllActions()
-                }
-                .store(in: &subs)
-            
-            web
-                .publisher(for: \.hasOnlySecureContent)
-                .removeDuplicates()
-                .sink {
-                    secure.state = $0 ? .on : .hidden
-                    insecure.state = $0 ? .hidden : .on
-                }
-                .store(in: &subs)
-            
-            web
-                .publisher(for: \.isLoading)
-                .removeDuplicates()
-                .sink {
-                    stop.state = $0 ? .on : .hidden
-                    reload.state = $0 ? .hidden : .on
-                }
-                .store(in: &subs)
-            
-            web
-                .publisher(for: \.canGoBack)
-                .removeDuplicates()
-                .combineLatest(
-                    web
-                        .publisher(for: \.canGoForward)
-                        .removeDuplicates(), status
-                                .items
-                                .compactMap {
-                                    $0
-                                        .first {
-                                            $0.id == id
-                                        }?
-                                        .flow
-                                }
-                                .removeDuplicates())
-                .sink { canGoBack, canGoForward , flow in
-                    
-                    switch flow {
-                    case .web:
-                        back.state = canGoBack
-                            ? .on
-                            : canGoForward
-                                ? .off
-                                : .hidden
-                        forward.state = canGoForward
-                            ? .on
-                            :  canGoBack
-                                ? .off
-                                : .hidden
-                    case .message:
-                        back.state = .on
-                        forward.state = canGoForward ? .on : .off
-                    default:
-                        break
-                    }
-                }
-                .store(in: &subs)
-            
-            reload
-                .click
-                .sink {
-                    guard let flow = status.items.value.first(where: { $0.id == id })?.flow else { return }
-                    
-                    switch flow {
-                    case .web:
-                        web.reload()
-                    case .message:
-                        web.retry()
-                    default:
-                        break
-                    }
-                }
-                .store(in: &subs)
-            
-            stop
-                .click
-                .sink {
-                    web.stopLoading()
-                }
-                .store(in: &subs)
-            
-            back
-                .click
-                .sink {
-                    guard let flow = status.items.value.first(where: { $0.id == id })?.flow else { return }
-                    
-                    switch flow {
-                    case .web:
-                        web.goBack()
-                    case .message:
-                        web.dismiss()
-                    default:
-                        break
-                    }
-                }
-                .store(in: &subs)
-            
-            forward
-                .click
-                .sink {
-                    web.goForward()
-                    
-                    guard
-                        let flow = status.items.value.first(where: { $0.id == id })?.flow,
-                        case .message = flow
-                    else { return }
-                    status.change(flow: .web(web), id: id)
-                }
-                .store(in: &subs)
-            
-//            secure
-//                .click
-//                .sink {
-//                    Connection(history: web.history)
-//                        .show(relativeTo: secure.bounds, of: secure, preferredEdge: .maxY)
-//                }
-//                .store(in: &subs)
-//            
-//            insecure
-//                .click
-//                .sink {
-//                    Connection(history: web.history)
-//                        .show(relativeTo: insecure.bounds, of: insecure, preferredEdge: .maxY)
-//                }
-//                .store(in: &subs)
-            
-            options
-                .click
-                .sink {
-                    let pop = Ellipsis(web: web, origin: options)
-                    pop.show(relativeTo: options.bounds, of: options, preferredEdge: .maxY)
-                    pop.contentViewController!.view.window!.makeKey()
-                }
-                .store(in: &subs)
+        private func add(_ cancellable: AnyCancellable) {
+            subs.insert(cancellable)
         }
     }
 }
