@@ -11,9 +11,9 @@ final class Landing: NSView {
         translatesAutoresizingMaskIntoConstraints = false
         
         let empty = Text(vibrancy: true)
-        empty.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .medium)
-        empty.textColor = .secondaryLabelColor
-        empty.isHidden = true
+        empty.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular)
+        empty.textColor = .tertiaryLabelColor
+        empty.stringValue = "No history or bookmarks\nto show"
         addSubview(empty)
         
         let list = List(status: status, width: 426)
@@ -48,8 +48,16 @@ final class Landing: NSView {
         list.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         list.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
-        empty.topAnchor.constraint(equalTo: topAnchor, constant: 50).isActive = true
-        empty.leftAnchor.constraint(equalTo: leftAnchor, constant: 50).isActive = true
+        empty.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
+        empty.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
+        
+        list
+            .empty
+            .removeDuplicates()
+            .sink {
+                empty.isHidden = !$0
+            }
+            .store(in: &subs)
     }
     
     override func mouseDown(with: NSEvent) {

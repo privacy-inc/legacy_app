@@ -3,6 +3,7 @@ import Combine
 import Specs
 
 final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
+    let empty = CurrentValueSubject<_, Never>(true)
     private let status: Status
     private let select = PassthroughSubject<CGPoint, Never>()
     
@@ -42,7 +43,10 @@ final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
                                 .init(website: item.1, first: item.0 == 0)
                         }
                 }
-                .subscribe(info)
+                .sink { [weak self] (items: [ListInfo]) -> Void in
+                    info.send(items)
+                    self?.empty.send(items.isEmpty)
+                }
                 .store(in: &subs)
         
         info
