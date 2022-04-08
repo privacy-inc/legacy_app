@@ -14,35 +14,26 @@ final class Bar: NSVisualEffectView {
         state = .active
         material = .menu
         
-        let animate = PassthroughSubject<Date, Never>()
         var tabs = [Tab]()
+        
+        let content = NSView()
+        content.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(content)
         
         let plus = Control.Symbol("plus", point: 16, size: Self.height)
         plus.toolTip = "New tab"
         plus
             .click
-            .map {
-                Date.now
-            }
-            .removeDuplicates {
-                $1.timeIntervalSince1970 - $0.timeIntervalSince1970 < 0.3
-            }
-            .sink { _ in
+            .sink {
                 status.addTab()
             }
             .store(in: &subs)
-        
         addSubview(plus)
-        
-        plus.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        plus.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         
         status
             .items
             .removeDuplicates()
-            .sink { [weak self] in
-                
-                guard let self = self else { return }
+            .sink {
                 var items = $0
                 tabs = tabs
                     .filter { tab in
@@ -54,53 +45,57 @@ final class Bar: NSVisualEffectView {
                     }
                 
                 items
-                    .reversed()
                     .forEach {
-                        let tab = Tab(status: status, item: $0.id)
-                        self.addSubview(tab)
+                        let tab = Tab(status: status, item: $0.id, current: $0.id == status.current.value)
+                        content.addSubview(tab)
                         
-                        tabs.first?.left = tab
-                        tab.right = tabs.first
+                        tabs.last?.right = tab
+                        tab.left = tabs.last
                         tab.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 1).isActive = true
                         
-                        tabs.insert(tab, at: 0)
+                        tabs.append(tab)
                     }
                 
-                tabs.first?.align(left: plus.rightAnchor)
-                animate.send(.now)
+                tabs.first?.align(after: content.leftAnchor)
             }
             .store(in: &subs)
         
         status
             .current
-            .sink { [weak self] current in
-                guard let self = self else { return }
-                self
-                    .subviews
-                    .compactMap {
-                        $0 as? Tab
-                    }
+            .sink { current in
+                tabs
                     .forEach { tab in
                         tab.current = tab.item == current
                     }
-                
-                animate.send(.now)
             }
             .store(in: &subs)
         
-        animate
-            .removeDuplicates {
-                $1.timeIntervalSince1970 - $0.timeIntervalSince1970 < 0.3
-            }
-            .sink { [weak self] _ in
-                NSAnimationContext
-                    .runAnimationGroup {
-                        $0.allowsImplicitAnimation = true
-                        $0.duration = 0.35
-                        self?.layoutSubtreeIfNeeded()
-                    }
-            }
-            .store(in: &subs)
+        status
+            .current
+            .combineLatest(status
+                .items) { _, _ in
+                    Date()
+                }
+                .removeDuplicates {
+                    $1.timeIntervalSince1970 - $0.timeIntervalSince1970 < 1
+                }
+                .sink { [weak self] _ in
+                    NSAnimationContext
+                        .runAnimationGroup {
+                            $0.allowsImplicitAnimation = true
+                            $0.duration = 0.3
+                            self?.layoutSubtreeIfNeeded()
+                        }
+                }
+                .store(in: &subs)
+        
+        plus.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        plus.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -8).isActive = true
+        
+        content.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        content.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        content.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        content.rightAnchor.constraint(equalTo: plus.leftAnchor).isActive = true
     }
     
     override var frame: NSRect {

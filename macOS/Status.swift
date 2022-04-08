@@ -22,11 +22,11 @@ struct Status {
     
     func addTab() {
         let item = Item(flow: .list)
-        items.value.append(item)
         current.send(item.id)
+        items.value.append(item)
     }
     
-    func next(id: UUID) {
+    func previous(id: UUID) {
         let index = index(of: id)
         if index > 0 {
             current.value = items.value[index - 1].id
@@ -35,7 +35,7 @@ struct Status {
         }
     }
     
-    func previous(id: UUID) {
+    func next(id: UUID) {
         let index = index(of: id)
         if index < items.value.count - 1 {
             current.value = items.value[index + 1].id
@@ -106,12 +106,11 @@ struct Status {
         let id = UUID()
         let web = await Web(status: self, item: id, settings: cloud.model.settings.configuration)
         let item = Item(id: id, flow: .web(web))
-        items.value.append(item)
         web.load(url: url)
-        
         if change {
             current.send(item.id)
         }
+        items.value.append(item)
     }
     
     @MainActor func open(url: URL, id: UUID) async {
