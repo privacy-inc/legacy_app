@@ -2,11 +2,15 @@ import AppKit
 import Combine
 import Specs
 
-final class Landing: NSView {
+final class Landing: NSView, NSMenuDelegate {
+    private weak var list: List!
     private var subs = Set<AnyCancellable>()
+    private let status: Status
 
     required init?(coder: NSCoder) { nil }
     init(status: Status) {
+        self.status = status
+        
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -17,6 +21,9 @@ final class Landing: NSView {
         addSubview(empty)
         
         let list = List(status: status, width: 426)
+        self.list = list
+        list.menu = .init()
+        list.menu!.delegate = self
         addSubview(list)
         
         let configure = Control.Symbol("slider.vertical.3", point: 18, size: 40)
@@ -60,10 +67,47 @@ final class Landing: NSView {
             .store(in: &subs)
     }
     
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        guard
+            let id = list.highlighted.value,
+            let url = URL(string: id)
+        else {
+            menu.items = []
+            return
+        }
+        menu.items = [
+            .child("Open", #selector(open)) {
+                $0.target = self
+                $0.image = .init(systemSymbolName: "return", accessibilityDescription: nil)
+            },
+            Menu.CopyLink(url: url, icon: true, shortcut: false),
+            .separator(),
+            Menu.Share(url: url, icon: true),
+            .separator(),
+            .child("Delete", #selector(delete)) {
+                $0.target = self
+                $0.image = .init(systemSymbolName: "trash", accessibilityDescription: nil)
+            }]
+    }
+    
     override func mouseDown(with: NSEvent) {
         super.mouseDown(with: with)
         if with.clickCount == 1 {
             window?.makeFirstResponder(self)
+        }
+    }
+    
+    @objc private func open() {
+        guard let url = list.highlighted.value else { return }
+        Task {
+            await status.open(url: URL(string: url)!, id: status.current.value)
+        }
+    }
+    
+    @objc private func delete() {
+        guard let url = list.highlighted.value else { return }
+        Task {
+            await cloud.delete(url: url)
         }
     }
 }

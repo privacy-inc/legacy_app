@@ -97,6 +97,9 @@
 		CE5D41B9272C484900AEBE0F /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D41B5272C484900AEBE0F /* Tab.swift */; };
 		CE5D41BE272C5CDC00AEBE0F /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D41BB272C5CDC00AEBE0F /* Control.swift */; };
 		CE5D41BF272C5CDC00AEBE0F /* Control.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D41BC272C5CDC00AEBE0F /* Control.State.swift */; };
+		CE5D66972801A09D00A05B6A /* Menu.Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D66962801A09D00A05B6A /* Menu.Share.swift */; };
+		CE5D66992801A28700A05B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D66982801A28700A05B6A /* String.swift */; };
+		CE5D669B2801A61800A05B6A /* Menu.CopyLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D669A2801A61800A05B6A /* Menu.CopyLink.swift */; };
 		CE5F1279272EB93E002D0AD2 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F1278272EB93E002D0AD2 /* Web.swift */; };
 		CE5F70C52721A41100C7203B /* Froob.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F70C42721A41100C7203B /* Froob.swift */; };
 		CE63A0B02719C34D00756E02 /* Settings.Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE63A0AF2719C34D00756E02 /* Settings.Navigation.swift */; };
@@ -353,6 +356,9 @@
 		CE5D41B5272C484900AEBE0F /* Tab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		CE5D41BB272C5CDC00AEBE0F /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		CE5D41BC272C5CDC00AEBE0F /* Control.State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.State.swift; sourceTree = "<group>"; };
+		CE5D66962801A09D00A05B6A /* Menu.Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.Share.swift; sourceTree = "<group>"; };
+		CE5D66982801A28700A05B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		CE5D669A2801A61800A05B6A /* Menu.CopyLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.CopyLink.swift; sourceTree = "<group>"; };
 		CE5F1278272EB93E002D0AD2 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CE5F70C42721A41100C7203B /* Froob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.swift; sourceTree = "<group>"; };
 		CE63A0AF2719C34D00756E02 /* Settings.Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Navigation.swift; sourceTree = "<group>"; };
@@ -544,7 +550,9 @@
 				CE25B83B27F9B51A003FCB31 /* List.swift */,
 				CE25B83D27F9B542003FCB31 /* ListCell.swift */,
 				CE25B83F27F9B55B003FCB31 /* ListInfo.swift */,
+				CE5D66962801A09D00A05B6A /* Menu.Share.swift */,
 				CEEBA5C827302A1C0079928E /* Menu.swift */,
+				CE5D669A2801A61800A05B6A /* Menu.CopyLink.swift */,
 				CEBFC84A273178BE00EFDA17 /* Message.swift */,
 				CE3576AF27281C25005854B5 /* NSApplication.swift */,
 				CE660AC1273AA978009A800E /* NSAttributedString.swift */,
@@ -585,6 +593,7 @@
 				CE8BA2F2272D843900E2D73F /* Tab.On.swift */,
 				CEBFC8462731686300EFDA17 /* Tab.Progress.swift */,
 				CE5D41B5272C484900AEBE0F /* Tab.swift */,
+				CE5D66982801A28700A05B6A /* String.swift */,
 				CE82C6FD27F4991200C5C46E /* Tab.Trackers.swift */,
 				CE743013272987E700F5F5B8 /* Text.swift */,
 				CE957E8227492D02001DEE19 /* Vibrant.swift */,
@@ -952,7 +961,9 @@
 				CEA2B292280047D600E2F201 /* NSPopover.swift in Sources */,
 				CE25B84027F9B55B003FCB31 /* ListInfo.swift in Sources */,
 				CE19EC8B2736A39400A412FC /* Plus.Option.swift in Sources */,
+				CE5D66992801A28700A05B6A /* String.swift in Sources */,
 				CE957E8327492D02001DEE19 /* Vibrant.swift in Sources */,
+				CE5D669B2801A61800A05B6A /* Menu.CopyLink.swift in Sources */,
 				CE72F035274BBED40012E08A /* Preferences.Controller.swift in Sources */,
 				CEA2B28E28003F5700E2F201 /* Forget.swift in Sources */,
 				CE660AC2273AA978009A800E /* NSAttributedString.swift in Sources */,
@@ -1015,6 +1026,7 @@
 				CE8BA2ED272D72E500E2D73F /* Tab.Off.swift in Sources */,
 				CEB22E94273578E1001C77E0 /* Info.swift in Sources */,
 				CE72F037274BC66A0012E08A /* Preferences.Tab.swift in Sources */,
+				CE5D66972801A09D00A05B6A /* Menu.Share.swift in Sources */,
 				CE8BA2FB272D9B7700E2D73F /* Search.Cell.Editor.swift in Sources */,
 				CEAFF016274152E300A9F744 /* Autocomplete.Move.swift in Sources */,
 				CE4312692736D25C00DA0F99 /* Preferences.swift in Sources */,

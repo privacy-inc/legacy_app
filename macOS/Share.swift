@@ -41,7 +41,7 @@ final class Share: NSPopover {
             .click
             .sink { [weak self] in
                 self?.close()
-                web.copyLink()
+//                web.copyLink()
             }
             .store(in: &subs)
         

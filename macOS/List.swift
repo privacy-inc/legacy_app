@@ -2,7 +2,7 @@ import AppKit
 import Combine
 import Specs
 
-final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
+final class List: Collection<ListCell, ListInfo> {
     let empty = CurrentValueSubject<_, Never>(true)
     private let status: Status
     private let select = PassthroughSubject<CGPoint, Never>()
@@ -15,8 +15,6 @@ final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
         alphaValue = 0
         scrollerInsets.top = 8
         scrollerInsets.bottom = 8
-        menu = .init()
-        menu!.delegate = self
         
         let vertical = CGFloat(15)
         let info = CurrentValueSubject<[ListInfo], Never>([])
@@ -166,41 +164,6 @@ final class List: Collection<ListCell, ListInfo>, NSMenuDelegate {
         default:
             break
         }
-    }
-    
-    final func menuNeedsUpdate(_ menu: NSMenu) {
-        menu.items = highlighted.value == nil
-            ? []
-            : [
-                .child("Open", #selector(open)) {
-                    $0.target = self
-                    $0.image = .init(systemSymbolName: "arrow.up", accessibilityDescription: nil)
-                },
-                .separator(),
-                .child("Delete", #selector(delete)) {
-                    $0.target = self
-                    $0.image = .init(systemSymbolName: "trash", accessibilityDescription: nil)
-                }]
-    }
-    
-    @objc private func open() {
-        _ = highlighted
-            .value
-            .map { url in
-                Task {
-                    await status.open(url: URL(string: url)!, id: status.current.value)
-                }
-            }
-    }
-    
-    @objc private func delete() {
-        _ = highlighted
-            .value
-            .map { url in
-                Task {
-                    await cloud.delete(url: url)
-                }
-            }
     }
     
     private func center(y: CGFloat) {

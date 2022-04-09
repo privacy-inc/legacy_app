@@ -68,25 +68,12 @@ final class Menu: NSMenu, NSMenuDelegate {
         
         items += [
             .separator(),
-            .parent("Share", [
-                .child(url.absoluteString.capped),
-                .separator()]
-                    + NSSharingService
-                        .sharingServices(forItems: [url])
-                        .map { service in
-                            .child(service.menuItemTitle, #selector(web.share)) {
-                                $0.target = web
-                                $0.image = service.image
-                                $0.representedObject = service
-                            }
-                        }),
+            Share(url: url, icon: false),
             .separator(),
             .child("Save As...", #selector(web.saveAs), "s") {
                 $0.target = web
             },
-            .child("Copy Link", #selector(web.copyLink), "C") {
-                $0.target = web
-            },
+            CopyLink(url: url, icon: false, shortcut: true),
             .separator(),
             .child("Export as PDF...", #selector(web.exportAsPdf)) {
                 $0.target = web
@@ -356,11 +343,5 @@ final class Menu: NSMenu, NSMenuDelegate {
         default:
             break
         }
-    }
-}
-
-private extension String {
-    var capped: String {
-        count > 40 ? prefix(40) + "..." : self
     }
 }

@@ -1,7 +1,6 @@
 import WebKit
 import Combine
 import UniformTypeIdentifiers
-import UserNotifications
 import Specs
 
 final class Web: Webview {
@@ -166,14 +165,6 @@ final class Web: Webview {
         status.change(flow: .web(self), id: item)
     }
     
-    @objc func share(_ item: NSMenuItem) {
-        guard
-            let url = url,
-            let service = item.representedObject as? NSSharingService
-        else { return }
-        service.perform(withItems: [url])
-    }
-    
     @objc func saveAs() {
         saveAs(types: [])
     }
@@ -218,17 +209,6 @@ final class Web: Webview {
     
     @objc func zoomOut() {
         pageZoom /= 1.1
-    }
-    
-    @objc func copyLink() {
-        guard let url = url else { return }
-        NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString(url.absoluteString, forType: .string)
-        
-        Task
-            .detached(priority: .utility) {
-                await UNUserNotificationCenter.send(message: "Link URL copied")
-            }
     }
     
     @MainActor @objc func exportAsPdf() {
