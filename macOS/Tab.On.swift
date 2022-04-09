@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Specs
 
 extension Tab {
     final class On: NSView, NSTextFieldDelegate {
@@ -14,6 +15,8 @@ extension Tab {
         init(status: Status, id: UUID, publisher: AnyPublisher<Web, Never>) {
             self.status = status
             self.id = id
+            
+            let domain = CurrentValueSubject<_, Never>("")
             
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
@@ -42,8 +45,7 @@ extension Tab {
                 }
                 .store(in: &subs)
             
-            let trackers = Trackers(status: status, item: id)
-            trackers.state = .hidden
+            let counter = Counter(domain: domain)
             
             let secure = Control.Symbol("lock.fill", point: 12, size: Bar.height)
             secure.toolTip = "Secure connection"
@@ -73,7 +75,7 @@ extension Tab {
             stop.toolTip = "Stop"
             stop.state = .hidden
             
-            let stack = NSStackView(views: [prompt, close, search, secure, insecure, back, forward, reload, stop, options, trackers])
+            let stack = NSStackView(views: [prompt, close, search, secure, insecure, back, forward, reload, stop, options, counter])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.spacing = 0
             addSubview(stack)
@@ -131,7 +133,7 @@ extension Tab {
                 .first()
                 .sink { [weak self] (web: Web) in
                     options.state = .on
-                    trackers.state = .on
+                    counter.state = .on
                     
                     self?.add(web
                         .publisher(for: \.url)
@@ -166,7 +168,7 @@ extension Tab {
                                 search.stringValue = url?.absoluteString ?? title
                                 secure.state = .hidden
                                 insecure.state = .hidden
-                                trackers.state = .hidden
+                                counter.state = .hidden
                             default:
                                 break
                             }
@@ -303,14 +305,7 @@ extension Tab {
                         .removeDuplicates()
                         .map(\.domain)
                         .removeDuplicates()
-                        .combineLatest(cloud
-                            .map(\.tracking)) {
-                                $1.count(domain: $0)
-                            }
-                        .removeDuplicates()
-                        .sink {
-                            trackers.text.stringValue =  $0 < 1000 ? $0.formatted() : "􀯠"
-                        })
+                        .subscribe(domain))
                 }
                 .store(in: &subs)
             
