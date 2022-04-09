@@ -10,7 +10,7 @@ extension Tab {
         private weak var title: Text!
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, id: UUID) {
+        init(status: Status, id: UUID, publisher: AnyPublisher<Web, Never>) {
             super.init(layer: true)
             layer!.cornerRadius = 8
             layer!.cornerCurve = .continuous
@@ -23,6 +23,7 @@ extension Tab {
             
             let icon = Icon(size: 18)
             icon.icon(website: nil)
+            icon.isHidden = true
             self.icon = icon
             addSubview(icon)
             
@@ -32,6 +33,7 @@ extension Tab {
             title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             title.maximumNumberOfLines = 1
             title.lineBreakMode = .byTruncatingTail
+            title.stringValue = "New tab"
             self.title = title
             addSubview(title)
             
@@ -44,11 +46,10 @@ extension Tab {
                 }
                 .store(in: &subs)
             addSubview(close)
-            close.state = .hidden
             self.close = close
             
-            let widthConstraint = widthAnchor.constraint(equalToConstant: status.width.value.off)
-            widthConstraint.isActive = true
+            let width = widthAnchor.constraint(equalToConstant: status.width.value.off)
+            width.isActive = true
             
             close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
             close.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -60,25 +61,21 @@ extension Tab {
             title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
             title.centerYAnchor.constraint(equalTo: close.centerYAnchor, constant: -1).isActive = true
             
-            status
-                .items
-                .compactMap {
-                    $0
-                        .first {
-                            $0.id == id
-                        }
-                }
-                .compactMap {
-                    switch $0.flow {
-                    case let .web(web), let .message(web, _, _, _):
-                        return web
-                    default:
-                        return nil
-                    }
-                }
+            publisher
                 .first()
-                .sink { [weak self] (web: Web) in
-                    self?.web(web: web)
+                .sink { [weak self] web in
+                    icon.isHidden = false
+                    close.state = .hidden
+                    
+                    self?.add(web
+                        .publisher(for: \.url)
+                        .compactMap {
+                            $0
+                        }
+                        .sink {
+                            icon.icon(website: $0)
+                            title.stringValue = $0.absoluteString.domain
+                        })
                 }
                 .store(in: &subs)
             
@@ -86,7 +83,7 @@ extension Tab {
                 .width
                 .dropFirst()
                 .sink {
-                    widthConstraint.constant = $0.off
+                    width.constant = $0.off
                 }
                 .store(in: &subs)
         }
@@ -110,38 +107,13 @@ extension Tab {
         
         override func mouseExited(with: NSEvent) {
             super.mouseExited(with: with)
+            guard icon.image.image != nil else { return }
             close.state = .hidden
             icon.isHidden = false
         }
         
-        private func web(web: Web) {
-//            web
-//                .publisher(for: \.url)
-//                .flatMap { _ in
-//                    Future<AccessType?, Never> { promise in
-//                        Task {
-//                            guard let access = await cloud.website(history: web.history)?.access else {
-//                                promise(.success(nil))
-//                                return
-//                            }
-//                            promise(.success(access))
-//                        }
-//                    }
-//                }
-//                .compactMap {
-//                    $0
-//                }
-//                .sink { [weak self] access in
-//                    self?.icon.icon(icon: access.icon)
-//                    
-//                    switch access {
-//                    case let remote as Access.Remote:
-//                        self?.title.stringValue = remote.domain.minimal
-//                    default:
-//                        self?.title.stringValue = access.value
-//                    }
-//                }
-//                .store(in: &subs)
+        private func add(_ cancellable: AnyCancellable) {
+            subs.insert(cancellable)
         }
     }
 }

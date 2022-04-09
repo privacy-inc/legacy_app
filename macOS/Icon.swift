@@ -3,7 +3,7 @@ import Combine
 import Specs
 
 final class Icon: NSView {
-    private weak var icon: NSImageView!
+    private(set) weak var image: NSImageView!
     private weak var width: NSLayoutConstraint!
     private var sub: AnyCancellable?
     private let size: CGFloat
@@ -15,24 +15,23 @@ final class Icon: NSView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
-        let icon = NSImageView()
-        icon.wantsLayer = true
-        icon.layer!.cornerRadius = 6
-        icon.layer!.cornerCurve = .continuous
-        icon.imageScaling = .scaleProportionallyUpOrDown
-        icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.isHidden = true
-        self.icon = icon
-        addSubview(icon)
+        let image = NSImageView()
+        image.wantsLayer = true
+        image.layer!.cornerRadius = 6
+        image.layer!.cornerCurve = .continuous
+        image.imageScaling = .scaleProportionallyUpOrDown
+        image.translatesAutoresizingMaskIntoConstraints = false
+        self.image = image
+        addSubview(image)
         
         heightAnchor.constraint(equalToConstant: size).isActive = true
         width = widthAnchor.constraint(equalToConstant: 0)
         width.isActive = true
         
-        icon.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        icon.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        icon.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        icon.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        image.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        image.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        image.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        image.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
     }
     
     override func hitTest(_: NSPoint) -> NSView? {
@@ -48,7 +47,6 @@ final class Icon: NSView {
     
     @MainActor private func update(website: URL?) async {
         width.constant = 0
-        icon.isHidden = true
         sub?.cancel()
         guard
             let website = website,
@@ -57,8 +55,7 @@ final class Icon: NSView {
         sub = publisher
             .sink { [weak self, size] in
                 self?.width.constant = size
-                self?.icon.image = $0
-                self?.icon.isHidden = false
+                self?.image.image = $0
             }
     }
 }

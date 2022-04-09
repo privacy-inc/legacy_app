@@ -11,7 +11,7 @@ extension Tab {
         private let status: Status
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, id: UUID) {
+        init(status: Status, id: UUID, publisher: AnyPublisher<Web, Never>) {
             self.status = status
             self.id = id
             
@@ -22,15 +22,8 @@ extension Tab {
             self.progress = progress
             addSubview(progress)
             
-            let search = Search()
+            let search = Search(status: status)
             search.delegate = self
-            
-            status
-                .complete
-                .sink {
-                    search.stringValue = $0
-                }
-                .store(in: &subs)
             
             let prompt = Control.Symbol("magnifyingglass", point: 12, size: Bar.height)
             prompt.toolTip = "Search"
@@ -85,8 +78,8 @@ extension Tab {
             stack.spacing = 0
             addSubview(stack)
             
-            let widthConstraint = widthAnchor.constraint(equalToConstant: status.width.value.on)
-            widthConstraint.isActive = true
+            let width = widthAnchor.constraint(equalToConstant: status.width.value.on)
+            width.isActive = true
             
             progress.topAnchor.constraint(equalTo: topAnchor).isActive = true
             progress.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -134,22 +127,7 @@ extension Tab {
                 }
                 .store(in: &subs)
             
-            status
-                .items
-                .compactMap {
-                    $0
-                        .first {
-                            $0.id == id
-                        }
-                }
-                .compactMap {
-                    switch $0.flow {
-                    case let .web(web), let .message(web, _, _, _):
-                        return web
-                    default:
-                        return nil
-                    }
-                }
+            publisher
                 .first()
                 .sink { [weak self] (web: Web) in
                     options.state = .on
@@ -188,6 +166,7 @@ extension Tab {
                                 search.stringValue = url?.absoluteString ?? title
                                 secure.state = .hidden
                                 insecure.state = .hidden
+                                trackers.state = .hidden
                             default:
                                 break
                             }
@@ -314,6 +293,24 @@ extension Tab {
                             else { return }
                             status.change(flow: .web(web), id: id)
                         })
+                    
+                    self?.add(web
+                        .publisher(for: \.url)
+                        .compactMap {
+                            $0
+                        }
+                        .map(\.absoluteString)
+                        .removeDuplicates()
+                        .map(\.domain)
+                        .removeDuplicates()
+                        .combineLatest(cloud
+                            .map(\.tracking)) {
+                                $1.count(domain: $0)
+                            }
+                        .removeDuplicates()
+                        .sink {
+                            trackers.text.stringValue =  $0 < 1000 ? $0.formatted() : "􀯠"
+                        })
                 }
                 .store(in: &subs)
             
@@ -328,7 +325,7 @@ extension Tab {
                 .width
                 .dropFirst()
                 .sink {
-                    widthConstraint.constant = $0.on
+                    width.constant = $0.on
                 }
                 .store(in: &subs)
         }
@@ -370,9 +367,8 @@ extension Tab {
             case #selector(insertNewline):
 //                autocomplete?.close()
                 Task
-                    .detached(priority: .utility) { [weak self] in
-                        guard let id = self?.id else { return }
-                        await self?.status.search(string: control.stringValue, id: id)
+                    .detached(priority: .utility) { [status, id] in
+                        await status.search(string: control.stringValue, id: id)
                     }
                 window!.makeFirstResponder(window!.contentView)
             case #selector(moveUp):

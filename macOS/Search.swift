@@ -1,8 +1,11 @@
 import AppKit
+import Combine
 
 final class Search: NSTextField {
+    private var sub: AnyCancellable?
+    
     required init?(coder: NSCoder) { nil }
-    init() {
+    init(status: Status) {
         Self.cellClass = Cell.self
         super.init(frame: .zero)
         bezelStyle = .roundedBezel
@@ -12,6 +15,12 @@ final class Search: NSTextField {
         lineBreakMode = .byTruncatingTail
         textColor = .labelColor
         isAutomaticTextCompletionEnabled = false
+        
+        sub = status
+            .complete
+            .sink { [weak self] in
+                self?.stringValue = $0
+            }
     }
 
     deinit {

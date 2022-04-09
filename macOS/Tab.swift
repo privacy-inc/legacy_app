@@ -1,7 +1,9 @@
 import AppKit
+import Combine
 
 final class Tab: NSView, NSMenuDelegate {
     let id: UUID
+    private let publisher: AnyPublisher<Web, Never>
     private let status: Status
     
     var current: Bool {
@@ -33,6 +35,24 @@ final class Tab: NSView, NSMenuDelegate {
         self.status = status
         self.id = id
         self.current = current
+        
+        publisher = status
+            .items
+            .compactMap {
+                $0
+                    .first {
+                        $0.id == id
+                    }
+            }
+            .compactMap {
+                switch $0.flow {
+                case let .web(web), let .message(web, _, _, _):
+                    return web
+                default:
+                    return nil
+                }
+            }
+            .eraseToAnyPublisher()
         
         super.init(frame: .zero)
         menu = NSMenu()
@@ -73,9 +93,9 @@ final class Tab: NSView, NSMenuDelegate {
         
         let view: NSView
         if current {
-            view = On(status: status, id: id)
+            view = On(status: status, id: id, publisher: publisher)
         } else {
-            view = Off(status: status, id: id)
+            view = Off(status: status, id: id, publisher: publisher)
         }
         addSubview(view)
         rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
