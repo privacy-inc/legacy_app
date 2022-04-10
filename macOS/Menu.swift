@@ -147,9 +147,13 @@ final class Menu: NSMenu, NSMenuDelegate {
     private var viewItems: [NSMenuItem] {
         var web: Web?
         
-        if let window = NSApp.keyWindow as? Window,
-           case let .web(item) = window.status.flow(of: window.status.current.value) {
-            web = item
+        if let window = NSApp.keyWindow as? Window {
+            switch window.status.flow(of: window.status.current.value) {
+            case let .web(item), let .message(item, _, _, _):
+                web = item
+            default:
+                break
+            }
         }
         
         return [

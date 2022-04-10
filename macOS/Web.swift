@@ -47,6 +47,37 @@ final class Web: Webview {
         status.change(flow: .message(self, url, title, icon), id: item)
     }
     
+    override func reload(_ sender: Any?) {
+        switch status.flow(of: item) {
+        case .web:
+            super.reload(sender)
+        case let .message(_, url, _, _):
+            url
+                .map {
+                    status.change(flow: .web(self), id: item)
+                    load(url: $0)
+                }
+        default:
+            break
+        }
+    }
+    
+    override func goBack(_ sender: Any?) {
+        switch status.flow(of: item) {
+        case .web:
+            super.goBack(sender)
+        case .message:
+            if url == nil {
+                status.addTab()
+                status.close(id: item)
+            } else {
+                status.change(flow: .web(self), id: item)
+            }
+        default:
+            break
+        }
+    }
+    
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
         window?.makeFirstResponder(self)
     }
@@ -142,27 +173,6 @@ final class Web: Webview {
                     $0.representedObject = window
                 }
         }
-    }
-    
-    func retry() {
-        if case let .message(_, url, _, _) = status.flow(of: item),
-           let url = url {
-            status.change(flow: .web(self), id: item)
-            load(url: url)
-        }
-    }
-    
-    func dismiss() {
-        guard
-            case .message = status.flow(of: item),
-            url != nil
-        else {
-            status.addTab()
-            status.close(id: item)
-            return
-        }
-
-        status.change(flow: .web(self), id: item)
     }
     
     @objc func saveAs() {

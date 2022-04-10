@@ -251,16 +251,7 @@ extension Tab {
                     self?.add(reload
                         .click
                         .sink {
-                            guard let flow = status.items.value.first(where: { $0.id == id })?.flow else { return }
-                            
-                            switch flow {
-                            case .web:
-                                web.reload()
-                            case .message:
-                                web.retry()
-                            default:
-                                break
-                            }
+                            web.reload(nil)
                         })
                     
                     self?.add(stop
@@ -272,16 +263,7 @@ extension Tab {
                     self?.add(back
                         .click
                         .sink {
-                            guard let flow = status.items.value.first(where: { $0.id == id })?.flow else { return }
-                            
-                            switch flow {
-                            case .web:
-                                web.goBack()
-                            case .message:
-                                web.dismiss()
-                            default:
-                                break
-                            }
+                            web.goBack(nil)
                         })
                     
                     self?.add(forward
