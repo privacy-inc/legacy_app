@@ -132,17 +132,17 @@ final class Trackers: NSView {
                         let text = Text(vibrancy: false)
                         text.stringValue = item.tracker
                         text.textColor = .secondaryLabelColor
-                        text.font = .preferredFont(forTextStyle: .body)
+                        text.font = .preferredFont(forTextStyle: .callout)
                         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
                         view.addSubview(text)
                         
                         let count = Text(vibrancy: false)
                         count.attributedStringValue = .make {
                             $0.append(.init(string: "×", attributes: [
-                                .font : NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .medium),
+                                .font : NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .medium),
                                 .foregroundColor : NSColor.tertiaryLabelColor]))
                             $0.append(.init(string: item.count.formatted(), attributes: [
-                                .font : NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .light),
+                                .font : NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .light),
                                 .foregroundColor : NSColor.secondaryLabelColor]))
                         }
                         count.alignment = .right
