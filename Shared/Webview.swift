@@ -17,7 +17,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
                     dark: Bool) {
         
         self.settings = settings
-        
+
         configuration.suppressesIncrementalRendering = false
         configuration.allowsAirPlayForMediaPlayback = true
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = settings.popups && settings.javascript
@@ -52,24 +52,26 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         allowsBackForwardNavigationGestures = true
         allowsMagnification = true
         
-        publisher(for: \.url)
-            .compactMap {
-                $0
-            }
-            .removeDuplicates()
-            .combineLatest(publisher(for: \.title)
+        if settings.history {
+            publisher(for: \.url)
                 .compactMap {
                     $0
                 }
-                .removeDuplicates())
-            .debounce(for: .seconds(1), scheduler: DispatchQueue.global(qos: .utility))
-            .sink { url, title in
-                Task
-                    .detached(priority: .utility) {
-                        await cloud.history(url: url, title: title)
+                .removeDuplicates()
+                .combineLatest(publisher(for: \.title)
+                    .compactMap {
+                        $0
                     }
-            }
-            .store(in: &subs)
+                    .removeDuplicates())
+                .debounce(for: .seconds(1), scheduler: DispatchQueue.global(qos: .utility))
+                .sink { url, title in
+                    Task
+                        .detached(priority: .utility) {
+                            await cloud.history(url: url, title: title)
+                        }
+                }
+                .store(in: &subs)
+        }
         
         publisher(for: \.estimatedProgress)
             .subscribe(progress)
@@ -106,13 +108,17 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish: WKNavigation!) {
-        Task {
-            guard
-                let website = webView.url,
-                await favicon.request(for: website),
-                let url = try? await (webView.evaluateJavaScript(Script.favicon.method)) as? String
-            else { return }
-            await favicon.received(url: url, for: website)
+        if settings.favicons {
+            Task {
+                guard
+                    let website = webView.url,
+                    await favicon.request(for: website),
+                    let url = try? await (webView.evaluateJavaScript(Script.favicon.method)) as? String,
+                    settings.http || (!settings.http && url.hasPrefix("https://"))
+                else { return }
+
+                await favicon.received(url: url, for: website)
+            }
         }
         
         if !settings.timers {
