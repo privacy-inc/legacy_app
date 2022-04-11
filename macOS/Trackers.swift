@@ -17,7 +17,7 @@ final class Trackers: NSView {
         
         let url = Text(vibrancy: false)
         url.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular)
-        url.textColor = .tertiaryLabelColor
+        url.textColor = .secondaryLabelColor
         url.maximumNumberOfLines = 1
         url.lineBreakMode = .byTruncatingTail
         addSubview(url)
@@ -68,7 +68,7 @@ final class Trackers: NSView {
         url.widthAnchor.constraint(lessThanOrEqualToConstant: width - 20).isActive = true
         
         icon.topAnchor.constraint(equalTo: url.bottomAnchor, constant: 12).isActive = true
-        icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 70).isActive = true
+        icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 76).isActive = true
         
         description.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 5).isActive = true
         description.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true

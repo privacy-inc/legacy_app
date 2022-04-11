@@ -1,13 +1,11 @@
-/*import AppKit
+import AppKit
 import Combine
 
 final class Autocomplete: NSPanel {
-    let adjust = PassthroughSubject<(position: CGPoint, width: CGFloat), Never>()
-    private(set) weak var list: List!
     private var monitor: Any?
-    private var subs = Set<AnyCancellable>()
+    private var sub: AnyCancellable?
     
-    init(status: Status) {
+    init(status: Status, position: CGPoint, width: CGFloat) {
         super.init(contentRect: .zero,
                    styleMask: [.borderless],
                    backing: .buffered,
@@ -24,8 +22,7 @@ final class Autocomplete: NSPanel {
         blur.layer!.cornerRadius = 12
         contentView!.addSubview(blur)
         
-        let list = List(status: status)
-        self.list = list
+        let list = List(status: status, width: width - 24)
         blur.addSubview(list)
         
         list.topAnchor.constraint(equalTo: blur.topAnchor, constant: 2).isActive = true
@@ -33,27 +30,22 @@ final class Autocomplete: NSPanel {
         list.leftAnchor.constraint(equalTo: blur.leftAnchor).isActive = true
         list.rightAnchor.constraint(equalTo: blur.rightAnchor).isActive = true
         
-        adjust
-            .removeDuplicates {
-                $0.position == $1.position
+        sub = list
+            .size
+            .map(\.height)
+            .map {
+                min($0, 300)
             }
-            .combineLatest(list
-                            .size
-                            .map(\.height)
-                            .map {
-                                min($0, 300)
-                            }
-                            .removeDuplicates())
-            .sink { [weak self] in
-                guard $1 > 0 else {
+            .removeDuplicates()
+            .sink { [weak self] height in
+                guard height > 0 else {
                     self?.close()
                     return
                 }
-                blur.frame.size = .init(width: $0.width, height: $1 + 4)
+                blur.frame.size = .init(width: width, height: height + 4)
                 self?.setContentSize(blur.frame.size)
-                self?.setFrameTopLeftPoint($0.position)
+                self?.setFrameTopLeftPoint(position)
             }
-            .store(in: &subs)
         
         monitor = NSEvent
             .addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown, .otherMouseDown]) { [weak self] event in
@@ -71,11 +63,4 @@ final class Autocomplete: NSPanel {
         parent?.removeChildWindow(self)
         super.close()
     }
-    
-    func find(string: String) {
-        Task {
-            await list.found.send(cloud.autocomplete(search: string))
-        }
-    }
 }
-*/

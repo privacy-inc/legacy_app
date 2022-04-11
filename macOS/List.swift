@@ -8,7 +8,7 @@ final class List: Collection<ListCell, ListInfo> {
     private let select = PassthroughSubject<CGPoint, Never>()
     
     required init?(coder: NSCoder) { nil }
-    init(status: Status, width: CGFloat?) {
+    init(status: Status, width: CGFloat) {
         self.status = status
         
         super.init(active: .activeAlways)
@@ -51,10 +51,7 @@ final class List: Collection<ListCell, ListInfo> {
             .dropFirst()
             .removeDuplicates()
             .sink { [weak self] in
-                guard
-                    !$0.isEmpty,
-                    let width = width ?? self.map(\.frame.width).map({ $0 - 24 })
-                else {
+                guard !$0.isEmpty else {
                     self?.items.send([])
                     self?.size.send(.init(width: 0, height: 0))
                     return

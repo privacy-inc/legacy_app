@@ -6,7 +6,7 @@ extension Tab {
     final class On: NSView, NSTextFieldDelegate {
         private weak var stack: NSStackView!
         private weak var progress: Progress!
-//        private weak var autocomplete: Autocomplete?
+        private weak var autocomplete: Autocomplete?
         private var subs = Set<AnyCancellable>()
         private let id: UUID
         private let status: Status
@@ -308,7 +308,7 @@ extension Tab {
         }
         
         deinit {
-//            autocomplete?.close()
+            autocomplete?.close()
         }
         
         override func updateLayer() {
@@ -318,20 +318,16 @@ extension Tab {
         func controlTextDidChange(_ control: Notification) {
             guard let search = control.object as? Search else { return }
             
-//            if self.autocomplete == nil {
-//                let autocomplete = Autocomplete(status: status)
-//                window!.addChildWindow(autocomplete, ordered: .above)
-//
-//                ;{
-//                    autocomplete.adjust.send((position: .init(x: $0.x - 3, y: $0.y - 6), width: bounds.width + 6))
-//                } (window!.convertPoint(toScreen: convert(frame.origin, to: nil)))
-//
-//
-//
-//                self.autocomplete = autocomplete
-//            }
-//
-//            autocomplete?.find(string: search.stringValue)
+            if status.flow(of: id) != .list {
+                if self.autocomplete == nil {
+                    let origin = window!.convertPoint(toScreen: convert(frame.origin, to: nil))
+                    let autocomplete = Autocomplete(status: status,
+                                                    position: .init(x: origin.x - 3, y: origin.y - 6),
+                                                    width: bounds.width + 6)
+                    window!.addChildWindow(autocomplete, ordered: .above)
+                    self.autocomplete = autocomplete
+                }
+            }
             
             status.filter.send(search.stringValue)
         }
@@ -339,10 +335,10 @@ extension Tab {
         func control(_ control: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
             case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
-//                autocomplete?.close()
+                autocomplete?.close()
                 window?.makeFirstResponder(window?.contentView)
             case #selector(insertNewline):
-//                autocomplete?.close()
+                autocomplete?.close()
                 Task
                     .detached(priority: .utility) { [status, id] in
                         await status.search(string: control.stringValue, id: id)

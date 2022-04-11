@@ -176,10 +176,6 @@
 		CEAAFB2F27009ED400149F0C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2E27009ED400149F0C /* Transaction.swift */; };
 		CEABD1F5272AE07100F56852 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F4272AE07100F56852 /* Icon.swift */; };
 		CEAFF0122741522200A9F744 /* Autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF0112741522200A9F744 /* Autocomplete.swift */; };
-		CEAFF016274152E300A9F744 /* Autocomplete.Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF015274152E300A9F744 /* Autocomplete.Move.swift */; };
-		CEAFF0182741531A00A9F744 /* Autocomplete.List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF0172741531A00A9F744 /* Autocomplete.List.swift */; };
-		CEAFF01A2741532F00A9F744 /* Autocomplete.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF0192741532F00A9F744 /* Autocomplete.Cell.swift */; };
-		CEAFF01C2741534200A9F744 /* Autocomplete.Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF01B2741534200A9F744 /* Autocomplete.Info.swift */; };
 		CEB22E9227355208001C77E0 /* Web.Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E9127355208001C77E0 /* Web.Destination.swift */; };
 		CEB22E94273578E1001C77E0 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E93273578E1001C77E0 /* Info.swift */; };
 		CEB22E9627357A84001C77E0 /* Info.Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E9527357A84001C77E0 /* Info.Policy.swift */; };
@@ -437,10 +433,6 @@
 		CEAAFB2E27009ED400149F0C /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		CEABD1F4272AE07100F56852 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		CEAFF0112741522200A9F744 /* Autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.swift; sourceTree = "<group>"; };
-		CEAFF015274152E300A9F744 /* Autocomplete.Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.Move.swift; sourceTree = "<group>"; };
-		CEAFF0172741531A00A9F744 /* Autocomplete.List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.List.swift; sourceTree = "<group>"; };
-		CEAFF0192741532F00A9F744 /* Autocomplete.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.Cell.swift; sourceTree = "<group>"; };
-		CEAFF01B2741534200A9F744 /* Autocomplete.Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.Info.swift; sourceTree = "<group>"; };
 		CEB22E9127355208001C77E0 /* Web.Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Destination.swift; sourceTree = "<group>"; };
 		CEB22E93273578E1001C77E0 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		CEB22E9527357A84001C77E0 /* Info.Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Policy.swift; sourceTree = "<group>"; };
@@ -520,10 +512,6 @@
 				CEE4D86D273D24E700EAA768 /* Activity.Card.swift */,
 				CEE4D86B273D1F3B00EAA768 /* Activity.swift */,
 				CE1936AF272804CF00476227 /* App.swift */,
-				CEAFF0192741532F00A9F744 /* Autocomplete.Cell.swift */,
-				CEAFF01B2741534200A9F744 /* Autocomplete.Info.swift */,
-				CEAFF0172741531A00A9F744 /* Autocomplete.List.swift */,
-				CEAFF015274152E300A9F744 /* Autocomplete.Move.swift */,
 				CEAFF0112741522200A9F744 /* Autocomplete.swift */,
 				CE5D41B0272C3D8800AEBE0F /* Bar.swift */,
 				CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */,
@@ -955,7 +943,6 @@
 				CE742FFE2729759900F5F5B8 /* Landing.swift in Sources */,
 				CEBFC84B273178BE00EFDA17 /* Message.swift in Sources */,
 				CE3576B527281CFD005854B5 /* Store.State.swift in Sources */,
-				CEAFF0182741531A00A9F744 /* Autocomplete.List.swift in Sources */,
 				CE43126F2736D71500DA0F99 /* Preferences.Navigation.swift in Sources */,
 				CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */,
 				CE4312682736D25C00DA0F99 /* Preferences.Javascript.swift in Sources */,
@@ -981,7 +968,6 @@
 				CEB558092743F18500B19D62 /* Plus.Banner.Particle.swift in Sources */,
 				CE19EC912736B32500A412FC /* Plus.Action.swift in Sources */,
 				CE3576AE27281689005854B5 /* Global.swift in Sources */,
-				CEAFF01C2741534200A9F744 /* Autocomplete.Info.swift in Sources */,
 				CEBCAADB2732C64600B9D49C /* Forget_old.swift in Sources */,
 				CE74300E2729825500F5F5B8 /* Flip.swift in Sources */,
 				CEF1484F27F1F9660017AD40 /* Downloads.swift in Sources */,
@@ -1032,7 +1018,6 @@
 				CE72F037274BC66A0012E08A /* Preferences.Tab.swift in Sources */,
 				CE5D66972801A09D00A05B6A /* Menu.Share.swift in Sources */,
 				CE8BA2FB272D9B7700E2D73F /* Search.Cell.Editor.swift in Sources */,
-				CEAFF016274152E300A9F744 /* Autocomplete.Move.swift in Sources */,
 				CE4312692736D25C00DA0F99 /* Preferences.swift in Sources */,
 				CE09C06227FF15A20032A303 /* NSWindow.swift in Sources */,
 				CEBB8BDF2728258300016F2C /* Status.swift in Sources */,
@@ -1046,7 +1031,6 @@
 				CE743007272981EA00F5F5B8 /* CollectionCellState.swift in Sources */,
 				CE3576B327281CE4005854B5 /* Copy.swift in Sources */,
 				CEB22E9A2735880F001C77E0 /* Plus.swift in Sources */,
-				CEAFF01A2741532F00A9F744 /* Autocomplete.Cell.swift in Sources */,
 				CE3576B227281C3F005854B5 /* Window.swift in Sources */,
 				CE74300A272981EA00F5F5B8 /* Collection.swift in Sources */,
 				CEBFC8472731686300EFDA17 /* Tab.Progress.swift in Sources */,
