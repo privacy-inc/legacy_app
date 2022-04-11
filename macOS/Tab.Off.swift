@@ -10,7 +10,7 @@ extension Tab {
         private weak var title: Text!
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, id: UUID, publisher: AnyPublisher<Web, Never>) {
+        init(status: Status, id: UUID, publisher: AnyPublisher<Status.Flow, Never>) {
             super.init(layer: true)
             layer!.cornerRadius = 8
             layer!.cornerCurve = .continuous
@@ -33,7 +33,6 @@ extension Tab {
             title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             title.maximumNumberOfLines = 1
             title.lineBreakMode = .byTruncatingTail
-            title.stringValue = "New tab"
             self.title = title
             addSubview(title)
             
@@ -63,19 +62,26 @@ extension Tab {
             
             publisher
                 .first()
-                .sink { [weak self] web in
-                    icon.isHidden = false
-                    close.state = .hidden
-                    
-                    self?.add(web
-                        .publisher(for: \.url)
-                        .compactMap {
-                            $0
-                        }
-                        .sink {
-                            icon.icon(website: $0)
-                            title.stringValue = $0.absoluteString.domain
-                        })
+                .sink { [weak self] in
+                    switch $0 {
+                    case .list:
+                        title.stringValue = "New tab"
+                    case let .web(web):
+                        icon.isHidden = false
+                        close.state = .hidden
+                        
+                        self?.add(web
+                            .publisher(for: \.url)
+                            .compactMap {
+                                $0
+                            }
+                            .sink {
+                                icon.icon(website: $0)
+                                title.stringValue = $0.absoluteString.domain
+                            })
+                    case let .message(_, url, _, _):
+                        title.stringValue = url?.absoluteString.domain ?? ""
+                    }
                 }
                 .store(in: &subs)
             

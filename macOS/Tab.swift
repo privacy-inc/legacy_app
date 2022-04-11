@@ -3,7 +3,7 @@ import Combine
 
 final class Tab: NSView, NSMenuDelegate {
     let id: UUID
-    private let publisher: AnyPublisher<Web, Never>
+    private let publisher: AnyPublisher<Status.Flow, Never>
     private let status: Status
     
     var current: Bool {
@@ -42,15 +42,8 @@ final class Tab: NSView, NSMenuDelegate {
                 $0
                     .first {
                         $0.id == id
-                    }
-            }
-            .compactMap {
-                switch $0.flow {
-                case let .web(web), let .message(web, _, _, _):
-                    return web
-                default:
-                    return nil
-                }
+                    }?
+                    .flow
             }
             .eraseToAnyPublisher()
         

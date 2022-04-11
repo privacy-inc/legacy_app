@@ -52,7 +52,6 @@ final class Trackers: NSView {
         scroll.drawsBackground = false
         scroll.scrollerInsets.bottom = 10
         scroll.automaticallyAdjustsContentInsets = false
-        scroll.postsBoundsChangedNotifications = true
         addSubview(scroll)
         
         let stack = NSStackView()
@@ -118,9 +117,7 @@ final class Trackers: NSView {
             .sink {
                 stack.setViews($0
                     .map { item in
-                        let view = NSView()
-                        view.wantsLayer = true
-                        view.translatesAutoresizingMaskIntoConstraints = false
+                        let view = Vibrant(layer: true)
                         
                         let separator = CAShapeLayer()
                         separator.fillColor = .clear

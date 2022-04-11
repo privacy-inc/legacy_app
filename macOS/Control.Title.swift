@@ -4,7 +4,7 @@ extension Control {
     final class Title: Control {
         required init?(coder: NSCoder) { nil }
         init(_ title: String) {
-            let text = Text(vibrancy: true)
+            let text = Text(vibrancy: false)
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .body)
             text.textColor = .labelColor
@@ -30,6 +30,10 @@ extension Control {
             default:
                 layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
             }
+        }
+        
+        override var allowsVibrancy: Bool {
+            true
         }
     }
 }

@@ -1,4 +1,5 @@
 import AppKit
+import Domains
 import Combine
 
 final class Search: NSTextField {
@@ -29,6 +30,17 @@ final class Search: NSTextField {
             .forEach {
                 $0.undoManager?.removeAllActions()
             }
+    }
+    
+    func update(url: String) {
+        var url = url.schemeless
+        
+        if url.last == "/" {
+            url.removeLast()
+        }
+        
+        stringValue = url
+        undoManager?.removeAllActions()
     }
     
     override var canBecomeKeyView: Bool {

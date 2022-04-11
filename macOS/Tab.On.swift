@@ -12,7 +12,7 @@ extension Tab {
         private let status: Status
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, id: UUID, publisher: AnyPublisher<Web, Never>) {
+        init(status: Status, id: UUID, publisher: AnyPublisher<Status.Flow, Never>) {
             self.status = status
             self.id = id
             
@@ -130,50 +130,52 @@ extension Tab {
                 .store(in: &subs)
             
             publisher
+                .sink {
+                    switch $0 {
+                    case .list:
+                        search.update(url: "")
+                        
+                        secure.state = .hidden
+                        insecure.state = .hidden
+                        counter.state = .hidden
+                        options.state = .hidden
+                    case let .web(web):
+                        search.update(url: web.url?.absoluteString ?? "")
+                        
+                        secure.state = web.hasOnlySecureContent ? .on : .hidden
+                        insecure.state = web.hasOnlySecureContent ? .hidden : .on
+                        counter.state = .on
+                        options.state = .on
+                    case let .message(_, url, title, _):
+                        search.update(url: url?.absoluteString ?? title)
+                        
+                        secure.state = .hidden
+                        insecure.state = .hidden
+                        counter.state = .hidden
+                        options.state = .hidden
+                    }
+                }
+                .store(in: &subs)
+            
+            publisher
+                .compactMap {
+                    switch $0 {
+                    case let .web(web), let .message(web, _, _, _):
+                        return web
+                    default:
+                        return nil
+                    }
+                }
                 .first()
                 .sink { [weak self] (web: Web) in
-                    options.state = .on
-                    counter.state = .on
-                    
                     self?.add(web
                         .publisher(for: \.url)
                         .compactMap {
                             $0
                         }
                         .removeDuplicates()
-                        .combineLatest(status
-                                        .items
-                                        .compactMap {
-                                            $0
-                                                .first {
-                                                    $0.id == id
-                                                }?
-                                                .flow
-                                        }
-                                        .removeDuplicates())
-                        .sink { url, flow in
-                            switch flow {
-                            case .web:
-                                var string = url
-                                    .absoluteString
-                                    .replacingOccurrences(of: "https://", with: "")
-                                
-                                if string.last == "/" {
-                                    string.removeLast()
-                                }
-                                
-                                search.stringValue = string
-                                
-                            case let .message(_, url, title, _):
-                                search.stringValue = url?.absoluteString ?? title
-                                secure.state = .hidden
-                                insecure.state = .hidden
-                                counter.state = .hidden
-                            default:
-                                break
-                            }
-                            
-                            search.undoManager?.removeAllActions()
+                        .sink {
+                            search.update(url: $0.absoluteString)
                         })
                     
                     self?.add(web
@@ -199,6 +201,7 @@ extension Tab {
                         .publisher(for: \.hasOnlySecureContent)
                         .removeDuplicates()
                         .sink {
+                            guard case .web = status.flow(of: id) else { return }
                             secure.state = $0 ? .on : .hidden
                             insecure.state = $0 ? .hidden : .on
                         })

@@ -22,6 +22,7 @@
 		CE19EC8F2736AE8C00A412FC /* Plus.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE19EC8E2736AE8C00A412FC /* Plus.Item.swift */; };
 		CE19EC912736B32500A412FC /* Plus.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE19EC902736B32500A412FC /* Plus.Action.swift */; };
 		CE1D9C3226FB6883004F8B6B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D9C3126FB6883004F8B6B /* Status.swift */; };
+		CE1DB23E28044B1E00128BCF /* Shortcut.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1DB23D28044B1E00128BCF /* Shortcut.Item.swift */; };
 		CE1ECE42271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1ECE41271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift */; };
 		CE22EAF82720224F00A9B29B /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE22EAF72720224E00A9B29B /* About.swift */; };
 		CE22EAFA27202EAF00A9B29B /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE22EAF927202EAF00A9B29B /* Info.swift */; };
@@ -288,6 +289,7 @@
 		CE19EC8E2736AE8C00A412FC /* Plus.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Item.swift; sourceTree = "<group>"; };
 		CE19EC902736B32500A412FC /* Plus.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Action.swift; sourceTree = "<group>"; };
 		CE1D9C3126FB6883004F8B6B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		CE1DB23D28044B1E00128BCF /* Shortcut.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcut.Item.swift; sourceTree = "<group>"; };
 		CE1ECE41271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.Other.swift; sourceTree = "<group>"; };
 		CE22EAF72720224E00A9B29B /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		CE22EAF927202EAF00A9B29B /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
@@ -574,6 +576,7 @@
 				CE8BA2F6272D9B3E00E2D73F /* Search.swift */,
 				CEE91AC7273960BD003447BD /* Share.Option.swift */,
 				CEE91AC5273960B1003447BD /* Share.swift */,
+				CE1DB23D28044B1E00128BCF /* Shortcut.Item.swift */,
 				CE120D8C27328C4F00DE517E /* Shortcut.swift */,
 				CEBDD5552728232600F2F493 /* Status.Flow.swift */,
 				CE8BA2EE272D741900E2D73F /* Status.Item.swift */,
@@ -991,6 +994,7 @@
 				CE43126B2736D25C00DA0F99 /* Preferences.Option.swift in Sources */,
 				CE4312612736CCD500DA0F99 /* Froob.Action.swift in Sources */,
 				CE8BA2F9272D9B6300E2D73F /* Search.Cell.swift in Sources */,
+				CE1DB23E28044B1E00128BCF /* Shortcut.Item.swift in Sources */,
 				CEE4D86E273D24E700EAA768 /* Activity.Card.swift in Sources */,
 				CEA2B2902800435B00E2F201 /* Control.Title.swift in Sources */,
 				CEE9B15C2739481A0086BD6C /* Ellipsis.swift in Sources */,
