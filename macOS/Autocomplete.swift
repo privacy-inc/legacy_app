@@ -3,7 +3,7 @@ import Combine
 
 final class Autocomplete: NSPanel {
     private var monitor: Any?
-    private var sub: AnyCancellable?
+    private var subs = Set<AnyCancellable>()
     
     init(status: Status, position: CGPoint, width: CGFloat) {
         super.init(contentRect: .zero,
@@ -30,7 +30,7 @@ final class Autocomplete: NSPanel {
         list.leftAnchor.constraint(equalTo: blur.leftAnchor).isActive = true
         list.rightAnchor.constraint(equalTo: blur.rightAnchor).isActive = true
         
-        sub = list
+        list
             .size
             .map(\.height)
             .map {
@@ -46,6 +46,14 @@ final class Autocomplete: NSPanel {
                 self?.setContentSize(blur.frame.size)
                 self?.setFrameTopLeftPoint(position)
             }
+            .store(in: &subs)
+        
+        list
+            .selected
+            .sink { [weak self] _ in
+                self?.close()
+            }
+            .store(in: &subs)
         
         monitor = NSEvent
             .addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown, .otherMouseDown]) { [weak self] event in

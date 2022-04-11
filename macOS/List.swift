@@ -4,6 +4,7 @@ import Specs
 
 final class List: Collection<ListCell, ListInfo> {
     let empty = CurrentValueSubject<_, Never>(true)
+    let selected = PassthroughSubject<ListInfo.ID, Never>()
     private let status: Status
     private let select = PassthroughSubject<CGPoint, Never>()
     
@@ -18,7 +19,6 @@ final class List: Collection<ListCell, ListInfo> {
         
         let vertical = CGFloat(15)
         let info = CurrentValueSubject<[ListInfo], Never>([])
-        let selected = PassthroughSubject<ListInfo.ID, Never>()
         
         status
             .filter
@@ -85,7 +85,9 @@ final class List: Collection<ListCell, ListInfo> {
             .compactMap {
                 $0?.info.id
             }
-            .subscribe(selected)
+            .sink { [weak self] in
+                self?.selected.send($0)
+            }
             .store(in: &subs)
         
         status
@@ -137,8 +139,6 @@ final class List: Collection<ListCell, ListInfo> {
                 info.value.first { $0.id == id }?.website
             }
             .sink { website in
-                //                 self?.window?.close()
-                
                 Task {
                     await status.open(url: URL(string: website.id)!, id: status.current.value)
                 }

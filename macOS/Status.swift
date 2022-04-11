@@ -114,7 +114,15 @@ struct Status {
     }
     
     @MainActor func open(url: URL, id: UUID) async {
-        let web = await Web(status: self, item: id, settings: cloud.model.settings.configuration)
+        let web: Web
+        
+        switch flow(of: id) {
+        case .list:
+            web = await .init(status: self, item: id, settings: cloud.model.settings.configuration)
+        case let .web(item), let .message(item, _, _, _):
+            web = item
+        }
+        
         change(flow: .web(web), id: id)
         web.load(url: url)
     }
