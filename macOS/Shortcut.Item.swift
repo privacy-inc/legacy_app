@@ -32,7 +32,7 @@ extension Shortcut {
                 let check = NSImageView(image: .init(systemSymbolName: "checkmark.circle.fill", accessibilityDescription: nil) ?? .init())
                 check.translatesAutoresizingMaskIntoConstraints = false
                 check.symbolConfiguration = .init(pointSize: 24, weight: .medium)
-                    .applying(.init(hierarchicalColor: NSColor(named: "Shades")!))
+                    .applying(.init(hierarchicalColor: .systemBlue))
                 addSubview(check)
                 
                 check.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
