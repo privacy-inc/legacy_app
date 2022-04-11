@@ -38,15 +38,49 @@ final class Landing: NSView, NSMenuDelegate {
         forget
             .click
             .sink {
-                NSPopover().show(Forget(), from: forget, edge: .minY)
+                NSPopover().show(Forget(), from: forget, edge: .maxY)
             }
             .store(in: &subs)
         
-        let trackers = Control.Symbol("bolt.shield", point: 20, size: 40, weight: .light, hierarchical: true)
-        forget
+        let trackers = Control.Symbol("bolt.shield", point: 21, size: 40, weight: .light, hierarchical: true)
+        trackers
             .click
             .sink {
-                NSPopover().show(Forget(), from: forget, edge: .minY)
+                let view = Vibrant(layer: false)
+                view.translatesAutoresizingMaskIntoConstraints = true
+                view.frame.size = .init(width: 200, height: 200)
+                
+                let title = Text(vibrancy: false)
+                title.font = .systemFont(ofSize: 45, weight: .thin)
+                title.textColor = .labelColor
+                view.addSubview(title)
+                
+                let icon = NSImageView(image: .init(systemSymbolName: "bolt.shield", accessibilityDescription: nil) ?? .init())
+                icon.symbolConfiguration = .init(pointSize: 26, weight: .light)
+                    .applying(.init(hierarchicalColor: .secondaryLabelColor))
+                icon.translatesAutoresizingMaskIntoConstraints = false
+                view.addSubview(icon)
+                
+                let description = Text(vibrancy: false)
+                description.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .regular)
+                description.textColor = .tertiaryLabelColor
+                description.stringValue = "Trackers prevented"
+                view.addSubview(description)
+                
+                title.bottomAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+                title.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+                
+                icon.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12).isActive = true
+                icon.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+                
+                description.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+                description.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 12).isActive = true
+                
+                NSPopover().show(view, from: trackers, edge: .maxY)
+                
+                Task {
+                    title.stringValue = await cloud.model.tracking.total.formatted()
+                }
             }
             .store(in: &subs)
         

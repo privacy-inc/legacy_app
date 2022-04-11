@@ -343,7 +343,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         case .rightMouseUp:
             NSMenu.popUpContextMenu(button.menu!, with: event, for: button)
         case .leftMouseUp:
-            NSPopover().show(Shortcut(), from: button, edge: .maxY)
+            NSPopover().show(Shortcut(), from: button, edge: .minY)
         default:
             break
         }

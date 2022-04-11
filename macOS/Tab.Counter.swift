@@ -29,7 +29,7 @@ extension Tab {
             click
                 .sink { [weak self] in
                     guard let self = self else { return }
-                    NSPopover().show(Trackers(domain: domain), from: self, edge: .maxY)
+                    NSPopover().show(Trackers(domain: domain), from: self, edge: .minY)
                 }
                 .store(in: &subs)
             
