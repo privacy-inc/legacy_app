@@ -4,12 +4,21 @@ import Combine
 extension Shortcut {
     final class Item: Control {
         private var sub: AnyCancellable?
+        private weak var background: Vibrant!
         
         required init?(coder: NSCoder) { nil }
-        init(window: Window, item: Status.Item, width: CGFloat) {
+        init(window: Window, item: Status.Item) {
+            let background = Vibrant(layer: true)
+            background.layer!.cornerRadius = 6
+            self.background = background
+            
             super.init(layer: true)
-            layer!.cornerRadius = 6
             layer!.masksToBounds = false
+            addSubview(background)
+            
+            let separator = Vibrant(layer: true)
+            separator.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+            addSubview(separator)
             
             let text = Text(vibrancy: true)
             text.font = .preferredFont(forTextStyle: .callout)
@@ -19,18 +28,11 @@ extension Shortcut {
             text.lineBreakMode = .byTruncatingTail
             addSubview(text)
             
-            let separator = CAShapeLayer()
-            separator.fillColor = .clear
-            separator.lineWidth = 1
-            separator.strokeColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-            separator.path = .init(rect: .init(x: 5, y: -0.5, width: width - 40, height: 0), transform: nil)
-            layer!.addSublayer(separator)
-            
             if window == NSApp.mainWindow && window.status.current.value == item.id {
                 let check = NSImageView(image: .init(systemSymbolName: "checkmark.circle.fill", accessibilityDescription: nil) ?? .init())
                 check.translatesAutoresizingMaskIntoConstraints = false
                 check.symbolConfiguration = .init(pointSize: 24, weight: .medium)
-                    .applying(.init(hierarchicalColor: .systemBlue))
+                    .applying(.init(hierarchicalColor: NSColor(named: "Shades")!))
                 addSubview(check)
                 
                 check.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
@@ -44,7 +46,18 @@ extension Shortcut {
             }
             
             heightAnchor.constraint(equalToConstant: 39).isActive = true
+            
+            background.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            background.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            background.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            
+            separator.topAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
+            separator.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
+            separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
             
             switch item.flow {
             case .list:
@@ -93,9 +106,9 @@ extension Shortcut {
             
             switch state {
             case .highlighted, .pressed, .selected:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+                background.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
             default:
-                layer!.backgroundColor = .clear
+                background.layer!.backgroundColor = .clear
             }
         }
     }

@@ -6,14 +6,10 @@ final class Shortcut: NSView {
     required init?(coder: NSCoder) { nil }
     init() {
         super.init(frame: .init(origin: .zero, size: .init(width: width, height: 450)))
-        wantsLayer = true
         
-        let separator = CAShapeLayer()
-        separator.fillColor = .clear
-        separator.lineWidth = 1
-        separator.strokeColor = NSColor.labelColor.withAlphaComponent(0.2).cgColor
-        separator.path = .init(rect: .init(x: 0, y: 160, width: width, height: 0), transform: nil)
-        layer!.addSublayer(separator)
+        let separator = Vibrant(layer: true)
+        separator.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
+        addSubview(separator)
         
         let background = NSVisualEffectView()
         background.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +44,12 @@ final class Shortcut: NSView {
         background.topAnchor.constraint(equalTo: topAnchor).isActive = true
         background.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         background.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        background.bottomAnchor.constraint(equalTo: forget.topAnchor, constant: 30).isActive = true
+        background.bottomAnchor.constraint(equalTo: separator.topAnchor).isActive = true
+        
+        separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        separator.bottomAnchor.constraint(equalTo: forget.topAnchor, constant: 30).isActive = true
+        separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
         forget.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 20).isActive = true
         forget.leftAnchor.constraint(equalTo: background.leftAnchor).isActive = true
@@ -69,7 +70,7 @@ final class Shortcut: NSView {
         stack.leftAnchor.constraint(equalTo: flip.leftAnchor, constant: 15).isActive = true
         stack.widthAnchor.constraint(equalToConstant: width - 30).isActive = true
         
-        stack.setViews(NSApp
+        let items = NSApp
             .windows
             .compactMap {
                 $0 as? Window
@@ -83,8 +84,17 @@ final class Shortcut: NSView {
                         (window: window, item: $0)
                     }
             }
+        
+        stack.setViews(items
             .map {
-                Item(window: $0.window, item: $0.item, width: width)
+                Item(window: $0.window, item: $0.item)
             }, in: .center)
+        
+        if let index = items.firstIndex (where: {
+            $0.window == NSApp.mainWindow && $0.window.status.current.value == $0.item.id
+        }) {
+            flip.layoutSubtreeIfNeeded()
+            scroll.contentView.bounds.origin.y = .init(index * 40) - scroll.bounds.midY
+        }
     }
 }
