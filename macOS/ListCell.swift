@@ -3,7 +3,7 @@ import AppKit
 final class ListCell: CollectionCell<ListInfo> {
     private weak var text: Text!
     private weak var icon: Icon!
-    private weak var separator: CAShapeLayer!
+    private weak var separator: Vibrant!
     private weak var vibrant: Vibrant!
     
     override var item: CollectionItem<ListInfo>? {
@@ -14,11 +14,9 @@ final class ListCell: CollectionCell<ListInfo> {
             else { return }
             
             separator.isHidden = item.info.first
-            separator.path = .init(rect: .init(x: 40, y: item.rect.height + 1, width: item.rect.width - 80, height: 0), transform: nil)
             
             if item.rect != oldValue?.rect {
                 frame = item.rect
-                vibrant.frame = bounds
             }
             
             if item.info != oldValue?.info {
@@ -35,15 +33,13 @@ final class ListCell: CollectionCell<ListInfo> {
         vibrant.layer!.cornerRadius = 12
         self.vibrant = vibrant
         
-        let separator = CAShapeLayer()
-        separator.fillColor = .clear
-        separator.lineWidth = 1
+        let separator = Vibrant(layer: true)
         self.separator = separator
         
         super.init()
         addSubview(vibrant)
+        addSubview(separator)
         layer!.masksToBounds = false
-        layer!.addSublayer(separator)
         
         let icon = Icon()
         addSubview(icon)
@@ -54,6 +50,16 @@ final class ListCell: CollectionCell<ListInfo> {
         text.maximumNumberOfLines = 2
         addSubview(text)
         self.text = text
+        
+        vibrant.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        vibrant.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        vibrant.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        vibrant.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        
+        separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 40).isActive = true
+        separator.rightAnchor.constraint(equalTo: rightAnchor, constant: -40).isActive = true
+        separator.bottomAnchor.constraint(equalTo: topAnchor, constant: -0.5).isActive = true
         
         icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
@@ -73,6 +79,6 @@ final class ListCell: CollectionCell<ListInfo> {
             vibrant.layer!.backgroundColor = .clear
         }
         
-        separator.strokeColor = NSColor.labelColor.withAlphaComponent(0.07).cgColor
+        separator.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.07).cgColor
     }
 }

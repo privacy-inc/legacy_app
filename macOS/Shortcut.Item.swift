@@ -54,7 +54,7 @@ extension Shortcut {
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
-            separator.topAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            separator.topAnchor.constraint(equalTo: bottomAnchor, constant: 0.5).isActive = true
             separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
             separator.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
             separator.heightAnchor.constraint(equalToConstant: 1).isActive = true

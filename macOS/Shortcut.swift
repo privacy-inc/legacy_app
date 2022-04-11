@@ -38,7 +38,7 @@ final class Shortcut: NSView {
         let stack = NSStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
-        stack.spacing = 1
+        stack.spacing = 2
         flip.addSubview(stack)
         
         background.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -94,7 +94,7 @@ final class Shortcut: NSView {
             $0.window == NSApp.mainWindow && $0.window.status.current.value == $0.item.id
         }) {
             flip.layoutSubtreeIfNeeded()
-            scroll.contentView.bounds.origin.y = .init(index * 40) - scroll.bounds.midY
+            scroll.contentView.bounds.origin.y = .init(index * 41) - 120
         }
     }
 }
