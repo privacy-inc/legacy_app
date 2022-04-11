@@ -28,7 +28,7 @@ extension Tab {
             let search = Search(status: status)
             search.delegate = self
             
-            let prompt = Control.Symbol("magnifyingglass", point: 12, size: Bar.height)
+            let prompt = Control.Symbol("magnifyingglass", point: 12, size: Bar.height, weight: .regular, hierarchical: false)
             prompt.toolTip = "Search"
             prompt.click
                 .sink {
@@ -36,7 +36,7 @@ extension Tab {
                 }
                 .store(in: &subs)
             
-            let close = Control.Symbol("xmark.app.fill", point: 16, size: Bar.height)
+            let close = Control.Symbol("xmark.app.fill", point: 16, size: Bar.height, weight: .regular, hierarchical: false)
             close.toolTip = "Close tab"
             close
                 .click
@@ -47,31 +47,31 @@ extension Tab {
             
             let counter = Counter(domain: domain)
             
-            let secure = Control.Symbol("lock.fill", point: 12, size: Bar.height)
+            let secure = Control.Symbol("lock.fill", point: 12, size: Bar.height, weight: .regular, hierarchical: false)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
             
-            let insecure = Control.Symbol("exclamationmark.triangle.fill", point: 13, size: Bar.height)
+            let insecure = Control.Symbol("exclamationmark.triangle.fill", point: 13, size: Bar.height, weight: .regular, hierarchical: false)
             insecure.toolTip = "Insecure"
             insecure.state = .hidden
             
-            let options = Control.Symbol("ellipsis.circle.fill", point: 14, size: Bar.height)
+            let options = Control.Symbol("ellipsis.circle.fill", point: 14, size: Bar.height, weight: .regular, hierarchical: false)
             options.toolTip = "Options"
             options.state = .hidden
             
-            let back = Control.Symbol("chevron.backward", point: 13, size: Bar.height)
+            let back = Control.Symbol("chevron.backward", point: 13, size: Bar.height, weight: .regular, hierarchical: false)
             back.toolTip = "Back"
             back.state = .hidden
             
-            let forward = Control.Symbol("chevron.forward", point: 13, size: Bar.height)
+            let forward = Control.Symbol("chevron.forward", point: 13, size: Bar.height, weight: .regular, hierarchical: false)
             forward.toolTip = "Forward"
             forward.state = .hidden
             
-            let reload = Control.Symbol("arrow.clockwise", point: 12, size: Bar.height)
+            let reload = Control.Symbol("arrow.clockwise", point: 12, size: Bar.height, weight: .regular, hierarchical: false)
             reload.toolTip = "Reload"
             reload.state = .hidden
             
-            let stop = Control.Symbol("xmark", point: 12, size: Bar.height)
+            let stop = Control.Symbol("xmark", point: 12, size: Bar.height, weight: .regular, hierarchical: false)
             stop.toolTip = "Stop"
             stop.state = .hidden
             

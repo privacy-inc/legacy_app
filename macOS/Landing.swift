@@ -26,7 +26,7 @@ final class Landing: NSView, NSMenuDelegate {
         list.menu!.delegate = self
         addSubview(list)
         
-        let configure = Control.Symbol("slider.vertical.3", point: 18, size: 40)
+        let configure = Control.Symbol("slider.vertical.3", point: 18, size: 40, weight: .light, hierarchical: true)
         configure
             .click
             .sink {
@@ -34,7 +34,7 @@ final class Landing: NSView, NSMenuDelegate {
             }
             .store(in: &subs)
         
-        let forget = Control.Symbol("flame", point: 18, size: 40)
+        let forget = Control.Symbol("flame", point: 18, size: 40, weight: .light, hierarchical: true)
         forget
             .click
             .sink {
@@ -42,7 +42,15 @@ final class Landing: NSView, NSMenuDelegate {
             }
             .store(in: &subs)
         
-        let stack = NSStackView(views: [forget, configure])
+        let trackers = Control.Symbol("bolt.shield", point: 20, size: 40, weight: .light, hierarchical: true)
+        forget
+            .click
+            .sink {
+                NSPopover().show(Forget(), from: forget, edge: .minY)
+            }
+            .store(in: &subs)
+        
+        let stack = NSStackView(views: [trackers, forget, configure])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
         addSubview(stack)

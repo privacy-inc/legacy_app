@@ -37,7 +37,7 @@ extension Tab {
             self.title = title
             addSubview(title)
             
-            let close = Symbol("xmark.app.fill", point: 16, size: Bar.height)
+            let close = Symbol("xmark.app.fill", point: 16, size: Bar.height, weight: .regular, hierarchical: false)
             close.toolTip = "Close tab"
             close
                 .click

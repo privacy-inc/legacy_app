@@ -23,7 +23,7 @@ final class Bar: NSVisualEffectView {
         let left = content.leftAnchor.constraint(equalTo: leftAnchor)
         left.isActive = true
         
-        let plus = Control.Symbol("plus", point: 16, size: Self.height)
+        let plus = Control.Symbol("plus", point: 16, size: Self.height, weight: .regular, hierarchical: false)
         plus.toolTip = "New tab"
         plus
             .click

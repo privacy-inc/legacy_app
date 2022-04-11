@@ -11,7 +11,7 @@ final class Trackers: NSView {
         super.init(frame: .init(origin: .zero, size: .init(width: width, height: 350)))
         
         let title = Text(vibrancy: false)
-        title.font = .systemFont(ofSize: 45, weight: .light)
+        title.font = .systemFont(ofSize: 45, weight: .thin)
         title.textColor = .labelColor
         addSubview(title)
         
@@ -22,8 +22,8 @@ final class Trackers: NSView {
         url.lineBreakMode = .byTruncatingTail
         addSubview(url)
         
-        let icon = NSImageView(image: .init(systemSymbolName: "shield.lefthalf.filled", accessibilityDescription: nil) ?? .init())
-        icon.symbolConfiguration = .init(pointSize: 20, weight: .light)
+        let icon = NSImageView(image: .init(systemSymbolName: "bolt.shield", accessibilityDescription: nil) ?? .init())
+        icon.symbolConfiguration = .init(pointSize: 26, weight: .light)
             .applying(.init(hierarchicalColor: .tertiaryLabelColor))
         icon.translatesAutoresizingMaskIntoConstraints = false
         addSubview(icon)
@@ -68,7 +68,7 @@ final class Trackers: NSView {
         url.widthAnchor.constraint(lessThanOrEqualToConstant: width - 20).isActive = true
         
         icon.topAnchor.constraint(equalTo: url.bottomAnchor, constant: 12).isActive = true
-        icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 76).isActive = true
+        icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 72).isActive = true
         
         description.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 5).isActive = true
         description.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
