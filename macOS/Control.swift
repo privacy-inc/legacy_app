@@ -55,7 +55,7 @@ class Control: NSView {
     }
     
     final override func mouseUp(with: NSEvent) {
-        guard state == .highlighted || state == .on || state == .pressed else { return }
+        guard state != .off && state != .hidden else { return }
         if bounds.contains(convert(with.locationInWindow, from: nil)) {
             click.send()
         }

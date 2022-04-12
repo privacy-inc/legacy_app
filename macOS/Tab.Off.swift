@@ -99,9 +99,9 @@ extension Tab {
             
             switch state {
             case .pressed, .highlighted:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
+                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
             default:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.03).cgColor
             }
         }
         

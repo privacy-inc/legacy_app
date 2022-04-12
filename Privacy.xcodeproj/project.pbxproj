@@ -203,8 +203,8 @@
 		CEE4D86E273D24E700EAA768 /* Activity.Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE4D86D273D24E700EAA768 /* Activity.Card.swift */; };
 		CEE91AC6273960B1003447BD /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE91AC5273960B1003447BD /* Share.swift */; };
 		CEE91AC8273960BD003447BD /* Share.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE91AC7273960BD003447BD /* Share.Option.swift */; };
-		CEE9B15C2739481A0086BD6C /* Ellipsis.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9B15B2739481A0086BD6C /* Ellipsis.swift */; };
-		CEE9B15E273957C20086BD6C /* Ellipsis.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9B15D273957C20086BD6C /* Ellipsis.Option.swift */; };
+		CEE9B15C2739481A0086BD6C /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9B15B2739481A0086BD6C /* Detail.swift */; };
+		CEE9B15E273957C20086BD6C /* Control.Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9B15D273957C20086BD6C /* Control.Label.swift */; };
 		CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C2272FFA540079928E /* NSMenu.swift */; };
 		CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C3272FFA540079928E /* NSMenuItem.swift */; };
 		CEEBA5C927302A1C0079928E /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C827302A1C0079928E /* Menu.swift */; };
@@ -456,8 +456,8 @@
 		CEE4D86D273D24E700EAA768 /* Activity.Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.Card.swift; sourceTree = "<group>"; };
 		CEE91AC5273960B1003447BD /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		CEE91AC7273960BD003447BD /* Share.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.Option.swift; sourceTree = "<group>"; };
-		CEE9B15B2739481A0086BD6C /* Ellipsis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ellipsis.swift; sourceTree = "<group>"; };
-		CEE9B15D273957C20086BD6C /* Ellipsis.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ellipsis.Option.swift; sourceTree = "<group>"; };
+		CEE9B15B2739481A0086BD6C /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
+		CEE9B15D273957C20086BD6C /* Control.Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Label.swift; sourceTree = "<group>"; };
 		CEEBA5C2272FFA540079928E /* NSMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
 		CEEBA5C3272FFA540079928E /* NSMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
 		CEEBA5C827302A1C0079928E /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
@@ -521,13 +521,13 @@
 				CE743003272981EA00F5F5B8 /* CollectionCell.swift */,
 				CE743001272981EA00F5F5B8 /* CollectionCellState.swift */,
 				CE742FFF272981EA00F5F5B8 /* CollectionItem.swift */,
+				CEE9B15D273957C20086BD6C /* Control.Label.swift */,
 				CE5D41BC272C5CDC00AEBE0F /* Control.State.swift */,
 				CE5D41BB272C5CDC00AEBE0F /* Control.swift */,
 				CE84E62D273D4BD60071429B /* Control.Symbol.swift */,
 				CEA2B28F2800435B00E2F201 /* Control.Title.swift */,
+				CEE9B15B2739481A0086BD6C /* Detail.swift */,
 				CEF1484E27F1F9660017AD40 /* Downloads.swift */,
-				CEE9B15D273957C20086BD6C /* Ellipsis.Option.swift */,
-				CEE9B15B2739481A0086BD6C /* Ellipsis.swift */,
 				CE74300C2729825500F5F5B8 /* Flip.swift */,
 				CEA2B28D28003F5700E2F201 /* Forget.swift */,
 				CE4312602736CCD500DA0F99 /* Froob.Action.swift */,
@@ -988,7 +988,7 @@
 				CE3C653427483276000CF55A /* NSMutableAttributedString.swift in Sources */,
 				CE743005272981EA00F5F5B8 /* CollectionItem.swift in Sources */,
 				CE5F1279272EB93E002D0AD2 /* Web.swift in Sources */,
-				CEE9B15E273957C20086BD6C /* Ellipsis.Option.swift in Sources */,
+				CEE9B15E273957C20086BD6C /* Control.Label.swift in Sources */,
 				CE52EDD0280578D50048F3F0 /* Secure.swift in Sources */,
 				CEEBA5C927302A1C0079928E /* Menu.swift in Sources */,
 				CE43126B2736D25C00DA0F99 /* Preferences.Option.swift in Sources */,
@@ -997,7 +997,7 @@
 				CE1DB23E28044B1E00128BCF /* Shortcut.Item.swift in Sources */,
 				CEE4D86E273D24E700EAA768 /* Activity.Card.swift in Sources */,
 				CEA2B2902800435B00E2F201 /* Control.Title.swift in Sources */,
-				CEE9B15C2739481A0086BD6C /* Ellipsis.swift in Sources */,
+				CEE9B15C2739481A0086BD6C /* Detail.swift in Sources */,
 				CEB22E9627357A84001C77E0 /* Info.Policy.swift in Sources */,
 				CE441D74273FFD7B00F4DACE /* Preferences.Location.swift in Sources */,
 				CEE4D86C273D1F3B00EAA768 /* Activity.swift in Sources */,

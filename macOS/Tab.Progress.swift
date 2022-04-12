@@ -46,7 +46,7 @@ extension Tab {
         }
         
         override func updateLayer() {
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.07).cgColor
             shape.strokeColor = NSColor(named: "Shades")!.cgColor
         }
         

@@ -1,37 +1,44 @@
 import AppKit
+import Combine
 
 final class Switch: NSView {
-    private(set) var control: NSSwitch!
+    let change = PassthroughSubject<Bool, Never>()
+    private(set) weak var control: NSSwitch!
     
     required init?(coder: NSCoder) { nil }
-    init(title: String, target: AnyObject, action: Selector) {
+    init(title: String) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         
-        let text = Text(vibrancy: true)
+        let text = Text(vibrancy: false)
         text.stringValue = title
-        text.font = .preferredFont(forTextStyle: .title3)
+        text.font = .preferredFont(forTextStyle: .body)
         text.textColor = .secondaryLabelColor
         addSubview(text)
         
         let control = NSSwitch()
-        control.target = target
-        control.action = action
+        control.target = self
+        control.action = #selector(changing)
         control.translatesAutoresizingMaskIntoConstraints = false
+        control.controlSize = .small
         self.control = control
         addSubview(control)
         
-        heightAnchor.constraint(equalToConstant: 38).isActive = true
-        rightAnchor.constraint(equalTo: text.rightAnchor).isActive = true
+        rightAnchor.constraint(equalTo: text.rightAnchor, constant: 6).isActive = true
+        bottomAnchor.constraint(equalTo: control.bottomAnchor, constant: 6).isActive = true
         
-        text.leftAnchor.constraint(equalTo: control.rightAnchor, constant: 10).isActive = true
+        text.leftAnchor.constraint(equalTo: control.rightAnchor, constant: 6).isActive = true
         text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
-        control.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        control.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        control.leftAnchor.constraint(equalTo: leftAnchor, constant: 6).isActive = true
+        control.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
     }
     
     override var allowsVibrancy: Bool {
         true
+    }
+    
+    @objc private func changing() {
+        change.send(control.state == .on)
     }
 }

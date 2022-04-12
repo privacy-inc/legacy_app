@@ -70,6 +70,12 @@ extension Tab {
             let options = Control.Symbol("ellipsis.circle.fill", point: 14, size: Bar.height, weight: .regular, hierarchical: false)
             options.toolTip = "Options"
             options.state = .hidden
+            options
+                .click
+                .sink {
+                    NSPopover().show(Detail(status: status, id: id), from: options, edge: .minY)
+                }
+                .store(in: &subs)
             
             let back = Control.Symbol("chevron.backward", point: 13, size: Bar.height, weight: .regular, hierarchical: false)
             back.toolTip = "Back"
@@ -351,7 +357,11 @@ extension Tab {
             switch doCommandBy {
             case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
                 autocomplete?.close()
-                window?.makeFirstResponder(window?.contentView)
+                if case let .web(web) = status.flow(of: id) {
+                    window?.makeFirstResponder(web)
+                } else {
+                    window?.makeFirstResponder(window?.contentView)
+                }
             case #selector(insertNewline):
                 autocomplete?.close()
                 Task

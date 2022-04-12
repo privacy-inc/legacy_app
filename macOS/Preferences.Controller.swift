@@ -10,8 +10,8 @@ extension Preferences {
 //                General(),
 //                Browser(),
                 Navigation(),
-                Features(),
-                Javascript(),
+//                Features(),
+//                Javascript(),
 //                Location()
             ]
         }
