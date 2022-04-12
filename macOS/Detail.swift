@@ -1,14 +1,18 @@
 import AppKit
 import Combine
-
-private let width = CGFloat(300)
+import UserNotifications
 
 final class Detail: NSScrollView {
+    private weak var stack: NSStackView!
     private var subs = Set<AnyCancellable>()
+
+    private var popover: NSPopover? {
+        window?.value(forKey: "_popover") as? NSPopover
+    }
     
     required init?(coder: NSCoder) { nil }
     init(status: Status, id: UUID) {
-        super.init(frame: .init(origin: .zero, size: .init(width: width, height: 360)))
+        super.init(frame: .init(origin: .zero, size: .init(width: 320, height: 360)))
         hasVerticalScroller = true
         verticalScroller!.controlSize = .mini
         drawsBackground = false
@@ -23,89 +27,17 @@ final class Detail: NSScrollView {
         let icon = Icon(size: 48)
         
         let text = Text(vibrancy: true)
+        text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let share = Control.Label(title: "Share", symbol: "square.and.arrow.up")
         
-        let service = Control.Label(title: "To service", symbol: "square.and.arrow.up")
-        service
-            .click
-            .sink { [weak self] in
-//                self?.close()
-//
-//                guard let url = web.url else { return }
-//                NSSharingServicePicker(items: [url])
-//                    .show(relativeTo: origin.bounds, of: origin, preferredEdge: .maxX)
-            }
-            .store(in: &subs)
-        
-        let save = Control.Label(title: "Download", symbol: "square.and.arrow.down")
-        save
-            .click
-            .sink { [weak self] in
-//                self?.close()
-//                web.saveAs()
-            }
-            .store(in: &subs)
-        
-        let copy = Control.Label(title: "Copy Link", symbol: "link")
-        copy
-            .click
-            .sink { [weak self] in
-//                self?.close()
-////                web.copyLink()
-            }
-            .store(in: &subs)
-        
-        let pdf = Control.Label(title: "PDF", symbol: "doc.richtext")
-        pdf
-            .click
-            .sink { [weak self] in
-//                self?.close()
-//                web.exportAsPdf()
-            }
-            .store(in: &subs)
-        
-        let snapshot = Control.Label(title: "Snapshot", symbol: "text.below.photo.fill")
-        snapshot
-            .click
-            .sink { [weak self] in
-//                self?.close()
-//                web.exportAsSnapshot()
-            }
-            .store(in: &subs)
-        
-        let archive = Control.Label(title: "Webarchive", symbol: "doc.zipper")
-        archive
-            .click
-            .sink { [weak self] in
-//                self?.close()
-//                web.exportAsWebarchive()
-            }
-            .store(in: &subs)
-        
-        let print = Control.Label(title: "Print", symbol: "printer")
-        print
-            .click
-            .sink { [weak self] in
-//                self?.close()
-//                web.printPage()
-            }
-            .store(in: &subs)
-        
         let bookmark = Control.Label(title: "Bookmark", symbol: "bookmark")
         
-        let pause = Control.Label(title: "Pause all media", symbol: "pause.circle.fill")
+        let pause = Control.Label(title: "Pause all media", symbol: "pause")
         
         let disable = Switch(title: "Disable text selection")
         
-        let shares = [service, save, copy, pdf, snapshot, archive, print]
-        let others = [bookmark, pause]
-        shares
-            .forEach {
-                $0.state = .hidden
-            }
-        
-        let stack = NSStackView(views: [icon, text, share] + shares + others + [disable])
+        let stack = NSStackView(views: [icon, text, share, bookmark, pause, disable])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
         stack.spacing = 3
@@ -113,42 +45,7 @@ final class Detail: NSScrollView {
         stack.setCustomSpacing(20, after: text)
         stack.setCustomSpacing(20, after: pause)
         flip.addSubview(stack)
-        
-        share
-            .click
-            .sink { [weak self] in
-                if share.state == .selected {
-                    share.state = .on
-                    shares
-                        .forEach {
-                            $0.state = .hidden
-                        }
-                    others
-                        .forEach {
-                            $0.state = .on
-                        }
-                    disable.isHidden = false
-                } else {
-                    share.state = .selected
-                    shares
-                        .forEach {
-                            $0.state = .on
-                        }
-                    others
-                        .forEach {
-                            $0.state = .hidden
-                        }
-                    disable.isHidden = true
-                }
-                
-                NSAnimationContext
-                    .runAnimationGroup {
-                        $0.allowsImplicitAnimation = true
-                        $0.duration = 0.3
-                        stack.layoutSubtreeIfNeeded()
-                    }
-            }
-            .store(in: &subs)
+        self.stack = stack
         
         flip.topAnchor.constraint(equalTo: topAnchor).isActive = true
         flip.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
@@ -157,7 +54,7 @@ final class Detail: NSScrollView {
         
         stack.topAnchor.constraint(equalTo: flip.topAnchor, constant: 30).isActive = true
         stack.leftAnchor.constraint(equalTo: flip.leftAnchor, constant: 30).isActive = true
-        stack.widthAnchor.constraint(equalToConstant: width - 60).isActive = true
+        stack.widthAnchor.constraint(equalTo: widthAnchor, constant: -60).isActive = true
         
         if case let .web(web) = status.flow(of: id) {
             icon.icon(website: web.url)
@@ -184,77 +81,113 @@ final class Detail: NSScrollView {
                 }
                 .store(in: &subs)
             
+            share
+                .click
+                .sink { [weak self] in
+                    self?.share(web: web)
+                }
+                .store(in: &subs)
+            
             bookmark
                 .click
                 .sink { [weak self] in
-//                    self?.close()
+                    self?.popover?.close()
                     
-//                    Task
-//                        .detached {
-//                            await UNUserNotificationCenter.send(message: "Bookmark added!")
-//    #warning("bookmark")
-//                            //                        await cloud.bookmark(history: web.history)
-//                        }
+                    guard let url = web.url else { return }
+                    
+                    Task {
+                        await cloud.bookmark(url: url, title: web.title ?? "")
+                        await UNUserNotificationCenter.send(message: "Bookmark added!")
+                    }
                 }
                 .store(in: &subs)
             
             pause
                 .click
                 .sink { [weak self] in
-//                    self?.close()
-//                    
-//                    Task {
-//                        await MainActor
-//                            .run {
-//                                Task {
-//                                    await web.pauseAllMediaPlayback()
-//                                }
-//                            }
-//                    }
+                    self?.popover?.close()
+                    
+                    Task {
+                        await MainActor
+                            .run {
+                                Task {
+                                    await web.pauseAllMediaPlayback()
+                                }
+                            }
+                    }
                 }
                 .store(in: &subs)
             
             disable.control.state = web.configuration.preferences.isTextInteractionEnabled ? .off : .on
             disable
                 .change
-                .sink { [weak web] in
-                    web?.configuration.preferences.isTextInteractionEnabled = !$0
+                .sink {
+                    web.configuration.preferences.isTextInteractionEnabled = !$0
                 }
                 .store(in: &subs)
         }
-        
-        
-        //web?.configuration.preferences.isTextInteractionEnabled
-        
-        
-//        super.init()
-//        behavior = .transient
-//        contentSize = .zero
-//        contentViewController = .init()
-//        
-//        let view = NSView()
-//        contentViewController!.view = view
-//        
+    }
+    
+    private func share(web: Web) {
+        let title = Text(vibrancy: true)
+        title.stringValue = "Share"
+        title.font = .preferredFont(forTextStyle: .body)
+        title.textColor = .labelColor
 
-//        
-//
-//        
-//        let stack = NSStackView(views: [
-//            header(web: web),
-//            disable,
-//            share,
-//            bookmark,
-//            pause
-//        ])
-//        stack.spacing = 6
-//        stack.translatesAutoresizingMaskIntoConstraints = false
-//        stack.orientation = .vertical
-//        view.addSubview(stack)
-//
-//        stack.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
-//        stack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-//        stack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
-//        stack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
-//        stack.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        let save = Control.Label(title: "Download", symbol: "square.and.arrow.down")
+        save
+            .click
+            .sink { [weak self] in
+                self?.popover?.close()
+                web.saveAs()
+            }
+            .store(in: &subs)
+        
+        let pdf = Control.Label(title: "PDF", symbol: "doc.richtext")
+        pdf
+            .click
+            .sink { [weak self] in
+                self?.popover?.close()
+                web.exportAsPdf()
+            }
+            .store(in: &subs)
+        
+        let snapshot = Control.Label(title: "Snapshot", symbol: "text.below.photo.fill")
+        snapshot
+            .click
+            .sink { [weak self] in
+                self?.popover?.close()
+                web.exportAsSnapshot()
+            }
+            .store(in: &subs)
+        
+        let archive = Control.Label(title: "Webarchive", symbol: "doc.zipper")
+        archive
+            .click
+            .sink { [weak self] in
+                self?.popover?.close()
+                web.exportAsWebarchive()
+            }
+            .store(in: &subs)
+        
+        let print = Control.Label(title: "Print", symbol: "printer")
+        print
+            .click
+            .sink { [weak self] in
+                self?.popover?.close()
+                web.printPage()
+            }
+            .store(in: &subs)
+        
+        stack.setViews([title, save, pdf, snapshot, archive, print], in: .top)
+        stack.setCustomSpacing(20, after: title)
+        
+        NSAnimationContext
+            .runAnimationGroup {
+                $0.allowsImplicitAnimation = true
+                $0.duration = 0.3
+                stack.layoutSubtreeIfNeeded()
+                popover?.contentSize = .init(width: 240, height: 275)
+            }
     }
 }
