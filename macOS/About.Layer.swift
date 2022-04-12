@@ -1,17 +1,15 @@
 import AppKit
 
-extension Plus.Banner {
+private let pi2 = Double.pi * 2
+
+extension About {
     final class Layer: CALayer {
-        let model = Model()
-        private let pi2 = Double.pi * 2
+        private var model = Banner()
         private let shades = NSColor(named: "Shades")!
         private let dawn = NSColor(named: "Dawn")!
         
         override func draw(in context: CGContext) {
             model.tick()
-            
-            context.setLineWidth(6)
-            context.setLineCap(.square)
             
             model
                 .particles
@@ -29,22 +27,6 @@ extension Plus.Banner {
                                          : dawn.withAlphaComponent(particle.opacity).cgColor)
                     
                     context.fillPath()
-                }
-            
-            model
-                .shines
-                .forEach { shine in
-                    context
-                        .addArc(center: .init(x: shine.x, y: 250 - shine.y),
-                                radius: 25,
-                                startAngle: shine.start,
-                                endAngle: shine.start + shine.length,
-                                clockwise: shine.clockwise)
-                    
-                    context.setStrokeColor(shine.blue
-                                           ? shades.withAlphaComponent(0.2).cgColor
-                                           : dawn.withAlphaComponent(0.2).cgColor)
-                    context.strokePath()
                 }
         }
         

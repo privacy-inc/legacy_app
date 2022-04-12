@@ -1,6 +1,6 @@
 import Foundation
 
-extension Plus.Banner {
+extension Banner {
     struct Particle {
         let radius: Double
         let x: Double
@@ -10,12 +10,12 @@ extension Plus.Banner {
         private let decrease: Double
         
         static func new() -> Self {
-            .init(radius: .random(in: 0.1 ... 20),
-                  x: .random(in: 20 ..< 230),
-                  y: .random(in: 20 ..< 230),
-                  opacity: .random(in: 0.01 ..< 0.95),
+            .init(radius: .random(in: 0.6 ... 20),
+                  x: .random(in: 20 ..< 360),
+                  y: .random(in: 20 ..< 200),
+                  opacity: .random(in: 0.035 ..< 0.97),
                   blue: .random(),
-                  decrease: .random(in: 1.0002 ..< 1.035))
+                  decrease: .random(in: 1.000015 ..< 1.05))
         }
         
         private init(radius: Double, x: Double, y: Double, opacity: Double, blue: Bool, decrease: Double) {
@@ -28,7 +28,7 @@ extension Plus.Banner {
         }
         
         func tick() -> Self? {
-            radius > 0.01 ? .init(radius: radius / decrease, x: x, y: y, opacity: opacity, blue: blue, decrease: decrease) : nil
+            radius > 0.15 ? .init(radius: radius / decrease, x: x, y: y, opacity: opacity, blue: blue, decrease: decrease) : nil
         }
     }
 }

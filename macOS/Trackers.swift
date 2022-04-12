@@ -135,10 +135,10 @@ final class Trackers: NSView {
                         
                         let count = Text(vibrancy: false)
                         count.attributedStringValue = .make {
-                            $0.append(.init(string: "×", attributes: [
+                            $0.append(.make("×", attributes: [
                                 .font : NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .medium),
                                 .foregroundColor : NSColor.tertiaryLabelColor]))
-                            $0.append(.init(string: item.count.formatted(), attributes: [
+                            $0.append(.make(item.count.formatted(), attributes: [
                                 .font : NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .light),
                                 .foregroundColor : NSColor.secondaryLabelColor]))
                         }
