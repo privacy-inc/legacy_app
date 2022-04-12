@@ -50,10 +50,22 @@ extension Tab {
             let secure = Control.Symbol("lock.fill", point: 12, size: Bar.height, weight: .regular, hierarchical: false)
             secure.toolTip = "Secure connection"
             secure.state = .hidden
+            secure
+                .click
+                .sink {
+                    NSPopover().show(Secure(status: status, id: id), from: secure, edge: .minY)
+                }
+                .store(in: &subs)
             
             let insecure = Control.Symbol("exclamationmark.triangle.fill", point: 13, size: Bar.height, weight: .regular, hierarchical: false)
             insecure.toolTip = "Insecure"
             insecure.state = .hidden
+            insecure
+                .click
+                .sink {
+                    NSPopover().show(Secure(status: status, id: id), from: insecure, edge: .minY)
+                }
+                .store(in: &subs)
             
             let options = Control.Symbol("ellipsis.circle.fill", point: 14, size: Bar.height, weight: .regular, hierarchical: false)
             options.toolTip = "Options"

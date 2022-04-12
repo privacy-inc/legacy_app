@@ -84,6 +84,7 @@
 		CE480E34271C802C00774E5C /* Landing.Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE480E33271C802C00774E5C /* Landing.Edit.swift */; };
 		CE480E36271C835000774E5C /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE480E35271C835000774E5C /* Options.swift */; };
 		CE4A6DAD2702289000458E9B /* Landing.History.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */; };
+		CE52EDD0280578D50048F3F0 /* Secure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52EDCF280578D50048F3F0 /* Secure.swift */; };
 		CE53276A271B13FA005C55D5 /* Status.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE532769271B13FA005C55D5 /* Status.Item.swift */; };
 		CE54E13B27133A390013541F /* Options.Content.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE54E13A27133A390013541F /* Options.Content.Action.swift */; };
 		CE54EDBA2722E1FA006588DA /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
@@ -206,7 +207,6 @@
 		CEE9B15E273957C20086BD6C /* Ellipsis.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9B15D273957C20086BD6C /* Ellipsis.Option.swift */; };
 		CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C2272FFA540079928E /* NSMenu.swift */; };
 		CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C3272FFA540079928E /* NSMenuItem.swift */; };
-		CEEBA5C727301E280079928E /* Bar.Tab.Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */; };
 		CEEBA5C927302A1C0079928E /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C827302A1C0079928E /* Menu.swift */; };
 		CEEE59D02721B6780038952A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEEE59CF2721B6780038952A /* Assets.xcassets */; };
 		CEEE59D62721B6790038952A /* Privacy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CEEE59D52721B6790038952A /* Privacy.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -344,6 +344,7 @@
 		CE480E33271C802C00774E5C /* Landing.Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.swift; sourceTree = "<group>"; };
 		CE480E35271C835000774E5C /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Item.swift; sourceTree = "<group>"; };
+		CE52EDCF280578D50048F3F0 /* Secure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secure.swift; sourceTree = "<group>"; };
 		CE532769271B13FA005C55D5 /* Status.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.Item.swift; sourceTree = "<group>"; };
 		CE54E13A27133A390013541F /* Options.Content.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.Action.swift; sourceTree = "<group>"; };
 		CE54EDBE2722F6D9006588DA /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -459,7 +460,6 @@
 		CEE9B15D273957C20086BD6C /* Ellipsis.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ellipsis.Option.swift; sourceTree = "<group>"; };
 		CEEBA5C2272FFA540079928E /* NSMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
 		CEEBA5C3272FFA540079928E /* NSMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
-		CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.Connection.swift; sourceTree = "<group>"; };
 		CEEBA5C827302A1C0079928E /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		CEEE59CD2721B6770038952A /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEE59CF2721B6780038952A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -516,7 +516,6 @@
 				CE1936AF272804CF00476227 /* App.swift */,
 				CEAFF0112741522200A9F744 /* Autocomplete.swift */,
 				CE5D41B0272C3D8800AEBE0F /* Bar.swift */,
-				CEEBA5C627301E280079928E /* Bar.Tab.Connection.swift */,
 				CE74300F272983CB00F5F5B8 /* CGRect.swift */,
 				CE743004272981EA00F5F5B8 /* Collection.swift */,
 				CE743003272981EA00F5F5B8 /* CollectionCell.swift */,
@@ -574,6 +573,7 @@
 				CE8BA2FA272D9B7700E2D73F /* Search.Cell.Editor.swift */,
 				CE8BA2F8272D9B6300E2D73F /* Search.Cell.swift */,
 				CE8BA2F6272D9B3E00E2D73F /* Search.swift */,
+				CE52EDCF280578D50048F3F0 /* Secure.swift */,
 				CEE91AC7273960BD003447BD /* Share.Option.swift */,
 				CEE91AC5273960B1003447BD /* Share.swift */,
 				CE1DB23D28044B1E00128BCF /* Shortcut.Item.swift */,
@@ -981,7 +981,6 @@
 				CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */,
 				CE441D72273FF94200F4DACE /* Preferences.Browser.swift in Sources */,
 				CE6BFE9427380AD000ECF118 /* Preferences.Segmented.swift in Sources */,
-				CEEBA5C727301E280079928E /* Bar.Tab.Connection.swift in Sources */,
 				CE84E62E273D4BD60071429B /* Control.Symbol.swift in Sources */,
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
 				CEBCAADD2732DAB600B9D49C /* About.swift in Sources */,
@@ -990,6 +989,7 @@
 				CE743005272981EA00F5F5B8 /* CollectionItem.swift in Sources */,
 				CE5F1279272EB93E002D0AD2 /* Web.swift in Sources */,
 				CEE9B15E273957C20086BD6C /* Ellipsis.Option.swift in Sources */,
+				CE52EDD0280578D50048F3F0 /* Secure.swift in Sources */,
 				CEEBA5C927302A1C0079928E /* Menu.swift in Sources */,
 				CE43126B2736D25C00DA0F99 /* Preferences.Option.swift in Sources */,
 				CE4312612736CCD500DA0F99 /* Froob.Action.swift in Sources */,
