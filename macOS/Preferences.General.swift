@@ -1,98 +1,150 @@
 import AppKit
 import Combine
 import UserNotifications
+import CoreLocation
 
 extension Preferences {
     final class General: NSVisualEffectView {
-//        private weak var option: Preferences.Option!
-        private weak var text: Text!
-//        private weak var badge: Image!
-        private var requested = false
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
         init() {
-            super.init(frame: .init(origin: .zero, size: .init(width: 400, height: 400)))
+            super.init(frame: .init(origin: .zero, size: .init(width: 560, height: 440)))
             
-            let title = Text(vibrancy: true)
-            title.textColor = .labelColor
-            title.font = .preferredFont(forTextStyle: .title2)
-            title.stringValue = "Notifications"
+            let browserText = Text(vibrancy: true)
+            browserText.attributedStringValue = .make {
+                $0.append(.make("Default browser", attributes: [
+                    .foregroundColor: NSColor.labelColor,
+                    .font: NSFont.preferredFont(forTextStyle: .body)]))
+                $0.newLine()
+                $0.append(.make("All websites will open\nautomatically on Privacy Browser", attributes: [
+                    .foregroundColor: NSColor.secondaryLabelColor,
+                    .font: NSFont.preferredFont(forTextStyle: .callout)]))
+            }
+            addSubview(browserText)
             
-            let text = Text(vibrancy: true)
-            text.textColor = .secondaryLabelColor
-            text.font = .preferredFont(forTextStyle: .title3)
-            self.text = text
+            let browser = Control.Title("Make default", color: .labelColor, layer: true)
+            browser
+                .click
+                .sink {
+                    LSSetDefaultHandlerForURLScheme(URL.Scheme.http.rawValue as CFString, "incognit" as CFString)
+                    LSSetDefaultHandlerForURLScheme(URL.Scheme.https.rawValue as CFString, "incognit" as CFString)
+                    
+                    Task {
+                        await UNUserNotificationCenter.send(message: "Privacy is your default browser!")
+                    }
+                }
+                .store(in: &subs)
+            addSubview(browser)
             
-//            let option = Preferences.Option(title: "", symbol: "app.badge")
-//            self.option = option
-//            option
-//                .click
-//                .sink { [weak self] in
-//                    guard let self = self else { return }
-//                    if self.requested {
-//                        self.view?.window?.close()
-//                        NSWorkspace
-//                            .shared
-//                            .open(URL(string: "x-apple.systempreferences:com.apple.preference.notifications")!)
-//                    } else {
-//                        Task {
-//                            await self.request()
-//                        }
-//                    }
-//                    self.requested = true
-//                }
-//                .store(in: &subs)
-//            
-//            let badge = Image(icon: "checkmark.circle.fill")
-//            badge.symbolConfiguration = .init(pointSize: 35, weight: .thin)
-//                .applying(.init(hierarchicalColor: .systemBlue))
-//            badge.isHidden = true
-//            self.badge = badge
-//            
-//            let stack = NSStackView(views: [title, text, badge, option])
-//            stack.translatesAutoresizingMaskIntoConstraints = false
-//            stack.orientation = .vertical
-//            stack.spacing = 30
-//            view!.addSubview(stack)
-//            
-//            stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 30).isActive = true
-//            stack.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
-//            
-//            text.widthAnchor.constraint(lessThanOrEqualToConstant: 340).isActive = true
-//            
-//            Task {
-//                await checkNotifications()
-//            }
+            let browserBadge = NSImageView()
+            browserBadge.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(browserBadge)
+            
+            let notificationsText = Text(vibrancy: true)
+            notificationsText.attributedStringValue = .make {
+                $0.append(.make("Notifications", attributes: [
+                    .foregroundColor: NSColor.labelColor,
+                    .font: NSFont.preferredFont(forTextStyle: .body)]))
+                $0.newLine()
+                $0.append(.make("We only display internal messages,\nand won't send you Push Notifications", attributes: [
+                    .foregroundColor: NSColor.secondaryLabelColor,
+                    .font: NSFont.preferredFont(forTextStyle: .callout)]))
+            }
+            addSubview(notificationsText)
+            
+            let notifications = Control.Title("Configure", color: .labelColor, layer: true)
+            notifications
+                .click
+                .sink {
+                    NSWorkspace
+                        .shared
+                        .open(URL(string: "x-apple.systempreferences:com.apple.preference.notifications")!)
+                }
+                .store(in: &subs)
+            addSubview(notifications)
+            
+            let notificationsBadge = NSImageView()
+            notificationsBadge.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(notificationsBadge)
+            
+            let locationText = Text(vibrancy: true)
+            locationText.attributedStringValue = .make {
+                $0.append(.make("Location", attributes: [
+                    .foregroundColor: NSColor.labelColor,
+                    .font: NSFont.preferredFont(forTextStyle: .body)]))
+                $0.newLine()
+                $0.append(.make("Websites may request access to\nyour location, for example\nto provide maps or navigation", attributes: [
+                    .foregroundColor: NSColor.secondaryLabelColor,
+                    .font: NSFont.preferredFont(forTextStyle: .callout)]))
+            }
+            addSubview(locationText)
+            
+            let location = Control.Title("Configure", color: .labelColor, layer: true)
+            location
+                .click
+                .sink {
+                    NSWorkspace
+                        .shared
+                        .open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices")!)
+                }
+                .store(in: &subs)
+            addSubview(location)
+            
+            let locationBadge = NSImageView()
+            locationBadge.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(locationBadge)
+            
+            browserText.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
+            browserText.leftAnchor.constraint(equalTo: leftAnchor, constant: 40).isActive = true
+            
+            browser.centerYAnchor.constraint(equalTo: browserText.centerYAnchor).isActive = true
+            browser.leftAnchor.constraint(equalTo: centerXAnchor, constant: 70).isActive = true
+            
+            browserBadge.centerYAnchor.constraint(equalTo: browser.centerYAnchor).isActive = true
+            browserBadge.leftAnchor.constraint(equalTo: browser.rightAnchor, constant: 20).isActive = true
+            
+            notificationsText.topAnchor.constraint(equalTo: browserText.bottomAnchor, constant: 40).isActive = true
+            notificationsText.leftAnchor.constraint(equalTo: leftAnchor, constant: 40).isActive = true
+            
+            notifications.centerYAnchor.constraint(equalTo: notificationsText.centerYAnchor).isActive = true
+            notifications.leftAnchor.constraint(equalTo: browser.leftAnchor).isActive = true
+            
+            notificationsBadge.centerYAnchor.constraint(equalTo: notifications.centerYAnchor).isActive = true
+            notificationsBadge.leftAnchor.constraint(equalTo: notifications.rightAnchor, constant: 20).isActive = true
+            
+            locationText.topAnchor.constraint(equalTo: notificationsText.bottomAnchor, constant: 40).isActive = true
+            locationText.leftAnchor.constraint(equalTo: leftAnchor, constant: 40).isActive = true
+            
+            location.centerYAnchor.constraint(equalTo: locationText.centerYAnchor).isActive = true
+            location.leftAnchor.constraint(equalTo: browser.leftAnchor).isActive = true
+            
+            locationBadge.centerYAnchor.constraint(equalTo: locationText.centerYAnchor).isActive = true
+            locationBadge.leftAnchor.constraint(equalTo: location.rightAnchor, constant: 20).isActive = true
+            
+            Task {
+                await update(badge: browserBadge, value: NSWorkspace
+                    .shared
+                    .urlForApplication(toOpen: URL(string: URL.Scheme.http.rawValue + "://")!)
+                    .map {
+                        $0.lastPathComponent == Bundle.main.bundleURL.lastPathComponent
+                    }
+                    ?? false)
+                
+                let settings = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
+                await update(badge: notificationsBadge, value: settings != .notDetermined && settings != .denied)
+                
+                let status = CLLocationManager().authorizationStatus
+                await update(badge: locationBadge, value: status != .denied || status != .notDetermined)
+            }
         }
         
-//        @MainActor private func request() async {
-//            _ = await UNUserNotificationCenter.request()
-//            requested = true
-//            await self.checkNotifications()
-//        }
-//
-//        @MainActor private func checkNotifications() async {
-//            let settings = await UNUserNotificationCenter.current().notificationSettings()
-//            if settings.authorizationStatus == .notDetermined {
-//                option.text.stringValue = "Activate notifications"
-//                updateNotifications(text: Copy.notifications)
-//            } else if settings.alertSetting == .disabled || settings.authorizationStatus == .denied {
-//                option.text.stringValue = "Open Settings"
-//                updateNotifications(text: Copy.notifications)
-//                requested = true
-//            } else {
-//                badge.isHidden = false
-//                option.text.stringValue = "Open Settings"
-//                updateNotifications(text: Copy.deactivate)
-//                requested = true
-//            }
-//        }
-        
-//        private func updateNotifications(text: String) {
-//            self.text.attributedStringValue = .with(markdown: text, attributes: [
-//                .font: NSFont.preferredFont(forTextStyle: .body),
-//                .foregroundColor: NSColor.secondaryLabelColor])
-//        }
+        @MainActor private func update(badge: NSImageView, value: Bool) {
+            badge.image = .init(systemSymbolName: value
+                                ? "checkmark.circle.fill"
+                                : "exclamationmark.triangle.fill", accessibilityDescription: nil)
+            badge.symbolConfiguration = .init(pointSize: 20, weight: .medium)
+                .applying(.init(hierarchicalColor: value ? .systemBlue : .systemPink))
+        }
     }
 }

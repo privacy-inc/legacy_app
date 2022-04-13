@@ -1,34 +1,6 @@
 import Foundation
 
 enum Copy {
-    static let notifications = """
-We use notifications to display important messages and provide feedback to your actions, and only when you are actively using the app.
-
-We will never send you Push Notifications.
-
-Your privacy is respected at all times.
-"""
-    
-    static let deactivate = """
-Notifications are activated
-"""
-    
-    static let location = """
-This app will never access your location, but may ask you to grant access if a website is requesting it, useful when using maps, otherwise is not really necessary.
-
-You can always change this permission on Settings.
-"""
-    
-    static let browser = """
-You can make this app your default browser and all websites will open automatically on Privacy.
-"""
-    
-    static let activateOnSettings = """
-
-
-Activate it on Settings.
-"""
-    
     static let policy = """
 This app is **not** tracking you in anyway, nor sharing any information from you with no one, we are also not storing any data concerning you.
 
@@ -66,6 +38,7 @@ By purchasing _Privacy +_ you support research and development at _Privacy Inc_ 
 
 _Privacy +_ is an In-App Purchase, it is non-consumable, meaning it is a **1 time only** purchase and you can use it both on iOS and macOS.
 """
+    
     static let why = """
 By purchasing _Privacy +_ you are supporting the development and research necessary to fulfil our mission of bringing the most secure and private browser to iOS and macOS.
 
