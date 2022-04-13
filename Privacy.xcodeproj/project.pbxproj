@@ -65,8 +65,6 @@
 		CE43126A2736D25C00DA0F99 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312652736D25B00DA0F99 /* Switch.swift */; };
 		CE43126D2736D6E100DA0F99 /* Preferences.General.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43126C2736D6E100DA0F99 /* Preferences.General.swift */; };
 		CE43126F2736D71500DA0F99 /* Preferences.Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43126E2736D71500DA0F99 /* Preferences.Navigation.swift */; };
-		CE441D72273FF94200F4DACE /* Preferences.Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE441D71273FF94200F4DACE /* Preferences.Browser.swift */; };
-		CE441D74273FFD7B00F4DACE /* Preferences.Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE441D73273FFD7B00F4DACE /* Preferences.Location.swift */; };
 		CE46B4DE26F797F600A5B5BB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE46B4DD26F797F600A5B5BB /* App.swift */; };
 		CE46B4E226F797F700A5B5BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4E126F797F700A5B5BB /* Assets.xcassets */; };
 		CE46B4EB26F7982200A5B5BB /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
@@ -308,8 +306,6 @@
 		CE4312652736D25B00DA0F99 /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		CE43126C2736D6E100DA0F99 /* Preferences.General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.General.swift; sourceTree = "<group>"; };
 		CE43126E2736D71500DA0F99 /* Preferences.Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Navigation.swift; sourceTree = "<group>"; };
-		CE441D71273FF94200F4DACE /* Preferences.Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Browser.swift; sourceTree = "<group>"; };
-		CE441D73273FFD7B00F4DACE /* Preferences.Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Location.swift; sourceTree = "<group>"; };
 		CE46B4DA26F797F600A5B5BB /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE46B4DD26F797F600A5B5BB /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE46B4E126F797F700A5B5BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -520,11 +516,9 @@
 				CE3C653327483276000CF55A /* NSMutableAttributedString.swift */,
 				CEA2B291280047D600E2F201 /* NSPopover.swift */,
 				CE09C06127FF15A20032A303 /* NSWindow.swift */,
-				CE441D71273FF94200F4DACE /* Preferences.Browser.swift */,
 				CE4312622736D25B00DA0F99 /* Preferences.Features.swift */,
 				CE43126C2736D6E100DA0F99 /* Preferences.General.swift */,
 				CE4312632736D25B00DA0F99 /* Preferences.Javascript.swift */,
-				CE441D73273FFD7B00F4DACE /* Preferences.Location.swift */,
 				CE43126E2736D71500DA0F99 /* Preferences.Navigation.swift */,
 				CE6BFE9327380AD000ECF118 /* Preferences.Segmented.swift */,
 				CE4312642736D25B00DA0F99 /* Preferences.swift */,
@@ -929,7 +923,6 @@
 				CEAFF0122741522200A9F744 /* Autocomplete.swift in Sources */,
 				CE4312672736D25C00DA0F99 /* Preferences.Features.swift in Sources */,
 				CEEBA5C5272FFA540079928E /* NSMenuItem.swift in Sources */,
-				CE441D72273FF94200F4DACE /* Preferences.Browser.swift in Sources */,
 				CE6BFE9427380AD000ECF118 /* Preferences.Segmented.swift in Sources */,
 				CE84E62E273D4BD60071429B /* Control.Symbol.swift in Sources */,
 				CE3576B627281D00005854B5 /* Store.swift in Sources */,
@@ -947,7 +940,6 @@
 				CE1DB23E28044B1E00128BCF /* Shortcut.Item.swift in Sources */,
 				CEA2B2902800435B00E2F201 /* Control.Title.swift in Sources */,
 				CEE9B15C2739481A0086BD6C /* Detail.swift in Sources */,
-				CE441D74273FFD7B00F4DACE /* Preferences.Location.swift in Sources */,
 				CE8FC49A2740180000BE4CED /* Web.Location.swift in Sources */,
 				CE743009272981EA00F5F5B8 /* CollectionCell.swift in Sources */,
 				CEE91AC6273960B1003447BD /* Share.swift in Sources */,
