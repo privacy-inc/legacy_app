@@ -189,7 +189,7 @@ final class Web: Webview {
                 case let .success(data) = $0,
                 let name = self?.url?.file("webarchive")
             else { return }
-//            NSSavePanel.save(data: data, name: name, types: [.webArchive])
+            self?.save(data: data, name: name, types: [.webArchive])
         }
     }
     
@@ -231,7 +231,7 @@ final class Web: Webview {
                 let name = url?.file("pdf"),
                 let pdf = try? await pdf()
             else { return }
-//            NSSavePanel.save(data: pdf, name: name, types: [.pdf])
+            save(data: pdf, name: name, types: [.pdf])
         }
     }
     
@@ -253,7 +253,7 @@ final class Web: Webview {
                     let tiff = image.tiffRepresentation,
                     let data = NSBitmapImageRep(data: tiff)?.representation(using: .png, properties: [:])
                 else { return }
-//                NSSavePanel.save(data: data, name: name, types: [.png])
+                save(data: data, name: name, types: [.png])
             }
         }
     }
@@ -263,8 +263,8 @@ final class Web: Webview {
             .download
             .map { download in
                 (try? Data(contentsOf: download))
-                    .map { _ in
-//                        NSSavePanel.save(data: $0, name: download.lastPathComponent, types: types)
+                    .map {
+                        save(data: $0, name: download.lastPathComponent, types: types)
                     }
             }
     }
@@ -272,8 +272,8 @@ final class Web: Webview {
     private func download(url: URL) async {
         guard let (data, _) = try? await URLSession.shared.data(from: url, delegate: nil) else { return }
         await MainActor
-            .run {
-//                NSSavePanel.save(data: data, name: url.lastPathComponent, types: [])
+            .run { [weak self] in
+                self?.save(data: data, name: url.lastPathComponent, types: [])
             }
     }
     
@@ -295,5 +295,17 @@ final class Web: Webview {
     @objc private func download(item: NSMenuItem) {
         destination = .download
         item.activate()
+    }
+    
+    @MainActor private func save(data: Data, name: String, types: [UTType]) {
+        let panel = NSSavePanel()
+        panel.nameFieldStringValue = name
+        panel.allowedContentTypes = types
+        panel.begin {
+            if $0 == .OK, let url = panel.url {
+                try? data.write(to: url, options: .atomic)
+                NSWorkspace.shared.activateFileViewerSelecting([url])
+            }
+        }
     }
 }
