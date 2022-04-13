@@ -2,58 +2,69 @@ import AppKit
 import Combine
 
 extension Preferences {
-    final class Features: NSVisualEffectView {
+    final class Blocker: NSVisualEffectView {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
         init() {
-            super.init(frame: .init(origin: .zero, size: .init(width: 580, height: 340)))
+            super.init(frame: .init(origin: .zero, size: .init(width: 580, height: 390)))
             
-            let dark = Switch(title: "Force dark mode")
-            dark
+            let trackers = Switch(title: "Block trackers")
+            trackers
                 .change
                 .sink { value in
                     Task
                         .detached(priority: .utility) {
-                            await cloud.update(dark: value)
+                            await cloud.update(policy: value ? .secure : .standard)
                         }
                 }
                 .store(in: &subs)
             
-            let screen = Switch(title: "Remove cookie notices")
-            screen
+            let cookies = Switch(title: "Block cookies")
+            cookies
                 .change
                 .sink { value in
                     Task
                         .detached(priority: .utility) {
-                            await cloud.update(screen: !value)
+                            await cloud.update(cookies: !value)
                         }
                 }
                 .store(in: &subs)
             
-            let scripts = Switch(title: "Enable JavaScript")
-            scripts
+            let ads = Switch(title: "Block ads")
+            ads
                 .change
                 .sink { value in
                     Task
                         .detached(priority: .utility) {
-                            await cloud.update(javascript: value)
+                            await cloud.update(ads: !value)
                         }
                 }
                 .store(in: &subs)
             
-            let stop = Switch(title: "Stop scripts when page ready")
-            stop
+            let popups = Switch(title: "Block pop-ups")
+            popups
                 .change
                 .sink { value in
                     Task
                         .detached(priority: .utility) {
-                            await cloud.update(timers: !value)
+                            await cloud.update(popups: !value)
                         }
                 }
                 .store(in: &subs)
             
-            let stack = NSStackView(views: [dark, screen, scripts, stop])
+            let third = Switch(title: "Block third-party scripts")
+            third
+                .change
+                .sink { value in
+                    Task
+                        .detached(priority: .utility) {
+                            await cloud.update(third: !value)
+                        }
+                }
+                .store(in: &subs)
+            
+            let stack = NSStackView(views: [trackers, cookies, ads, popups, third])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.orientation = .vertical
             stack.alignment = .leading
@@ -66,10 +77,11 @@ extension Preferences {
                 .first()
                 .map(\.settings)
                 .sink { settings in
-                    dark.control.state = settings.configuration.dark ? .on : .off
-                    screen.control.state = settings.configuration.screen ? .off : .on
-                    scripts.control.state = settings.configuration.javascript ? .on : .off
-                    stop.control.state = settings.configuration.timers ? .off : .on
+                    trackers.control.state = settings.policy == .secure ? .on : .off
+                    cookies.control.state = settings.configuration.cookies ? .off : .on
+                    ads.control.state = settings.configuration.ads ? .off : .on
+                    popups.control.state = settings.configuration.popups ? .off : .on
+                    third.control.state = settings.configuration.third ? .off : .on
                 }
                 .store(in: &subs)
         }

@@ -1,150 +1,90 @@
 import AppKit
+import Combine
 
 extension Preferences {
     final class Navigation: NSVisualEffectView {
+        private var subs = Set<AnyCancellable>()
+        
         required init?(coder: NSCoder) { nil }
         init() {
-            super.init(frame: .init(origin: .zero, size: .init(width: 600, height: 600)))
+            super.init(frame: .init(origin: .zero, size: .init(width: 580, height: 320)))
             
-//            let engine = Segmented(
-//                symbol: "magnifyingglass",
-//                title: "Search engine",
-//                labels: ["Google", "Ecosia"],
-//                target: self,
-//                action: #selector(engine))
-//            let level = Segmented(
-//                symbol: "shield.lefthalf.filled",
-//                title: "Privacy level",
-//                labels: ["Block trackers", "Standard"],
-//                target: self,
-//                action: #selector(level))
-//            let connection = Segmented(
-//                symbol: "lock",
-//                title: "Connection encryption",
-//                labels: ["Enforce https", "Allow http"],
-//                target: self,
-//                action: #selector(connection))
-//            let cookies = Segmented(
-//                symbol: "pawprint",
-//                title: "Cookies",
-//                labels: ["Block all", "Accept"],
-//                target: self,
-//                action: #selector(cookies))
-//            let autoplay = Segmented(
-//                symbol: "play.rectangle",
-//                title: "Autoplay",
-//                labels: ["None", "Audio", "Video", "All"],
-//                target: self,
-//                action: #selector(autoplay))
-//
-//            let stack = NSStackView(views: [engine,
-//                                            level,
-//                                            connection,
-//                                            cookies,
-//                                            autoplay])
-//            stack.translatesAutoresizingMaskIntoConstraints = false
-//            stack.orientation = .vertical
-//            stack.spacing = 15
-//            view!.addSubview(stack)
-//
-//            stack.topAnchor.constraint(equalTo: view!.topAnchor, constant: 30).isActive = true
-//            stack.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
-//
-//            Task {
-//                let settings = await cloud.model.settings
-//                await MainActor
-//                    .run {
-//                        engine.control.selectedSegment = settings.search == .google ? 0 : 1
-//                        level.control.selectedSegment = settings.policy == .secure ? 0 : 1
-//                        connection.control.selectedSegment = settings.configuration.http ? 1 : 0
-//                        cookies.control.selectedSegment = settings.configuration.cookies ? 1 : 0
-//
-//                        switch settings.configuration.autoplay {
-//                        case .none:
-//                            autoplay.control.selectedSegment = 0
-//                        case .audio:
-//                            autoplay.control.selectedSegment = 1
-//                        case .video:
-//                            autoplay.control.selectedSegment = 2
-//                        case .all:
-//                            autoplay.control.selectedSegment = 3
-//                        }
-//                    }
-//            }
-        }
-        
-        @objc private func engine(_ segmented: NSSegmentedControl) {
-            let selected = segmented.selectedSegment
+            let engine = Segmented(symbol: "magnifyingglass", title: "Search engine", labels: ["Google", "Ecosia"])
+            engine
+                .change
+                .sink { selected in
+                    Task
+                        .detached(priority: .utility) {
+                            switch selected {
+                            case 0:
+                                await cloud.update(search: .google)
+                            default:
+                                await cloud.update(search: .ecosia)
+                            }
+                        }
+                }
+                .store(in: &subs)
             
-            Task
-                .detached(priority: .utility) {
-                    switch selected {
-                    case 0:
-                        await cloud.update(search: .google)
-                    default:
-                        await cloud.update(search: .ecosia)
+            let autoplay = Segmented(symbol: "play.rectangle", title: "Autoplay", labels: ["None", "Audio", "Video", "All"])
+            autoplay
+                .change
+                .sink { selected in
+                    Task
+                        .detached(priority: .utility) {
+                            switch selected {
+                            case 0:
+                                await cloud.update(autoplay: .none)
+                            case 1:
+                                await cloud.update(autoplay: .audio)
+                            case 2:
+                                await cloud.update(autoplay: .video)
+                            default:
+                                await cloud.update(autoplay: .all)
+                            }
+                        }
+                }
+                .store(in: &subs)
+            
+            let http = Switch(title: "Allow insecure connections (http)")
+            http
+                .change
+                .sink { value in
+                    Task
+                        .detached(priority: .utility) {
+                            await cloud.update(http: value)
+                        }
+                }
+                .store(in: &subs)
+            
+            let stack = NSStackView(views: [engine, autoplay, http])
+            stack.orientation = .vertical
+            stack.alignment = .leading
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            stack.setCustomSpacing(20, after: autoplay)
+            addSubview(stack)
+            
+            stack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+            stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 140).isActive = true
+            
+            cloud
+                .first()
+                .map(\.settings)
+                .sink { settings in
+                    engine.control.selectedSegment = settings.search == .google ? 0 : 1
+                    http.control.state = settings.configuration.http ? .on : .off
+                    
+                    switch settings.configuration.autoplay {
+                    case .none:
+                        autoplay.control.selectedSegment = 0
+                    case .audio:
+                        autoplay.control.selectedSegment = 1
+                    case .video:
+                        autoplay.control.selectedSegment = 2
+                    case .all:
+                        autoplay.control.selectedSegment = 3
                     }
                 }
-        }
-        
-        @objc private func level(_ segmented: NSSegmentedControl) {
-            let selected = segmented.selectedSegment
-            
-            Task
-                .detached(priority: .utility) {
-                    switch selected {
-                    case 0:
-                        await cloud.update(policy: .secure)
-                    default:
-                        await cloud.update(policy: .standard)
-                    }
-                }
-        }
-        
-        @objc private func connection(_ segmented: NSSegmentedControl) {
-            let selected = segmented.selectedSegment
-            
-            Task
-                .detached(priority: .utility) {
-                    switch selected {
-                    case 0:
-                        await cloud.update(http: false)
-                    default:
-                        await cloud.update(http: true)
-                    }
-                }
-        }
-        
-        @objc private func cookies(_ segmented: NSSegmentedControl) {
-            let selected = segmented.selectedSegment
-            
-            Task
-                .detached(priority: .utility) {
-                    switch selected {
-                    case 0:
-                        await cloud.update(cookies: false)
-                    default:
-                        await cloud.update(cookies: true)
-                    }
-                }
-        }
-        
-        @objc private func autoplay(_ segmented: NSSegmentedControl) {
-            let selected = segmented.selectedSegment
-            
-            Task
-                .detached(priority: .utility) {
-                    switch selected {
-                    case 0:
-                        await cloud.update(autoplay: .none)
-                    case 1:
-                        await cloud.update(autoplay: .audio)
-                    case 2:
-                        await cloud.update(autoplay: .video)
-                    default:
-                        await cloud.update(autoplay: .all)
-                    }
-                }
+                .store(in: &subs)
         }
     }
 }

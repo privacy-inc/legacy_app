@@ -10,7 +10,9 @@ final class Preferences: NSWindow {
         
         controller.tabViewItems = [
             item(General(), title: "General", symbol: "gear"),
-            item(Navigation(), title: "Navigation", symbol: "arrow.triangle.branch")]
+            item(Navigation(), title: "Navigation", symbol: "arrow.triangle.branch"),
+            item(Features(), title: "Features", symbol: "switch.2"),
+            item(Blocker(), title: "Blocker", symbol: "bolt.shield")]
         
         animationBehavior = .alertPanel
         isReleasedWhenClosed = false
