@@ -1,7 +1,5 @@
 import AppKit
-import StoreKit
 import UserNotifications
-import Specs
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate, UNUserNotificationCenterDelegate {
     required init?(coder: NSCoder) { nil }
@@ -30,22 +28,11 @@ import Specs
             
             self.newWindow()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                switch Defaults.action {
-                case .rate:
-                    SKStoreReviewController.requestReview()
-                case .froob:
-                    (NSApp.anyWindow() ?? Froob())
-                        .makeKeyAndOrderFront(nil)
-                case .none:
-                    break
-                }
-                
-                Task {
+            Task
+                .detached {
                     _ = await UNUserNotificationCenter.request()
                     await store.launch()
                 }
-            }
         }
     }
     

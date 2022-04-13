@@ -57,8 +57,6 @@
 		CE4047ED2707235000E101D1 /* Listed.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4047EC2707235000E101D1 /* Listed.swift */; };
 		CE4047EF2707247400E101D1 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4047EE2707247400E101D1 /* UIImage.swift */; };
 		CE4047F1270726BA00E101D1 /* Listed.Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4047F0270726BA00E101D1 /* Listed.Remote.swift */; };
-		CE43125F2736C70100DA0F99 /* Froob.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43125E2736C70100DA0F99 /* Froob.swift */; };
-		CE4312612736CCD500DA0F99 /* Froob.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312602736CCD500DA0F99 /* Froob.Action.swift */; };
 		CE4312672736D25C00DA0F99 /* Preferences.Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312622736D25B00DA0F99 /* Preferences.Features.swift */; };
 		CE4312682736D25C00DA0F99 /* Preferences.Blocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312632736D25B00DA0F99 /* Preferences.Blocker.swift */; };
 		CE4312692736D25C00DA0F99 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312642736D25B00DA0F99 /* Preferences.swift */; };
@@ -298,8 +296,6 @@
 		CE4047EC2707235000E101D1 /* Listed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listed.swift; sourceTree = "<group>"; };
 		CE4047EE2707247400E101D1 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		CE4047F0270726BA00E101D1 /* Listed.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listed.Remote.swift; sourceTree = "<group>"; };
-		CE43125E2736C70100DA0F99 /* Froob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.swift; sourceTree = "<group>"; };
-		CE4312602736CCD500DA0F99 /* Froob.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.Action.swift; sourceTree = "<group>"; };
 		CE4312622736D25B00DA0F99 /* Preferences.Features.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.Features.swift; sourceTree = "<group>"; };
 		CE4312632736D25B00DA0F99 /* Preferences.Blocker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.Blocker.swift; sourceTree = "<group>"; };
 		CE4312642736D25B00DA0F99 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -495,8 +491,6 @@
 				CEF1484E27F1F9660017AD40 /* Downloads.swift */,
 				CE74300C2729825500F5F5B8 /* Flip.swift */,
 				CEA2B28D28003F5700E2F201 /* Forget.swift */,
-				CE4312602736CCD500DA0F99 /* Froob.Action.swift */,
-				CE43125E2736C70100DA0F99 /* Froob.swift */,
 				CEABD1F4272AE07100F56852 /* Icon.swift */,
 				CE742FFD2729759900F5F5B8 /* Landing.swift */,
 				CE74300B2729825500F5F5B8 /* Layer.swift */,
@@ -909,7 +903,6 @@
 				CE660AC2273AA978009A800E /* NSAttributedString.swift in Sources */,
 				CE25B83E27F9B542003FCB31 /* ListCell.swift in Sources */,
 				CE43126A2736D25C00DA0F99 /* Switch.swift in Sources */,
-				CE43125F2736C70100DA0F99 /* Froob.swift in Sources */,
 				CE5D669D2801C64B00A05B6A /* Trackers.swift in Sources */,
 				CE8BA2F7272D9B3E00E2D73F /* Search.swift in Sources */,
 				CE3576B027281C25005854B5 /* NSApplication.swift in Sources */,
@@ -935,7 +928,6 @@
 				CE52EDD0280578D50048F3F0 /* Secure.swift in Sources */,
 				CE69DA772806EC1B0073FFD5 /* Learn.Item.swift in Sources */,
 				CEEBA5C927302A1C0079928E /* Menu.swift in Sources */,
-				CE4312612736CCD500DA0F99 /* Froob.Action.swift in Sources */,
 				CE8BA2F9272D9B6300E2D73F /* Search.Cell.swift in Sources */,
 				CE1DB23E28044B1E00128BCF /* Shortcut.Item.swift in Sources */,
 				CEA2B2902800435B00E2F201 /* Control.Title.swift in Sources */,
