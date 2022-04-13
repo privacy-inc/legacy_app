@@ -1,12 +1,6 @@
 import UserNotifications
 
 extension UNUserNotificationCenter {
-    static var authorization: UNAuthorizationStatus {
-        get async {
-            await current().notificationSettings().authorizationStatus
-        }
-    }
-    
     static func send(message: String) async {
         let settings = await current().notificationSettings()
         guard settings.authorizationStatus == .authorized else { return }
