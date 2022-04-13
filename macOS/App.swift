@@ -91,6 +91,12 @@ import Specs
         
     }
     
+    func showLearn(with: Learn.Item) {
+        let window = anyWindow() ?? Learn()
+        window.item.send(with)
+        window.makeKeyAndOrderFront(nil)
+    }
+    
     @objc override func orderFrontStandardAboutPanel(_ sender: Any?) {
         (anyWindow() ?? About())
             .makeKeyAndOrderFront(nil)
@@ -99,6 +105,14 @@ import Specs
     @objc func showPreferencesWindow(_ sender: Any?) {
         (anyWindow() ?? Preferences())
             .makeKeyAndOrderFront(nil)
+    }
+    
+    @objc func showPolicy() {
+        showLearn(with: .policy)
+    }
+    
+    @objc func showTerms() {
+        showLearn(with: .terms)
     }
     
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {

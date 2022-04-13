@@ -241,14 +241,8 @@ final class Menu: NSMenu, NSMenuDelegate {
                     }
                 case is About:
                     title = "About"
-                case is Info.Policy:
-                    title = "Policy"
-                case is Info.Terms:
-                    title = "Terms"
-                case is Plus:
-                    title = "Privacy +"
-                case is Froob:
-                    title = "Support Privacy"
+                case is Learn:
+                    title = "Learn more"
                 case is Preferences:
                     title = "Preferences"
                 default:
@@ -269,12 +263,8 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     private var help: NSMenuItem {
         .parent("Help", [
-            .child("Policy", #selector(triggerPolicy)) {
-                $0.target = self
-            },
-            .child("Terms and conditions", #selector(triggerTerms)) {
-                $0.target = self
-            },
+            .child("Policy", #selector(App.showPolicy)),
+            .child("Terms and conditions", #selector(App.showTerms)),
             .separator(),
             .child("Rate on the App Store", #selector(triggerRate)) {
                 $0.target = self
@@ -324,16 +314,6 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     @objc private func triggerWebsite() {
         NSApp.open(url: URL(string: "https://goprivacy.app")!, change: true)
-    }
-    
-    @objc private func triggerPolicy() {
-        (NSApp.anyWindow() ?? Info.Policy())
-            .makeKeyAndOrderFront(nil)
-    }
-    
-    @objc private func triggerTerms() {
-        (NSApp.anyWindow() ?? Info.Terms())
-            .makeKeyAndOrderFront(nil)
     }
     
     @objc private func triggerShortcut(_ button: NSStatusBarButton) {

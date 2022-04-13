@@ -144,9 +144,7 @@ final class About: NSWindow {
                         self?.add(learn
                             .click
                             .sink {
-                                Task {
-                                    await store.restore()
-                                }
+                                (NSApp as! App).showLearn(with: .purchases)
                             })
                         
                         stack.setViews([price, purchase, learn, restore], in: .center)
