@@ -6,15 +6,12 @@ struct Store {
     let status = CurrentValueSubject<Status, Never>(.loading)
     private var restored = false
     
-    init() {
-        Task
-            .detached {
-                for await result in Transaction.updates {
-                    if case let .verified(safe) = result {
-                        await safe.process()
-                    }
-                }
+    func launch() async {
+        for await result in Transaction.updates {
+            if case let .verified(safe) = result {
+                await process(transaction: safe)
             }
+        }
     }
     
     @MainActor func load() async {
@@ -42,7 +39,7 @@ struct Store {
             switch try await product.purchase() {
             case let .success(verification):
                 if case let .verified(safe) = verification {
-                    await safe.process()
+                    await process(transaction: safe)
                     await load()
                 } else {
                     status.send(.error("Purchase verification failed."))
@@ -67,7 +64,7 @@ struct Store {
         
         for await result in Transaction.currentEntitlements {
             if case let .verified(safe) = result {
-                await safe.process()
+                await process(transaction: safe)
             }
         }
         
@@ -78,5 +75,11 @@ struct Store {
     func purchase(legacy: SKProduct) async {
         guard let product = try? await Product.products(for: [legacy.productIdentifier]).first else { return }
         await purchase(product)
+    }
+    
+    private func process(transaction: Transaction) async {
+        guard let item = Item(rawValue: transaction.productID) else { return }
+        await item.purchased(active: transaction.revocationDate == nil)
+        await transaction.finish()
     }
 }

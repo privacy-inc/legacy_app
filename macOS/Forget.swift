@@ -13,7 +13,7 @@ final class Forget: NSView {
         image.translatesAutoresizingMaskIntoConstraints = false
         addSubview(image)
         
-        let control = Control.Title("Forget")
+        let control = Control.Title("Forget", color: .labelColor, layer: true)
         control
             .click
             .sink {
@@ -35,6 +35,5 @@ final class Forget: NSView {
         
         control.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20).isActive = true
         control.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        control.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
 }

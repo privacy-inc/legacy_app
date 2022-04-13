@@ -4,7 +4,7 @@ private let pi2 = Double.pi * 2
 
 extension About {
     final class Layer: CALayer {
-        private var model = Banner()
+        private var model = Banner(width: 620, height: 220)
         private let shades = NSColor(named: "Shades")!
         private let dawn = NSColor(named: "Dawn")!
         

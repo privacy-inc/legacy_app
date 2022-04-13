@@ -1,24 +1,24 @@
 import AppKit
 
-extension Plus {
-    final class Action: Control {
+extension Control {
+    final class Capsule: Control {
         required init?(coder: NSCoder) { nil }
-        init(title: String, color: NSColor, foreground: NSColor) {
+        init(_ title: String, color: NSColor, foreground: NSColor) {
             let text = Text(vibrancy: false)
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .body)
             text.textColor = foreground
             
             super.init(layer: true)
-            layer!.cornerRadius = 16
+            layer!.cornerRadius = 15
             layer!.backgroundColor = color.cgColor
             addSubview(text)
             
-            heightAnchor.constraint(equalToConstant: 32).isActive = true
-            widthAnchor.constraint(equalToConstant: 120).isActive = true
+            heightAnchor.constraint(equalToConstant: 30).isActive = true
+            rightAnchor.constraint(equalTo: text.rightAnchor, constant: 17).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 17).isActive = true
         }
         
         override func updateLayer() {

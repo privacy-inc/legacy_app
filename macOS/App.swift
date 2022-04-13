@@ -43,6 +43,7 @@ import Specs
                 
                 Task {
                     _ = await UNUserNotificationCenter.request()
+                    await store.launch()
                 }
             }
         }
