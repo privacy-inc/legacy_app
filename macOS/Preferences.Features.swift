@@ -1,7 +1,7 @@
 import AppKit
 
 extension Preferences {
-    final class Features: Tab {
+//    final class Features: Tab {
 //        required init?(coder: NSCoder) { nil }
 //        init() {
 //            super.init(size: .init(width: 440, height: 300), title: "Features", symbol: "switch.2")
@@ -71,5 +71,5 @@ extension Preferences {
 //                    await cloud.update(screen: !state)
 //                }
 //        }
-    }
+//    }
 }

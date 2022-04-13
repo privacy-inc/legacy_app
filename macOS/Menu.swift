@@ -221,7 +221,6 @@ final class Menu: NSMenu, NSMenuDelegate {
         items += NSApp
             .windows
             .compactMap { item in
-                
                 var title = "New tab"
                 var add: NSWindow? = item
                 

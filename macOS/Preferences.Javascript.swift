@@ -1,7 +1,7 @@
 import AppKit
 
 extension Preferences {
-    final class Javascript: Tab {
+//    final class Javascript: Tab {
 //        required init?(coder: NSCoder) { nil }
 //        init() {
 //            super.init(size: .init(width: 440, height: 240), title: "JavaScript", symbol: "xmark.octagon")
@@ -58,5 +58,5 @@ extension Preferences {
 //                    await cloud.update(third: !state)
 //                }
 //        }
-    }
+//    }
 }
