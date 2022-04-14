@@ -77,7 +77,7 @@ final class Shortcut: NSView {
             }
             .flatMap { window in
                 window
-                    .status
+                    .session
                     .items
                     .value
                     .map {
@@ -91,7 +91,7 @@ final class Shortcut: NSView {
             }, in: .center)
         
         if let index = items.firstIndex (where: {
-            $0.window == NSApp.mainWindow && $0.window.status.current.value == $0.item.id
+            $0.window == NSApp.mainWindow && $0.window.session.current.value == $0.item.id
         }) {
             flip.layoutSubtreeIfNeeded()
             scroll.contentView.bounds.origin.y = .init(index * 41) - 120

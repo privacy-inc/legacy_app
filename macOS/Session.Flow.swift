@@ -1,7 +1,7 @@
 import Foundation
 import Specs
 
-extension Status {
+extension Session {
     enum Flow: Equatable {
         case
         list,

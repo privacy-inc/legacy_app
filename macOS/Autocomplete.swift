@@ -5,7 +5,7 @@ final class Autocomplete: NSPanel {
     private var monitor: Any?
     private var subs = Set<AnyCancellable>()
     
-    init(status: Status, position: CGPoint, width: CGFloat) {
+    init(session: Session, position: CGPoint, width: CGFloat) {
         super.init(contentRect: .zero,
                    styleMask: [.borderless],
                    backing: .buffered,
@@ -22,7 +22,7 @@ final class Autocomplete: NSPanel {
         blur.layer!.cornerRadius = 12
         contentView!.addSubview(blur)
         
-        let list = List(status: status, width: width - 24)
+        let list = List(session: session, width: width - 24)
         blur.addSubview(list)
         
         list.topAnchor.constraint(equalTo: blur.topAnchor, constant: 2).isActive = true

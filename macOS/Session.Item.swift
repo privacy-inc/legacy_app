@@ -1,6 +1,6 @@
 import Foundation
 
-extension Status {
+extension Session {
     struct Item: Equatable {
         let id: UUID
         let flow: Flow

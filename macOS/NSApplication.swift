@@ -8,12 +8,12 @@ extension NSApplication {
     
     func open(url: URL, change: Bool) {
         if let window = activeWindow {
-            let id = window.status.current.value
+            let id = window.session.current.value
             Task {
-                if window.status.flow(of: id) == .list {
-                    await window.status.open(url: url, id: id)
+                if window.session.flow(of: id) == .list {
+                    await window.session.open(url: url, id: id)
                 } else {
-                    await window.status.open(url: url, change: change)
+                    await window.session.open(url: url, change: change)
                 }
                 
                 window.makeKeyAndOrderFront(nil)
@@ -25,9 +25,9 @@ extension NSApplication {
     
     func window(url: URL) {
         Task {
-            let status = Status()
-            await status.open(url: url, id: status.current.value)
-            window(status: status)
+            let session = Session()
+            await session.open(url: url, id: session.current.value)
+            window(session: session)
         }
     }
     
@@ -39,12 +39,12 @@ extension NSApplication {
             .first
     }
     
-    func window(status: Status) {
-        Window(status: status).makeKeyAndOrderFront(nil)
+    func window(session: Session) {
+        Window(session: session).makeKeyAndOrderFront(nil)
     }
     
     @objc func newWindow() {
-        window(status: .init())
+        window(session: .init())
     }
     
     @objc func show() {

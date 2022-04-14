@@ -2,7 +2,7 @@ import AppKit
 import Combine
 import Specs
 
-struct Status {
+struct Session {
     let current: CurrentValueSubject<UUID, Never>
     let items: CurrentValueSubject<[Item], Never>
     let focus = PassthroughSubject<Void, Never>()
@@ -72,7 +72,7 @@ struct Status {
         if current.value == id {
             shift(id: id)
         }
-        NSApp.window(status: .init(item: items
+        NSApp.window(session: .init(item: items
             .value
             .remove {
                 $0.id == id
@@ -104,7 +104,7 @@ struct Status {
     
     @MainActor func open(url: URL, change: Bool) async {
         let id = UUID()
-        let web = await Web(status: self, id: id, settings: cloud.model.settings.configuration)
+        let web = await Web(session: self, id: id, settings: cloud.model.settings.configuration)
         let item = Item(id: id, flow: .web(web))
         web.load(url: url)
         if change {
@@ -118,7 +118,7 @@ struct Status {
         
         switch flow(of: id) {
         case .list:
-            web = await .init(status: self, id: id, settings: cloud.model.settings.configuration)
+            web = await .init(session: self, id: id, settings: cloud.model.settings.configuration)
         case let .web(item), let .message(item, _, _, _):
             web = item
         }

@@ -9,11 +9,11 @@ extension Tab {
         private weak var autocomplete: Autocomplete?
         private var subs = Set<AnyCancellable>()
         private let id: UUID
-        private let status: Status
+        private let session: Session
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, id: UUID, publisher: AnyPublisher<Status.Flow, Never>) {
-            self.status = status
+        init(session: Session, id: UUID, publisher: AnyPublisher<Session.Flow, Never>) {
+            self.session = session
             self.id = id
             
             let domain = CurrentValueSubject<_, Never>("")
@@ -25,14 +25,14 @@ extension Tab {
             self.progress = progress
             addSubview(progress)
             
-            let search = Search(status: status)
+            let search = Search(session: session)
             search.delegate = self
             
             let prompt = Control.Symbol("magnifyingglass", point: 12, size: Bar.height, weight: .regular, hierarchical: false)
             prompt.toolTip = "Search"
             prompt.click
                 .sink {
-                    status.focus.send()
+                    session.focus.send()
                 }
                 .store(in: &subs)
             
@@ -41,7 +41,7 @@ extension Tab {
             close
                 .click
                 .sink {
-                    status.close(id: id)
+                    session.close(id: id)
                 }
                 .store(in: &subs)
             
@@ -53,7 +53,7 @@ extension Tab {
             secure
                 .click
                 .sink {
-                    NSPopover().show(Secure(status: status, id: id), from: secure, edge: .minY)
+                    NSPopover().show(Secure(session: session, id: id), from: secure, edge: .minY)
                 }
                 .store(in: &subs)
             
@@ -63,7 +63,7 @@ extension Tab {
             insecure
                 .click
                 .sink {
-                    NSPopover().show(Secure(status: status, id: id), from: insecure, edge: .minY)
+                    NSPopover().show(Secure(session: session, id: id), from: insecure, edge: .minY)
                 }
                 .store(in: &subs)
             
@@ -73,7 +73,7 @@ extension Tab {
             options
                 .click
                 .sink {
-                    NSPopover().show(Detail(status: status, id: id), from: options, edge: .minY)
+                    NSPopover().show(Detail(session: session, id: id), from: options, edge: .minY)
                 }
                 .store(in: &subs)
             
@@ -98,7 +98,7 @@ extension Tab {
             stack.spacing = 0
             addSubview(stack)
             
-            let width = widthAnchor.constraint(equalToConstant: status.width.value.on)
+            let width = widthAnchor.constraint(equalToConstant: session.width.value.on)
             width.isActive = true
             
             progress.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -111,7 +111,7 @@ extension Tab {
             stack.topAnchor.constraint(equalTo: topAnchor).isActive = true
             stack.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             
-            status
+            session
                 .items
                 .map {
                     $0.count
@@ -123,7 +123,7 @@ extension Tab {
                 }
                 .store(in: &subs)
             
-            status
+            session
                 .items
                 .first()
                 .delay(for: .milliseconds(100), scheduler: DispatchQueue.main)
@@ -219,7 +219,7 @@ extension Tab {
                         .publisher(for: \.hasOnlySecureContent)
                         .removeDuplicates()
                         .sink {
-                            guard case .web = status.flow(of: id) else { return }
+                            guard case .web = session.flow(of: id) else { return }
                             secure.state = $0 ? .on : .hidden
                             insecure.state = $0 ? .hidden : .on
                         })
@@ -238,7 +238,7 @@ extension Tab {
                         .combineLatest(
                             web
                                 .publisher(for: \.canGoForward)
-                                .removeDuplicates(), status
+                                .removeDuplicates(), session
                                         .items
                                         .compactMap {
                                             $0
@@ -293,10 +293,10 @@ extension Tab {
                             web.goForward()
                             
                             guard
-                                let flow = status.items.value.first(where: { $0.id == id })?.flow,
+                                let flow = session.items.value.first(where: { $0.id == id })?.flow,
                                 case .message = flow
                             else { return }
-                            status.change(flow: .web(web), id: id)
+                            session.change(flow: .web(web), id: id)
                         })
                     
                     self?.add(web
@@ -312,14 +312,14 @@ extension Tab {
                 }
                 .store(in: &subs)
             
-            status
+            session
                 .focus
                 .sink { [weak self] in
                     self?.window!.makeFirstResponder(search)
                 }
                 .store(in: &subs)
             
-            status
+            session
                 .width
                 .dropFirst()
                 .sink {
@@ -339,10 +339,10 @@ extension Tab {
         func controlTextDidChange(_ control: Notification) {
             guard let search = control.object as? Search else { return }
             
-            if status.flow(of: id) != .list {
+            if session.flow(of: id) != .list {
                 if self.autocomplete == nil {
                     let origin = window!.convertPoint(toScreen: convert(frame.origin, to: nil))
-                    let autocomplete = Autocomplete(status: status,
+                    let autocomplete = Autocomplete(session: session,
                                                     position: .init(x: origin.x - 3, y: origin.y - 6),
                                                     width: bounds.width + 6)
                     window!.addChildWindow(autocomplete, ordered: .above)
@@ -350,14 +350,14 @@ extension Tab {
                 }
             }
             
-            status.filter.send(search.stringValue)
+            session.filter.send(search.stringValue)
         }
         
         func control(_ control: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
             case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
                 autocomplete?.close()
-                if case let .web(web) = status.flow(of: id) {
+                if case let .web(web) = session.flow(of: id) {
                     window?.makeFirstResponder(web)
                 } else {
                     window?.makeFirstResponder(window?.contentView)
@@ -365,14 +365,14 @@ extension Tab {
             case #selector(insertNewline):
                 autocomplete?.close()
                 Task
-                    .detached(priority: .utility) { [status, id] in
-                        await status.search(string: control.stringValue, id: id)
+                    .detached(priority: .utility) { [session, id] in
+                        await session.search(string: control.stringValue, id: id)
                     }
                 window!.makeFirstResponder(window!.contentView)
             case #selector(moveUp):
-                status.up.send(true)
+                session.up.send(true)
             case #selector(moveDown):
-                status.up.send(false)
+                session.up.send(false)
             default:
                 return false
             }

@@ -4,11 +4,11 @@ import Combine
 final class Bar: NSVisualEffectView {
     static let height = CGFloat(28)
     private var subs = Set<AnyCancellable>()
-    private let status: Status
+    private let session: Session
     
     required init?(coder: NSCoder) { nil }
-    init(status: Status) {
-        self.status = status
+    init(session: Session) {
+        self.session = session
         
         super.init(frame: .zero)
         state = .active
@@ -28,12 +28,12 @@ final class Bar: NSVisualEffectView {
         plus
             .click
             .sink {
-                status.addTab()
+                session.addTab()
             }
             .store(in: &subs)
         addSubview(plus)
         
-        status
+        session
             .items
             .removeDuplicates()
             .sink {
@@ -49,7 +49,7 @@ final class Bar: NSVisualEffectView {
                 
                 items
                     .forEach {
-                        let tab = Tab(status: status, id: $0.id, current: $0.id == status.current.value)
+                        let tab = Tab(session: session, id: $0.id, current: $0.id == session.current.value)
                         content.addSubview(tab)
                         
                         tabs.last?.right = tab
@@ -63,7 +63,7 @@ final class Bar: NSVisualEffectView {
             }
             .store(in: &subs)
         
-        status
+        session
             .current
             .sink { current in
                 tabs
@@ -73,11 +73,11 @@ final class Bar: NSVisualEffectView {
             }
             .store(in: &subs)
         
-        status
+        session
             .current
-            .combineLatest(status
+            .combineLatest(session
                 .items,
-                           status
+                           session
                 .width)
             .debounce(for: .seconds(0.1), scheduler: DispatchQueue.main)
             .sink { current, _, _ in
@@ -104,7 +104,7 @@ final class Bar: NSVisualEffectView {
     override var frame: NSRect {
         didSet {
             let delta = (frame.width - 500) / 3
-            status.width.send((on: max(min(450, 240 + delta), 240),  off: max(min(160, 50 + delta), 50)))
+            session.width.send((on: max(min(450, 240 + delta), 240),  off: max(min(160, 50 + delta), 50)))
         }
     }
 }

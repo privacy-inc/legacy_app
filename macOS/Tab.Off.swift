@@ -10,14 +10,14 @@ extension Tab {
         private weak var title: Text!
         
         required init?(coder: NSCoder) { nil }
-        init(status: Status, id: UUID, publisher: AnyPublisher<Status.Flow, Never>) {
+        init(session: Session, id: UUID, publisher: AnyPublisher<Session.Flow, Never>) {
             super.init(layer: true)
             layer!.cornerRadius = 8
             layer!.cornerCurve = .continuous
             
             click
                 .sink {
-                    status.current.send(id)
+                    session.current.send(id)
                 }
                 .store(in: &subs)
             
@@ -41,13 +41,13 @@ extension Tab {
             close
                 .click
                 .sink {
-                    status.close(id: id)
+                    session.close(id: id)
                 }
                 .store(in: &subs)
             addSubview(close)
             self.close = close
             
-            let width = widthAnchor.constraint(equalToConstant: status.width.value.off)
+            let width = widthAnchor.constraint(equalToConstant: session.width.value.off)
             width.isActive = true
             
             close.leftAnchor.constraint(equalTo: leftAnchor, constant: 3).isActive = true
@@ -85,7 +85,7 @@ extension Tab {
                 }
                 .store(in: &subs)
             
-            status
+            session
                 .width
                 .dropFirst()
                 .sink {

@@ -7,7 +7,7 @@ extension Shortcut {
         private weak var background: Vibrant!
         
         required init?(coder: NSCoder) { nil }
-        init(window: Window, item: Status.Item) {
+        init(window: Window, item: Session.Item) {
             let background = Vibrant(layer: true)
             background.layer!.cornerRadius = 6
             self.background = background
@@ -28,7 +28,7 @@ extension Shortcut {
             text.lineBreakMode = .byTruncatingTail
             addSubview(text)
             
-            if window == NSApp.mainWindow && window.status.current.value == item.id {
+            if window == NSApp.mainWindow && window.session.current.value == item.id {
                 let check = NSImageView(image: .init(systemSymbolName: "checkmark.circle.fill", accessibilityDescription: nil) ?? .init())
                 check.translatesAutoresizingMaskIntoConstraints = false
                 check.symbolConfiguration = .init(pointSize: 24, weight: .medium)
@@ -97,7 +97,7 @@ extension Shortcut {
                 .sink {
                     NSApp.activate(ignoringOtherApps: true)
                     window.makeKeyAndOrderFront(nil)
-                    window.status.current.send(item.id)
+                    window.session.current.send(item.id)
                 }
         }
         

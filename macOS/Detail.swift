@@ -11,7 +11,7 @@ final class Detail: NSScrollView {
     }
     
     required init?(coder: NSCoder) { nil }
-    init(status: Status, id: UUID) {
+    init(session: Session, id: UUID) {
         super.init(frame: .init(origin: .zero, size: .init(width: 320, height: 360)))
         hasVerticalScroller = true
         verticalScroller!.controlSize = .mini
@@ -56,7 +56,7 @@ final class Detail: NSScrollView {
         stack.leftAnchor.constraint(equalTo: flip.leftAnchor, constant: 30).isActive = true
         stack.widthAnchor.constraint(equalTo: widthAnchor, constant: -60).isActive = true
         
-        if case let .web(web) = status.flow(of: id) {
+        if case let .web(web) = session.flow(of: id) {
             icon.icon(website: web.url)
             
             web

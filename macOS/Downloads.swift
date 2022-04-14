@@ -2,7 +2,7 @@ import AppKit
 
 final class Downloads: NSVisualEffectView {
     required init?(coder: NSCoder) { nil }
-    init(status: Status) {
+    init(session: Session) {
         super.init(frame: .zero)
         state = .active
         material = .menu

@@ -5,12 +5,12 @@ import Specs
 final class List: Collection<ListCell, ListInfo> {
     let empty = CurrentValueSubject<_, Never>(true)
     let selected = PassthroughSubject<ListInfo.ID, Never>()
-    private let status: Status
+    private let session: Session
     private let select = PassthroughSubject<CGPoint, Never>()
     
     required init?(coder: NSCoder) { nil }
-    init(status: Status, width: CGFloat) {
-        self.status = status
+    init(session: Session, width: CGFloat) {
+        self.session = session
         
         super.init(active: .activeAlways)
         alphaValue = 0
@@ -20,7 +20,7 @@ final class List: Collection<ListCell, ListInfo> {
         let vertical = CGFloat(15)
         let info = CurrentValueSubject<[ListInfo], Never>([])
         
-        status
+        session
             .filter
             .removeDuplicates()
             .sink { [weak self] _ in
@@ -29,7 +29,7 @@ final class List: Collection<ListCell, ListInfo> {
             .store(in: &subs)
         
         cloud
-            .combineLatest(status
+            .combineLatest(session
                 .filter
                 .removeDuplicates()) {
                     $0.websites(filter: $1)
@@ -90,7 +90,7 @@ final class List: Collection<ListCell, ListInfo> {
             }
             .store(in: &subs)
         
-        status
+        session
             .up
             .map { up -> (up: Bool, date: Date) in
                 (up: up, date: Date())
@@ -129,7 +129,7 @@ final class List: Collection<ListCell, ListInfo> {
                                 .center(y: $0.rect.minY)
                         }
                     self?.highlighted.send(info[index].id)
-                    status.complete.send(info[index].id)
+                    session.complete.send(info[index].id)
                 }
             }
             .store(in: &subs)
@@ -140,7 +140,7 @@ final class List: Collection<ListCell, ListInfo> {
             }
             .sink { website in
                 Task {
-                    await status.open(url: URL(string: website.id)!, id: status.current.value)
+                    await session.open(url: URL(string: website.id)!, id: session.current.value)
                 }
             }
             .store(in: &subs)

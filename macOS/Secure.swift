@@ -2,7 +2,7 @@ import AppKit
 
 final class Secure: NSView {
     required init?(coder: NSCoder) { nil }
-    init(status: Status, id: UUID) {
+    init(session: Session, id: UUID) {
         super.init(frame: .init(origin: .zero, size: .init(width: 320, height: 160)))
         
         let icon = NSImageView()
@@ -22,7 +22,7 @@ final class Secure: NSView {
         message.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         message.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -30).isActive = true
         
-        if case let .web(web) = status.flow(of: id),
+        if case let .web(web) = session.flow(of: id),
            let domain = web.url?.absoluteString.domain {
             icon.image = .init(systemSymbolName: web.hasOnlySecureContent
                                ? "lock.circle.fill"

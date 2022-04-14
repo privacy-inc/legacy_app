@@ -5,11 +5,11 @@ import Specs
 final class Landing: NSView, NSMenuDelegate {
     private weak var list: List!
     private var subs = Set<AnyCancellable>()
-    private let status: Status
+    private let session: Session
 
     required init?(coder: NSCoder) { nil }
-    init(status: Status) {
-        self.status = status
+    init(session: Session) {
+        self.session = session
         
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +20,7 @@ final class Landing: NSView, NSMenuDelegate {
         empty.stringValue = "No history or bookmarks\nto show"
         addSubview(empty)
         
-        let list = List(status: status, width: 426)
+        let list = List(session: session, width: 426)
         self.list = list
         list.menu = .init()
         list.menu!.delegate = self
@@ -142,7 +142,7 @@ final class Landing: NSView, NSMenuDelegate {
     @objc private func open() {
         guard let url = list.highlighted.value else { return }
         Task {
-            await status.open(url: URL(string: url)!, id: status.current.value)
+            await session.open(url: URL(string: url)!, id: session.current.value)
         }
     }
     

@@ -4,13 +4,13 @@ import StoreKit
 import Specs
 
 final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
-    let status: Status
+    let session: Session
     let finder = NSTextFinder()
     private weak var findbar: NSTitlebarAccessoryViewController!
     private var subs = Set<AnyCancellable>()
     
-    init(status: Status) {
-        self.status = status
+    init(session: Session) {
+        self.session = session
         super.init(contentRect: .init(x: 0,
                                       y: 0,
                                       width: NSScreen.main!.frame.width * 0.5,
@@ -28,12 +28,12 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
         finder.findBarContainer = self
         
         let bar = NSTitlebarAccessoryViewController()
-        bar.view = Bar(status: status)
+        bar.view = Bar(session: session)
         bar.layoutAttribute = .top
         addTitlebarAccessoryViewController(bar)
         
         let downloads = NSTitlebarAccessoryViewController()
-        downloads.view = Downloads(status: status)
+        downloads.view = Downloads(session: session)
         downloads.view.frame.size.height = 1
         downloads.layoutAttribute = .bottom
         addTitlebarAccessoryViewController(downloads)
@@ -61,9 +61,9 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
             view.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
         }
         
-        status
+        session
             .items
-            .combineLatest(status
+            .combineLatest(session
                             .current)
             .compactMap { items, current in
                 items
@@ -86,8 +86,8 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
                 case .list:
                     self?.isFindBarVisible = false
                     self?.finder.client = nil
-                    place(Landing(status: status))
-                    status.filter.send("")
+                    place(Landing(session: session))
+                    session.filter.send("")
                 case let .web(web):
                     self?.finder.client = web
                     place(web)
@@ -170,23 +170,23 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
     }
     
     @objc func triggerFocus() {
-        status.focus.send()
+        session.focus.send()
     }
     
     @objc override func triggerCloseTab() {
-        guard status.items.value.count > 1 else {
+        guard session.items.value.count > 1 else {
             close()
             return
         }
-        status.close(id: status.current.value)
+        session.close(id: session.current.value)
     }
     
     @objc func triggerNextTab() {
-        status.next(id: status.current.value)
+        session.next(id: session.current.value)
     }
     
     @objc func triggerPreviousTab() {
-        status.previous(id: status.current.value)
+        session.previous(id: session.current.value)
     }
     
     private func froob(bar: NSView) {

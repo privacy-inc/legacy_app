@@ -62,7 +62,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         
         guard
             let window = NSApp.keyWindow as? Window,
-            case let .web(web) = window.status.flow(of: window.status.current.value),
+            case let .web(web) = window.session.flow(of: window.session.current.value),
             let url = web.url
         else { return items }
         
@@ -148,7 +148,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         var web: Web?
         
         if let window = NSApp.keyWindow as? Window {
-            switch window.status.flow(of: window.status.current.value) {
+            switch window.session.flow(of: window.session.current.value) {
             case let .web(item), let .message(item, _, _, _):
                 web = item
             default:
@@ -199,19 +199,19 @@ final class Menu: NSMenu, NSMenuDelegate {
             .child("Zoom", #selector(NSWindow.zoom)),
             .separator(),
             .child("Show Previous Tab", #selector(Window.triggerPreviousTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
-                $0.isEnabled = ((NSApp.keyWindow as? Window)?.status.items.value.count ?? 0) > 1
+                $0.isEnabled = ((NSApp.keyWindow as? Window)?.session.items.value.count ?? 0) > 1
                 $0.keyEquivalentModifierMask = [.control, .shift]
             },
             .child("Show Next Tab", #selector(Window.triggerNextTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
-                $0.isEnabled = ((NSApp.keyWindow as? Window)?.status.items.value.count ?? 0) > 1
+                $0.isEnabled = ((NSApp.keyWindow as? Window)?.session.items.value.count ?? 0) > 1
                 $0.keyEquivalentModifierMask = [.control]
             },
             .child("Alternate Previous Tab", #selector(Window.triggerPreviousTab), "{") {
-                $0.isEnabled = ((NSApp.keyWindow as? Window)?.status.items.value.count ?? 0) > 1
+                $0.isEnabled = ((NSApp.keyWindow as? Window)?.session.items.value.count ?? 0) > 1
                 $0.keyEquivalentModifierMask = [.command]
             },
             .child("Alternate Next Tab", #selector(Window.triggerNextTab), "}") {
-                $0.isEnabled = ((NSApp.keyWindow as? Window)?.status.items.value.count ?? 0) > 1
+                $0.isEnabled = ((NSApp.keyWindow as? Window)?.session.items.value.count ?? 0) > 1
                 $0.keyEquivalentModifierMask = [.command]
             },
             .separator(),
@@ -226,7 +226,7 @@ final class Menu: NSMenu, NSMenuDelegate {
                 
                 switch item {
                 case let window as Window:
-                    switch window.status.flow(of: window.status.current.value) {
+                    switch window.session.flow(of: window.session.current.value) {
                     case let .web(web):
                         web
                             .title
@@ -303,7 +303,7 @@ final class Menu: NSMenu, NSMenuDelegate {
             window.makeKeyAndOrderFront(nil)
         }
         
-        window.status.addTab()
+        window.session.addTab()
     }
     
     @objc private func triggerRate() {

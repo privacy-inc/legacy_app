@@ -3,8 +3,8 @@ import Combine
 
 final class Tab: NSView, NSMenuDelegate {
     let id: UUID
-    private let publisher: AnyPublisher<Status.Flow, Never>
-    private let status: Status
+    private let publisher: AnyPublisher<Session.Flow, Never>
+    private let session: Session
     
     var current: Bool {
         didSet {
@@ -31,12 +31,12 @@ final class Tab: NSView, NSMenuDelegate {
     }
     
     required init?(coder: NSCoder) { nil }
-    init(status: Status, id: UUID, current: Bool) {
-        self.status = status
+    init(session: Session, id: UUID, current: Bool) {
+        self.session = session
         self.id = id
         self.current = current
         
-        publisher = status
+        publisher = session
             .items
             .compactMap {
                 $0
@@ -65,16 +65,16 @@ final class Tab: NSView, NSMenuDelegate {
         menu.items = [
             .child("Close Tab", #selector(closeTab)) {
                 $0.target = self
-                $0.isEnabled = status.items.value.count > 1
+                $0.isEnabled = session.items.value.count > 1
             },
             .child("Close Other Tabs", #selector(closeOthers)) {
                 $0.target = self
-                $0.isEnabled = status.items.value.count > 1
+                $0.isEnabled = session.items.value.count > 1
             },
             .separator(),
             .child("Move Tab to New Window", #selector(moveToWindow)) {
                 $0.target = self
-                $0.isEnabled = status.items.value.count > 1
+                $0.isEnabled = session.items.value.count > 1
             }]
     }
     
@@ -86,9 +86,9 @@ final class Tab: NSView, NSMenuDelegate {
         
         let view: NSView
         if current {
-            view = On(status: status, id: id, publisher: publisher)
+            view = On(session: session, id: id, publisher: publisher)
         } else {
-            view = Off(status: status, id: id, publisher: publisher)
+            view = Off(session: session, id: id, publisher: publisher)
         }
         addSubview(view)
         rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
@@ -99,14 +99,14 @@ final class Tab: NSView, NSMenuDelegate {
     }
     
     @objc private func closeTab() {
-        status.close(id: id)
+        session.close(id: id)
     }
     
     @objc private func closeOthers() {
-        status.close(except: id)
+        session.close(except: id)
     }
     
     @objc private func moveToWindow() {
-        status.toNewWindow(id: id)
+        session.toNewWindow(id: id)
     }
 }
