@@ -4,7 +4,7 @@ import UniformTypeIdentifiers
 import Specs
 
 final class Web: Webview {
-    let item: UUID
+    let id: UUID
     private var destination = Destination.here
     private let status: Status
     
@@ -14,11 +14,11 @@ final class Web: Webview {
     
     required init?(coder: NSCoder) { nil }
     init(status: Status,
-         item: UUID,
+         id: UUID,
          settings: Specs.Settings.Configuration) {
         
         self.status = status
-        self.item = item
+        self.id = id
         
         let configuration = WKWebViewConfiguration()
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
@@ -49,17 +49,17 @@ final class Web: Webview {
     }
     
     override func message(url: URL?, title: String, icon: String) {
-        status.change(flow: .message(self, url, title, icon), id: item)
+        status.change(flow: .message(self, url, title, icon), id: id)
     }
     
     override func reload(_ sender: Any?) {
-        switch status.flow(of: item) {
+        switch status.flow(of: id) {
         case .web:
             super.reload(sender)
         case let .message(_, url, _, _):
             url
                 .map {
-                    status.change(flow: .web(self), id: item)
+                    status.change(flow: .web(self), id: id)
                     load(url: $0)
                 }
         default:
@@ -68,15 +68,15 @@ final class Web: Webview {
     }
     
     override func goBack(_ sender: Any?) {
-        switch status.flow(of: item) {
+        switch status.flow(of: id) {
         case .web:
             super.goBack(sender)
         case .message:
             if url == nil {
                 status.addTab()
-                status.close(id: item)
+                status.close(id: id)
             } else {
-                status.change(flow: .web(self), id: item)
+                status.change(flow: .web(self), id: id)
             }
         default:
             break

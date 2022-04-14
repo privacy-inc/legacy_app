@@ -2,8 +2,9 @@ import UIKit
 
 extension Session {
     struct Item: Identifiable {
-        var image: UIImage?
+        var thumbnail: UIImage?
 //        var web: Web?
+        var status: Status
         let id = UUID()
     }
 }

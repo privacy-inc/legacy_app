@@ -104,7 +104,7 @@ struct Status {
     
     @MainActor func open(url: URL, change: Bool) async {
         let id = UUID()
-        let web = await Web(status: self, item: id, settings: cloud.model.settings.configuration)
+        let web = await Web(status: self, id: id, settings: cloud.model.settings.configuration)
         let item = Item(id: id, flow: .web(web))
         web.load(url: url)
         if change {
@@ -118,7 +118,7 @@ struct Status {
         
         switch flow(of: id) {
         case .list:
-            web = await .init(status: self, item: id, settings: cloud.model.settings.configuration)
+            web = await .init(status: self, id: id, settings: cloud.model.settings.configuration)
         case let .web(item), let .message(item, _, _, _):
             web = item
         }

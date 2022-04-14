@@ -1,8 +1,10 @@
+import Foundation
+
 extension Session {
-    enum Status {
+    enum Current {
         case
         tabs,
         settings,
-        item(Int)
+        item(UUID)
     }
 }

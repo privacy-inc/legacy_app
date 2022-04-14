@@ -4,7 +4,9 @@ struct Navigation: View {
     @ObservedObject var session: Session
     
     var body: some View {
-        switch session.status {
+        switch session.current {
+        case let .item(id):
+            Search(session: session)
 //        case .tabs:
 //            Tabs(session: session)
         default:
