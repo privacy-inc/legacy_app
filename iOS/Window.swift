@@ -1,3 +1,48 @@
+import SwiftUI
+import Specs
+
+struct Window: View {
+    @StateObject private var session = Session()
+    @Environment(\.colorScheme) private var scheme
+    
+    var body: some View {
+        Navigation(session: session)
+            .onChange(of: scheme) {
+                session.dark = $0 == .dark
+            }
+            .onOpenURL { url in
+                cloud
+                    .ready
+                    .notify(queue: .main) {
+//                        UIApplication.shared.hide()
+//                        session.flow = .tabs
+//                        Task
+//                            .detached(priority: .utility) {
+////                                await status.url(url: url)
+//                            }
+                    }
+            }
+            .task {
+                cloud.ready.notify(queue: .main) {
+                    cloud.pull.send()
+                }
+                
+                session.dark = scheme == .dark
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    switch Defaults.action {
+                    case .rate:
+                        UIApplication.shared.review()
+                    case .froob:
+                        session.froob = true
+                    case .none:
+                        break
+                    }
+                }
+            }
+    }
+}
+
 //import SwiftUI
 //import Specs
 //

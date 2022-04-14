@@ -1,3 +1,18 @@
+import SwiftUI
+
+struct Navigation: View {
+    @ObservedObject var session: Session
+    
+    var body: some View {
+        switch session.status {
+        case .tabs:
+            Tabs(session: session)
+        default:
+            Circle()
+        }
+    }
+}
+
 //import SwiftUI
 //import Specs
 //
