@@ -2,12 +2,23 @@ import SwiftUI
 
 struct Tabs: View {
     @ObservedObject var session: Session
+    @State private var items = [[String]]()
     
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
-                    Text("hello world")
+                    HStack(alignment: .top) {
+                        ForEach(0 ..< items.count, id: \.self) { index in
+                            VStack {
+                                ForEach(items[index], id: \.self) {
+                                    Text($0)
+//                                    Item(item: $0, select: select)
+                                }
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
                 }
             }
             .frame(maxWidth: .greatestFiniteMagnitude)
@@ -15,37 +26,43 @@ struct Tabs: View {
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(session: session,
-                leading: Button {
-                //                    sidebar = true
-            } label: {
-                Image(systemName: "line.3.horizontal")
-                    .symbolRenderingMode(.hierarchical)
-                    .font(.system(size: 20, weight: .light))
-                    .frame(width: 70, height: 34)
-                    .contentShape(Rectangle())
-            },
-            trailing: Button {
-                //                    sidebar = true
-            } label: {
-                Image(systemName: "square.on.square.dashed")
-                    .symbolRenderingMode(.hierarchical)
-                    .font(.system(size: 20, weight: .light))
-                    .frame(width: 70, height: 34)
-                    .contentShape(Rectangle())
-            })
-                ////                .sheet(isPresented: $sidebar) {
-                ////                    Sidebar(presented: $sidebar, access: access, history: history)
-                ////                }
-                //            } trailing: {
-                ////                Button(action: tabs) {
-                ////                    Image(systemName: "square.on.square.dashed")
-                ////                        .symbolRenderingMode(.hierarchical)
-                ////                        .font(.title3)
-                ////                        .frame(width: 70, height: 34)
-                ////                        .allowsHitTesting(false)
-                ////                }
-                //            }
-
+                leading: (icon: "line.3.horizontal", action: {
+                
+            }),
+                trailing: (icon: "square.on.square.dashed", action: {
+                
+            }))
+        }
+        .onReceive(cloud) {
+            items = $0
+                .websites(filter: "")
+                .reduce(into: Array(repeating: [String](), count: 2)) {
+                    if $0[0].count > $0[1].count {
+                        $0[1].append($1.id)
+                    } else {
+                        $0[0].append($1.id)
+                    }
+                }
+//
+//            (0 ..< self)
+//                .flatMap { col in
+//                    (0 ..< rows)
+//                        .map { row in
+//                            (col: col, row: row, index: col + (row * self))
+//                        }
+//                }
+//
+//
+//            items = (2)
+//                            .columns(with: 5)
+//                            .reduce(into: .init()) { result, position in
+//                                if history.count > position.index {
+//                                    if position.row == 0 {
+//                                        result.append(.init())
+//                                    }
+//                                    result[position.col].append(history[position.index])
+//                                }
+//                            }
         }
     }
 }

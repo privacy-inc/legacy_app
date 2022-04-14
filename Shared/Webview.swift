@@ -2,7 +2,7 @@ import WebKit
 import Combine
 import Specs
 
-class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
+class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate {
     final var subs = Set<AnyCancellable>()
     final let progress = PassthroughSubject<Double, Never>()
     private let settings: Specs.Settings.Configuration
@@ -219,6 +219,37 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         error(url: download.originalRequest?.url,
               description: (didFailWithError as NSError).localizedDescription)
     }
+    
+#if os(macOS)
+    
+    final func download(_: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
+        FileManager.default.fileExists(atPath: downloads.appendingPathComponent(suggestedFilename).path)
+            ? downloads.appendingPathComponent(UUID().uuidString + "_" + suggestedFilename)
+            : downloads.appendingPathComponent(suggestedFilename)
+    }
+
+    final func downloadDidFinish(_: WKDownload) {
+        NSWorkspace.shared.activateFileViewerSelecting([downloads])
+    }
+
+    private var downloads: URL {
+        FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
+    }
+    
+#elseif os(iOS)
+    
+    final func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
+        decideDestinationUsing
+            .url
+            .map {
+                try? UIApplication.shared.share(Data(contentsOf: $0).temporal(suggestedFilename))
+            }
+        
+        await download.cancel()
+        return nil
+    }
+    
+#endif
     
     @MainActor final class func clear() async {
         URLCache.shared.removeAllCachedResponses()

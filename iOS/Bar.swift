@@ -1,31 +1,28 @@
 import SwiftUI
 
-struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
+struct Bar: View {
     let session: Session
-    let leading: Leading
-    let trailing: Trailing
+    let leading: (icon: String, action: () -> Void)
+    let trailing: (icon: String, action: () -> Void)
     
     var body: some View {
         VStack(spacing: 0) {
-            Divider()
-                .ignoresSafeArea(edges: .horizontal)
+//            Divider()
+//                .ignoresSafeArea(edges: .horizontal)
             HStack(spacing: 0) {
-                leading
+                Button(action: leading.action) { image(icon: leading.icon) }
+                
                 Spacer()
                 
                 Button {
-//                    search()
+                    
                 } label: {
-                    Image(systemName: "magnifyingglass")
-                        .symbolRenderingMode(.hierarchical)
-                        .font(.system(size: 20, weight: .light))
-                        .frame(width: 70, height: 34)
-                        .contentShape(Rectangle())
+                    image(icon: "magnifyingglass")
                 }
                 
                 Spacer()
                 
-                trailing
+                Button(action: trailing.action) { image(icon: trailing.icon) }
             }
             .foregroundStyle(.secondary)
             .padding(.horizontal)
@@ -33,5 +30,13 @@ struct Bar<Leading, Trailing>: View where Leading : View, Trailing : View {
             .padding(.bottom, 2)
         }
 //        .background(.thinMaterial)
+    }
+    
+    private func image(icon: String) -> some View {
+        Image(systemName: icon)
+            .symbolRenderingMode(.hierarchical)
+            .font(.system(size: 20, weight: .light))
+            .frame(width: 70, height: 34)
+            .contentShape(Rectangle())
     }
 }

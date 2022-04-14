@@ -1,3 +1,13 @@
+import SwiftUI
+
+extension Tabs {
+    struct Item: View {
+        var body: some View {
+            Circle()
+        }
+    }
+}
+
 //import SwiftUI
 //import Specs
 //

@@ -5,8 +5,8 @@ struct Navigation: View {
     
     var body: some View {
         switch session.status {
-        case .tabs:
-            Tabs(session: session)
+//        case .tabs:
+//            Tabs(session: session)
         default:
             Circle()
         }
