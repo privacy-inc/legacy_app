@@ -12,21 +12,21 @@ struct Forget: View {
                  icon: "clock",
                  primary: .primary,
                  secondary: .init("Shades")) {
-                await cloud.forgetHistory()
+//                await cloud.forgetHistory()
             }
             
             Item(title: "Activity",
                  icon: "chart.xyaxis.line",
                  primary: .primary,
                  secondary: .init("Dawn")) {
-                await cloud.forgetActivity()
+//                await cloud.forgetActivity()
             }
             
             Item(title: "Everything",
                  icon: "flame",
                  primary: .init("Dawn"),
                  secondary: .primary) {
-                await cloud.forget()
+//                await cloud.forget()
             }
         }
         .ignoresSafeArea(edges: .top)

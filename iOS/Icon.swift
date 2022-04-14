@@ -43,9 +43,9 @@ struct Icon: View {
     @MainActor private func update(icon: String?) async {
         image = nil
         publisher = nil
-        if let icon = icon {
-            publisher = await favicon.publisher(for: icon)
-        }
+//        if let icon = icon {
+//            publisher = await favicon.publisher(for: icon)
+//        }
     }
     
     private var globe: some View {
