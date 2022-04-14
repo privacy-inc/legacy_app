@@ -5,16 +5,9 @@ private let size = CGFloat(24)
 
 extension Search {
     struct Item: View {
-        private static let blank: UIImage = {
-            UIGraphicsBeginImageContext(.init(width: size, height: size))
-            let image = UIGraphicsGetImageFromCurrentImageContext()!
-            UIGraphicsEndImageContext()
-            return image
-        } ()
-        
+        let session: Session
         let website: Website
         @StateObject private var icon = Icon()
-        @Environment(\.colorScheme) private var scheme
         
         var body: some View {
             Button {
@@ -39,7 +32,7 @@ extension Search {
             .padding()
             .background(RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .fill(Color(.tertiarySystemBackground))
-                            .shadow(color: .black.opacity(scheme == .dark ? 1 : 0.1), radius: 4))
+                            .shadow(color: .black.opacity(session.dark ? 1 : 0.1), radius: 4))
             .task {
                 await icon.load(website: .init(string: website.id))
             }
@@ -49,5 +42,12 @@ extension Search {
             Text(verbatim: website.id.domain)
                 .foregroundColor(.secondary)
         }
+        
+        private static let blank: UIImage = {
+            UIGraphicsBeginImageContext(.init(width: size, height: size))
+            let image = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            return image
+        } ()
     }
 }

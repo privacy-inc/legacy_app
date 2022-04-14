@@ -4,7 +4,7 @@ import Specs
 
 final class Icon: ObservableObject {
     @Published private(set) var image: UIImage?
-    private var publisher: Favicon.Pub?
+    private weak var publisher: Favicon.Pub?
     private var sub: AnyCancellable?
     
     func load(website: URL?) async {
