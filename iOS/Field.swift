@@ -2,11 +2,13 @@ import SwiftUI
 import Combine
 import Specs
 
-final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate {
+final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate, ObservableObject {
+    @Published var typing = false
     let websites = PassthroughSubject<[Website], Never>()
     private weak var field: UITextField!
     private var editable = true
     private var sub: AnyCancellable?
+    private let id: UUID
     private let session: Session
     private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 52), inputViewStyle: .keyboard)
     private let filter = CurrentValueSubject<_, Never>("")
@@ -16,8 +18,10 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate 
     }
     
     required init?(coder: NSCoder) { nil }
-    init(session: Session) {
+    init(session: Session, id: UUID) {
         self.session = session
+        self.id = id
+        
         super.init(frame: .zero)
         
         print("field init")
@@ -72,7 +76,9 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate 
     }
     
     func textFieldShouldReturn(_: UITextField) -> Bool {
-//        searching(field.text!)
+        Task {
+            await session.search(string: field.text!, id: id)
+        }
         field.resignFirstResponder()
         return true
     }
@@ -100,6 +106,7 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate 
     
     func textFieldShouldEndEditing(_: UITextField) -> Bool {
         editable = false
+        typing = false
         return true
     }
     
@@ -123,6 +130,7 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate 
     
     @discardableResult override func becomeFirstResponder() -> Bool {
         DispatchQueue.main.async { [weak self] in
+            self?.typing = true
             self?.field.becomeFirstResponder()
         }
         return super.becomeFirstResponder()

@@ -14,17 +14,16 @@ extension Search {
                 
             } label: {
                 ZStack(alignment: .topLeading) {
-                    Text("\((icon.image == nil ? "" : "\(Image(uiImage: Self.blank)) "))\(website.title) \(domain)")
-                        .font(.footnote)
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     if let image = icon.image {
+                        text(string: "\(Image(uiImage: Self.blank)) \(website.title) \(domain)")
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
                             .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                             .frame(width: size, height: size)
                             .allowsHitTesting(false)
+                    } else {
+                        text(string: "\(website.title) \(domain)")
                     }
                 }
             }
@@ -41,6 +40,13 @@ extension Search {
         private var domain: Text {
             Text(verbatim: website.id.domain)
                 .foregroundColor(.secondary)
+        }
+        
+        private func text(string: LocalizedStringKey) -> some View {
+            Text(string)
+                .font(.footnote)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
         }
         
         private static let blank: UIImage = {

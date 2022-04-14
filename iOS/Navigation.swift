@@ -5,10 +5,13 @@ struct Navigation: View {
     
     var body: some View {
         switch session.current {
-        case let .item(id):
-            switch session.item(for: id).status {
+        case let .item(id, flow):
+            switch flow {
             case .search:
-                Search(session: session, id: id)
+                Search(session: session, id: id, field: .init(session: session, id: id))
+            case .web:
+                session.item(for: id).web!
+//                    .equatable()
             default:
                 Circle()
             }

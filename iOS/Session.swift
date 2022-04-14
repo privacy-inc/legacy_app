@@ -8,9 +8,9 @@ final class Session: ObservableObject {
     var dark = false
     
     init() {
-        let item = Item(status: .search)
+        let item = Item()
         items = [item]
-        current = .item(item.id)
+        current = .item(item.id, .search)
     }
     
     func item(for id: UUID) -> Item {
@@ -20,16 +20,26 @@ final class Session: ObservableObject {
             }!
     }
     
-    func search(string: String, id: UUID) async {
-        do {
-            if let id = item!.history {
-                try await cloud.search(search, history: id)
-                await web()
-            } else {
-                try await history(id: cloud.search(search))
-            }
-        } catch {
-            flow = .landing
+    @MainActor func search(string: String, id: UUID) async {
+        guard let url = try? await cloud.search(string) else { return }
+        await open(url: url, id: id)
+    }
+    
+    @MainActor func open(url: URL, id: UUID) async {
+        let index = index(of: id)
+        
+        if items[index].web == nil {
+            items[index].web = await  .init(session: self, id: id, settings: cloud.model.settings.configuration, dark: dark)
         }
+        
+        current = .item(id, .web)
+        items[index].web!.load(url: url)
+    }
+    
+    private func index(of: UUID) -> Int {
+        items
+            .firstIndex {
+                $0.id == of
+            }!
     }
 }

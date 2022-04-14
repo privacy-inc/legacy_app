@@ -1,7 +1,7 @@
 import Foundation
 
-extension Session.Item {
-    enum Status {
+extension Session {
+    enum Flow {
         case
         search,
         web,

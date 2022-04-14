@@ -16,6 +16,7 @@
 		CE1936BD2728059800476227 /* Specs in Frameworks */ = {isa = PBXBuildFile; productRef = CE1936BC2728059800476227 /* Specs */; };
 		CE19EC912736B32500A412FC /* Control.Capsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE19EC902736B32500A412FC /* Control.Capsule.swift */; };
 		CE1DB23E28044B1E00128BCF /* Shortcut.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1DB23D28044B1E00128BCF /* Shortcut.Item.swift */; };
+		CE202D062808B2AA00EB63F0 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548726FDD4FA00FE0E9C /* Web.swift */; };
 		CE25B83C27F9B51A003FCB31 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25B83B27F9B51A003FCB31 /* List.swift */; };
 		CE25B83E27F9B542003FCB31 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25B83D27F9B542003FCB31 /* ListCell.swift */; };
 		CE25B84027F9B55B003FCB31 /* ListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25B83F27F9B55B003FCB31 /* ListInfo.swift */; };
@@ -117,7 +118,7 @@
 		CEBC745328083EB5002F6654 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */; };
 		CEBC745428083EC3002F6654 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9B93F326F89F1E005E1D7F /* Navigation.swift */; };
 		CEBC74562808413B002F6654 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBC74552808413B002F6654 /* Search.swift */; };
-		CEBC745828084204002F6654 /* Session.Item.Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBC745728084203002F6654 /* Session.Item.Status.swift */; };
+		CEBC745828084204002F6654 /* Session.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBC745728084203002F6654 /* Session.Flow.swift */; };
 		CEBCAADD2732DAB600B9D49C /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCAADC2732DAB600B9D49C /* About.swift */; };
 		CEBDD5562728232600F2F493 /* Session.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDD5552728232600F2F493 /* Session.Flow.swift */; };
 		CEBFC8472731686300EFDA17 /* Tab.Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC8462731686300EFDA17 /* Tab.Progress.swift */; };
@@ -352,7 +353,7 @@
 		CEBC7446280812BB002F6654 /* Session.Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Current.swift; sourceTree = "<group>"; };
 		CEBC744828081E1B002F6654 /* Session.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Item.swift; sourceTree = "<group>"; };
 		CEBC74552808413B002F6654 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
-		CEBC745728084203002F6654 /* Session.Item.Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Item.Status.swift; sourceTree = "<group>"; };
+		CEBC745728084203002F6654 /* Session.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Flow.swift; sourceTree = "<group>"; };
 		CEBCAADC2732DAB600B9D49C /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		CEBDD5552728232600F2F493 /* Session.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Flow.swift; sourceTree = "<group>"; };
 		CEBFC8462731686300EFDA17 /* Tab.Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Progress.swift; sourceTree = "<group>"; };
@@ -520,18 +521,19 @@
 				CE770FA427E4C4B5008A0F88 /* Launch Screen.storyboard */,
 				CEAAFB2627009E4000149F0C /* App.Delegate.swift */,
 				CE46B4DD26F797F600A5B5BB /* App.swift */,
-				CE470A6526FA0AEB002D560A /* Bar.swift */,
 				CED3A74D2808A0A100B15765 /* Bar.Item.swift */,
+				CE470A6526FA0AEB002D560A /* Bar.swift */,
+				CED3A74B2808989200B15765 /* Field.swift */,
 				CE6FE9A627031D9C00403ADA /* Icon.swift */,
 				CE9B93F326F89F1E005E1D7F /* Navigation.swift */,
 				CE0A7C012808483E00B92FC2 /* Search.Item.swift */,
 				CEBC74552808413B002F6654 /* Search.swift */,
-				CED3A74B2808989200B15765 /* Field.swift */,
 				CEBC7446280812BB002F6654 /* Session.Current.swift */,
-				CEBC745728084203002F6654 /* Session.Item.Status.swift */,
+				CEBC745728084203002F6654 /* Session.Flow.swift */,
 				CEBC744828081E1B002F6654 /* Session.Item.swift */,
 				CEBC744428080F36002F6654 /* Session.swift */,
 				CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */,
+				CEF5548726FDD4FA00FE0E9C /* Web.swift */,
 				CE90BB17271B363200F59AF6 /* Window.swift */,
 				CE46B4E126F797F700A5B5BB /* Assets.xcassets */,
 			);
@@ -634,7 +636,6 @@
 				CE29640F2726BA84000C3E5B /* Trackers.Stand.swift */,
 				CE383745270DD0FC006A8FE7 /* Trackers.swift */,
 				CE4047EE2707247400E101D1 /* UIImage.swift */,
-				CEF5548726FDD4FA00FE0E9C /* Web.swift */,
 				CE29640B2726AFF5000C3E5B /* Window.Modal.swift */,
 			);
 			path = Legacy;
@@ -927,7 +928,7 @@
 				CEBC745328083EB5002F6654 /* UIApplication.swift in Sources */,
 				CEAAFB2B27009E9600149F0C /* Store.State.swift in Sources */,
 				CEAAFB2C27009E9600149F0C /* UNUserNotificationCenter.swift in Sources */,
-				CEBC745828084204002F6654 /* Session.Item.Status.swift in Sources */,
+				CEBC745828084204002F6654 /* Session.Flow.swift in Sources */,
 				CE46B4DE26F797F600A5B5BB /* App.swift in Sources */,
 				CE9DFA0F27061D5400D69810 /* Copy.swift in Sources */,
 				CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */,
@@ -947,6 +948,7 @@
 				CEFEAAAD272069210073149D /* Banner.Particle.swift in Sources */,
 				CE0A7C022808483E00B92FC2 /* Search.Item.swift in Sources */,
 				CEBC744E28083E8B002F6654 /* App.Delegate.swift in Sources */,
+				CE202D062808B2AA00EB63F0 /* Web.swift in Sources */,
 				CED3A74C2808989200B15765 /* Field.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

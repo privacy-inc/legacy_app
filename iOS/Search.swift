@@ -4,15 +4,8 @@ import Specs
 struct Search: View {
     @ObservedObject var session: Session
     let id: UUID
-    private let field: Field
+    @StateObject var field: Field
     @State private var items = [[Website]]()
-    @State private var typing = false
-    
-    init(session: Session, id: UUID) {
-        self.session = session
-        self.id = id
-        field = .init(session: session)
-    }
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -40,13 +33,11 @@ struct Search: View {
                         
                     }),
                 center:
-                    typing ?
+                    field.typing ?
                 .init(icon: "xmark", action: {
-                    typing = false
                     field.cancel()
                 }) :
                     .init(icon: "magnifyingglass", action: {
-                        typing = true
                         field.becomeFirstResponder()
                     }),
                 trailing:

@@ -20,6 +20,6 @@ struct Bar: View {
             .padding(.horizontal)
             .padding(.vertical, 7)
         }
-//        .background(.thinMaterial)
+        .background(.ultraThinMaterial)
     }
 }
