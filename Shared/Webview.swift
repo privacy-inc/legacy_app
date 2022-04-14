@@ -7,10 +7,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     final let progress = PassthroughSubject<Double, Never>()
     private let settings: Specs.Settings.Configuration
     
-//    override var isEditable: Bool {
-//        false
-//    }
-    
     required init?(coder: NSCoder) { nil }
     @MainActor init(configuration: WKWebViewConfiguration,
                     settings: Specs.Settings.Configuration,
@@ -50,7 +46,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
-//        allowsMagnification = true
         
         if settings.history {
             publisher(for: \.url)

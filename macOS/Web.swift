@@ -8,6 +8,10 @@ final class Web: Webview {
     private var destination = Destination.here
     private let status: Status
     
+    override var isEditable: Bool {
+        false
+    }
+    
     required init?(coder: NSCoder) { nil }
     init(status: Status,
          item: UUID,
@@ -25,6 +29,7 @@ final class Web: Webview {
         
         super.init(configuration: configuration, settings: settings, dark: NSApp.effectiveAppearance.name != .aqua)
         translatesAutoresizingMaskIntoConstraints = false
+        allowsMagnification = true
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15"
 
         layer = Layer()
