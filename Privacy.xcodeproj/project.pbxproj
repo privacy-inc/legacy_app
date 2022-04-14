@@ -173,6 +173,7 @@
 		CEBB8BDF2728258300016F2C /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB8BDE2728258300016F2C /* Status.swift */; };
 		CEBB8BE0272831FD00016F2C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
 		CEBB8BE32728353900016F2C /* Webview.iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBB8BE22728353900016F2C /* Webview.iOS.swift */; };
+		CEBC744528080F36002F6654 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBC744428080F36002F6654 /* Session.swift */; };
 		CEBCAADD2732DAB600B9D49C /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCAADC2732DAB600B9D49C /* About.swift */; };
 		CEBDD5562728232600F2F493 /* Status.Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBDD5552728232600F2F493 /* Status.Flow.swift */; };
 		CEBFC8472731686300EFDA17 /* Tab.Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBFC8462731686300EFDA17 /* Tab.Progress.swift */; };
@@ -405,6 +406,7 @@
 		CEB5580C274409FC00B19D62 /* About.Layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.Layer.swift; sourceTree = "<group>"; };
 		CEBB8BDE2728258300016F2C /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		CEBB8BE22728353900016F2C /* Webview.iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.iOS.swift; sourceTree = "<group>"; };
+		CEBC744428080F36002F6654 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CEBCAADC2732DAB600B9D49C /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		CEBDD5552728232600F2F493 /* Status.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.Flow.swift; sourceTree = "<group>"; };
 		CEBFC8462731686300EFDA17 /* Tab.Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Progress.swift; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 				CE63A0B52719CD6E00756E02 /* Settings.Location.swift */,
 				CE63A0AF2719C34D00756E02 /* Settings.Navigation.swift */,
 				CE3B64FF2719B1B60040AD0A /* Settings.Notifications.swift */,
+				CEBC744428080F36002F6654 /* Session.swift */,
 				CE9DFA0C2706136500D69810 /* Settings.swift */,
 				CE4047E627070BD800E101D1 /* Sidebar.swift */,
 				CE17244826F8E9B300C2CED5 /* Status.Flow.swift */,
@@ -1021,6 +1024,7 @@
 				CE90BB18271B363200F59AF6 /* Window.swift in Sources */,
 				CE480E36271C835000774E5C /* Options.swift in Sources */,
 				CE3B65022719B23A0040AD0A /* Settings.Features.swift in Sources */,
+				CEBC744528080F36002F6654 /* Session.swift in Sources */,
 				CE8AF27C26FF698A00F6655F /* Global.swift in Sources */,
 				CE17244926F8E9B300C2CED5 /* Status.Flow.swift in Sources */,
 				CE22EAFA27202EAF00A9B29B /* Info.swift in Sources */,
@@ -1327,7 +1331,6 @@
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This website wants to access your location.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save photos to your library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1402,7 +1405,6 @@
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This website wants to access your location.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save photos to your library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
