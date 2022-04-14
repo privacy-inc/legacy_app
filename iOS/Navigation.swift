@@ -6,7 +6,12 @@ struct Navigation: View {
     var body: some View {
         switch session.current {
         case let .item(id):
-            Search(session: session)
+            switch session.item(for: id).status {
+            case .search:
+                Search(session: session, id: id)
+            default:
+                Circle()
+            }
 //        case .tabs:
 //            Tabs(session: session)
         default:

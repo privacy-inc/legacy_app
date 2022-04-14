@@ -3,6 +3,7 @@ import Specs
 
 struct Search: View {
     @ObservedObject var session: Session
+    let id: UUID
     @State private var items = [[Website]]()
     
     var body: some View {
@@ -12,8 +13,7 @@ struct Search: View {
                     ForEach(0 ..< items.count, id: \.self) { index in
                         VStack {
                             ForEach(items[index]) {
-                                Text($0.id)
-//                                    Item(item: $0, select: select)
+                                Item(website: $0)
                             }
                         }
                     }
@@ -28,7 +28,7 @@ struct Search: View {
                 leading: (icon: "line.3.horizontal", action: {
                 
             }),
-                trailing: (icon: "square.on.square.dashed", action: {
+                trailing: (icon: "square.on.square", action: {
                 
             }))
         }
