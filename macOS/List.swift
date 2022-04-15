@@ -34,6 +34,7 @@ final class List: Collection<ListCell, ListInfo> {
                 .removeDuplicates()) {
                     $0.websites(filter: $1)
                 }
+                .removeDuplicates()
                 .map {
                     $0
                         .enumerated()

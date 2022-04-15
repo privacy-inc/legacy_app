@@ -2,8 +2,6 @@ import SwiftUI
 import Specs
 
 struct Search: View {
-    @ObservedObject var session: Session
-    let id: UUID
     @StateObject var field: Field
     @State private var items = [[Website]]()
     
@@ -17,7 +15,7 @@ struct Search: View {
                     ForEach(0 ..< items.count, id: \.self) { index in
                         LazyVStack {
                             ForEach(items[index]) {
-                                Item(session: session, website: $0)
+                                Item(session: field.session, website: $0)
                             }
                         }
                     }
@@ -43,9 +41,10 @@ struct Search: View {
                 trailing:
                     .init(icon: "square.on.square", action: {
                         
-                    }))
+                    }),
+                material: .ultraThin)
         }
-        .onReceive(field.websites) {
+        .onChange(of: field.websites) {
             items = $0
                 .reduce(into: .init(repeating: [Website](), count: 2)) {
                     if $0[0].count > $0[1].count {
@@ -54,6 +53,11 @@ struct Search: View {
                         $0[0].append($1)
                     }
                 }
+        }
+        .onAppear {
+            if field.focus {
+                field.becomeFirstResponder()
+            }
         }
     }
 }

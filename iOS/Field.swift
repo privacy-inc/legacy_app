@@ -3,28 +3,30 @@ import Combine
 import Specs
 
 final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate, ObservableObject {
-    @Published var typing = false
-    let websites = PassthroughSubject<[Website], Never>()
+    @Published private(set) var typing = false
+    @Published private(set) var websites = [Website]()
+    let id: UUID
+    let session: Session
+    let focus: Bool
     private weak var field: UITextField!
     private var editable = true
     private var sub: AnyCancellable?
-    private let id: UUID
-    private let session: Session
     private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 52), inputViewStyle: .keyboard)
     private let filter = CurrentValueSubject<_, Never>("")
     
     deinit {
-        print("gone")
+        print("field gone")
     }
     
     required init?(coder: NSCoder) { nil }
-    init(session: Session, id: UUID) {
+    init(session: Session, id: UUID, focus: Bool) {
         self.session = session
         self.id = id
+        self.focus = focus
         
         super.init(frame: .zero)
         
-        print("field init")
+        print("field")
         
         let background = UIView()
         background.backgroundColor = .init(named: "Input")
@@ -66,18 +68,24 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
                     $0.websites(filter: $1)
                 }
                 .sink { [weak self] in
-                    self?.websites.send($0)
+                    self?.websites = $0
                 }
     }
     
     func cancel() {
-        field.text = ""
         field.resignFirstResponder()
+        
+        if focus {
+            session.search(id: id)
+        } else {
+            field.text = ""
+            filter.send("")
+        }
     }
     
     func textFieldShouldReturn(_: UITextField) -> Bool {
         Task {
-            await session.search(string: field.text!, id: id)
+            await session.search(string: field.text!, id: id, focus: focus)
         }
         field.resignFirstResponder()
         return true
@@ -106,12 +114,14 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
     
     func textFieldShouldEndEditing(_: UITextField) -> Bool {
         editable = false
-        typing = false
         return true
     }
     
     func textFieldDidEndEditing(_: UITextField) {
         editable = true
+        if !focus {
+            typing = false
+        }
     }
     
     func insertText(_: String) {

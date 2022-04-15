@@ -7,8 +7,8 @@ final class Web: Webview, UIViewRepresentable {
 //    let tab = PassthroughSubject<URL, Never>()
 //    let error = PassthroughSubject<Err, Never>()
     
-    private let session: Session
-    private let id: UUID
+    let session: Session
+    let id: UUID
     
     @MainActor var fontSize: CGFloat {
         get async {

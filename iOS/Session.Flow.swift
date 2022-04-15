@@ -3,8 +3,8 @@ import Foundation
 extension Session {
     enum Flow {
         case
-        search,
         web,
+        search(Bool),
         message(URL?, String, String)
     }
 }

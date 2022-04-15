@@ -1,8 +1,9 @@
 import Foundation
+import SwiftUI
 import Specs
 
 final class Session: ObservableObject {
-    @Published private(set) var current: Current
+    @Published var current: Current
     @Published var froob = false
     private(set) var items: [Item]
     var dark = false
@@ -10,7 +11,7 @@ final class Session: ObservableObject {
     init() {
         let item = Item()
         items = [item]
-        current = .item(item.id, .search)
+        current = .item(item.id, .search(false))
     }
     
     func item(for id: UUID) -> Item {
@@ -20,8 +21,20 @@ final class Session: ObservableObject {
             }!
     }
     
-    @MainActor func search(string: String, id: UUID) async {
-        guard let url = try? await cloud.search(string) else { return }
+    func search(id: UUID) {
+        withAnimation(.easeInOut(duration: 0.4)) {
+            current = .item(id, .web)
+        }
+    }
+    
+    @MainActor func search(string: String, id: UUID, focus: Bool) async {
+        guard let url = try? await cloud.search(string)
+        else {
+            if focus {
+                search(id: id)
+            }
+            return
+        }
         await open(url: url, id: id)
     }
     

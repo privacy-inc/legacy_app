@@ -4,11 +4,11 @@ struct Bar: View {
     let leading: Item
     let center: Item
     let trailing: Item
+    let material: Material
     
     var body: some View {
         VStack(spacing: 0) {
             Divider()
-                .ignoresSafeArea(edges: .horizontal)
             HStack(spacing: 0) {
                 leading
                 Spacer()
@@ -20,6 +20,6 @@ struct Bar: View {
             .padding(.horizontal)
             .padding(.vertical, 7)
         }
-        .background(.ultraThinMaterial)
+        .background(material)
     }
 }
