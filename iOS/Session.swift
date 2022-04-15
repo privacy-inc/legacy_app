@@ -21,12 +21,6 @@ final class Session: ObservableObject {
             }!
     }
     
-    func search(id: UUID) {
-        withAnimation(.easeInOut(duration: 0.4)) {
-            change(flow: .web, of: id)
-        }
-    }
-    
     func change(flow: Flow, of: UUID) {
         items[index(of: of)].flow = flow
         
@@ -39,11 +33,13 @@ final class Session: ObservableObject {
         items[index(of: id)].thumbnail = image
     }
     
-    @MainActor func search(string: String, id: UUID, focus: Bool) async {
+    @MainActor func search(string: String, id: UUID) async {
         guard let url = try? await cloud.search(string)
         else {
-            if focus {
-                search(id: id)
+            if item(for: id).web != nil {
+                withAnimation(.easeInOut(duration: 0.4)) {
+                    change(flow: .web, of: id)
+                }
             }
             return
         }

@@ -10,7 +10,7 @@ struct Navigation: View {
             case .web:
                 Browser(web: session.item(for: id).web!)
             case let .search(focus):
-                Search(field: .init(session: session, id: id, focus: focus))
+                Search(field: .init(session: session, id: id), focus: focus)
             case let .message(url, title, icon):
                 Circle()
             }

@@ -7,7 +7,6 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
     @Published private(set) var websites = [Website]()
     let id: UUID
     let session: Session
-    let focus: Bool
     private weak var field: UITextField!
     private var editable = true
     private var sub: AnyCancellable?
@@ -19,10 +18,9 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
     }
     
     required init?(coder: NSCoder) { nil }
-    init(session: Session, id: UUID, focus: Bool) {
+    init(session: Session, id: UUID) {
         self.session = session
         self.id = id
-        self.focus = focus
         
         super.init(frame: .zero)
         
@@ -78,8 +76,10 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
         
         guard clear else { return }
         
-        if focus {
-            session.search(id: id)
+        if session.item(for: id).web != nil {
+            withAnimation(.easeInOut(duration: 0.4)) {
+                session.change(flow: .web, of: id)
+            }
         } else {
             field.text = ""
             filter.send("")
@@ -88,7 +88,7 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
     
     func textFieldShouldReturn(_: UITextField) -> Bool {
         Task {
-            await session.search(string: field.text!, id: id, focus: focus)
+            await session.search(string: field.text!, id: id)
         }
         field.resignFirstResponder()
         return true
@@ -122,7 +122,7 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
     
     func textFieldDidEndEditing(_: UITextField) {
         editable = true
-        if !focus {
+        if session.item(for: id).web == nil {
             typing = false
         }
     }

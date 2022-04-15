@@ -8,7 +8,7 @@ extension Tabs {
         
         var body: some View {
             Button {
-                
+                session.current = .item(item.id)
             } label: {
                 switch item.flow {
                 case let .message(url, title, icon):
@@ -40,7 +40,7 @@ extension Tabs {
                                 .font(.footnote)
                                 .foregroundStyle(.tertiary)
                         }
-                        .padding(.vertical)
+                        .padding(.vertical, 30)
                     }
                 }
                 

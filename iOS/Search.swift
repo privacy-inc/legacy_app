@@ -3,6 +3,7 @@ import Specs
 
 struct Search: View {
     @StateObject var field: Field
+    let focus: Bool
     @State private var items = [[Website]]()
     
     var body: some View {
@@ -61,7 +62,7 @@ struct Search: View {
                 }
         }
         .onAppear {
-            if field.focus {
+            if focus {
                 field.becomeFirstResponder()
             }
         }
