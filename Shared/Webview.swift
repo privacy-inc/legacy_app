@@ -5,7 +5,7 @@ import Specs
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate {
     final var subs = Set<AnyCancellable>()
     final let progress = PassthroughSubject<Double, Never>()
-    private let settings: Specs.Settings.Configuration
+    let settings: Specs.Settings.Configuration
     
     required init?(coder: NSCoder) { nil }
     @MainActor init(configuration: WKWebViewConfiguration,
@@ -18,7 +18,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         configuration.allowsAirPlayForMediaPlayback = true
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = settings.popups && settings.javascript
         configuration.preferences.isFraudulentWebsiteWarningEnabled = !settings.http
-        configuration.defaultWebpagePreferences.allowsContentJavaScript = settings.popups && settings.javascript
+        configuration.defaultWebpagePreferences.allowsContentJavaScript = settings.javascript
         configuration.websiteDataStore = .nonPersistent()
         configuration.userContentController.addUserScript(.init(source: Script.favicon.script, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         configuration.userContentController.addUserScript(.init(source: settings.scripts, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
@@ -157,6 +157,9 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     }
     
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
+
+        guard !(decidePolicyFor.navigationType == .linkActivated && decidePolicyFor.sourceFrame.webView == nil) else { return (.cancel, preferences) }
+        
         switch await cloud.policy(request: decidePolicyFor.request.url!, from: url!) {
         case .allow:
             if decidePolicyFor.shouldPerformDownload {

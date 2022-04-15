@@ -41,7 +41,7 @@ extension Tabs {
                                 .modifier(Card(dark: session.dark))
                             Text("New tab")
                                 .font(.caption2)
-                                .padding(.top, 10)
+                                .padding(.top, 6)
                                 .padding(.bottom)
                         }
                         .foregroundStyle(.secondary)

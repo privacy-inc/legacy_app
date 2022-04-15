@@ -16,7 +16,7 @@ final class Message: NSView {
         let text = Text(vibrancy: true)
         text.attributedStringValue = .make {
             if let url = url?.absoluteString {
-                $0.append(.make(url, attributes: [
+                $0.append(.make(url.capped(max: 100), attributes: [
                     .font: NSFont.preferredFont(forTextStyle: .body),
                     .foregroundColor: NSColor.tertiaryLabelColor]))
             }

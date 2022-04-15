@@ -5,7 +5,7 @@ import Specs
 
 final class Web: Webview {
     let id: UUID
-    private var destination = Destination.here
+    private var destination: Destination?
     private let session: Session
     
     override var isEditable: Bool {
@@ -114,8 +114,12 @@ final class Web: Webview {
                                 .detached(priority: .utility) { [weak self] in
                                     await self?.download(url: url)
                                 }
+                        case nil:
+                            if settings.popups {
+                                NSApp.open(url: url, change: true)
+                            }
                         }
-                        destination = .here
+                        destination = nil
                     }
             }
         default:
