@@ -11,12 +11,12 @@ struct Navigation: View {
                 Browser(web: session.item(for: id).web!)
             case let .search(focus):
                 Search(field: .init(session: session, id: id, focus: focus))
-            default:
+            case let .message(url, title, icon):
                 Circle()
             }
-//        case .tabs:
-//            Tabs(session: session)
-        default:
+        case .tabs:
+            Tabs(session: session)
+        case .settings:
             Circle()
         }
     }

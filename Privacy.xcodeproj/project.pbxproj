@@ -137,6 +137,8 @@
 		CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548226FDD4F000FE0E9C /* Webview.swift */; };
 		CEFC99712809663400824E49 /* Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC99702809663400824E49 /* Browser.swift */; };
 		CEFC997328096B9100824E49 /* Browser.Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC997228096B9100824E49 /* Browser.Progress.swift */; };
+		CEFC997528098C8700824E49 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC997428098C8700824E49 /* Tabs.swift */; };
+		CEFC997728098CA300824E49 /* Tabs.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC997628098CA300824E49 /* Tabs.Item.swift */; };
 		CEFEAAAD272069210073149D /* Banner.Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEAAAC272069210073149D /* Banner.Particle.swift */; };
 /* End PBXBuildFile section */
 
@@ -378,6 +380,8 @@
 		CEF5548726FDD4FA00FE0E9C /* Web.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CEFC99702809663400824E49 /* Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.swift; sourceTree = "<group>"; };
 		CEFC997228096B9100824E49 /* Browser.Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.Progress.swift; sourceTree = "<group>"; };
+		CEFC997428098C8700824E49 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
+		CEFC997628098CA300824E49 /* Tabs.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Item.swift; sourceTree = "<group>"; };
 		CEFEAAAC272069210073149D /* Banner.Particle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.Particle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -527,8 +531,8 @@
 				CE46B4DD26F797F600A5B5BB /* App.swift */,
 				CED3A74D2808A0A100B15765 /* Bar.Item.swift */,
 				CE470A6526FA0AEB002D560A /* Bar.swift */,
-				CEFC99702809663400824E49 /* Browser.swift */,
 				CEFC997228096B9100824E49 /* Browser.Progress.swift */,
+				CEFC99702809663400824E49 /* Browser.swift */,
 				CED3A74B2808989200B15765 /* Field.swift */,
 				CE6FE9A627031D9C00403ADA /* Icon.swift */,
 				CE9B93F326F89F1E005E1D7F /* Navigation.swift */,
@@ -538,6 +542,8 @@
 				CEBC745728084203002F6654 /* Session.Flow.swift */,
 				CEBC744828081E1B002F6654 /* Session.Item.swift */,
 				CEBC744428080F36002F6654 /* Session.swift */,
+				CEFC997628098CA300824E49 /* Tabs.Item.swift */,
+				CEFC997428098C8700824E49 /* Tabs.swift */,
 				CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */,
 				CEF5548726FDD4FA00FE0E9C /* Web.swift */,
 				CE90BB17271B363200F59AF6 /* Window.swift */,
@@ -937,7 +943,9 @@
 				CEBC745828084204002F6654 /* Session.Flow.swift in Sources */,
 				CE46B4DE26F797F600A5B5BB /* App.swift in Sources */,
 				CE9DFA0F27061D5400D69810 /* Copy.swift in Sources */,
+				CEFC997728098CA300824E49 /* Tabs.Item.swift in Sources */,
 				CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */,
+				CEFC997528098C8700824E49 /* Tabs.swift in Sources */,
 				CEFC997328096B9100824E49 /* Browser.Progress.swift in Sources */,
 				CEBC745028083E8B002F6654 /* Session.swift in Sources */,
 				CEBC744F28083E8B002F6654 /* Session.Current.swift in Sources */,

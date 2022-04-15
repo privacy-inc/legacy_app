@@ -7,21 +7,19 @@ struct Search: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 0) {
-                field
-                    .equatable()
-                    .frame(height: 1)
-                HStack(alignment: .top) {
-                    ForEach(0 ..< items.count, id: \.self) { index in
-                        LazyVStack {
-                            ForEach(items[index]) {
-                                Item(session: field.session, website: $0)
-                            }
+            field
+                .equatable()
+                .frame(height: 1)
+            HStack(alignment: .top) {
+                ForEach(0 ..< items.count, id: \.self) { index in
+                    LazyVStack {
+                        ForEach(items[index]) {
+                            Item(session: field.session, website: $0)
                         }
                     }
                 }
-                .padding()
             }
+            .padding()
         }
         .frame(maxWidth: .greatestFiniteMagnitude)
         .background(.ultraThickMaterial)
@@ -40,7 +38,9 @@ struct Search: View {
                     }),
                 trailing:
                     .init(icon: "square.on.square", action: {
-                        
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            field.session.current = .tabs
+                        }
                     }),
                 material: .ultraThin)
         }

@@ -19,7 +19,9 @@ struct Browser: View {
                         }),
                     trailing:
                         .init(icon: "square.on.square", action: {
-                            
+                            withAnimation(.easeInOut(duration: 0.4)) {
+                                web.session.current = .tabs
+                            }
                         }),
                     material: .thin)
             }
