@@ -231,10 +231,10 @@ final class Menu: NSMenu, NSMenuDelegate {
                         web
                             .title
                             .map {
-                                title = $0.capped
+                                title = $0.capped(max: 47)
                             }
                     case let .message(_, _, message, _):
-                        title = message.capped
+                        title = message.capped(max: 47)
                     default:
                         break
                     }

@@ -5,13 +5,19 @@ private let size = CGFloat(24)
 
 extension Search {
     struct Item: View {
-        let session: Session
+        let field: Field
         let website: Website
         @StateObject private var icon = Icon()
         
         var body: some View {
             Button {
+                field.cancel(clear: false)
                 
+                guard let url = URL(string: website.id) else { return }
+                
+                Task {
+                    await field.session.open(url: url, id: field.id)
+                }
             } label: {
                 ZStack(alignment: .topLeading) {
                     if let image = icon.image {
@@ -27,11 +33,8 @@ extension Search {
                     }
                 }
             }
-            .fixedSize(horizontal: false, vertical: true)
             .padding()
-            .background(RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .fill(Color(.tertiarySystemBackground))
-                            .shadow(color: .black.opacity(session.dark ? 1 : 0.1), radius: 4))
+            .modifier(Card(dark: field.session.dark))
             .task {
                 await icon.load(website: .init(string: website.id))
             }

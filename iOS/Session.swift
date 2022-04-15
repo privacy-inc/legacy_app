@@ -50,7 +50,7 @@ final class Session: ObservableObject {
         let index = index(of: id)
         
         if items[index].web == nil {
-            items[index].web = await  .init(session: self, id: id, settings: cloud.model.settings.configuration, dark: dark)
+            items[index].web = await .init(session: self, id: id, settings: cloud.model.settings.configuration, dark: dark)
         }
         
         change(flow: .web, of: id)

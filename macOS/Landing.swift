@@ -17,7 +17,7 @@ final class Landing: NSView, NSMenuDelegate {
         let empty = Text(vibrancy: true)
         empty.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular)
         empty.textColor = .tertiaryLabelColor
-        empty.stringValue = "No history or bookmarks\nto show"
+        empty.stringValue = "No bookmarks or history\nto show"
         addSubview(empty)
         
         let list = List(session: session, width: 426)

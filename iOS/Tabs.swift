@@ -8,16 +8,43 @@ struct Tabs: View {
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                HStack(alignment: .top) {
-                    ForEach(0 ..< items.count, id: \.self) { index in
-                        LazyVStack {
-                            ForEach(items[index]) {
-                                Item(session: session, item: $0)
+                if items.first?.isEmpty == true {
+                    Text("No tabs open")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .padding(.top)
+                        .padding(.leading, 30)
+                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                } else {
+                    Button("Close all") {
+                        session.items = []
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            update(tabs: [])
+                        }
+                    }
+                    .font(.footnote)
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
+                    .tint(.secondary)
+                    .foregroundStyle(.secondary)
+                    .padding()
+                    
+                    HStack(alignment: .top) {
+                        ForEach(0 ..< items.count, id: \.self) { index in
+                            VStack {
+                                if items[index].isEmpty {
+                                    Spacer()
+                                        .frame(maxWidth: .greatestFiniteMagnitude)
+                                } else {
+                                    ForEach(items[index]) {
+                                        Item(session: session, item: $0)
+                                    }
+                                }
                             }
                         }
                     }
+                    .padding()
                 }
-                .padding()
             }
         }
         .frame(maxWidth: .greatestFiniteMagnitude)
@@ -37,7 +64,7 @@ struct Tabs: View {
                         }
                     }),
                 trailing:
-                    .init(icon: "square.on.square", action: {
+                    .init(icon: "flame", action: {
                         
                     }),
                 material: .ultraThin)

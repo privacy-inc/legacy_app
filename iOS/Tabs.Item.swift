@@ -3,6 +3,8 @@ import Specs
 
 extension Tabs {
     struct Item: View {
+        private static let height = UIScreen.main.bounds.width * 0.5
+        
         let session: Session
         let item: Session.Item
         
@@ -20,49 +22,32 @@ extension Tabs {
                                 Image(uiImage: thumbnail)
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(maxHeight: 170, alignment: .top)
-                                    .clipped()
+                                    .frame(maxHeight: Self.height, alignment: .top)
+                                    .modifier(Card(dark: session.dark))
                             }
-                            Divider()
-                            Text("\(web.title?.capped ?? "") \(Text(web.url?.absoluteString.domain ?? "").foregroundColor(.secondary))")
-                                .font(.footnote)
+                            Text("\(web.title?.capped(max: 90) ?? "") \(Text(web.url?.absoluteString.domain ?? "").foregroundColor(.secondary))")
+                                .font(.caption2)
                                 .multilineTextAlignment(.leading)
                                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                                .padding()
+                                .padding([.leading, .trailing, .top], 10)
+                                .padding(.bottom)
                         }
                     } else {
                         VStack(spacing: 8) {
                             Image(systemName: "magnifyingglass")
                                 .font(.system(size: 20, weight: .light))
-                                .foregroundStyle(.secondary)
-                            Text("New tab")
                                 .frame(maxWidth: .greatestFiniteMagnitude)
-                                .font(.footnote)
-                                .foregroundStyle(.tertiary)
+                                .padding(.vertical, 30)
+                                .modifier(Card(dark: session.dark))
+                            Text("New tab")
+                                .font(.caption2)
+                                .padding(.top, 10)
+                                .padding(.bottom)
                         }
-                        .padding(.vertical, 30)
+                        .foregroundStyle(.secondary)
                     }
                 }
-                
-                
-//                ZStack(alignment: .topLeading) {
-//                    if let image = icon.image {
-//                        text(string: "\(Image(uiImage: Self.blank)) \(website.title) \(domain)")
-//                        Image(uiImage: image)
-//                            .resizable()
-//                            .scaledToFit()
-//                            .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
-//                            .frame(width: size, height: size)
-//                            .allowsHitTesting(false)
-//                    } else {
-//                        text(string: "\(website.title) \(domain)")
-//                    }
-//                }
             }
-            .fixedSize(horizontal: false, vertical: true)
-            .background(Color(.tertiarySystemBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .shadow(color: .black.opacity(session.dark ? 1 : 0.1), radius: 4)
         }
     }
 }

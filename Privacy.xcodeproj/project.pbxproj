@@ -92,6 +92,7 @@
 		CEA2B28E28003F5700E2F201 /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2B28D28003F5700E2F201 /* Forget.swift */; };
 		CEA2B2902800435B00E2F201 /* Control.Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2B28F2800435B00E2F201 /* Control.Title.swift */; };
 		CEA2B292280047D600E2F201 /* NSPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA2B291280047D600E2F201 /* NSPopover.swift */; };
+		CEA565F42809D49500B5E1FC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA565F32809D49500B5E1FC /* Card.swift */; };
 		CEA73CBA2723052300AB65CB /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA73CB92723052300AB65CB /* Activity.swift */; };
 		CEA73CBD2723084900AB65CB /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA73CBC2723084900AB65CB /* Trackers.swift */; };
 		CEA73CBF2723128200AB65CB /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA73CBE2723128200AB65CB /* Forget.swift */; };
@@ -337,6 +338,7 @@
 		CEA2B28D28003F5700E2F201 /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
 		CEA2B28F2800435B00E2F201 /* Control.Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Title.swift; sourceTree = "<group>"; };
 		CEA2B291280047D600E2F201 /* NSPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPopover.swift; sourceTree = "<group>"; };
+		CEA565F32809D49500B5E1FC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CEA73CB92723052300AB65CB /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		CEA73CBC2723084900AB65CB /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CEA73CBE2723128200AB65CB /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 				CE470A6526FA0AEB002D560A /* Bar.swift */,
 				CEFC997228096B9100824E49 /* Browser.Progress.swift */,
 				CEFC99702809663400824E49 /* Browser.swift */,
+				CEA565F32809D49500B5E1FC /* Card.swift */,
 				CED3A74B2808989200B15765 /* Field.swift */,
 				CE6FE9A627031D9C00403ADA /* Icon.swift */,
 				CE9B93F326F89F1E005E1D7F /* Navigation.swift */,
@@ -946,6 +949,7 @@
 				CE9DFA0F27061D5400D69810 /* Copy.swift in Sources */,
 				CEFC997728098CA300824E49 /* Tabs.Item.swift in Sources */,
 				CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */,
+				CEA565F42809D49500B5E1FC /* Card.swift in Sources */,
 				CEFC997528098C8700824E49 /* Tabs.swift in Sources */,
 				CEFC997328096B9100824E49 /* Browser.Progress.swift in Sources */,
 				CEBC745028083E8B002F6654 /* Session.swift in Sources */,

@@ -11,7 +11,7 @@ extension Menu {
             super.init(title: "Share", action: nil, keyEquivalent: "")
             submenu = .init(title: "Share")
             submenu!.items = [
-                .child(url.absoluteString.capped),
+                .child(url.absoluteString.capped(max: 47)),
                 .separator()]
                     + NSSharingService
                         .sharingServices(forItems: [url])
