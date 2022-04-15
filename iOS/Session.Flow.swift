@@ -1,7 +1,7 @@
 import Foundation
 
 extension Session {
-    enum Flow {
+    enum Flow: Equatable {
         case
         web,
         search(Bool),

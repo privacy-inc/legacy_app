@@ -5,8 +5,8 @@ struct Navigation: View {
     
     var body: some View {
         switch session.current {
-        case let .item(id, flow):
-            switch flow {
+        case let .item(id):
+            switch session.item(for: id).flow {
             case .web:
                 Browser(web: session.item(for: id).web!)
             case let .search(focus):

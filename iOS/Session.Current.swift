@@ -1,10 +1,10 @@
 import Foundation
 
 extension Session {
-    enum Current {
+    enum Current: Equatable {
         case
         tabs,
         settings,
-        item(UUID, Flow)
+        item(UUID)
     }
 }

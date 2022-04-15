@@ -14,7 +14,7 @@ struct Browser: View {
                     center:
                         .init(icon: "magnifyingglass", action: {
                             withAnimation(.easeInOut(duration: 0.4)) {
-                                web.session.current = .item(web.id, .search(true))
+                                web.session.change(flow: .search(true), of: web.id)
                             }
                         }),
                     trailing:

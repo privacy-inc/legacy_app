@@ -9,9 +9,9 @@ final class Session: ObservableObject {
     var dark = false
     
     init() {
-        let item = Item()
+        let item = Item(flow: .search(false))
         items = [item]
-        current = .item(item.id, .search(false))
+        current = .item(item.id)
     }
     
     func item(for id: UUID) -> Item {
@@ -23,7 +23,15 @@ final class Session: ObservableObject {
     
     func search(id: UUID) {
         withAnimation(.easeInOut(duration: 0.4)) {
-            current = .item(id, .web)
+            change(flow: .web, of: id)
+        }
+    }
+    
+    func change(flow: Flow, of: UUID) {
+        items[index(of: of)].flow = flow
+        
+        if current == .item(of) {
+            objectWillChange.send()
         }
     }
     
@@ -45,7 +53,7 @@ final class Session: ObservableObject {
             items[index].web = await  .init(session: self, id: id, settings: cloud.model.settings.configuration, dark: dark)
         }
         
-        current = .item(id, .web)
+        change(flow: .web, of: id)
         items[index].web!.load(url: url)
     }
     
