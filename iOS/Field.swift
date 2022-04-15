@@ -67,6 +67,7 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
                 .removeDuplicates()) {
                     $0.websites(filter: $1)
                 }
+                .removeDuplicates()
                 .sink { [weak self] in
                     self?.websites = $0
                 }

@@ -6,7 +6,7 @@ struct Search: View {
     @State private var items = [[Website]]()
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
+        ScrollView {
             VStack(spacing: 0) {
                 field
                     .equatable()
@@ -20,7 +20,7 @@ struct Search: View {
                         }
                     }
                 }
-                .padding(.horizontal)
+                .padding()
             }
         }
         .frame(maxWidth: .greatestFiniteMagnitude)
