@@ -2,19 +2,6 @@ import UIKit
 import StoreKit
 
 extension UIApplication {
-    var snapshot: UIImage? {
-        scene?
-            .keyWindow?
-            .rootViewController?
-            .view
-            .map { view in
-                UIGraphicsImageRenderer(size: view.bounds.size)
-                    .image { _ in
-                        view.drawHierarchy(in: view.bounds, afterScreenUpdates: false)
-                    }
-            }
-    }
-    
     func settings() {
         open(URL(string: Self.openSettingsURLString)!)
     }

@@ -31,15 +31,21 @@ struct Search: View {
                 center:
                     field.typing ?
                 .init(icon: "xmark", action: {
-                    field.cancel()
+                    field.cancel(clear: true)
                 }) :
                     .init(icon: "magnifyingglass", action: {
                         field.becomeFirstResponder()
                     }),
                 trailing:
                     .init(icon: "square.on.square", action: {
-                        withAnimation(.easeInOut(duration: 0.4)) {
-                            field.session.current = .tabs
+                        field.cancel(clear: false)
+                        
+                        Task {
+                            await field.session.item(for: field.id).web?.thumbnail()
+                            
+                            withAnimation(.easeInOut(duration: 0.4)) {
+                                field.session.current = .tabs
+                            }
                         }
                     }),
                 material: .ultraThin)

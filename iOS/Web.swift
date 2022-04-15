@@ -74,6 +74,13 @@ final class Web: Webview, UIViewRepresentable {
         print("web gone")
     }
     
+    func thumbnail() async {
+        let configuration = WKSnapshotConfiguration()
+        configuration.afterScreenUpdates = false
+        guard let thumbnail = try? await takeSnapshot(configuration: configuration) else { return }
+        session.thumbnail(id: id, image: thumbnail)
+    }
+    
     @MainActor func resizeFont(size: CGFloat) async {
         _ = try? await evaluateJavaScript(Script.text(size: size))
     }

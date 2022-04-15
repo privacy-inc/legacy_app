@@ -139,6 +139,7 @@
 		CEFC997328096B9100824E49 /* Browser.Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC997228096B9100824E49 /* Browser.Progress.swift */; };
 		CEFC997528098C8700824E49 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC997428098C8700824E49 /* Tabs.swift */; };
 		CEFC997728098CA300824E49 /* Tabs.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC997628098CA300824E49 /* Tabs.Item.swift */; };
+		CEFC99782809A44200824E49 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D66982801A28700A05B6A /* String.swift */; };
 		CEFEAAAD272069210073149D /* Banner.Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFEAAAC272069210073149D /* Banner.Particle.swift */; };
 /* End PBXBuildFile section */
 
@@ -477,7 +478,6 @@
 				CEBB8BDE2728258300016F2C /* Session.swift */,
 				CE1DB23D28044B1E00128BCF /* Shortcut.Item.swift */,
 				CE120D8C27328C4F00DE517E /* Shortcut.swift */,
-				CE5D66982801A28700A05B6A /* String.swift */,
 				CE4312652736D25B00DA0F99 /* Switch.swift */,
 				CE82C6FD27F4991200C5C46E /* Tab.Counter.swift */,
 				CE8BA2EC272D72E500E2D73F /* Tab.Off.swift */,
@@ -563,6 +563,7 @@
 				CE99B053272178360077BAC6 /* Store.Item.swift */,
 				CEAAFB2827009E9600149F0C /* Store.State.swift */,
 				CEAAFB2A27009E9600149F0C /* Store.swift */,
+				CE5D66982801A28700A05B6A /* String.swift */,
 				CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */,
 				CEF5548226FDD4F000FE0E9C /* Webview.swift */,
 				CE46B4EA26F7982200A5B5BB /* Colours.xcassets */,
@@ -949,6 +950,7 @@
 				CEFC997328096B9100824E49 /* Browser.Progress.swift in Sources */,
 				CEBC745028083E8B002F6654 /* Session.swift in Sources */,
 				CEBC744F28083E8B002F6654 /* Session.Current.swift in Sources */,
+				CEFC99782809A44200824E49 /* String.swift in Sources */,
 				CEBC745428083EC3002F6654 /* Navigation.swift in Sources */,
 				CE0A7C032808490C00B92FC2 /* Icon.swift in Sources */,
 				CED3A74E2808A0A100B15765 /* Bar.Item.swift in Sources */,

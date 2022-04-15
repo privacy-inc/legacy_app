@@ -73,8 +73,10 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
                 }
     }
     
-    func cancel() {
+    func cancel(clear: Bool) {
         field.resignFirstResponder()
+        
+        guard clear else { return }
         
         if focus {
             session.search(id: id)

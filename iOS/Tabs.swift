@@ -29,7 +29,12 @@ struct Tabs: View {
                     }),
                 center:
                     .init(icon: "plus", action: {
-
+                        let item = Session.Item(flow: .search(true))
+                        session.items.append(item)
+                        
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            session.current = .item(item.id)
+                        }
                     }),
                 trailing:
                     .init(icon: "square.on.square", action: {

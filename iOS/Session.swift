@@ -5,7 +5,7 @@ import Specs
 final class Session: ObservableObject {
     @Published var current: Current
     @Published var froob = false
-    private(set) var items: [Item]
+    var items: [Item]
     var dark = false
     
     init() {
@@ -33,6 +33,10 @@ final class Session: ObservableObject {
         if current == .item(of) {
             objectWillChange.send()
         }
+    }
+    
+    func thumbnail(id: UUID, image: UIImage) {
+        items[index(of: id)].thumbnail = image
     }
     
     @MainActor func search(string: String, id: UUID, focus: Bool) async {
