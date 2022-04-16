@@ -3,13 +3,14 @@ import SwiftUI
 struct Browser: View {
     let web: Web
     @State private var progress = AnimatablePair(Double(), Double())
+    @State private var detail = false
     
     var body: some View {
         web
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(items: [
                     .init(icon: "slider.vertical.3") {
-                        
+                        detail = true
                     },
                     .init(icon: "magnifyingglass") {
                         withAnimation(.easeInOut(duration: 0.4)) {
@@ -27,6 +28,10 @@ struct Browser: View {
                     }
                 ],
                     material: .thin)
+                        .sheet(isPresented: $detail) {
+                            Detail(web: web)
+                                .ignoresSafeArea(edges: .bottom)
+                        }
             }
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 0) {

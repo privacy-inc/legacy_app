@@ -68,6 +68,27 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                 .store(in: &subs)
         }
         
+        if settings.favicons {
+            publisher(for: \.url)
+                .compactMap {
+                    $0
+                }
+                .removeDuplicates()
+                .debounce(for: .seconds(3), scheduler: DispatchQueue.main)
+                .sink { [weak self] website in
+                    Task { [weak self] in
+                        guard
+                            await favicon.request(for: website),
+                            let url = try? await (self?.evaluateJavaScript(Script.favicon.method)) as? String,
+                            settings.http || (!settings.http && url.hasPrefix("https://"))
+                        else { return }
+
+                        await favicon.received(url: url, for: website)
+                    }
+                }
+                .store(in: &subs)
+        }
+        
         publisher(for: \.estimatedProgress)
             .subscribe(progress)
             .store(in: &subs)
@@ -99,19 +120,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     }
     
     func webView(_ webView: WKWebView, didFinish: WKNavigation!) {
-        if settings.favicons {
-            Task {
-                guard
-                    let website = webView.url,
-                    await favicon.request(for: website),
-                    let url = try? await (webView.evaluateJavaScript(Script.favicon.method)) as? String,
-                    settings.http || (!settings.http && url.hasPrefix("https://"))
-                else { return }
-
-                await favicon.received(url: url, for: website)
-            }
-        }
-        
         if !settings.timers {
             evaluateJavaScript(Script.unpromise.script)
         }

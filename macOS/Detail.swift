@@ -24,7 +24,7 @@ final class Detail: NSScrollView {
         flip.translatesAutoresizingMaskIntoConstraints = false
         documentView = flip
         
-        let icon = Icon(size: 48)
+        let icon = Icon(size: 50)
         
         let text = Text(vibrancy: true)
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)

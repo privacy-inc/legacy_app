@@ -37,6 +37,14 @@ final class Session: ObservableObject {
         items[index(of: id)].info = info
     }
     
+    func reader(id: UUID, value: Bool) {
+        items[index(of: id)].reader = value
+    }
+    
+    func find(id: UUID, value: Bool) {
+        items[index(of: id)].find = value
+    }
+    
     @MainActor func search(string: String, id: UUID) async {
         guard let url = try? await cloud.search(string)
         else {

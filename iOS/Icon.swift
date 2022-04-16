@@ -8,7 +8,7 @@ final class Icon: ObservableObject {
     private var sub: AnyCancellable?
     
     func load(website: URL?) async {
-        guard let website = website else { fatalError() }
+        guard let website = website else { return }
         publisher = await favicon.publisher(for: website)
         sub = publisher?
             .sink { [weak self] in
