@@ -4,6 +4,7 @@ import Specs
 struct Tabs: View {
     @ObservedObject var session: Session
     @State private var items = [[Session.Item]]()
+    @Namespace private var animation
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -36,8 +37,16 @@ struct Tabs: View {
                                     Spacer()
                                         .frame(maxWidth: .greatestFiniteMagnitude)
                                 } else {
-                                    ForEach(items[index]) {
-                                        Item(session: session, item: $0)
+                                    ForEach(items[index]) { item in
+                                        Item(session: session, item: item) {
+                                            session.items.remove { $0.id == item.id }
+                                            
+                                            withAnimation(.easeInOut(duration: 0.3)) {
+                                                update(tabs: session.items)
+                                            }
+                                        }
+                                        .matchedGeometryEffect(id: item.id, in: animation)
+                                        .transition(.offset())
                                     }
                                 }
                             }
@@ -73,7 +82,6 @@ struct Tabs: View {
         .onAppear {
             update(tabs: session.items)
         }
-        .onChange(of: session.items, perform: update(tabs:))
     }
     
     private func update(tabs: [Session.Item]) {
