@@ -76,13 +76,15 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
         
         guard clear else { return }
         
-        if session.item(for: id).web != nil {
-            withAnimation(.easeInOut(duration: 0.4)) {
-                session.change(flow: .web, of: id)
-            }
-        } else {
+        let item = session.item(for: id)
+        
+        if item.web == nil {
             field.text = ""
             filter.send("")
+        } else {
+            withAnimation(.easeInOut(duration: 0.4)) {
+                session.change(flow: item.info == nil ? .web : .message, of: id)
+            }
         }
     }
     

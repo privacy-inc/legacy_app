@@ -33,6 +33,10 @@ final class Session: ObservableObject {
         items[index(of: id)].thumbnail = image
     }
     
+    func message(id: UUID, info: Info) {
+        items[index(of: id)].info = info
+    }
+    
     @MainActor func search(string: String, id: UUID) async {
         guard let url = try? await cloud.search(string)
         else {

@@ -9,10 +9,10 @@ struct Navigation: View {
             switch session.item(for: id).flow {
             case .web:
                 Browser(web: session.item(for: id).web!)
+            case .message:
+                Message(web: session.item(for: id).web!, info: session.item(for: id).info!)
             case let .search(focus):
                 Search(field: .init(session: session, id: id), focus: focus)
-            case let .message(info):
-                Message(web: session.item(for: id).web!, info: info)
             }
         case .tabs:
             Tabs(session: session)

@@ -4,7 +4,7 @@ extension Session {
     enum Flow: Equatable {
         case
         web,
-        search(Bool),
-        message(Info)
+        message,
+        search(Bool)
     }
 }

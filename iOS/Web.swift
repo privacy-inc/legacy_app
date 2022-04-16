@@ -90,7 +90,8 @@ final class Web: Webview, UIViewRepresentable {
     }
     
     override func message(info: Info) {
-        session.change(flow: .message(info), of: id)
+        session.message(id: id, info: info)
+        session.change(flow: .message, of: id)
     }
     
     override func webView(_ webView: WKWebView, didFinish: WKNavigation!) {
