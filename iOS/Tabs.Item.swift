@@ -16,10 +16,24 @@ extension Tabs {
                 } label: {
                     switch item.flow {
                     case .message:
-                        Circle()
+                        VStack(spacing: 10) {
+                            Image(systemName: item.info!.icon)
+                                .symbolRenderingMode(.hierarchical)
+                                .font(.system(size: 30, weight: .light))
+                                .frame(maxWidth: .greatestFiniteMagnitude)
+                                .padding(.vertical, 40)
+                                .modifier(Card(dark: session.dark))
+                                .foregroundStyle(.secondary)
+                            Text("\(item.info!.title) \(Text(item.info!.url?.absoluteString.domain ?? "").foregroundColor(.secondary))")
+                                .font(.caption2)
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                                .padding(.horizontal, 10)
+                                .padding(.bottom)
+                        }
                     default:
                         if let web = item.web {
-                            VStack(spacing: 0) {
+                            VStack(spacing: 10) {
                                 if let thumbnail = item.thumbnail {
                                     Image(uiImage: thumbnail)
                                         .resizable()
@@ -31,11 +45,11 @@ extension Tabs {
                                     .font(.caption2)
                                     .multilineTextAlignment(.leading)
                                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                                    .padding([.leading, .trailing, .top], 10)
+                                    .padding(.horizontal, 10)
                                     .padding(.bottom)
                             }
                         } else {
-                            VStack(spacing: 8) {
+                            VStack(spacing: 10) {
                                 Image(systemName: "magnifyingglass")
                                     .font(.system(size: 20, weight: .light))
                                     .frame(maxWidth: .greatestFiniteMagnitude)
@@ -43,7 +57,6 @@ extension Tabs {
                                     .modifier(Card(dark: session.dark))
                                 Text("New tab")
                                     .font(.caption2)
-                                    .padding(.top, 6)
                                     .padding(.bottom)
                             }
                             .foregroundStyle(.secondary)
@@ -51,28 +64,30 @@ extension Tabs {
                     }
                 }
                 
-                Circle()
-                    .fill(Color(.secondarySystemBackground))
-                    .frame(width: 32, height: 32)
-                    .padding(.trailing, 10.5)
-                    .padding(.top, 10)
-                    .shadow(color: .black.opacity(session.dark ? 1 : 0.4), radius: 3)
-                    .allowsHitTesting(false)
-                
-                Circle()
-                    .stroke(Color(.tertiarySystemBackground), lineWidth: 1)
-                    .frame(width: 30, height: 30)
-                    .padding(.trailing, 11.5)
-                    .padding(.top, 11)
-                    .allowsHitTesting(false)
-                
-                Button(action: close) {
-                    Image(systemName: "xmark")
-                        .symbolRenderingMode(.palette)
-                        .foregroundColor(.secondary)
-                        .font(.system(size: 15, weight: .light))
-                        .padding(19)
-                        .contentShape(Rectangle())
+                if item.web == nil || item.flow == .message {
+                    Button(action: close) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.secondary)
+                            .font(.system(size: 15, weight: .light))
+                            .padding(14)
+                            .contentShape(Rectangle())
+                    }
+                } else {
+                    Circle()
+                        .fill(Color(.tertiarySystemBackground))
+                        .frame(width: 32, height: 32)
+                        .padding(.trailing, 10.5)
+                        .padding(.top, 10)
+                        .shadow(color: .black.opacity(session.dark ? 1 : 0.4), radius: 2)
+                        .allowsHitTesting(false)
+                    
+                    Button(action: close) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.secondary)
+                            .font(.system(size: 15, weight: .light))
+                            .padding(19)
+                            .contentShape(Rectangle())
+                    }
                 }
             }
         }

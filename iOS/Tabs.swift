@@ -76,7 +76,6 @@ struct Tabs: View {
                     
                 }
             ],
-                bottom: true,
                 material: .ultraThin)
         }
         .onAppear {

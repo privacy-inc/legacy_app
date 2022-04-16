@@ -56,7 +56,6 @@ struct Search: View {
                     }
                 }
             ],
-                bottom: true,
                 material: .ultraThin)
         }
         .onChange(of: field.websites) {

@@ -39,6 +39,10 @@ final class Web: Webview {
         configuration.userContentController.addScriptMessageHandler(Location(), contentWorld: .page, name: Script.location.method)
     }
     
+    deinit {
+        print("web gone")
+    }
+    
     override func deeplink(url: URL) {
         NSWorkspace.shared.open(url)
     }

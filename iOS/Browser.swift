@@ -8,7 +8,7 @@ struct Browser: View {
         web
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(items: [
-                    .init(icon: "line.3.horizontal") {
+                    .init(icon: "slider.vertical.3") {
                         
                     },
                     .init(icon: "magnifyingglass") {
@@ -26,7 +26,6 @@ struct Browser: View {
                         }
                     }
                 ],
-                    bottom: true,
                     material: .thin)
             }
             .safeAreaInset(edge: .top, spacing: 0) {

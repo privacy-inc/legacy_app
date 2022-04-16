@@ -9,7 +9,7 @@ struct Message: View {
             Image(systemName: info.icon)
                 .symbolRenderingMode(.hierarchical)
                 .font(.system(size: 35, weight: .light))
-                .padding(.top, 30)
+                .padding(.top, 40)
             Text("\(location)\(Text(info.title).foregroundColor(.secondary))")
                 .font(.callout)
                 .foregroundColor(Color(.tertiaryLabel))
@@ -25,7 +25,20 @@ struct Message: View {
         .background(Color(.secondarySystemBackground))
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(items: [
-                    .init(icon: "line.3.horizontal") {
+                    .init(icon: "chevron.backward") {
+                        if web.url == nil {
+                            web.session.change(flow: .search(false), of: web.id)
+                        } else {
+                            web.session.change(flow: .web, of: web.id)
+                        }
+                    },
+                    .init(icon: "arrow.clockwise") {
+                        web.session.change(flow: .web, of: web.id)
+                        info
+                            .url
+                            .map {
+                                web.load(url: $0)
+                            }
                         
                     },
                     .init(icon: "magnifyingglass") {
@@ -39,19 +52,6 @@ struct Message: View {
                         }
                     }
                 ],
-                    bottom: true,
-                    material: .ultraThin)
-            }
-            .safeAreaInset(edge: .top, spacing: 0) {
-                Bar(items: [
-                    .init(icon: "chevron.backward") {
-                        
-                    },
-                    .init(icon: "arrow.clockwise") {
-                        
-                    }
-                ],
-                    bottom: false,
                     material: .ultraThin)
             }
     }

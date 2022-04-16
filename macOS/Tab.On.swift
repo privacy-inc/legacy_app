@@ -271,28 +271,29 @@ extension Tab {
                     
                     self?.add(reload
                         .click
-                        .sink {
-                            web.reload(nil)
+                        .sink { [weak web] in
+                            web?.reload(nil)
                         })
                     
                     self?.add(stop
                         .click
-                        .sink {
-                            web.stopLoading()
+                        .sink { [weak web] in
+                            web?.stopLoading()
                         })
                     
                     self?.add(back
                         .click
-                        .sink {
-                            web.goBack(nil)
+                        .sink { [weak web] in
+                            web?.goBack(nil)
                         })
                     
                     self?.add(forward
                         .click
-                        .sink {
-                            web.goForward()
-                            
+                        .sink { [weak web] in
+                            web?.goForward()
+
                             guard
+                                let web = web,
                                 let flow = session.items.value.first(where: { $0.id == id })?.flow,
                                 case .message = flow
                             else { return }
