@@ -23,15 +23,15 @@ final class Trackers: NSView {
         addSubview(url)
         
         let icon = NSImageView(image: .init(systemSymbolName: "bolt.shield", accessibilityDescription: nil) ?? .init())
-        icon.symbolConfiguration = .init(pointSize: 26, weight: .light)
+        icon.symbolConfiguration = .init(pointSize: 16, weight: .regular)
             .applying(.init(hierarchicalColor: .tertiaryLabelColor))
         icon.translatesAutoresizingMaskIntoConstraints = false
         addSubview(icon)
         
         let description = Text(vibrancy: false)
-        description.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .footnote).pointSize, weight: .regular)
+        description.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .regular)
         description.textColor = .tertiaryLabelColor
-        description.stringValue = "Trackers prevented\non this website"
+        description.stringValue = "Trackers prevented"
         description.maximumNumberOfLines = 2
         addSubview(description)
         
@@ -66,10 +66,10 @@ final class Trackers: NSView {
         url.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         url.widthAnchor.constraint(lessThanOrEqualToConstant: width - 20).isActive = true
         
-        icon.topAnchor.constraint(equalTo: url.bottomAnchor, constant: 12).isActive = true
+        icon.topAnchor.constraint(equalTo: url.bottomAnchor, constant: 3).isActive = true
         icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 72).isActive = true
         
-        description.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 5).isActive = true
+        description.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 2).isActive = true
         description.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
         
         background.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 30).isActive = true

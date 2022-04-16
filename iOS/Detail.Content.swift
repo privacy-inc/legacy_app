@@ -4,19 +4,13 @@ extension Detail {
     struct Content: View {
         @ObservedObject var status: Status
         let web: Web
-        @State private var title = ""
-        @State private var url: URL?
-        @State private var back = false
-        @State private var forward = false
-        @State private var loading = false
-        @State private var secure = false
         @State private var selectable = true
         @State private var reader = true
         @State private var find = true
 
         var body: some View {
             ScrollView(showsIndicators: false) {
-                Header(url: url, title: title, secure: secure)
+                Header(web: web)
 
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
@@ -75,53 +69,17 @@ extension Detail {
                 Spacer()
                     .frame(height: 30)
             }
-            .clipped()
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 if status.small {
-                    VStack(spacing: 0) {
-                        Divider()
-                        HStack {
-                            Button("Lol") {
-                                
-                            }
-                            
-                        }
-                        .padding(.vertical, 10)
-                    }
+                    Navigation(web: web)
                 }
             }
-            .background(.regularMaterial)
+            .background(.thinMaterial)
             .task {
                 selectable = web.configuration.preferences.isTextInteractionEnabled
                 let item = web.session.item(for: web.id)
                 reader = item.reader
                 find = item.find
-            }
-            .onReceive(web.publisher(for: \.url)) {
-                url = $0
-//
-//                DispatchQueue
-//                    .main
-//                    .asyncAfter(deadline: .now() + 0.1) {
-//                        Task {
-//                            await updateFont()
-//                        }
-//                    }
-            }
-            .onReceive(web.publisher(for: \.title)) {
-                title = $0 ?? ""
-            }
-            .onReceive(web.publisher(for: \.canGoBack)) {
-                back = $0
-            }
-            .onReceive(web.publisher(for: \.canGoForward)) {
-                forward = $0
-            }
-            .onReceive(web.publisher(for: \.isLoading)) {
-                loading = $0
-            }
-            .onReceive(web.publisher(for: \.hasOnlySecureContent)) {
-                secure = $0
             }
         }
     }

@@ -12,13 +12,12 @@ extension Detail {
                     Image(systemName: icon)
                         .font(.system(size: 18, weight: .regular))
                         .symbolRenderingMode(.hierarchical)
-                        .frame(width: 24)
                         .foregroundStyle(.secondary)
+                        .frame(width: 24)
                     Text(title)
                         .font(.callout)
                 }
             }
-            .font(.callout)
             .padding(.vertical, 12)
         }
     }

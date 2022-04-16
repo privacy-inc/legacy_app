@@ -2,7 +2,7 @@ import AppKit
 import Combine
 import UserNotifications
 
-final class Detail: NSScrollView {
+final class Detail: NSView {
     private weak var stack: NSStackView!
     private var subs = Set<AnyCancellable>()
 
@@ -12,18 +12,7 @@ final class Detail: NSScrollView {
     
     required init?(coder: NSCoder) { nil }
     init(session: Session, id: UUID) {
-        super.init(frame: .init(origin: .zero, size: .init(width: 320, height: 360)))
-        hasVerticalScroller = true
-        verticalScroller!.controlSize = .mini
-        drawsBackground = false
-        scrollerInsets.top = 10
-        scrollerInsets.bottom = 10
-        automaticallyAdjustsContentInsets = false
-        
-        let flip = Flip()
-        flip.translatesAutoresizingMaskIntoConstraints = false
-        documentView = flip
-        
+        super.init(frame: .init(origin: .zero, size: .init(width: 320, height: 200)))
         let icon = Icon(size: 50)
         
         let text = Text(vibrancy: true)
@@ -43,17 +32,17 @@ final class Detail: NSScrollView {
         stack.spacing = 3
         stack.setCustomSpacing(20, after: icon)
         stack.setCustomSpacing(20, after: text)
-        stack.setCustomSpacing(20, after: pause)
-        flip.addSubview(stack)
+        stack.setCustomSpacing(30, after: pause)
+        addSubview(stack)
         self.stack = stack
         
-        flip.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        flip.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        flip.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        flip.bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 30).isActive = true
+        topAnchor.constraint(equalTo: topAnchor).isActive = true
+        leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 40).isActive = true
         
-        stack.topAnchor.constraint(equalTo: flip.topAnchor, constant: 30).isActive = true
-        stack.leftAnchor.constraint(equalTo: flip.leftAnchor, constant: 30).isActive = true
+        stack.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
+        stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 30).isActive = true
         stack.widthAnchor.constraint(equalTo: widthAnchor, constant: -60).isActive = true
         
         if case let .web(web) = session.flow(of: id) {

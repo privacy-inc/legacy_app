@@ -2,15 +2,18 @@ import SwiftUI
 
 extension Detail {
     struct Header: View {
-        let url: URL?
-        let title: String
-        let secure: Bool
+        let web: Web
+        @State private var title = ""
+        @State private var url: URL?
+        @State private var secure = false
+        @State private var trackers = false
+        @State private var counter = 0
         @StateObject private var icon = Icon()
         @Environment(\.dismiss) private var dismiss
         
         var body: some View {
             ZStack(alignment: .top) {
-                VStack {
+                VStack(spacing: 0) {
                     if let image = icon.image {
                         Image(uiImage: image)
                             .resizable()
@@ -18,32 +21,41 @@ extension Detail {
                             .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                             .frame(width: 50, height: 50)
                             .padding(.top, 30)
-                    } else {
-                        Image(systemName: "magnifyingglass")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundStyle(.tertiary)
-                            .padding(.top, 30)
                     }
                     
-                    Text("\(title) \(Text(url?.absoluteString.domain ?? "").foregroundColor(.secondary))")
-                        .font(.callout)
-                        .multilineTextAlignment(.leading)
-                        .padding()
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    if let domain = url?.absoluteString.domain {
+                        Text(domain)
+                            .font(.callout)
+                            .padding(.vertical)
+                    }
+                    
+                    Button {
+                        trackers = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "bolt.shield")
+                                .symbolRenderingMode(.hierarchical)
+                                .font(.system(size: 20, weight: .light))
+                            Text(counter, format: .number)
+                                .font(.callout.monospacedDigit())
+                        }
+                        .contentShape(Rectangle())
+                    }
+                    .foregroundColor(counter == 0 ? Color.secondary : Color(.systemBackground))
+                    .tint(counter == 0 ? .clear : .primary)
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.capsule)
+                    .padding(.bottom)
+                    .sheet(isPresented: $trackers) {
+                        Trackers(domain: url?.absoluteString.domain ?? "")
+                    }
                 }
-                .allowsHitTesting(false)
                 
                 HStack {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: secure ? "lock.fill" : "exclamationmark.triangle.fill")
-                            .foregroundStyle(.secondary)
-                            .symbolRenderingMode(.hierarchical)
-                            .font(.system(size: secure ? 17 : 20, weight: .light))
-                            .padding(18)
-                            .contentShape(Rectangle())
-                    }
+                    Image(systemName: secure ? "lock.fill" : "exclamationmark.triangle.fill")
+                        .font(.system(size: secure ? 18 : 20, weight: .light))
+                        .padding(18)
+                        .contentShape(Rectangle())
                     
                     Spacer()
                     
@@ -51,16 +63,35 @@ extension Detail {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
-                            .foregroundStyle(.secondary)
-                            .font(.system(size: 15, weight: .light))
+                            .font(.system(size: 16, weight: .light))
                             .padding(18)
                             .contentShape(Rectangle())
                     }
+                }
+                .foregroundStyle(.secondary)
+                .symbolRenderingMode(.hierarchical)
+            }
+            .onReceive(web.publisher(for: \.url)) {
+                url = $0
+            }
+            .onReceive(web.publisher(for: \.title)) {
+                title = $0 ?? ""
+            }
+            .onReceive(web.publisher(for: \.hasOnlySecureContent)) {
+                secure = $0
+            }
+            .onReceive(cloud) {
+                if let domain = url?.absoluteString.domain {
+                    counter = $0.tracking.count(domain: domain)
                 }
             }
             .onChange(of: url) { url in
                 Task {
                     await icon.load(website: url)
+                    
+                    if let domain = url?.absoluteString.domain {
+                        counter = await cloud.model.tracking.count(domain: domain)
+                    }
                 }
             }
             .task {
