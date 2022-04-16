@@ -43,16 +43,17 @@ final class Web: Webview {
         NSWorkspace.shared.open(url)
     }
     
-    override func message(url: URL?, title: String, icon: String) {
-        session.change(flow: .message(self, url, title, icon), of: id)
+    override func message(info: Info) {
+        session.change(flow: .message(self, info), of: id)
     }
     
     override func reload(_ sender: Any?) {
         switch session.flow(of: id) {
         case .web:
             super.reload(sender)
-        case let .message(_, url, _, _):
-            url
+        case let .message(_, info):
+            info
+                .url
                 .map {
                     session.change(flow: .web(self), of: id)
                     load(url: $0)

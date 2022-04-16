@@ -6,6 +6,6 @@ extension Session {
         case
         list,
         web(Web),
-        message(Web, URL?, String, String)
+        message(Web, Info)
     }
 }

@@ -7,26 +7,26 @@ struct Browser: View {
     var body: some View {
         web
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                Bar(leading:
-                        .init(icon: "line.3.horizontal", action: {
+                Bar(items: [
+                    .init(icon: "line.3.horizontal") {
+                        
+                    },
+                    .init(icon: "magnifyingglass") {
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            web.session.change(flow: .search(true), of: web.id)
+                        }
+                    },
+                    .init(icon: "square.on.square") {
+                        Task {
+                            await web.thumbnail()
                             
-                        }),
-                    center:
-                        .init(icon: "magnifyingglass", action: {
                             withAnimation(.easeInOut(duration: 0.4)) {
-                                web.session.change(flow: .search(true), of: web.id)
+                                web.session.current = .tabs
                             }
-                        }),
-                    trailing:
-                        .init(icon: "square.on.square", action: {
-                            Task {
-                                await web.thumbnail()
-                                
-                                withAnimation(.easeInOut(duration: 0.4)) {
-                                    web.session.current = .tabs
-                                }
-                            }
-                        }),
+                        }
+                    }
+                ],
+                    bottom: true,
                     material: .thin)
             }
             .safeAreaInset(edge: .top, spacing: 0) {

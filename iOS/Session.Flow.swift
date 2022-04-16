@@ -5,6 +5,6 @@ extension Session {
         case
         web,
         search(Bool),
-        message(URL?, String, String)
+        message(Info)
     }
 }

@@ -96,7 +96,7 @@ struct Session {
             await open(url: url, id: id)
         case let .web(web):
             web.load(url: url)
-        case let .message(web, _, _, _):
+        case let .message(web, _):
             web.load(url: url)
             change(flow: .web(web), of: id)
         }
@@ -119,7 +119,7 @@ struct Session {
         switch flow(of: id) {
         case .list:
             web = await .init(session: self, id: id, settings: cloud.model.settings.configuration)
-        case let .web(item), let .message(item, _, _, _):
+        case let .web(item), let .message(item, _):
             web = item
         }
         

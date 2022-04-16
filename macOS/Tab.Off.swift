@@ -79,8 +79,8 @@ extension Tab {
                                 icon.icon(website: $0)
                                 title.stringValue = $0.absoluteString.domain
                             })
-                    case let .message(_, url, _, _):
-                        title.stringValue = url?.absoluteString.domain ?? ""
+                    case let .message(_, info):
+                        title.stringValue = info.url?.absoluteString.domain ?? ""
                     }
                 }
                 .store(in: &subs)

@@ -91,10 +91,10 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
                 case let .web(web):
                     self?.finder.client = web
                     place(web)
-                case let .message(_, url, title, icon):
+                case let .message(_, info):
                     self?.isFindBarVisible = false
                     self?.finder.client = nil
-                    place(Message(url: url, title: title, icon: icon))
+                    place(Message(info: info))
                 }
             }
             .store(in: &subs)

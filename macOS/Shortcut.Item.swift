@@ -75,10 +75,10 @@ extension Shortcut {
                 icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
                 
                 text.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 4).isActive = true
-            case let .message(_, _, title, image):
-                text.stringValue = title
+            case let .message(_, info):
+                text.stringValue = info.title
                 
-                let icon = NSImageView(image: .init(systemSymbolName: image, accessibilityDescription: nil) ?? .init())
+                let icon = NSImageView(image: .init(systemSymbolName: info.icon, accessibilityDescription: nil) ?? .init())
                 icon.translatesAutoresizingMaskIntoConstraints = false
                 icon.symbolConfiguration = .init(pointSize: 20, weight: .regular)
                     .applying(.init(hierarchicalColor: .secondaryLabelColor))

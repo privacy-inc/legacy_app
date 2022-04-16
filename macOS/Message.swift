@@ -2,12 +2,12 @@ import AppKit
 
 final class Message: NSView {
     required init?(coder: NSCoder) { nil }
-    init(url: URL?, title: String, icon: String) {
+    init(info: Info) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         alphaValue = 0
         
-        let icon = NSImageView(image: .init(systemSymbolName: icon, accessibilityDescription: nil) ?? .init())
+        let icon = NSImageView(image: .init(systemSymbolName: info.icon, accessibilityDescription: nil) ?? .init())
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.symbolConfiguration = .init(pointSize: 45, weight: .ultraLight)
             .applying(.init(hierarchicalColor: .secondaryLabelColor))
@@ -15,7 +15,7 @@ final class Message: NSView {
         
         let text = Text(vibrancy: true)
         text.attributedStringValue = .make {
-            if let url = url?.absoluteString {
+            if let url = info.url?.absoluteString {
                 $0.append(.make(url.capped(max: 100), attributes: [
                     .font: NSFont.preferredFont(forTextStyle: .body),
                     .foregroundColor: NSColor.tertiaryLabelColor]))
@@ -23,7 +23,7 @@ final class Message: NSView {
             
             $0.newLine()
             
-            $0.append(.make(title, attributes: [
+            $0.append(.make(info.title, attributes: [
                 .font: NSFont.preferredFont(forTextStyle: .body),
                 .foregroundColor: NSColor.secondaryLabelColor]))
         }

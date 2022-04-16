@@ -149,7 +149,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         
         if let window = NSApp.keyWindow as? Window {
             switch window.session.flow(of: window.session.current.value) {
-            case let .web(item), let .message(item, _, _, _):
+            case let .web(item), let .message(item, _):
                 web = item
             default:
                 break
@@ -233,8 +233,8 @@ final class Menu: NSMenu, NSMenuDelegate {
                             .map {
                                 title = $0.capped(max: 47)
                             }
-                    case let .message(_, _, message, _):
-                        title = message.capped(max: 47)
+                    case let .message(_, info):
+                        title = info.title.capped(max: 47)
                     default:
                         break
                     }

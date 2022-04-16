@@ -94,7 +94,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         
     }
     
-    func message(url: URL?, title: String, icon: String) {
+    func message(info: Info) {
 
     }
     
@@ -123,7 +123,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         
     final func error(url: URL?, description: String) {
         progress.send(1)
-        message(url: url, title: description, icon: "exclamationmark.triangle.fill")
+        message(info: .init(url: url, title: description, icon: "exclamationmark.triangle.fill"))
 
         Task
             .detached(priority: .utility) {
@@ -133,7 +133,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     }
     
     final func privacy(url: URL) {
-        message(url: url, title: "Privacy deeplink", icon: "eyeglasses")
+        message(info: .init(url: url, title: "Privacy deeplink", icon: "eyeglasses"))
     }
     
     final func webView(_: WKWebView, respondTo: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
@@ -188,7 +188,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                     error(url: decidePolicyFor.request.url, description: "Blocked")
                 }
         case .deeplink:
-            message(url: decidePolicyFor.request.url!, title: "Deeplink opened", icon: "paperplane.circle.fill")
+            message(info: .init(url: decidePolicyFor.request.url!, title: "Deeplink opened", icon: "paperplane.circle.fill"))
             deeplink(url: decidePolicyFor.request.url!)
         case .privacy:
             privacy(url: decidePolicyFor.request.url!)

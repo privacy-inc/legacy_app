@@ -60,23 +60,23 @@ struct Tabs: View {
         .frame(maxWidth: .greatestFiniteMagnitude)
         .background(.ultraThickMaterial)
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            Bar(leading:
-                    .init(icon: "line.3.horizontal", action: {
-                        
-                    }),
-                center:
-                    .init(icon: "plus", action: {
-                        let item = Session.Item(flow: .search(true))
-                        session.items.append(item)
-                        
-                        withAnimation(.easeInOut(duration: 0.4)) {
-                            session.current = .item(item.id)
-                        }
-                    }),
-                trailing:
-                    .init(icon: "flame", action: {
-                        
-                    }),
+            Bar(items: [
+                .init(icon: "line.3.horizontal") {
+                    
+                },
+                .init(icon: "plus") {
+                    let item = Session.Item(flow: .search(true))
+                    session.items.append(item)
+                    
+                    withAnimation(.easeInOut(duration: 0.4)) {
+                        session.current = .item(item.id)
+                    }
+                },
+                .init(icon: "flame") {
+                    
+                }
+            ],
+                bottom: true,
                 material: .ultraThin)
         }
         .onAppear {

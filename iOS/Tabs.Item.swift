@@ -15,7 +15,7 @@ extension Tabs {
                     session.current = .item(item.id)
                 } label: {
                     switch item.flow {
-                    case let .message(url, title, icon):
+                    case let .message(info):
                         Circle()
                     default:
                         if let web = item.web {

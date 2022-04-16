@@ -35,30 +35,28 @@ struct Search: View {
         .frame(maxWidth: .greatestFiniteMagnitude)
         .background(.ultraThickMaterial)
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            Bar(leading:
-                    .init(icon: "line.3.horizontal", action: {
-                        
-                    }),
-                center:
-                    field.typing ?
-                .init(icon: "xmark", action: {
+            Bar(items: [
+                .init(icon: "line.3.horizontal") {
+                    
+                },
+                field.typing ? .init(icon: "xmark") {
                     field.cancel(clear: true)
-                }) :
-                    .init(icon: "magnifyingglass", action: {
-                        field.becomeFirstResponder()
-                    }),
-                trailing:
-                    .init(icon: "square.on.square", action: {
-                        field.cancel(clear: false)
+                } : .init(icon: "magnifyingglass") {
+                    field.becomeFirstResponder()
+                },
+                .init(icon: "square.on.square") {
+                    field.cancel(clear: false)
+                    
+                    Task {
+                        await field.session.item(for: field.id).web?.thumbnail()
                         
-                        Task {
-                            await field.session.item(for: field.id).web?.thumbnail()
-                            
-                            withAnimation(.easeInOut(duration: 0.4)) {
-                                field.session.current = .tabs
-                            }
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            field.session.current = .tabs
                         }
-                    }),
+                    }
+                }
+            ],
+                bottom: true,
                 material: .ultraThin)
         }
         .onChange(of: field.websites) {

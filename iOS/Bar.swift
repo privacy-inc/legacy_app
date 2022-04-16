@@ -1,24 +1,31 @@
 import SwiftUI
 
 struct Bar: View {
-    let leading: Item
-    let center: Item
-    let trailing: Item
+    let items: [Item]
+    let bottom: Bool
     let material: Material
     
     var body: some View {
         VStack(spacing: 0) {
-            Divider()
+            if bottom {
+                Divider()
+            }
+            
             HStack(spacing: 0) {
-                leading
-                Spacer()
-                center
-                Spacer()
-                trailing
+                ForEach(items, id: \.self.icon) {
+                    $0
+                    if $0.icon != items.last?.icon {
+                        Spacer()
+                    }
+                }
             }
             .foregroundStyle(.secondary)
             .padding(.horizontal)
             .padding(.vertical, 7)
+            
+            if !bottom {
+                Divider()
+            }
         }
         .background(material)
     }

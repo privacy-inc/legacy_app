@@ -164,8 +164,8 @@ extension Tab {
                         insecure.state = web.hasOnlySecureContent ? .hidden : .on
                         counter.state = .on
                         options.state = .on
-                    case let .message(_, url, title, _):
-                        search.update(url: url?.absoluteString ?? title)
+                    case let .message(_, info):
+                        search.update(url: info.url?.absoluteString ?? info.title)
                         
                         secure.state = .hidden
                         insecure.state = .hidden
@@ -178,7 +178,7 @@ extension Tab {
             publisher
                 .compactMap {
                     switch $0 {
-                    case let .web(web), let .message(web, _, _, _):
+                    case let .web(web), let .message(web, _):
                         return web
                     default:
                         return nil

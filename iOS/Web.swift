@@ -89,8 +89,8 @@ final class Web: Webview, UIViewRepresentable {
         UIApplication.shared.open(url)
     }
     
-    override func message(url: URL?, title: String, icon: String) {
-        session.change(flow: .message(url, title, icon), of: id)
+    override func message(info: Info) {
+        session.change(flow: .message(info), of: id)
     }
     
     override func webView(_ webView: WKWebView, didFinish: WKNavigation!) {
