@@ -98,7 +98,7 @@ struct Session {
             web.load(url: url)
         case let .message(web, _, _, _):
             web.load(url: url)
-            change(flow: .web(web), id: id)
+            change(flow: .web(web), of: id)
         }
     }
     
@@ -123,12 +123,12 @@ struct Session {
             web = item
         }
         
-        change(flow: .web(web), id: id)
+        change(flow: .web(web), of: id)
         web.load(url: url)
     }
     
-    @MainActor func change(flow: Flow, id: UUID) {
-        let index = index(of: id)
+    @MainActor func change(flow: Flow, of: UUID) {
+        let index = index(of: of)
         items.value[index] = items.value[index].with(flow: flow)
     }
     

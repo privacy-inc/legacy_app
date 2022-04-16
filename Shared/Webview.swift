@@ -94,10 +94,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         
     }
     
-    func privacy(url: URL) {
-        
-    }
-    
     func message(url: URL?, title: String, icon: String) {
 
     }
@@ -125,7 +121,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         load(.init(url: url))
     }
         
-    func error(url: URL?, description: String) {
+    final func error(url: URL?, description: String) {
         progress.send(1)
         message(url: url, title: description, icon: "exclamationmark.triangle.fill")
 
@@ -134,6 +130,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                 guard let url = url else { return }
                 await cloud.history(url: url, title: description)
             }
+    }
+    
+    final func privacy(url: URL) {
+        message(url: url, title: "Privacy deeplink", icon: "eyeglasses")
     }
     
     final func webView(_: WKWebView, respondTo: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
@@ -188,6 +188,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                     error(url: decidePolicyFor.request.url, description: "Blocked")
                 }
         case .deeplink:
+            message(url: decidePolicyFor.request.url!, title: "Deeplink opened", icon: "paperplane.circle.fill")
             deeplink(url: decidePolicyFor.request.url!)
         case .privacy:
             privacy(url: decidePolicyFor.request.url!)

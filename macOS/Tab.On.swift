@@ -296,7 +296,7 @@ extension Tab {
                                 let flow = session.items.value.first(where: { $0.id == id })?.flow,
                                 case .message = flow
                             else { return }
-                            session.change(flow: .web(web), id: id)
+                            session.change(flow: .web(web), of: id)
                         })
                     
                     self?.add(web

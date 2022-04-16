@@ -41,15 +41,10 @@ final class Web: Webview {
     
     override func deeplink(url: URL) {
         NSWorkspace.shared.open(url)
-        message(url: url, title: "Deeplink opened", icon: "paperplane.circle.fill")
-    }
-    
-    override func privacy(url: URL) {
-        message(url: url, title: "Privacy deeplink", icon: "eyeglasses")
     }
     
     override func message(url: URL?, title: String, icon: String) {
-        session.change(flow: .message(self, url, title, icon), id: id)
+        session.change(flow: .message(self, url, title, icon), of: id)
     }
     
     override func reload(_ sender: Any?) {
@@ -59,7 +54,7 @@ final class Web: Webview {
         case let .message(_, url, _, _):
             url
                 .map {
-                    session.change(flow: .web(self), id: id)
+                    session.change(flow: .web(self), of: id)
                     load(url: $0)
                 }
         default:
@@ -76,7 +71,7 @@ final class Web: Webview {
                 session.addTab()
                 session.close(id: id)
             } else {
-                session.change(flow: .web(self), id: id)
+                session.change(flow: .web(self), of: id)
             }
         default:
             break

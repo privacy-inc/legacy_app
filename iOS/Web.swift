@@ -85,13 +85,13 @@ final class Web: Webview, UIViewRepresentable {
         _ = try? await evaluateJavaScript(Script.text(size: size))
     }
     
-//    override func deeplink(_ url: URL) {
-//        UIApplication.shared.open(url)
-//    }
-//
-//    override func error(error: Err) {
-//        self.error.send(error)
-//    }
+    override func deeplink(url: URL) {
+        UIApplication.shared.open(url)
+    }
+    
+    override func message(url: URL?, title: String, icon: String) {
+        session.change(flow: .message(url, title, icon), of: id)
+    }
     
     override func webView(_ webView: WKWebView, didFinish: WKNavigation!) {
         super.webView(webView, didFinish: didFinish)
