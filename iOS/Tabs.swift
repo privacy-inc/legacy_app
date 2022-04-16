@@ -29,7 +29,7 @@ struct Tabs: View {
                     .foregroundStyle(.secondary)
                     .padding()
                     
-                    HStack(alignment: .top) {
+                    HStack(alignment: .top, spacing: 9) {
                         ForEach(0 ..< items.count, id: \.self) { index in
                             VStack {
                                 if items[index].isEmpty {
@@ -43,7 +43,8 @@ struct Tabs: View {
                             }
                         }
                     }
-                    .padding()
+                    .padding(.horizontal, 9)
+                    .padding(.vertical)
                 }
             }
         }

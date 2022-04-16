@@ -19,7 +19,7 @@ struct Search: View {
                     .padding(.leading, 30)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             } else {
-                HStack(alignment: .top) {
+                HStack(alignment: .top, spacing: 9) {
                     ForEach(0 ..< items.count, id: \.self) { index in
                         LazyVStack {
                             ForEach(items[index]) {
@@ -28,7 +28,8 @@ struct Search: View {
                         }
                     }
                 }
-                .padding()
+                .padding(.horizontal, 9)
+                .padding(.vertical)
             }
         }
         .frame(maxWidth: .greatestFiniteMagnitude)

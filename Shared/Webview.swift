@@ -58,7 +58,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                         $0
                     }
                     .removeDuplicates())
-                .debounce(for: .seconds(1), scheduler: DispatchQueue.global(qos: .utility))
+                .debounce(for: .seconds(2), scheduler: DispatchQueue.global(qos: .utility))
                 .sink { url, title in
                     Task
                         .detached(priority: .utility) {

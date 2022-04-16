@@ -58,12 +58,7 @@ import UserNotifications
     }
     
     func application(_ app: NSApplication, open: [URL]) {
-        cloud.ready.notify(queue: .main) {
-            open
-                .forEach {
-                    NSApp.open(url: $0, change: true)
-                }
-        }
+        launch(urls: open)
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
@@ -102,17 +97,24 @@ import UserNotifications
         showLearn(with: .terms)
     }
     
-    @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {
-        cloud
-            .ready
-            .notify(queue: .main) {
-                event
-                    .paramDescriptor(forKeyword: keyDirectObject)
-                    .flatMap(\.stringValue?.removingPercentEncoding)
-                    .flatMap(URL.init(string:))
-                    .map {
+    private func launch(urls: [URL]) {
+        cloud.ready.notify(queue: .main) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                urls
+                    .forEach {
                         NSApp.open(url: $0, change: true)
                     }
+            }
+        }
+    }
+    
+    @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {
+        event
+            .paramDescriptor(forKeyword: keyDirectObject)
+            .flatMap(\.stringValue?.removingPercentEncoding)
+            .flatMap(URL.init(string:))
+            .map {
+                launch(urls: [$0])
             }
     }
 }
