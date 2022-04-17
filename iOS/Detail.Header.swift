@@ -46,7 +46,9 @@ extension Detail {
                     .buttonStyle(.borderedProminent)
                     .buttonBorderShape(.capsule)
                     .padding(.bottom)
-                    .sheet(isPresented: $trackers) {
+                    .sheet(isPresented: $trackers, onDismiss: {
+                        dismiss()
+                    }) {
                         Trackers(domain: url?.absoluteString.domain ?? "")
                     }
                 }

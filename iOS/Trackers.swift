@@ -8,46 +8,70 @@ struct Trackers: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationView {
-            List(items, id: \.tracker) { item in
-                HStack {
-                    Text(item.tracker)
-                        .font(.footnote)
-                    Spacer()
-                    Text("×")
-                        .foregroundColor(.secondary)
-                        .font(.callout.monospacedDigit().weight(.medium))
-                    + Text(item.count.formatted())
-                        .foregroundColor(.secondary)
-                        .font(.callout.monospacedDigit().weight(.light))
+        VStack(spacing: 0) {
+            ZStack(alignment: .topTrailing) {
+                VStack(spacing: 0) {
+                    Text(counter, format: .number)
+                        .font(.system(size: 60, weight: .thin))
+                        .padding(.top, 50)
+                    Text(domain)
+                        .font(.callout)
+                        .lineLimit(1)
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal)
+                    Label("Trackers prevented\non this website", systemImage: "bolt.shield")
+                        .imageScale(.large)
+                        .font(.footnote.weight(.light))
+                        .symbolRenderingMode(.hierarchical)
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 6)
+                        .padding(.bottom, 35)
+                }
+                .frame(maxWidth: .greatestFiniteMagnitude)
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 16, weight: .light))
+                        .padding(18)
+                        .foregroundStyle(.secondary)
+                        .contentShape(Rectangle())
                 }
             }
-            .listStyle(.insetGrouped)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    VStack(alignment: .leading) {
-                        Text(domain)
-                            .padding(.top)
-                        Text(counter.formatted() + " Trackers prevented")
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
+            .background(Color(.tertiarySystemBackground))
+            Divider()
+            ScrollView {
+                VStack(spacing: 0) {
+                    ForEach(Array(items.enumerated()), id: \.1.tracker) { item in
+                        HStack(spacing: 0) {
+                            Text((item.0 + 1).formatted())
+                                .font(.footnote.monospacedDigit())
+                                .foregroundStyle(.tertiary)
+                                .frame(width: 35, alignment: .trailing)
+                                .padding(.trailing, 10)
+                            Text(item.1.tracker)
+                                .font(.callout)
+                                .lineLimit(1)
+                            Spacer()
+                            Text("×")
+                                .font(.callout.monospacedDigit().weight(.medium))
+                                .foregroundStyle(.tertiary)
+                            Text(item.1.count.formatted())
+                                .font(.callout.monospacedDigit().weight(.light))
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding(.top, 16)
+                        .padding(.bottom, 8)
+                        Divider()
+                            .padding(.leading, 45)
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 13))
-                            .foregroundStyle(.secondary)
-                            .padding(9)
-                            .contentShape(Rectangle())
-                    }
-                }
+                .padding(.top, 10)
+                .padding(.trailing, 25)
+                .padding(.bottom, 35)
             }
+            .background(Color(.secondarySystemBackground))
         }
-        .navigationViewStyle(.stack)
         .onReceive(cloud) {
             counter = $0.tracking.count(domain: domain)
             items = $0.tracking.items(for: domain)

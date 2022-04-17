@@ -1,39 +1,46 @@
 import AppKit
 import Combine
+import SwiftUI
 
-private let width = CGFloat(280)
+private let width = CGFloat(360)
 
 final class Trackers: NSView {
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
     init(domain: CurrentValueSubject<String, Never>) {
-        super.init(frame: .init(origin: .zero, size: .init(width: width, height: 350)))
+        super.init(frame: .init(origin: .zero, size: .init(width: width, height: 400)))
         
         let title = Text(vibrancy: false)
-        title.font = .systemFont(ofSize: 45, weight: .thin)
+        title.font = .systemFont(ofSize: 60, weight: .thin)
         title.textColor = .labelColor
         addSubview(title)
         
         let url = Text(vibrancy: false)
-        url.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular)
+        url.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize + 1, weight: .regular)
         url.textColor = .secondaryLabelColor
         url.maximumNumberOfLines = 1
         url.lineBreakMode = .byTruncatingTail
         addSubview(url)
         
         let icon = NSImageView(image: .init(systemSymbolName: "bolt.shield", accessibilityDescription: nil) ?? .init())
-        icon.symbolConfiguration = .init(pointSize: 16, weight: .regular)
-            .applying(.init(hierarchicalColor: .tertiaryLabelColor))
+        icon.symbolConfiguration = .init(pointSize: 24, weight: .light)
+            .applying(.init(hierarchicalColor: .secondaryLabelColor))
         icon.translatesAutoresizingMaskIntoConstraints = false
         addSubview(icon)
         
         let description = Text(vibrancy: false)
-        description.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .regular)
-        description.textColor = .tertiaryLabelColor
-        description.stringValue = "Trackers prevented"
+        description.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .light)
+        description.textColor = .secondaryLabelColor
+        description.stringValue = "Trackers prevented\non this website"
         description.maximumNumberOfLines = 2
         addSubview(description)
+        
+        let separator = NSView()
+        separator.wantsLayer = true
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+        addSubview(separator)
         
         let background = NSView()
         background.translatesAutoresizingMaskIntoConstraints = false
@@ -59,20 +66,25 @@ final class Trackers: NSView {
         stack.orientation = .vertical
         flip.addSubview(stack)
         
-        title.topAnchor.constraint(equalTo: topAnchor, constant: 35).isActive = true
+        title.topAnchor.constraint(equalTo: topAnchor, constant: 40).isActive = true
         title.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        url.topAnchor.constraint(equalTo: title.bottomAnchor).isActive = true
+        url.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 2).isActive = true
         url.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        url.widthAnchor.constraint(lessThanOrEqualToConstant: width - 20).isActive = true
+        url.widthAnchor.constraint(lessThanOrEqualToConstant: width - 40).isActive = true
         
-        icon.topAnchor.constraint(equalTo: url.bottomAnchor, constant: 3).isActive = true
-        icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 72).isActive = true
+        icon.centerYAnchor.constraint(equalTo: description.centerYAnchor).isActive = true
+        icon.rightAnchor.constraint(equalTo: description.leftAnchor, constant: -2).isActive = true
         
-        description.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 2).isActive = true
-        description.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
+        description.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 20).isActive = true
+        description.topAnchor.constraint(equalTo: url.bottomAnchor, constant: 8).isActive = true
         
-        background.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 30).isActive = true
+        separator.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 45).isActive = true
+        separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        background.topAnchor.constraint(equalTo: separator.bottomAnchor).isActive = true
         background.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         background.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -85,11 +97,11 @@ final class Trackers: NSView {
         flip.topAnchor.constraint(equalTo: scroll.topAnchor).isActive = true
         flip.leftAnchor.constraint(equalTo: scroll.leftAnchor).isActive = true
         flip.rightAnchor.constraint(equalTo: scroll.rightAnchor).isActive = true
-        flip.bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 20).isActive = true
+        flip.bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 30).isActive = true
         
-        stack.topAnchor.constraint(equalTo: flip.topAnchor, constant: 20).isActive = true
-        stack.leftAnchor.constraint(equalTo: flip.leftAnchor, constant: 20).isActive = true
-        stack.widthAnchor.constraint(equalToConstant: width - 40).isActive = true
+        stack.topAnchor.constraint(equalTo: flip.topAnchor, constant: 10).isActive = true
+        stack.leftAnchor.constraint(equalTo: flip.leftAnchor).isActive = true
+        stack.widthAnchor.constraint(equalToConstant: width - 20).isActive = true
         
         domain
             .sink {
@@ -116,6 +128,7 @@ final class Trackers: NSView {
             .removeDuplicates()
             .sink {
                 stack.setViews($0
+                    .enumerated()
                     .map { item in
                         let view = Vibrant(layer: true)
                         
@@ -123,36 +136,48 @@ final class Trackers: NSView {
                         separator.fillColor = .clear
                         separator.lineWidth = 1
                         separator.strokeColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-                        separator.path = .init(rect: .init(x: 0, y: 0, width: width - 40, height: 0), transform: nil)
+                        separator.path = .init(rect: .init(x: 40, y: 0, width: width - 70, height: 0), transform: nil)
                         view.layer!.addSublayer(separator)
                         
+                        let index = Text(vibrancy: false)
+                        index.stringValue = (item.0 + 1).formatted()
+                        index.font = .monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .regular)
+                        index.textColor = .tertiaryLabelColor
+                        index.alignment = .right
+                        view.addSubview(index)
+                                            
                         let text = Text(vibrancy: false)
-                        text.stringValue = item.tracker
+                        text.stringValue = item.1.tracker
+                        text.font = .preferredFont(forTextStyle: .body)
                         text.textColor = .secondaryLabelColor
-                        text.font = .preferredFont(forTextStyle: .callout)
+                        text.lineBreakMode = .byTruncatingTail
                         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
                         view.addSubview(text)
                         
                         let count = Text(vibrancy: false)
                         count.attributedStringValue = .make {
                             $0.append(.make("×", attributes: [
-                                .font : NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .medium),
+                                .font : NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .medium),
                                 .foregroundColor : NSColor.tertiaryLabelColor]))
-                            $0.append(.make(item.count.formatted(), attributes: [
-                                .font : NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .light),
+                            $0.append(.make(item.1.count.formatted(), attributes: [
+                                .font : NSFont.monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .light),
                                 .foregroundColor : NSColor.secondaryLabelColor]))
                         }
                         count.alignment = .right
                         view.addSubview(count)
                         
-                        count.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
+                        count.topAnchor.constraint(equalTo: view.topAnchor, constant: 12).isActive = true
                         count.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5).isActive = true
                         
-                        text.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5).isActive = true
+                        index.centerYAnchor.constraint(equalTo: count.centerYAnchor).isActive = true
+                        index.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+                        index.widthAnchor.constraint(equalToConstant: 35).isActive = true
+                        
+                        text.leftAnchor.constraint(equalTo: index.rightAnchor, constant: 2).isActive = true
                         text.rightAnchor.constraint(lessThanOrEqualTo: count.leftAnchor, constant: -10).isActive = true
                         text.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
                         
-                        view.bottomAnchor.constraint(equalTo: count.bottomAnchor, constant: 6).isActive = true
+                        view.bottomAnchor.constraint(equalTo: count.bottomAnchor, constant: 9).isActive = true
                         
                         return view
                     }, in: .center)
