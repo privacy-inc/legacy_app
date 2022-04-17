@@ -5,6 +5,7 @@ extension Detail {
         let icon: String
         let title: String
         @Binding var value: Bool
+        @State private var alpha = 0.0
         
         var body: some View {
             Toggle(isOn: $value) {
@@ -18,6 +19,8 @@ extension Detail {
                 }
             }
             .padding(.vertical, 12)
+            .padding(.horizontal, 30)
+            .toggleStyle(SwitchToggleStyle(tint: .secondary))
         }
     }
 }

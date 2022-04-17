@@ -31,7 +31,7 @@ extension Detail {
                 .allowsHitTesting(forward)
             }
             .padding(.horizontal)
-            .padding(.vertical, 10)
+            .padding(.bottom, 20)
             .onReceive(web.publisher(for: \.canGoBack)) {
                 back = $0
             }

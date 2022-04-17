@@ -20,7 +20,7 @@ extension Detail {
                             .scaledToFit()
                             .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                             .frame(width: 50, height: 50)
-                            .padding(.top, 40)
+                            .padding(.top, 50)
                     }
                     
                     if let domain = url?.absoluteString.domain {
@@ -50,7 +50,7 @@ extension Detail {
                     .tint(counter == 0 ? .clear : .primary)
                     .buttonStyle(.borderedProminent)
                     .buttonBorderShape(.capsule)
-                    .padding(.bottom)
+                    .allowsHitTesting(counter != 0)
                     .sheet(isPresented: $trackers, onDismiss: {
                         dismiss()
                     }) {
