@@ -21,7 +21,7 @@ extension Shortcut {
             addSubview(separator)
             
             let text = Text(vibrancy: true)
-            text.font = .preferredFont(forTextStyle: .callout)
+            text.font = .preferredFont(forTextStyle: .body)
             text.textColor = .secondaryLabelColor
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             text.maximumNumberOfLines = 1
@@ -36,16 +36,16 @@ extension Shortcut {
                 addSubview(check)
                 
                 check.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
-                check.widthAnchor.constraint(equalToConstant: 20).isActive = true
+                check.widthAnchor.constraint(equalToConstant: 35).isActive = true
                 check.heightAnchor.constraint(equalTo: check.widthAnchor).isActive = true
                 check.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 
-                text.rightAnchor.constraint(lessThanOrEqualTo: check.leftAnchor, constant: -5).isActive = true
+                text.rightAnchor.constraint(lessThanOrEqualTo: check.leftAnchor, constant: -15).isActive = true
             } else {
-                text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -30).isActive = true
+                text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -55).isActive = true
             }
             
-            heightAnchor.constraint(equalToConstant: 39).isActive = true
+            heightAnchor.constraint(equalToConstant: 50).isActive = true
             
             background.topAnchor.constraint(equalTo: topAnchor).isActive = true
             background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -55,41 +55,41 @@ extension Shortcut {
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
             separator.topAnchor.constraint(equalTo: bottomAnchor, constant: 0.5).isActive = true
-            separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
-            separator.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
+            separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 15).isActive = true
+            separator.rightAnchor.constraint(equalTo: rightAnchor, constant: -15).isActive = true
             separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
             
             switch item.flow {
             case .list:
                 text.stringValue = "New tab"
-                text.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+                text.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
                 
             case let .web(web):
                 text.stringValue = web.title ?? web.url?.absoluteString.domain ?? ""
                 
-                let icon = Icon(size: 18)
+                let icon = Icon(size: 20)
                 icon.icon(website: web.url)
                 addSubview(icon)
                 
                 icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-                icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+                icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
                 
-                text.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 4).isActive = true
+                text.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 10).isActive = true
             case let .message(_, info):
                 text.stringValue = info.title
                 
                 let icon = NSImageView(image: .init(systemSymbolName: info.icon, accessibilityDescription: nil) ?? .init())
                 icon.translatesAutoresizingMaskIntoConstraints = false
-                icon.symbolConfiguration = .init(pointSize: 20, weight: .regular)
+                icon.symbolConfiguration = .init(pointSize: 22, weight: .regular)
                     .applying(.init(hierarchicalColor: .secondaryLabelColor))
                 addSubview(icon)
                 
                 icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
                 icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
-                icon.widthAnchor.constraint(equalToConstant: 20).isActive = true
+                icon.widthAnchor.constraint(equalToConstant: 40).isActive = true
                 icon.heightAnchor.constraint(equalTo: icon.widthAnchor).isActive = true
                 
-                text.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 4).isActive = true
+                text.leftAnchor.constraint(equalTo: icon.rightAnchor).isActive = true
             }
             
             sub = click

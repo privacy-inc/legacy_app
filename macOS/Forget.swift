@@ -7,13 +7,9 @@ final class Forget: NSView {
 
     required init?(coder: NSCoder) { nil }
     init() {
-        super.init(frame: .init(origin: .zero, size: .init(width: 210, height: 210)))
+        super.init(frame: .init(origin: .zero, size: .init(width: 200, height: 160)))
         
-        let image = NSImageView(image: .init(named: "Forget") ?? .init())
-        image.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(image)
-        
-        let control = Control.Title("Forget", color: .labelColor, layer: true)
+        let control = Control.Label(title: "Forget", symbol: "flame.fill")
         control
             .click
             .sink {
@@ -30,10 +26,18 @@ final class Forget: NSView {
             .store(in: &subs)
         addSubview(control)
         
-        image.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        image.topAnchor.constraint(equalTo: topAnchor, constant: 60).isActive = true
+        let text = Text(vibrancy: true)
+        text.stringValue = "Clear history, cache,\ntrackers and cookies"
+        text.font = .preferredFont(forTextStyle: .footnote)
+        text.textColor = .secondaryLabelColor
+        text.alignment = .left
+        addSubview(text)
         
-        control.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20).isActive = true
+        control.topAnchor.constraint(equalTo: topAnchor, constant: 50).isActive = true
         control.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        control.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        
+        text.topAnchor.constraint(equalTo: control.bottomAnchor, constant: 10).isActive = true
+        text.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 }
