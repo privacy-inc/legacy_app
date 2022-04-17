@@ -11,14 +11,7 @@ struct Search: View {
             field
                 .equatable()
                 .frame(height: 1)
-            if items.first?.isEmpty == true {
-                Text("No bookmarks or history\nto show")
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
-                    .padding(.top)
-                    .padding(.leading, 30)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-            } else {
+            if items.first?.isEmpty == false {
                 HStack(alignment: .top, spacing: 9) {
                     ForEach(0 ..< items.count, id: \.self) { index in
                         LazyVStack {
@@ -30,6 +23,13 @@ struct Search: View {
                 }
                 .padding(.horizontal, 9)
                 .padding(.vertical)
+            } else {
+                Text("No bookmarks or history\nto show")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .padding(.top)
+                    .padding(.leading, 30)
+                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             }
         }
         .frame(maxWidth: .greatestFiniteMagnitude)
@@ -58,20 +58,25 @@ struct Search: View {
             ],
                 material: .ultraThin)
         }
-        .onChange(of: field.websites) {
-            items = $0
-                .reduce(into: .init(repeating: [Website](), count: 2)) {
-                    if $0[0].count > $0[1].count {
-                        $0[1].append($1)
-                    } else {
-                        $0[0].append($1)
-                    }
-                }
-        }
+        .onChange(of: field.websites, perform: update(websites:))
         .onAppear {
+            update(websites: field.websites)
             if focus {
                 field.becomeFirstResponder()
             }
         }
+    }
+    
+    private func update(websites: [Website]) {
+        let items: [[Website]] = websites
+            .reduce(into: .init(repeating: .init(), count: 2)) {
+                if $0[0].count > $0[1].count {
+                    $0[1].append($1)
+                } else {
+                    $0[0].append($1)
+                }
+            }
+        guard items != self.items else { return }
+        self.items = items
     }
 }

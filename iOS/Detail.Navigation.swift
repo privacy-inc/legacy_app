@@ -8,34 +8,30 @@ extension Detail {
         @State private var loading = false
         
         var body: some View {
-            VStack(spacing: 0) {
-                Divider()
-                HStack(spacing: 0) {
-                    Bar.Item(icon: "chevron.backward") {
-                        web.goBack()
-                    }
-                    .foregroundStyle(back ? .primary : .tertiary)
-                    .allowsHitTesting(back)
-                    
-                    Spacer()
-                    Bar.Item(icon: loading ? "xmark" : "arrow.clockwise") {
-                        if loading {
-                            web.stopLoading()
-                        } else {
-                            web.reload()
-                        }
-                    }
-                    Spacer()
-                    Bar.Item(icon: "chevron.forward") {
-                        web.goForward()
-                    }
-                    .foregroundStyle(forward ? .primary : .tertiary)
-                    .allowsHitTesting(forward)
+            HStack(spacing: 0) {
+                Bar.Item(icon: "chevron.backward") {
+                    web.goBack()
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 10)
+                .foregroundStyle(back ? .primary : .tertiary)
+                .allowsHitTesting(back)
+                
+                Spacer()
+                Bar.Item(icon: loading ? "xmark" : "arrow.clockwise") {
+                    if loading {
+                        web.stopLoading()
+                    } else {
+                        web.reload()
+                    }
+                }
+                Spacer()
+                Bar.Item(icon: "chevron.forward") {
+                    web.goForward()
+                }
+                .foregroundStyle(forward ? .primary : .tertiary)
+                .allowsHitTesting(forward)
             }
-            .background(.ultraThinMaterial)
+            .padding(.horizontal)
+            .padding(.vertical, 10)
             .onReceive(web.publisher(for: \.canGoBack)) {
                 back = $0
             }

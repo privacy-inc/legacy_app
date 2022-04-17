@@ -12,7 +12,6 @@ extension Detail {
                     Image(systemName: icon)
                         .font(.system(size: 18, weight: .regular))
                         .symbolRenderingMode(.hierarchical)
-                        .foregroundStyle(.secondary)
                         .frame(width: 24)
                     Text(title)
                         .font(.callout)

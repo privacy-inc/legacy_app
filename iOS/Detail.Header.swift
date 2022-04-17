@@ -20,13 +20,18 @@ extension Detail {
                             .scaledToFit()
                             .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                             .frame(width: 50, height: 50)
-                            .padding(.top, 30)
+                            .padding(.top, 40)
                     }
                     
                     if let domain = url?.absoluteString.domain {
-                        Text(domain)
-                            .font(.callout)
-                            .padding(.vertical)
+                        HStack(spacing: 4) {
+                            Text(domain)
+                                .font(.callout)
+                            Image(systemName: secure ? "lock.fill" : "exclamationmark.triangle.fill")
+                                .foregroundStyle(.secondary)
+                                .font(.footnote)
+                        }
+                        .padding(.vertical)
                     }
                     
                     Button {
@@ -54,10 +59,14 @@ extension Detail {
                 }
                 
                 HStack {
-                    Image(systemName: secure ? "lock.fill" : "exclamationmark.triangle.fill")
-                        .font(.system(size: secure ? 18 : 20, weight: .light))
-                        .padding(18)
-                        .contentShape(Rectangle())
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(.system(size: 18, weight: .regular))
+                            .padding(18)
+                            .contentShape(Rectangle())
+                    }
                     
                     Spacer()
                     
@@ -69,8 +78,8 @@ extension Detail {
                             .padding(18)
                             .contentShape(Rectangle())
                     }
+                    .foregroundStyle(.secondary)
                 }
-                .foregroundStyle(.secondary)
                 .symbolRenderingMode(.hierarchical)
             }
             .onReceive(web.publisher(for: \.url)) {

@@ -8,16 +8,15 @@ extension Detail {
         
         var body: some View {
             Button(action: action) {
-                HStack {
-                    Text(title)
-                        .font(.callout)
-                    Spacer()
+                VStack {
                     Image(systemName: icon)
                         .font(.system(size: 18, weight: .regular))
                         .symbolRenderingMode(.hierarchical)
-                        .frame(width: 20)
+                    Text(title)
+                        .font(.footnote)
                 }
-                .padding(.vertical, 13)
+                .frame(width: 100)
+                .contentShape(Rectangle())
             }
         }
     }
