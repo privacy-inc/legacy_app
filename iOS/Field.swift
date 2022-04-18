@@ -5,27 +5,20 @@ import Specs
 final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate, ObservableObject {
     @Published private(set) var typing = false
     @Published private(set) var websites = [Website]()
-    let id: UUID
     let session: Session
+    let index: Int
     private weak var field: UITextField!
     private var editable = true
     private var sub: AnyCancellable?
     private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 52), inputViewStyle: .keyboard)
     private let filter = CurrentValueSubject<_, Never>("")
     
-    deinit {
-        print("field gone")
-    }
-    
     required init?(coder: NSCoder) { nil }
-    init(session: Session, id: UUID) {
+    init(session: Session, index: Int) {
         self.session = session
-        self.id = id
+        self.index = index
         
         super.init(frame: .zero)
-        
-        print("field")
-        
         let background = UIView()
         background.backgroundColor = .init(named: "Input")
         background.translatesAutoresizingMaskIntoConstraints = false
@@ -76,21 +69,20 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
         
         guard clear else { return }
         
-        let item = session.item(for: id)
-        
-        if item.web == nil {
+        if session.items[index].web == nil {
             field.text = ""
             filter.send("")
         } else {
             withAnimation(.easeInOut(duration: 0.4)) {
-                session.change(flow: item.info == nil ? .web : .message, of: id)
+                session.items[index].flow = session.items[index].info == nil ? .web : .message
+                session.objectWillChange.send()
             }
         }
     }
     
     func textFieldShouldReturn(_: UITextField) -> Bool {
         Task {
-            await session.search(string: field.text!, id: id)
+            await session.search(string: field.text!, index: index)
         }
         field.resignFirstResponder()
         return true
@@ -124,7 +116,7 @@ final class Field: UIView, UIViewRepresentable, UIKeyInput, UITextFieldDelegate,
     
     func textFieldDidEndEditing(_: UITextField) {
         editable = true
-        if session.item(for: id).web == nil {
+        if session.items[index].web == nil {
             typing = false
         }
     }

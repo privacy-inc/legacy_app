@@ -1,16 +1,16 @@
 import SwiftUI
 
 struct Message: View {
-    let web: Web
-    let info: Info
+    let session: Session
+    let index: Int
     
     var body: some View {
         VStack {
-            Image(systemName: info.icon)
+            Image(systemName: session.items[index].info?.icon ?? "")
                 .symbolRenderingMode(.hierarchical)
                 .font(.system(size: 35, weight: .light))
                 .padding(.top, 40)
-            Text("\(location)\(Text(info.title).foregroundColor(.secondary))")
+            Text("\(location)\(Text(session.items[index].info?.title ?? "").foregroundColor(.secondary))")
                 .font(.callout)
                 .foregroundColor(Color(.tertiaryLabel))
                 .multilineTextAlignment(.leading)
@@ -26,29 +26,33 @@ struct Message: View {
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(items: [
                     .init(icon: "chevron.backward") {
-                        if web.url == nil {
-                            web.session.change(flow: .search(false), of: web.id)
+                        if session.items[index].web!.url == nil {
+                            session.items[index].flow = .search(false)
                         } else {
-                            web.session.change(flow: .web, of: web.id)
+                            session.items[index].flow = .web
                         }
+                        session.objectWillChange.send()
                     },
                     .init(icon: "arrow.clockwise") {
-                        web.session.change(flow: .web, of: web.id)
-                        info
+                        let url = session
+                            .items[index]
+                            .info?
                             .url
-                            .map {
-                                web.load(url: $0)
-                            }
                         
+                        session.items[index].flow = .web
+                        session.objectWillChange.send()
+                        url
+                            .map(session.items[index].web!.load(url:))
                     },
                     .init(icon: "magnifyingglass") {
                         withAnimation(.easeInOut(duration: 0.4)) {
-                            web.session.change(flow: .search(true), of: web.id)
+                            session.items[index].flow = .search(true)
+                            session.objectWillChange.send()
                         }
                     },
                     .init(icon: "square.on.square") {
                         withAnimation(.easeInOut(duration: 0.4)) {
-                            web.session.current = .tabs
+                            session.current = .tabs
                         }
                     }
                 ],
@@ -57,6 +61,6 @@ struct Message: View {
     }
     
     private var location: String {
-        info.url == nil ? "" :  "\(info.url!.absoluteString.capped(max: 100))\n"
+        session.items[index].info?.url == nil ? "" :  "\(session.items[index].info!.url!.absoluteString.capped(max: 100))\n"
     }
 }

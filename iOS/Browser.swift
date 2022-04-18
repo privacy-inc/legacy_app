@@ -1,40 +1,50 @@
 import SwiftUI
 
 struct Browser: View {
-    let web: Web
+    let session: Session
+    let index: Int
+    @StateObject private var status = Status()
     @State private var progress = AnimatablePair(Double(), Double())
     @State private var detail = false
     
     var body: some View {
-        web
+        session
+            .items[index]
+            .web!
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(items: [
                     .init(icon: "slider.vertical.3") {
+                        status.small = true
                         detail = true
                     },
                     .init(icon: "magnifyingglass") {
                         withAnimation(.easeInOut(duration: 0.4)) {
-                            web.session.change(flow: .search(true), of: web.id)
+                            session.items[index].flow = .search(true)
+                            session.objectWillChange.send()
                         }
                     },
                     .init(icon: "square.on.square") {
                         Task {
-                            await web.thumbnail()
+                            await session.items[index].web!.thumbnail()
                             
                             withAnimation(.easeInOut(duration: 0.4)) {
-                                web.session.current = .tabs
+                                session.current = .tabs
                             }
                         }
                     }
                 ],
                     material: .thin)
                         .sheet(isPresented: $detail) {
-                            Detail(web: web)
+                            Detail(status: status, session: session, index: index)
                                 .ignoresSafeArea(edges: .bottom)
                         }
             }
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 0) {
+                    if status.reader {
+                        Text("hello world")
+                    }
+                    
                     Progress(progress: progress)
                         .stroke(Color("Shades"), style: .init(lineWidth: 3, lineCap: .round))
                         .frame(height: 2)
@@ -42,7 +52,11 @@ struct Browser: View {
                 }
                 .background(.thinMaterial)
                 .allowsHitTesting(false)
-                .onReceive(web.progress, perform: progress(value:))
+                .onReceive(session.items[index].web!.progress, perform: progress(value:))
+            }
+            .task {
+                status.reader = session.items[index].reader
+                status.find = session.items[index].find
             }
     }
     

@@ -5,6 +5,6 @@ extension Session {
         case
         tabs,
         settings,
-        item(UUID)
+        item(Int)
     }
 }

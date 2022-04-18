@@ -6,10 +6,8 @@ import Specs
 final class Web: Webview, UIViewRepresentable {
 //    let tab = PassthroughSubject<URL, Never>()
 //    let error = PassthroughSubject<Err, Never>()
-    
-    let session: Session
-    let id: UUID
-    
+    private let session: Session
+
     @MainActor var fontSize: CGFloat {
         get async {
             guard
@@ -24,12 +22,10 @@ final class Web: Webview, UIViewRepresentable {
     
     required init?(coder: NSCoder) { nil }
     init(session: Session,
-         id: UUID,
          settings: Specs.Settings.Configuration,
          dark: Bool) {
         
         self.session = session
-        self.id = id
         print("web")
         let configuration = WKWebViewConfiguration()
         configuration.dataDetectorTypes = [.link]
@@ -77,8 +73,7 @@ final class Web: Webview, UIViewRepresentable {
     func thumbnail() async {
         let configuration = WKSnapshotConfiguration()
         configuration.afterScreenUpdates = false
-        guard let thumbnail = try? await takeSnapshot(configuration: configuration) else { return }
-        session.thumbnail(id: id, image: thumbnail)
+        session.items[session.index(self)].thumbnail = try? await takeSnapshot(configuration: configuration)
     }
     
     @MainActor func resizeFont(size: CGFloat) async {
@@ -90,8 +85,10 @@ final class Web: Webview, UIViewRepresentable {
     }
     
     override func message(info: Info) {
-        session.message(id: id, info: info)
-        session.change(flow: .message, of: id)
+        let index = session.index(self)
+        session.items[index].info = info
+        session.items[index].flow = .message
+        session.objectWillChange.send()
     }
     
     override func webView(_ webView: WKWebView, didFinish: WKNavigation!) {

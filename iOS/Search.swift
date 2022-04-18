@@ -48,7 +48,7 @@ struct Search: View {
                     field.cancel(clear: false)
                     
                     Task {
-                        await field.session.item(for: field.id).web?.thumbnail()
+                        await field.session.items[field.index].web?.thumbnail()
                         
                         withAnimation(.easeInOut(duration: 0.4)) {
                             field.session.current = .tabs

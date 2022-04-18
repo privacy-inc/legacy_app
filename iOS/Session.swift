@@ -11,68 +11,37 @@ final class Session: ObservableObject {
     init() {
         let item = Item(flow: .search(false))
         items = [item]
-        current = .item(item.id)
+        current = .item(0)
     }
     
-    func item(for id: UUID) -> Item {
+    func index(_ of: Web) -> Int {
         items
-            .first {
-                $0.id == id
+            .firstIndex {
+                $0.web === of
             }!
     }
     
-    func change(flow: Flow, of: UUID) {
-        items[index(of: of)].flow = flow
-        
-        if current == .item(of) {
-            objectWillChange.send()
-        }
-    }
-    
-    func thumbnail(id: UUID, image: UIImage) {
-        items[index(of: id)].thumbnail = image
-    }
-    
-    func message(id: UUID, info: Info) {
-        items[index(of: id)].info = info
-    }
-    
-    func reader(id: UUID, value: Bool) {
-        items[index(of: id)].reader = value
-    }
-    
-    func find(id: UUID, value: Bool) {
-        items[index(of: id)].find = value
-    }
-    
-    @MainActor func search(string: String, id: UUID) async {
+    @MainActor func search(string: String, index: Int) async {
         guard let url = try? await cloud.search(string)
         else {
-            if item(for: id).web != nil {
+            if items[index].web != nil {
                 withAnimation(.easeInOut(duration: 0.4)) {
-                    change(flow: .web, of: id)
+                    items[index].flow = .web
+                    objectWillChange.send()
                 }
             }
             return
         }
-        await open(url: url, id: id)
+        await open(url: url, index: index)
     }
     
-    @MainActor func open(url: URL, id: UUID) async {
-        let index = index(of: id)
-        
+    @MainActor func open(url: URL, index: Int) async {
         if items[index].web == nil {
-            items[index].web = await .init(session: self, id: id, settings: cloud.model.settings.configuration, dark: dark)
+            items[index].web = await .init(session: self, settings: cloud.model.settings.configuration, dark: dark)
         }
         
-        change(flow: .web, of: id)
+        items[index].flow = .web
+        objectWillChange.send()
         items[index].web!.load(url: url)
-    }
-    
-    private func index(of: UUID) -> Int {
-        items
-            .firstIndex {
-                $0.id == of
-            }!
     }
 }

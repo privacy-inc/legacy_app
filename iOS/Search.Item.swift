@@ -16,7 +16,7 @@ extension Search {
                 guard let url = URL(string: website.id) else { return }
                 
                 Task {
-                    await field.session.open(url: url, id: field.id)
+                    await field.session.open(url: url, index: field.index)
                 }
             } label: {
                 ZStack(alignment: .topLeading) {

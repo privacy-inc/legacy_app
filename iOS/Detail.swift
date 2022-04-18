@@ -1,11 +1,12 @@
 import SwiftUI
 
 final class Detail: UIHostingController<Detail.Content>, UIViewControllerRepresentable, UISheetPresentationControllerDelegate {
-    private let status = Status()
-    
+    private let status: Browser.Status
+
     required init?(coder: NSCoder) { nil }
-    init(web: Web) {
-        super.init(rootView: .init(status: status, web: web))
+    init(status: Browser.Status, session: Session, index: Int) {
+        self.status = status
+        super.init(rootView: .init(status: status, session: session, index: index))
         modalPresentationStyle = .overCurrentContext
     }
 
@@ -13,7 +14,7 @@ final class Detail: UIHostingController<Detail.Content>, UIViewControllerReprese
         super.willMove(toParent: toParent)
         parent?.modalPresentationStyle = .overCurrentContext
         parent?.view.backgroundColor = .clear
-        view.backgroundColor = .clear
+        view.backgroundColor = .clear   
     }
 
     override func viewWillAppear(_ animated: Bool) {

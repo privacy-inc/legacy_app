@@ -5,14 +5,14 @@ struct Navigation: View {
     
     var body: some View {
         switch session.current {
-        case let .item(id):
-            switch session.item(for: id).flow {
+        case let .item(index):
+            switch session.items[index].flow {
             case .web:
-                Browser(web: session.item(for: id).web!)
+                Browser(session: session, index: index)
             case .message:
-                Message(web: session.item(for: id).web!, info: session.item(for: id).info!)
+                Message(session: session, index: index)
             case let .search(focus):
-                Search(field: .init(session: session, id: id), focus: focus)
+                Search(field: .init(session: session, index: index), focus: focus)
             }
         case .tabs:
             Tabs(session: session)
