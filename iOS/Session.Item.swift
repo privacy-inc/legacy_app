@@ -6,8 +6,8 @@ extension Session {
         var web: Web?
         var info: Info?
         var flow: Flow
-        var reader = true
-        var find = false
+        var reader = false
+        var find = true
         let id = UUID()
     }
 }

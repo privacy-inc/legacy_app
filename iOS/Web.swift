@@ -77,7 +77,28 @@ final class Web: Webview, UIViewRepresentable {
     }
     
     @MainActor func resizeFont(size: CGFloat) async {
+        resignFirstResponder()
         _ = try? await evaluateJavaScript(Script.text(size: size))
+    }
+    
+    @MainActor func find(_ string: String, backwards: Bool) async {
+        scrollView.zoomScale = 1
+        becomeFirstResponder()
+        select(nil)
+        let config = WKFindConfiguration()
+        config.backwards = backwards
+        
+        guard
+            let result = try? await find(string, configuration: config),
+            result.matchFound,
+            let evaluated = try? await evaluateJavaScript(Script.find.script),
+            let string = evaluated as? String
+        else { return }
+        var rect = NSCoder.cgRect(for: string)
+        rect.origin.x += scrollView.contentOffset.x
+        rect.origin.y += scrollView.contentOffset.y - 30
+        rect.size.height += 60
+        scrollView.scrollRectToVisible(rect, animated: true)
     }
     
     override func deeplink(url: URL) {

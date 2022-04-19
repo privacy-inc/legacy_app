@@ -6,10 +6,54 @@ extension Browser {
         let session: Session
         let index: Int
         @State private var size = Double(1)
+        @State private var find = ""
         @State private var progress = AnimatablePair(Double(), Double())
         
         var body: some View {
             VStack(spacing: 0) {
+                if status.find {
+                    HStack {
+                        TextField("Find on page", text: $find, prompt: Text("\(Image(systemName: "magnifyingglass")) Find on page"))
+                            .textInputAutocapitalization(.none)
+                            .disableAutocorrection(true)
+                            .textFieldStyle(.roundedBorder)
+                            .submitLabel(.search)
+                            .onSubmit {
+                                Task {
+                                    await session.items[index].web!.find(find, backwards: false)
+                                }
+                            }
+                        
+                        Button {
+                            Task {
+                                await session.items[index].web!.find(find, backwards: true)
+                            }
+                        } label: {
+                            Image(systemName: "chevron.up")
+                                .font(.system(size: 20, weight: .light))
+                        }
+                        .disabled(find.isEmpty)
+                        .frame(width: 44, height: 40)
+                        
+                        Button {
+                            Task {
+                                await session.items[index].web!.find(find, backwards: false)
+                            }
+                        } label: {
+                            Image(systemName: "chevron.down")
+                                .font(.system(size: 20, weight: .light))
+                        }
+                        .disabled(find.isEmpty)
+                        .frame(width: 44, height: 40)
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
+                }
+                
+                if status.find && status.reader {
+                    Divider()
+                }
+                
                 if status.reader {
                     HStack(spacing: 30) {
                         Bar.Item(icon: "textformat.size.smaller") {
@@ -67,7 +111,7 @@ extension Browser {
             }
             .onReceive(session.items[index].web!.publisher(for: \.url)) { _ in
                 Task {
-                    try? await Task.sleep(nanoseconds: 500_000_000)
+                    try? await Task.sleep(nanoseconds: 150_000_000)
                     size = await session.items[index].web!.fontSize
                 }
             }
