@@ -12,10 +12,12 @@ extension Detail {
                     Image(systemName: icon)
                         .font(.system(size: 18, weight: .regular))
                         .symbolRenderingMode(.hierarchical)
+                        .frame(height: 23)
                     Text(title)
-                        .font(.footnote)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
-                .frame(width: 100)
+                .frame(width: 70)
                 .contentShape(Rectangle())
             }
         }

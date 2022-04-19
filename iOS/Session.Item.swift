@@ -7,7 +7,7 @@ extension Session {
         var info: Info?
         var flow: Flow
         var reader = false
-        var find = true
+        var find = false
         let id = UUID()
     }
 }

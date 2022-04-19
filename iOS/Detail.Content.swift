@@ -11,23 +11,9 @@ extension Detail {
             VStack(spacing: 0) {
                 Header(web: session.items[index].web!)
 
-                Spacer()
-                
-                HStack {
-                    Action(title: "Pause", icon: "pause") {
-                        
-                    }
-                    
-                    Spacer()
-                    
-                    Action(title: "Bookmark", icon: "bookmark") {
-                        
-                    }
-                }
-                .padding(.horizontal)
-                
                 if !status.small {
                     Spacer()
+                        .frame(height: 30)
                 }
                 
                 Switch(value: $status.reader, icon: "textformat.size", title: "Reader", divider: true)
@@ -51,6 +37,35 @@ extension Detail {
                     }
                     .frame(height: status.small ? 0 : nil)
                     .opacity(status.small ? 0 : 1)
+                
+                Spacer()
+                    .frame(height: status.small ? nil : 60)
+                
+                HStack(spacing: 0) {
+                    Spacer()
+                    
+                    Action(title: "Pause", icon: "pause") {
+                        
+                    }
+                    
+                    Spacer()
+                    
+                    Action(title: "Bookmark", icon: "bookmark") {
+                        
+                    }
+                    
+                    Spacer()
+                    
+                    if status.small {
+                        Action(title: "More", icon: "ellipsis") {
+                            status.features.send()
+                            status.small = false
+                        }
+                        
+                        Spacer()
+                    }
+                }
+                .padding(.horizontal)
                 
                 Spacer()
                 Navigation(web: session.items[index].web!)
