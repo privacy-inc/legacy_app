@@ -38,8 +38,12 @@ extension Detail {
                     .frame(height: status.small ? 0 : nil)
                     .opacity(status.small ? 0 : 1)
                 
-                Spacer()
-                    .frame(height: status.small ? nil : 60)
+                if status.small {
+                    Spacer()
+                } else {
+                    Spacer()
+                        .frame(height: 60)
+                }
                 
                 HStack(spacing: 0) {
                     Spacer()
@@ -68,6 +72,7 @@ extension Detail {
                 .padding(.horizontal)
                 
                 Spacer()
+                
                 Navigation(web: session.items[index].web!)
             }
             .background(.thinMaterial)
