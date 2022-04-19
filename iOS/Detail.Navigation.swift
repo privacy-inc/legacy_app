@@ -16,6 +16,7 @@ extension Detail {
                 .allowsHitTesting(back)
                 
                 Spacer()
+                
                 Bar.Item(icon: loading ? "xmark" : "arrow.clockwise") {
                     if loading {
                         web.stopLoading()
@@ -23,7 +24,9 @@ extension Detail {
                         web.reload()
                     }
                 }
+                
                 Spacer()
+                
                 Bar.Item(icon: "chevron.forward") {
                     web.goForward()
                 }

@@ -6,14 +6,13 @@ extension Tabs {
         private static let height = UIScreen.main.bounds.width * 0.5
         
         let session: Session
-        let index: Int
         let item: Session.Item
         let close: () -> Void
         
         var body: some View {
             ZStack(alignment: .topTrailing) {
                 Button {
-                    session.current = .item(index)
+                    session.current = .item(session.items.firstIndex(of: item)!)
                 } label: {
                     switch item.flow {
                     case .message:

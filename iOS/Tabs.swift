@@ -38,7 +38,7 @@ struct Tabs: View {
                                         .frame(maxWidth: .greatestFiniteMagnitude)
                                 } else {
                                     ForEach(items[index]) { item in
-                                        Item(session: session, index: index, item: item) {
+                                        Item(session: session, item: item) {
                                             session.items.remove { $0.id == item.id }
                                             
                                             withAnimation(.easeInOut(duration: 0.3)) {

@@ -39,7 +39,7 @@ final class Web: Webview, UIViewRepresentable {
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.clipsToBounds = false
         scrollView.indicatorStyle = dark && settings.dark ? .white : .default
-        
+
         let background = UIColor
             .secondarySystemBackground
             .resolvedColor(with: .init(userInterfaceStyle: dark ? .dark : .light))
@@ -73,7 +73,7 @@ final class Web: Webview, UIViewRepresentable {
     func thumbnail() async {
         let configuration = WKSnapshotConfiguration()
         configuration.afterScreenUpdates = false
-        session.items[session.index(self)].thumbnail = try? await takeSnapshot(configuration: configuration)
+        session.items[session.index(self)].thumbnail = (try? await takeSnapshot(configuration: configuration)) ?? .init()
     }
     
     @MainActor func resizeFont(size: CGFloat) async {
