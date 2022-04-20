@@ -4,19 +4,31 @@ import Specs
 struct Tabs: View {
     @ObservedObject var session: Session
     @State private var items = [[Session.Item]]()
+    @State private var trackers = 0
     @Namespace private var animation
     
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
+                Text(trackers, format: .number)
+                    .font(.system(size: 30, weight: .thin))
+                    .padding(.top)
+                Image(systemName: "bolt.shield")
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundStyle(.secondary)
+                Text("Trackers prevented")
+                    .font(.footnote)
+                    .foregroundStyle(.tertiary)
+                
                 if items.first?.isEmpty == true {
-                    Text("No tabs")
+                    Label("No tabs", systemImage: "square.dashed")
                         .font(.callout)
+                        .imageScale(.large)
                         .foregroundStyle(.secondary)
                         .padding([.top, .leading], 30)
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 } else {
-                    Button("Close all") {
+                    Button("Close all tabs") {
                         session.items = []
                         withAnimation(.easeInOut(duration: 0.4)) {
                             update(tabs: [])
@@ -76,6 +88,9 @@ struct Tabs: View {
                 }
             ],
                 material: .ultraThin)
+        }
+        .onReceive(cloud) {
+            trackers = $0.tracking.total
         }
         .onAppear {
             update(tabs: session.items)

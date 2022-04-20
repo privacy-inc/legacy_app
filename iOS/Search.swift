@@ -24,11 +24,11 @@ struct Search: View {
                 .padding(.horizontal, 9)
                 .padding(.vertical)
             } else {
-                Text("No bookmarks or history\nto show")
+                Label("No bookmarks or history", systemImage: "clock")
                     .font(.callout)
+                    .imageScale(.large)
                     .foregroundStyle(.secondary)
-                    .padding(.top)
-                    .padding(.leading, 30)
+                    .padding([.top, .leading], 30)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             }
         }
