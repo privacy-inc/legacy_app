@@ -3,7 +3,7 @@ import SwiftUI
 import Specs
 
 final class Session: ObservableObject {
-    @Published var current: Current
+    @Published var current: Int? = 0
     @Published var froob = false
     var items: [Item]
     var dark = false
@@ -11,7 +11,6 @@ final class Session: ObservableObject {
     init() {
         let item = Item(flow: .search(false))
         items = [item]
-        current = .item(0)
     }
     
     func index(_ of: Web) -> Int {

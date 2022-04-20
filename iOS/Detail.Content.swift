@@ -60,7 +60,12 @@ extension Detail {
                     Spacer()
                     
                     Action(title: "Bookmark", icon: "bookmark") {
-                        
+                        Task {
+                            guard let url = session.items[index].web?.url?.absoluteURL else { return }
+                            await cloud.bookmark(url: url, title: session.items[index].web?.title ?? "")
+                            await UNUserNotificationCenter.send(message: "Bookmark added!")
+                            dismiss()
+                        }
                     }
                     
                     Spacer()

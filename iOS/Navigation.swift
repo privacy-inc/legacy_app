@@ -4,8 +4,7 @@ struct Navigation: View {
     @ObservedObject var session: Session
     
     var body: some View {
-        switch session.current {
-        case let .item(index):
+        if let index = session.current {
             switch session.items[index].flow {
             case .web:
                 Browser(session: session, index: index)
@@ -14,10 +13,8 @@ struct Navigation: View {
             case let .search(focus):
                 Search(field: .init(session: session, index: index), focus: focus)
             }
-        case .tabs:
+        } else {
             Tabs(session: session)
-        case .settings:
-            Circle()
         }
     }
 }

@@ -37,7 +37,15 @@ struct Search: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(items: [
                 .init(icon: "line.3.horizontal") {
+                    field.cancel(clear: false)
                     
+                    Task {
+                        await field.session.items[field.index].web?.thumbnail()
+                        
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            field.session.current = nil
+                        }
+                    }
                 },
                 field.typing ? .init(icon: "xmark") {
                     field.cancel(clear: true)
@@ -51,7 +59,7 @@ struct Search: View {
                         await field.session.items[field.index].web?.thumbnail()
                         
                         withAnimation(.easeInOut(duration: 0.4)) {
-                            field.session.current = .tabs
+                            field.session.current = nil
                         }
                     }
                 }

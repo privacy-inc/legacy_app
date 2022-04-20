@@ -10,7 +10,7 @@ struct Tabs: View {
         ScrollViewReader { proxy in
             ScrollView {
                 if items.first?.isEmpty == true {
-                    Text("No tabs open")
+                    Text("No tabs")
                         .font(.callout)
                         .foregroundStyle(.secondary)
                         .padding([.top, .leading], 30)
@@ -68,7 +68,7 @@ struct Tabs: View {
                     session.items.append(item)
                     
                     withAnimation(.easeInOut(duration: 0.4)) {
-                        session.current = .item(session.items.count - 1)
+                        session.current = session.items.count - 1
                     }
                 },
                 .init(icon: "flame") {

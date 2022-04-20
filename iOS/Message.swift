@@ -52,7 +52,7 @@ struct Message: View {
                     },
                     .init(icon: "square.on.square") {
                         withAnimation(.easeInOut(duration: 0.4)) {
-                            session.current = .tabs
+                            session.current = nil
                         }
                     }
                 ],

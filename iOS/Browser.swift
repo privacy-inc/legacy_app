@@ -27,7 +27,7 @@ struct Browser: View {
                             await session.items[index].web!.thumbnail()
                             
                             withAnimation(.easeInOut(duration: 0.4)) {
-                                session.current = .tabs
+                                session.current = nil
                             }
                         }
                     }

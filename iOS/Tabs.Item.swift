@@ -12,7 +12,7 @@ extension Tabs {
         var body: some View {
             ZStack(alignment: .topTrailing) {
                 Button {
-                    session.current = .item(session.items.firstIndex(of: item)!)
+                    session.current = session.items.firstIndex(of: item)!
                 } label: {
                     switch item.flow {
                     case .message:
