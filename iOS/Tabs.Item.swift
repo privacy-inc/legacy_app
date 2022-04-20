@@ -34,13 +34,11 @@ extension Tabs {
                     default:
                         if let web = item.web {
                             VStack(spacing: 10) {
-                                if let thumbnail = item.thumbnail {
-                                    Image(uiImage: thumbnail)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(maxHeight: Self.height, alignment: .top)
-                                        .modifier(Card(dark: session.dark))
-                                }
+                                Image(uiImage: item.thumbnail)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(maxHeight: Self.height, alignment: .top)
+                                    .modifier(Card(dark: session.dark))
                                 Text("\(web.title?.capped(max: 90) ?? "") \(Text(web.url?.absoluteString.domain ?? "").foregroundColor(.secondary))")
                                     .font(.caption2)
                                     .multilineTextAlignment(.leading)

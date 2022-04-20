@@ -9,7 +9,7 @@ extension Detail {
 
         var body: some View {
             VStack(spacing: 0) {
-                Header(web: session.items[index].web!)
+                Header(status: status, web: session.items[index].web!)
 
                 if !status.small {
                     Spacer()

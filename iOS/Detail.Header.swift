@@ -2,6 +2,7 @@ import SwiftUI
 
 extension Detail {
     struct Header: View {
+        let status: Browser.Status
         let web: Web
         @State private var title = ""
         @State private var url: URL?
@@ -60,7 +61,7 @@ extension Detail {
                 
                 HStack {
                     Button {
-                        dismiss()
+                        status.share.send()
                     } label: {
                         Image(systemName: "square.and.arrow.up")
                             .font(.system(size: 18, weight: .regular))

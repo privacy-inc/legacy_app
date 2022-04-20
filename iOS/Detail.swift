@@ -3,7 +3,7 @@ import Combine
 
 final class Detail: UIHostingController<Detail.Content>, UIViewControllerRepresentable, UISheetPresentationControllerDelegate {
     private let status: Browser.Status
-    private var sub: AnyCancellable?
+    private var subs = Set<AnyCancellable>()
 
     required init?(coder: NSCoder) { nil }
     init(status: Browser.Status, session: Session, index: Int) {
@@ -11,13 +11,22 @@ final class Detail: UIHostingController<Detail.Content>, UIViewControllerReprese
         super.init(rootView: .init(status: status, session: session, index: index))
         modalPresentationStyle = .overCurrentContext
         
-        sub = status
+        status
             .features
             .sink { [weak self] in
                 self?.sheetPresentationController?.animateChanges {
                     self?.sheetPresentationController?.selectedDetentIdentifier = .large
                 }
             }
+            .store(in: &subs)
+        
+        status
+            .share
+            .sink { [weak self] in
+                guard let web = session.items[index].web else { return }
+                self?.share(web: web)
+            }
+            .store(in: &subs)
     }
 
     override func willMove(toParent: UIViewController?) {
@@ -48,5 +57,22 @@ final class Detail: UIHostingController<Detail.Content>, UIViewControllerReprese
 
     func updateUIViewController(_: Detail, context: Context) {
 
+    }
+    
+    private func share(web: Web) {
+        let share = UIActivityViewController.share(web: web)
+        share.popoverPresentationController?.sourceView = view
+        share.completionWithItemsHandler = { [weak self] _, completed, _, _ in
+            self?.dismiss(animated: true)
+            
+            if !completed {
+                DispatchQueue
+                    .main
+                    .asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                        self?.dismiss(animated: true)
+                    }
+            }
+        }
+        present(share, animated: true)
     }
 }

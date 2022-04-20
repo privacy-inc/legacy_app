@@ -7,5 +7,6 @@ extension Browser {
         @Published var reader = false
         @Published var find = false
         let features = PassthroughSubject<Void, Never>()
+        let share = PassthroughSubject<Void, Never>()
     }
 }
