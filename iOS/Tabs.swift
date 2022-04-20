@@ -13,8 +13,7 @@ struct Tabs: View {
                     Text("No tabs open")
                         .font(.callout)
                         .foregroundStyle(.secondary)
-                        .padding(.top)
-                        .padding(.leading, 30)
+                        .padding([.top, .leading], 30)
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 } else {
                     Button("Close all") {

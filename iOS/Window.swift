@@ -38,6 +38,10 @@ struct Window: View {
                     case .none:
                         break
                     }
+                    
+                    Task {
+                        _ = await UNUserNotificationCenter.request()
+                    }
                 }
             }
     }

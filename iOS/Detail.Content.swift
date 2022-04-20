@@ -6,6 +6,7 @@ extension Detail {
         let session: Session
         let index: Int
         @State private var selectable = true
+        @Environment(\.dismiss) private var dismiss
 
         var body: some View {
             VStack(spacing: 0) {
@@ -49,7 +50,11 @@ extension Detail {
                     Spacer()
                     
                     Action(title: "Pause", icon: "pause") {
-                        
+                        Task {
+                            await session.items[index].web!.pauseAllMediaPlayback()
+                            await UNUserNotificationCenter.send(message: "Media paused!")
+                            dismiss()
+                        }
                     }
                     
                     Spacer()
