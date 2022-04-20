@@ -54,7 +54,7 @@ extension About {
 
 private final class Model: ObservableObject {
     @Published private(set) var particles = [Banner.Particle]()
-    private let banner = Banner(width: UIScreen.main.bounds.width, height: 350)
+    private let banner = Banner(width: UIScreen.main.bounds.width, height: 400)
     
     func tick(date: Date) {
         particles = banner.tick(particles: particles)

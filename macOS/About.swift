@@ -143,7 +143,7 @@ final class About: NSWindow {
                                 }
                             })
                         
-                        let restore = Control.Title("Restore purchases", color: .secondaryLabelColor, layer: true)
+                        let restore = Control.Title("Restore Purchases", color: .secondaryLabelColor, layer: true)
                         self?.add(restore
                             .click
                             .sink {

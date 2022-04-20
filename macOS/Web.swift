@@ -4,9 +4,9 @@ import UniformTypeIdentifiers
 import Specs
 
 final class Web: Webview {
-    let id: UUID
     private var destination: Destination?
     private let session: Session
+    private let id: UUID
     
     override var isEditable: Bool {
         false

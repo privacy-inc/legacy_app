@@ -1,21 +1,26 @@
 import SwiftUI
-import Specs
 
 struct About: View {
     var body: some View {
         ScrollView {
             Layer()
                 .equatable()
-                .frame(height: 350)
-            Text("Privacy \(Image(systemName: "plus"))")
-                .font(.title2)
+                .frame(height: 400)
+            HStack(spacing: 0) {
+                Text("Privacy ")
+                    .font(.title2)
+                Image(systemName: "plus")
+                    .font(.title2.weight(.light))
+            }
             Text("Support research and\ndevelopment of Privacy Browser")
                 .font(.callout)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.secondary)
+            
+            Plus()
+            
             Text("Privacy Browser")
                 .font(.footnote)
-                .padding(.top, 30)
             Text(verbatim: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")
                 .font(.caption)
                 .foregroundStyle(.tertiary)

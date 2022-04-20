@@ -50,17 +50,7 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
         content.material = .menu
         content.translatesAutoresizingMaskIntoConstraints = false
         contentView = content
-        
-        let place = { [weak self] (view: NSView) -> Void in
-            content.addSubview(view)
-            self?.makeFirstResponder(view)
 
-            view.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
-            view.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
-            view.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
-            view.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
-        }
-        
         session
             .items
             .combineLatest(session
@@ -76,25 +66,19 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
                 $0.flow == .list && $1.flow == .list
             }
             .sink { [weak self] item in
-                content
-                    .subviews
-                    .forEach {
-                        $0.removeFromSuperview()
-                    }
-
                 switch item.flow {
                 case .list:
                     self?.isFindBarVisible = false
                     self?.finder.client = nil
-                    place(Landing(session: session))
+                    self?.place(view: Landing(session: session))
                     session.filter.send("")
                 case let .web(web):
                     self?.finder.client = web
-                    place(web)
+                    self?.place(view: web)
                 case let .message(_, info):
                     self?.isFindBarVisible = false
                     self?.finder.client = nil
-                    place(Message(info: info))
+                    self?.place(view: Message(info: info))
                 }
             }
             .store(in: &subs)
@@ -153,6 +137,11 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
         
     }
     
+    override func close() {
+        super.close()
+        session.items.value = []
+    }
+    
     @objc override func performTextFinderAction(_ sender: Any?) {
         (sender as? NSMenuItem)
             .map(\.tag)
@@ -172,6 +161,14 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
     @objc func triggerFocus() {
         session.focus.send()
     }
+
+    @objc func triggerNextTab() {
+        session.next(id: session.current.value)
+    }
+    
+    @objc func triggerPreviousTab() {
+        session.previous(id: session.current.value)
+    }
     
     @objc override func triggerCloseTab() {
         guard session.items.value.count > 1 else {
@@ -181,12 +178,22 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
         session.close(id: session.current.value)
     }
     
-    @objc func triggerNextTab() {
-        session.next(id: session.current.value)
-    }
-    
-    @objc func triggerPreviousTab() {
-        session.previous(id: session.current.value)
+    private func place(view: NSView) {
+        guard let content = contentView else { return }
+        
+        content
+            .subviews
+            .forEach {
+                $0.removeFromSuperview()
+            }
+        
+        content.addSubview(view)
+        makeFirstResponder(view)
+
+        view.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
+        view.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
+        view.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
     }
     
     private func froob(bar: NSView) {
