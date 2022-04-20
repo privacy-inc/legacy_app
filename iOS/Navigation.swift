@@ -8,6 +8,7 @@ struct Navigation: View {
             switch session.items[index].flow {
             case .web:
                 Browser(session: session, index: index)
+                    .id(index)
             case .message:
                 Message(session: session, index: index)
             case let .search(focus):

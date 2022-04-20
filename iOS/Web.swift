@@ -1,11 +1,8 @@
 import SwiftUI
 import WebKit
-import Combine
 import Specs
 
 final class Web: Webview, UIViewRepresentable {
-//    let tab = PassthroughSubject<URL, Never>()
-//    let error = PassthroughSubject<Err, Never>()
     private let session: Session
 
     @MainActor var fontSize: CGFloat {
@@ -134,32 +131,50 @@ final class Web: Webview, UIViewRepresentable {
     }
     
     func webView(_: WKWebView, contextMenuConfigurationFor: WKContextMenuElementInfo) async -> UIContextMenuConfiguration? {
-        .init(identifier: nil, previewProvider: nil, actionProvider: { elements in
+        .init(identifier: nil, previewProvider: nil) { elements in
             var elements = elements
                 .filter {
                     guard let name = ($0 as? UIAction)?.identifier.rawValue else { return true }
-                    return !(name.hasSuffix("Open") || name.hasSuffix("List"))
+                    return !name.hasSuffix("Open")
                 }
             
-            if let url = contextMenuConfigurationFor
-                .linkURL {
-//                    elements
-//                        .insert(UIAction(title: NSLocalizedString("Open in new tab", comment: ""),
-//                                         image: UIImage(systemName: "plus.square.on.square"))
-//                        { [weak self] _ in
-//                            self?.tab.send(url)
-//                        }, at: 0)
+            if let url = contextMenuConfigurationFor .linkURL {
+                elements
+                    .insert(UIAction(title: NSLocalizedString("Open", comment: ""),
+                                     image: UIImage(systemName: "paperplane"))
+                    { [weak self] _ in
+                        self?.load(url: url)
+                    }, at: 0)
+                
+                elements
+                    .insert(UIAction(title: NSLocalizedString("Open in New Tab", comment: ""),
+                                     image: UIImage(systemName: "plus.square"))
+                            { [weak self] _ in
+                        Task { [weak self] in
+                            await self?.session.open(url: url, change: false)
+                        }
+                    }, at: 1)
+                
+                elements
+                    .insert(UIAction(title: NSLocalizedString("Open in New Tab and Change", comment: ""),
+                                     image: UIImage(systemName: "plus.square.on.square"))
+                            { [weak self] _ in
+                        Task { [weak self] in
+                            await self?.thumbnail()
+                            await self?.session.open(url: url, change: true)
+                        }
+                    }, at: 2)
                 }
             return .init(title: "", children: elements)
-        })
+        }
     }
     
-    func webView(_: WKWebView, contextMenuForElement element: WKContextMenuElementInfo, willCommitWithAnimator: UIContextMenuInteractionCommitAnimating) {
-//        if let url = element.linkURL {
-//            load(url)
-//        } else if let data = (willCommitWithAnimator.previewViewController?.view.subviews.first as? UIImageView)?.image?.pngData() {
-//            load(data.temporal("image.png"))
-//        }
+    func webView(_: WKWebView, contextMenuForElement: WKContextMenuElementInfo, willCommitWithAnimator: UIContextMenuInteractionCommitAnimating) {
+        if let url = contextMenuForElement.linkURL {
+            load(url: url)
+        } else if let data = (willCommitWithAnimator.previewViewController?.view.subviews.first as? UIImageView)?.image?.pngData() {
+            load(url: data.temporal("image.png"))
+        }
     }
     
     func makeUIView(context: Context) -> Web {

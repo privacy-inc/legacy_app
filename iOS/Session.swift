@@ -34,13 +34,27 @@ final class Session: ObservableObject {
         await open(url: url, index: index)
     }
     
+    @MainActor func open(url: URL, change: Bool) async {
+        items.append(.init(flow: .web))
+        
+        if change {
+            current = items.count - 1
+        }
+        
+        await open(url: url, index: items.count - 1)
+    }
+    
     @MainActor func open(url: URL, index: Int) async {
         if items[index].web == nil {
             items[index].web = await .init(session: self, settings: cloud.model.settings.configuration, dark: dark)
         }
         
         items[index].flow = .web
-        objectWillChange.send()
+        
+        if index == current {
+            objectWillChange.send()
+        }
+        
         items[index].web!.load(url: url)
     }
 }
