@@ -2,7 +2,7 @@ import SwiftUI
 
 struct About: View {
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             Layer()
                 .equatable()
                 .frame(height: 400)
@@ -19,11 +19,13 @@ struct About: View {
             
             Plus()
             
-            Text("Privacy Browser")
-                .font(.footnote)
-            Text(verbatim: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")
-                .font(.caption)
-                .foregroundStyle(.tertiary)
+            HStack(spacing: 0) {
+                Text("Privacy Browser ")
+                    .font(.footnote)
+                Text(verbatim: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
             HStack(spacing: 0) {
                 Text("From Berlin with ")
                     .foregroundStyle(.tertiary)
@@ -32,6 +34,7 @@ struct About: View {
                     .font(.footnote)
                     .foregroundStyle(.pink)
             }
+            .padding(.bottom)
         }
     }
 }

@@ -55,13 +55,12 @@ final class About: NSWindow {
         
         let text = Text(vibrancy: true)
         text.attributedStringValue = .make(alignment: .center) {
-            $0.append(.make("Privacy Browser", attributes: [
+            $0.append(.make("Privacy Browser ", attributes: [
                 .font: NSFont.systemFont(ofSize: 14, weight: .light),
                 .foregroundColor: NSColor.labelColor]))
-            $0.newLine()
             $0.append(.make(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "", attributes: [
                 .font: NSFont.systemFont(ofSize: 10, weight: .regular),
-                .foregroundColor: NSColor.tertiaryLabelColor]))
+                .foregroundColor: NSColor.secondaryLabelColor]))
         }
         content.addSubview(text)
         
@@ -100,17 +99,17 @@ final class About: NSWindow {
                 
                 if Defaults.isPremium {
                     let check = NSImageView(image: .init(systemSymbolName: "checkmark.circle.fill", accessibilityDescription: nil) ?? .init())
-                    check.symbolConfiguration = .init(pointSize: 40, weight: .bold)
+                    check.symbolConfiguration = .init(pointSize: 30, weight: .bold)
                         .applying(.init(hierarchicalColor: .init(named: "Shades")!))
                     
                     let text = Text(vibrancy: true)
                     text.stringValue = "We received your support\nThank you!"
                     text.alignment = .center
                     text.textColor = .secondaryLabelColor
-                    text.font = .preferredFont(forTextStyle: .callout)
+                    text.font = .preferredFont(forTextStyle: .footnote)
                     
                     stack.setViews([check, text], in: .center)
-                    stack.setCustomSpacing(15, after: check)
+                    stack.setCustomSpacing(10, after: check)
                 } else {
                     switch status {
                     case .loading:

@@ -10,12 +10,13 @@ extension About {
             VStack(spacing: 0) {
                 if Defaults.isPremium {
                     Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 40, weight: .bold))
+                        .font(.system(size: 30, weight: .bold))
                         .foregroundColor(.init("Shades"))
                     Text("We received your support\nThank you!")
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.secondary)
-                        .font(.callout)
+                        .font(.footnote)
+                        .padding(.top, 10)
                 } else {
                     switch state {
                     case .loading:
@@ -28,14 +29,16 @@ extension About {
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
-                            .padding()
+                            .frame(maxWidth: 280)
                     case let .products(products):
                         if let product = products.first {
                             Text(product.displayPrice)
                                 .font(.body)
                                 .padding(.bottom, 3)
                             Button {
-                                
+                                Task {
+                                    await store.purchase(product)
+                                }
                             } label: {
                                 Text("Purchase")
                                     .frame(minWidth: 90)
@@ -45,27 +48,49 @@ extension About {
                             .buttonStyle(.borderedProminent)
                             .buttonBorderShape(.capsule)
                             
-                            HStack(spacing: 30) {
+                            HStack(spacing: 60) {
                                 Button("Restore Purchases") {
                                     Task {
                                         await store.restore()
                                     }
                                 }
                                 .foregroundStyle(.secondary)
+                                .frame(width: 130, alignment: .trailing)
                                 
-                                Button("Learn More") {
-                                    
+                                Button("Learn more") {
+                                    learn = true
                                 }
                                 .foregroundColor(.mint)
+                                .frame(width: 130, alignment: .leading)
+                                .sheet(isPresented: $learn) {
+                                    NavigationView {
+                                        Settings.Info(title: "Why In-App Purchases", text: Copy.why)
+                                            .toolbar {
+                                                ToolbarItem(placement: .navigationBarTrailing) {
+                                                    Button {
+                                                        learn = false
+                                                    } label: {
+                                                        Image(systemName: "xmark")
+                                                            .font(.system(size: 16, weight: .light))
+                                                            .padding(4)
+                                                            .padding(.leading)
+                                                            .foregroundStyle(.secondary)
+                                                            .contentShape(Rectangle())
+                                                    }
+                                                }
+                                            }
+                                    }
+                                    .navigationViewStyle(.stack)
+                                }
                             }
                             .font(.footnote)
                             .buttonStyle(.plain)
-                            .padding(.top, 40)
+                            .padding(.top, 20)
                         }
                     }
                 }
             }
-            .padding(.vertical, 45)
+            .padding(.vertical, 60)
             .onReceive(store.status) {
                 state = $0
             }

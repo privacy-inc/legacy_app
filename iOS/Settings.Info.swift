@@ -20,7 +20,7 @@ extension Settings {
                 .padding(.bottom, 30)
             }
             .frame(maxWidth: .greatestFiniteMagnitude)
-            .background(Color.primary.opacity(0.1))
+            .background(Color(.secondarySystemBackground))
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
         }
