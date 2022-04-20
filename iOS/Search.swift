@@ -5,6 +5,7 @@ struct Search: View {
     @StateObject var field: Field
     let focus: Bool
     @State private var items = [[Website]]()
+    @State private var settings = false
     
     var body: some View {
         ScrollView {
@@ -38,14 +39,7 @@ struct Search: View {
             Bar(items: [
                 .init(icon: "line.3.horizontal") {
                     field.cancel(clear: false)
-                    
-                    Task {
-                        await field.session.items[field.index].web?.thumbnail()
-                        
-                        withAnimation(.easeInOut(duration: 0.4)) {
-                            field.session.current = nil
-                        }
-                    }
+                    settings = true
                 },
                 field.typing ? .init(icon: "xmark") {
                     field.cancel(clear: true)
@@ -65,6 +59,7 @@ struct Search: View {
                 }
             ],
                 material: .ultraThin)
+            .sheet(isPresented: $settings, content: Settings.init)
         }
         .onChange(of: field.websites, perform: update(websites:))
         .onAppear {

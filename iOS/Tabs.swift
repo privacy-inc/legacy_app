@@ -5,6 +5,7 @@ struct Tabs: View {
     @ObservedObject var session: Session
     @State private var items = [[Session.Item]]()
     @State private var trackers = 0
+    @State private var settings = false
     @Namespace private var animation
     
     var body: some View {
@@ -73,7 +74,7 @@ struct Tabs: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(items: [
                 .init(icon: "line.3.horizontal") {
-                    
+                    settings = true
                 },
                 .init(icon: "plus") {
                     let item = Session.Item(flow: .search(true))
@@ -88,6 +89,7 @@ struct Tabs: View {
                 }
             ],
                 material: .ultraThin)
+            .sheet(isPresented: $settings, content: Settings.init)
         }
         .onReceive(cloud) {
             trackers = $0.tracking.total
