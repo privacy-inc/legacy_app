@@ -17,8 +17,7 @@ extension Settings {
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                         .padding()
                 }
-                .padding(.bottom)
-                .padding(.bottom)
+                .padding(.bottom, 30)
             }
             .frame(maxWidth: .greatestFiniteMagnitude)
             .background(Color.primary.opacity(0.1))

@@ -1,7 +1,6 @@
 import Foundation
 
 struct Banner {
-    private(set) var particles = [Particle]()
     private let width: Double
     private let height: Double
     
@@ -10,11 +9,12 @@ struct Banner {
         self.height = height - 20
     }
     
-    mutating func tick() {
-        particles = particles
+    func tick(particles: [Particle]) -> [Particle] {
+        var particles = particles
             .compactMap {
                 $0.tick()
             }
+        
         if Int.random(in: 0 ..< 6) == 0 {
             particles.append(.init(radius: .random(in: 0.6 ... 20),
                                    x: .random(in: 20 ..< width),
@@ -23,5 +23,7 @@ struct Banner {
                                    blue: .random(),
                                    decrease: .random(in: 1.000015 ..< 1.05)))
         }
+        
+        return particles
     }
 }

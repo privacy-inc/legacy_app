@@ -35,16 +35,23 @@ final class About: NSWindow {
         content.addSubview(banner)
         
         let title = Text(vibrancy: true)
-        title.attributedStringValue = .make(alignment: .center) {
-            $0.append(.make("Privacy 􀅼", attributes: [
-                .font: NSFont.preferredFont(forTextStyle: .title2),
-                .foregroundColor: NSColor.labelColor]))
-            $0.newLine()
-            $0.append(.make("Support research and\ndevelopment of Privacy Browser", attributes: [
-                .font: NSFont.preferredFont(forTextStyle: .callout),
-                .foregroundColor: NSColor.secondaryLabelColor]))
-        }
+        title.stringValue = "Privacy"
+        title.font = .preferredFont(forTextStyle: .title2)
+        title.textColor = .labelColor
         content.addSubview(title)
+        
+        let subtitle = Text(vibrancy: true)
+        subtitle.stringValue = "Support research and\ndevelopment of Privacy Browser"
+        subtitle.textColor = .secondaryLabelColor
+        subtitle.font = .preferredFont(forTextStyle: .callout)
+        subtitle.alignment = .center
+        content.addSubview(subtitle)
+        
+        let plus = NSImageView(image: .init(systemSymbolName: "plus", accessibilityDescription: nil) ?? .init())
+        plus.translatesAutoresizingMaskIntoConstraints = false
+        plus.symbolConfiguration = .init(pointSize: 18, weight: .regular)
+        plus.contentTintColor = .labelColor
+        content.addSubview(plus)
         
         let text = Text(vibrancy: true)
         text.attributedStringValue = .make(alignment: .center) {
@@ -55,15 +62,20 @@ final class About: NSWindow {
             $0.append(.make(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "", attributes: [
                 .font: NSFont.systemFont(ofSize: 10, weight: .regular),
                 .foregroundColor: NSColor.tertiaryLabelColor]))
-            $0.newLine()
-            $0.append(.make("From Berlin with ", attributes: [
-                .font: NSFont.systemFont(ofSize: 11, weight: .regular),
-                .foregroundColor: NSColor.tertiaryLabelColor]))
-            $0.append(.make("􀊵", attributes: [
-                .font: NSFont.systemFont(ofSize: 12, weight: .regular),
-                .foregroundColor: NSColor.systemPink]))
         }
         content.addSubview(text)
+        
+        let location = Text(vibrancy: true)
+        location.stringValue = "From Berlin with"
+        location.font = .systemFont(ofSize: 11, weight: .regular)
+        location.textColor = .tertiaryLabelColor
+        content.addSubview(location)
+        
+        let heart = NSImageView(image: .init(systemSymbolName: "heart.fill", accessibilityDescription: nil) ?? .init())
+        heart.translatesAutoresizingMaskIntoConstraints = false
+        heart.symbolConfiguration = .init(pointSize: 12, weight: .regular)
+        heart.contentTintColor = .systemPink
+        content.addSubview(heart)
         
         let stack = NSStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -168,16 +180,28 @@ final class About: NSWindow {
         banner.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
         banner.heightAnchor.constraint(equalToConstant: 220).isActive = true
         
-        title.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
+        title.centerXAnchor.constraint(equalTo: content.centerXAnchor, constant: -15).isActive = true
         title.topAnchor.constraint(equalTo: banner.bottomAnchor).isActive = true
         
-        stack.topAnchor.constraint(equalTo: title.bottomAnchor).isActive = true
+        plus.centerYAnchor.constraint(equalTo: title.centerYAnchor).isActive = true
+        plus.leftAnchor.constraint(equalTo: title.rightAnchor, constant: 2).isActive = true
+        
+        subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 3).isActive = true
+        subtitle.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
+        
+        stack.topAnchor.constraint(equalTo: subtitle.bottomAnchor).isActive = true
         stack.bottomAnchor.constraint(equalTo: text.topAnchor).isActive = true
         stack.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         stack.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
         
-        text.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -40).isActive = true
+        text.bottomAnchor.constraint(equalTo: location.topAnchor, constant: -2).isActive = true
         text.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
+        
+        heart.centerYAnchor.constraint(equalTo: location.centerYAnchor).isActive = true
+        heart.leftAnchor.constraint(equalTo: location.rightAnchor, constant: 2).isActive = true
+        
+        location.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -40).isActive = true
+        location.centerXAnchor.constraint(equalTo: content.centerXAnchor, constant: -10).isActive = true
         
         Task {
             await store.load()

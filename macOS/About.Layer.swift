@@ -4,15 +4,15 @@ private let pi2 = Double.pi * 2
 
 extension About {
     final class Layer: CALayer {
-        private var model = Banner(width: 620, height: 220)
+        private var particles = [Banner.Particle]()
+        private let banner = Banner(width: 620, height: 220)
         private let shades = NSColor(named: "Shades")!
         private let dawn = NSColor(named: "Dawn")!
         
         override func draw(in context: CGContext) {
-            model.tick()
+            particles = banner.tick(particles: particles)
             
-            model
-                .particles
+            particles
                 .forEach { particle in
                     context
                         .addArc(

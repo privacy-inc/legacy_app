@@ -14,6 +14,7 @@ struct Window: View {
                 cloud
                     .ready
                     .notify(queue: .main) {
+                        print("open url \(url)")
 //                        UIApplication.shared.hide()
 //                        session.flow = .tabs
 //                        Task

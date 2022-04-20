@@ -1,14 +1,16 @@
 import SwiftUI
+import Specs
 
 struct Settings: View {
+    @State private var about = false
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView {
             List {
                 app
+                help
             }
-            .symbolRenderingMode(.multicolor)
             .listStyle(.insetGrouped)
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.large)
@@ -32,26 +34,64 @@ struct Settings: View {
     
     private var app: some View {
         Section("App") {
-            NavigationLink(destination: Circle()) {
-                Label("About", systemImage: "eyeglasses")
-                    .allowsHitTesting(false)
+            Button {
+                about = true
+            } label: {
+                HStack {
+                    Text("About")
+                        .font(.callout)
+                    Spacer()
+                    Image("Logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30)
+                }
+            }
+            .sheet(isPresented: $about, content: About.init)
+            
+            Button {
+                UIApplication.shared.review()
+                Defaults.hasRated = true
+            } label: {
+                HStack {
+                    Text("Rate on the App Store")
+                        .font(.callout)
+                    Spacer()
+                    Image(systemName: "star")
+                        .symbolRenderingMode(.multicolor)
+                        .font(.title3)
+                }
             }
             
+            Link(destination: .init(string: "privacy://goprivacy.app")!) {
+                HStack {
+                    Text("goprivacy.app")
+                    Spacer()
+                    Image(systemName: "link")
+                        .symbolRenderingMode(.multicolor)
+                        .font(.title3)
+                }
+            }
+        }
+        .headerProminence(.increased)
+    }
+    
+    private var help: some View {
+        Section {
             NavigationLink(destination: Info(title: "Why In-App Purchases", text: Copy.why)) {
                 Label("Why In-App Purchases", systemImage: "questionmark.app.dashed")
-                    .allowsHitTesting(false)
+                    .symbolRenderingMode(.multicolor)
             }
             
             NavigationLink(destination: Info(title: "Privacy Policy", text: Copy.policy)) {
                 Label("Privacy Policy", systemImage: "hand.raised")
-                    .allowsHitTesting(false)
+                    .symbolRenderingMode(.multicolor)
             }
             
             NavigationLink(destination: Info(title: "Terms and Conditions", text: Copy.terms)) {
                 Label("Terms and Conditions", systemImage: "doc.plaintext")
-                    .allowsHitTesting(false)
+                    .symbolRenderingMode(.multicolor)
             }
         }
-        .headerProminence(.increased)
     }
 }
