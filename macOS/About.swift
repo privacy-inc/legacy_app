@@ -80,7 +80,7 @@ final class About: NSWindow {
         let stack = NSStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
-        stack.spacing = 30
+        stack.spacing = 5
         content.addSubview(stack)
 
         timer
@@ -110,6 +110,7 @@ final class About: NSWindow {
                     text.font = .preferredFont(forTextStyle: .callout)
                     
                     stack.setViews([check, text], in: .center)
+                    stack.setCustomSpacing(15, after: check)
                 } else {
                     switch status {
                     case .loading:
@@ -143,7 +144,7 @@ final class About: NSWindow {
                                 }
                             })
                         
-                        let restore = Control.Title("Restore Purchases", color: .secondaryLabelColor, layer: true)
+                        let restore = Control.Title("Restore Purchases", color: .secondaryLabelColor, layer: false)
                         self?.add(restore
                             .click
                             .sink {
@@ -159,9 +160,10 @@ final class About: NSWindow {
                                 (NSApp as! App).showLearn(with: .purchases)
                             })
                         
-                        stack.setViews([price, purchase, learn, restore], in: .center)
-                        stack.setCustomSpacing(5, after: price)
-                        stack.setCustomSpacing(5, after: learn)
+                        let horizontal = NSStackView(views: [restore, learn])
+                        horizontal.distribution = .fillEqually
+                        
+                        stack.setViews([price, purchase, horizontal], in: .center)
                     }
                 }
             }
@@ -178,7 +180,7 @@ final class About: NSWindow {
         banner.topAnchor.constraint(equalTo: content.topAnchor).isActive = true
         banner.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         banner.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
-        banner.heightAnchor.constraint(equalToConstant: 220).isActive = true
+        banner.heightAnchor.constraint(equalToConstant: 300).isActive = true
         
         title.centerXAnchor.constraint(equalTo: content.centerXAnchor, constant: -15).isActive = true
         title.topAnchor.constraint(equalTo: banner.bottomAnchor).isActive = true
