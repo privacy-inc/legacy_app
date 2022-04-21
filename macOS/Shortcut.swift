@@ -1,8 +1,11 @@
 import AppKit
+import Combine
 
 private let width = CGFloat(420)
 
 final class Shortcut: NSView {
+    private var sub: AnyCancellable?
+    
     required init?(coder: NSCoder) { nil }
     init() {
         super.init(frame: .init(origin: .zero, size: .init(width: width, height: 480)))
@@ -17,8 +20,12 @@ final class Shortcut: NSView {
         background.state = .active
         addSubview(background)
         
-        let forget = Forget()
-        forget.translatesAutoresizingMaskIntoConstraints = false
+        let forget = Control.Symbol("flame", point: 26, size: 40, weight: .light, hierarchical: true)
+        sub = forget
+            .click
+            .sink {
+                NSPopover().show(Forget(), from: forget, edge: .maxY)
+            }
         addSubview(forget)
         
         let flip = Flip()
@@ -47,14 +54,12 @@ final class Shortcut: NSView {
         background.bottomAnchor.constraint(equalTo: separator.topAnchor).isActive = true
         
         separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        separator.bottomAnchor.constraint(equalTo: forget.topAnchor).isActive = true
+        separator.bottomAnchor.constraint(equalTo: forget.topAnchor, constant: -30).isActive = true
         separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
-        forget.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        forget.leftAnchor.constraint(equalTo: background.leftAnchor).isActive = true
-        forget.rightAnchor.constraint(equalTo: background.rightAnchor).isActive = true
-        forget.heightAnchor.constraint(equalToConstant: 160).isActive = true
+        forget.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30).isActive = true
+        forget.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         scroll.topAnchor.constraint(equalTo: background.topAnchor, constant: 1).isActive = true
         scroll.leftAnchor.constraint(equalTo: background.leftAnchor).isActive = true

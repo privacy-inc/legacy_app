@@ -7,9 +7,20 @@ final class Forget: NSView {
 
     required init?(coder: NSCoder) { nil }
     init() {
-        super.init(frame: .init(origin: .zero, size: .init(width: 200, height: 160)))
+        super.init(frame: .init(origin: .zero, size: .init(width: 260, height: 300)))
         
-        let control = Control.Label(title: "Forget", symbol: "flame.fill")
+        let text = Text(vibrancy: true)
+        text.stringValue = "Forget history, cache, trackers and cookies."
+        text.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .medium)
+        text.textColor = .labelColor
+        text.alignment = .left
+        text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
+        let image = NSImageView(image: .init(systemSymbolName: "flame.fill", accessibilityDescription: nil) ?? .init())
+        image.symbolConfiguration = .init(pointSize: 60, weight: .light)
+            .applying(.init(hierarchicalColor: .init(named: "Dawn")!))
+        
+        let control = Control.Prominent("Forget")
         control
             .click
             .sink {
@@ -24,20 +35,18 @@ final class Forget: NSView {
                     }
             }
             .store(in: &subs)
-        addSubview(control)
         
-        let text = Text(vibrancy: true)
-        text.stringValue = "Clear history, cache,\ntrackers and cookies"
-        text.font = .preferredFont(forTextStyle: .footnote)
-        text.textColor = .secondaryLabelColor
-        text.alignment = .left
-        addSubview(text)
         
-        control.topAnchor.constraint(equalTo: topAnchor, constant: 50).isActive = true
-        control.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        control.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
-        text.topAnchor.constraint(equalTo: control.bottomAnchor, constant: 10).isActive = true
-        text.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        let stack = NSStackView(views: [text, image, control])
+        stack.orientation = .vertical
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.distribution = .fill
+        addSubview(stack)
+        
+        stack.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
+        stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30).isActive = true
+        stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 30).isActive = true
+        stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -30).isActive = true
     }
 }
