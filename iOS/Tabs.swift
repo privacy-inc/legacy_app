@@ -6,6 +6,7 @@ struct Tabs: View {
     @State private var items = [[Session.Item]]()
     @State private var trackers = 0
     @State private var settings = false
+    @State private var forget = false
     @Namespace private var animation
     
     var body: some View {
@@ -91,11 +92,14 @@ struct Tabs: View {
                     }
                 },
                 .init(icon: "flame") {
-                    
+                    forget = true
                 }
             ],
                 material: .ultraThin)
             .sheet(isPresented: $settings, content: Settings.init)
+            .sheet(isPresented: $forget) {
+                Forget(rootView: .init(items: $items, session: session))
+            }
         }
         .onReceive(cloud) {
             trackers = $0.tracking.total

@@ -10,11 +10,12 @@ extension Settings {
                 ZStack {
                     Rectangle()
                         .fill(Color(.systemBackground))
+                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     Text(.init(text))
                         .font(.callout)
                         .foregroundColor(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                        .frame(maxWidth: 500)
                         .padding()
                 }
                 .padding(.bottom, 30)

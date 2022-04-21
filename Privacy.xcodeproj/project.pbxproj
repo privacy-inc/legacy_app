@@ -34,6 +34,8 @@
 		CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */; };
 		CE36DC732811802F0066747E /* Settings.Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36DC722811802F0066747E /* Settings.Features.swift */; };
 		CE36DC75281183330066747E /* Settings.Blocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36DC74281183330066747E /* Settings.Blocker.swift */; };
+		CE36DC7728118E0E0066747E /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36DC7628118E0E0066747E /* Forget.swift */; };
+		CE36DC7928118F3A0066747E /* Forget.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36DC7828118F3A0066747E /* Forget.Content.swift */; };
 		CE3C653427483276000CF55A /* NSMutableAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3C653327483276000CF55A /* NSMutableAttributedString.swift */; };
 		CE4312672736D25C00DA0F99 /* Preferences.Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312622736D25B00DA0F99 /* Preferences.Features.swift */; };
 		CE4312682736D25C00DA0F99 /* Preferences.Blocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312632736D25B00DA0F99 /* Preferences.Blocker.swift */; };
@@ -252,6 +254,8 @@
 		CE3576B127281C3F005854B5 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		CE36DC722811802F0066747E /* Settings.Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Features.swift; sourceTree = "<group>"; };
 		CE36DC74281183330066747E /* Settings.Blocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Blocker.swift; sourceTree = "<group>"; };
+		CE36DC7628118E0E0066747E /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
+		CE36DC7828118F3A0066747E /* Forget.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.Content.swift; sourceTree = "<group>"; };
 		CE383745270DD0FC006A8FE7 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CE398B6F2715893200029FFC /* Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Find.swift; sourceTree = "<group>"; };
 		CE3B64FD27199CD10040AD0A /* Search.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Item.swift; sourceTree = "<group>"; };
@@ -585,6 +589,8 @@
 				CE790DD9280AE7DE00B9E9E9 /* Detail.swift */,
 				CE790DE8280AFC4D00B9E9E9 /* Detail.Switch.swift */,
 				CED3A74B2808989200B15765 /* Field.swift */,
+				CE36DC7828118F3A0066747E /* Forget.Content.swift */,
+				CE36DC7628118E0E0066747E /* Forget.swift */,
 				CE6FE9A627031D9C00403ADA /* Icon.swift */,
 				CE790DD4280AC07900B9E9E9 /* Message.swift */,
 				CE9B93F326F89F1E005E1D7F /* Navigation.swift */,
@@ -1003,12 +1009,14 @@
 				CEBC745828084204002F6654 /* Session.Flow.swift in Sources */,
 				CECE9CCA2810210E009AE5EA /* Settings.swift in Sources */,
 				CE46B4DE26F797F600A5B5BB /* App.swift in Sources */,
+				CE36DC7928118F3A0066747E /* Forget.Content.swift in Sources */,
 				CE9DFA0F27061D5400D69810 /* Copy.swift in Sources */,
 				CECE9CC828100F11009AE5EA /* Share.swift in Sources */,
 				CEFC997728098CA300824E49 /* Tabs.Item.swift in Sources */,
 				CE790DE3280AEF4900B9E9E9 /* Detail.Header.swift in Sources */,
 				CE561345280B34E300B44EE4 /* Trackers.swift in Sources */,
 				CEF5548426FDD4F000FE0E9C /* Webview.swift in Sources */,
+				CE36DC7728118E0E0066747E /* Forget.swift in Sources */,
 				CEA565F42809D49500B5E1FC /* Card.swift in Sources */,
 				CEFC997528098C8700824E49 /* Tabs.swift in Sources */,
 				CEFC997328096B9100824E49 /* Browser.Progress.swift in Sources */,

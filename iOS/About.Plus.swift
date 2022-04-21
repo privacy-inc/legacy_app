@@ -34,13 +34,14 @@ extension About {
                         if let product = products.first {
                             Text(product.displayPrice)
                                 .font(.body)
-                                .padding(.bottom, 3)
+                                .padding(.bottom, 6)
                             Button {
                                 Task {
                                     await store.purchase(product)
                                 }
                             } label: {
                                 Text("Purchase")
+                                    .font(.callout.weight(.medium))
                                     .frame(minWidth: 90)
                             }
                             .foregroundColor(.white)
