@@ -32,6 +32,8 @@
 		CE3576B527281CFD005854B5 /* Store.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2827009E9600149F0C /* Store.State.swift */; };
 		CE3576B627281D00005854B5 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2A27009E9600149F0C /* Store.swift */; };
 		CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */; };
+		CE36DC732811802F0066747E /* Settings.Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36DC722811802F0066747E /* Settings.Features.swift */; };
+		CE36DC75281183330066747E /* Settings.Blocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE36DC74281183330066747E /* Settings.Blocker.swift */; };
 		CE3C653427483276000CF55A /* NSMutableAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3C653327483276000CF55A /* NSMutableAttributedString.swift */; };
 		CE4312672736D25C00DA0F99 /* Preferences.Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312622736D25B00DA0F99 /* Preferences.Features.swift */; };
 		CE4312682736D25C00DA0F99 /* Preferences.Blocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4312632736D25B00DA0F99 /* Preferences.Blocker.swift */; };
@@ -248,6 +250,8 @@
 		CE3576AB2728096E005854B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CE3576AF27281C25005854B5 /* NSApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSApplication.swift; sourceTree = "<group>"; };
 		CE3576B127281C3F005854B5 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		CE36DC722811802F0066747E /* Settings.Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Features.swift; sourceTree = "<group>"; };
+		CE36DC74281183330066747E /* Settings.Blocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Blocker.swift; sourceTree = "<group>"; };
 		CE383745270DD0FC006A8FE7 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CE398B6F2715893200029FFC /* Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Find.swift; sourceTree = "<group>"; };
 		CE3B64FD27199CD10040AD0A /* Search.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Item.swift; sourceTree = "<group>"; };
@@ -589,6 +593,8 @@
 				CEBC745728084203002F6654 /* Session.Flow.swift */,
 				CEBC744828081E1B002F6654 /* Session.Item.swift */,
 				CEBC744428080F36002F6654 /* Session.swift */,
+				CE36DC74281183330066747E /* Settings.Blocker.swift */,
+				CE36DC722811802F0066747E /* Settings.Features.swift */,
 				CECE9CCB2810346D009AE5EA /* Settings.Info.swift */,
 				CECE9CC92810210E009AE5EA /* Settings.swift */,
 				CECE9CC728100F11009AE5EA /* Share.swift */,
@@ -1007,12 +1013,14 @@
 				CEFC997528098C8700824E49 /* Tabs.swift in Sources */,
 				CEFC997328096B9100824E49 /* Browser.Progress.swift in Sources */,
 				CEBC745028083E8B002F6654 /* Session.swift in Sources */,
+				CE36DC732811802F0066747E /* Settings.Features.swift in Sources */,
 				CE790DD5280AC07900B9E9E9 /* Message.swift in Sources */,
 				CEFC99782809A44200824E49 /* String.swift in Sources */,
 				CECE9CD028103E24009AE5EA /* About.Layer.swift in Sources */,
 				CEBC745428083EC3002F6654 /* Navigation.swift in Sources */,
 				CE561343280B207000B44EE4 /* Detail.Navigation.swift in Sources */,
 				CE0A7C032808490C00B92FC2 /* Icon.swift in Sources */,
+				CE36DC75281183330066747E /* Settings.Blocker.swift in Sources */,
 				CECE9CCC2810346D009AE5EA /* Settings.Info.swift in Sources */,
 				CED3A74E2808A0A100B15765 /* Bar.Item.swift in Sources */,
 				CEAAFB2D27009E9600149F0C /* Store.swift in Sources */,

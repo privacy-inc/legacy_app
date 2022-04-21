@@ -36,7 +36,7 @@ extension About {
                         Image(systemName: "xmark")
                             .font(.system(size: 16, weight: .light))
                             .padding(18)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(.primary)
                             .contentShape(Rectangle())
                     }
                     Spacer()

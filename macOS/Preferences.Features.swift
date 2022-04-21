@@ -42,7 +42,7 @@ extension Preferences {
                 }
                 .store(in: &subs)
             
-            let stop = Switch(title: "Stop scripts when page ready")
+            let stop = Switch(title: "Stop scripts after loaded")
             stop
                 .change
                 .sink { value in
