@@ -5,14 +5,27 @@ extension Tabs {
     struct Item: View {
         private static let height = UIScreen.main.bounds.width * 0.5
         
+        @Binding var selected: Session.Item?
         let session: Session
         let item: Session.Item
+        let animation: Namespace.ID
         let close: () -> Void
         
         var body: some View {
             ZStack(alignment: .topTrailing) {
                 Button {
-                    session.current = session.items.firstIndex(of: item)!
+                    if item.flow == .web && item.web != nil {
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            selected = item
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            session.current = session.items.firstIndex(of: item)!
+                        }
+                    } else {
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            session.current = session.items.firstIndex(of: item)!
+                        }
+                    }
                 } label: {
                     switch item.flow {
                     case .message:
@@ -34,11 +47,17 @@ extension Tabs {
                     default:
                         if let web = item.web {
                             VStack(spacing: 10) {
-                                Image(uiImage: item.thumbnail)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(maxHeight: Self.height, alignment: .top)
-                                    .modifier(Card(dark: session.dark))
+                                if selected == item {
+                                    Spacer()
+                                        .frame(height: Self.height)
+                                } else {
+                                    Image(uiImage: item.thumbnail)
+                                        .resizable()
+                                        .matchedGeometryEffect(id: "image.\(item.id)", in: animation)
+                                        .scaledToFill()
+                                        .frame(height: Self.height, alignment: .top)
+                                        .modifier(Card(dark: session.dark))
+                                }
                                 Text("\(web.title?.capped(max: 90) ?? "") \(Text(web.url?.absoluteString.domain ?? "").foregroundColor(.secondary))")
                                     .font(.caption2)
                                     .multilineTextAlignment(.leading)

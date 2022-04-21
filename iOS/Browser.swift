@@ -10,6 +10,7 @@ struct Browser: View {
         session
             .items[index]
             .web!
+            .transition(.identity)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(items: [
                     .init(icon: "slider.vertical.3") {
@@ -25,7 +26,7 @@ struct Browser: View {
                     .init(icon: "square.on.square") {
                         Task {
                             await session.items[index].web!.thumbnail()
-                            
+                            session.previous = index
                             withAnimation(.easeInOut(duration: 0.4)) {
                                 session.current = nil
                             }

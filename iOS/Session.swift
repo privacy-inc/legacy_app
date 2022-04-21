@@ -7,6 +7,7 @@ final class Session: ObservableObject {
     @Published var froob = false
     var items: [Item]
     var dark = false
+    var previous = 0
     
     init() {
         let item = Item(flow: .search(false))
@@ -31,6 +32,7 @@ final class Session: ObservableObject {
             }
             return
         }
+        
         await open(url: url, index: index)
     }
     

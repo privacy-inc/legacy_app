@@ -51,6 +51,7 @@ struct Message: View {
                         }
                     },
                     .init(icon: "square.on.square") {
+                        session.previous = index
                         withAnimation(.easeInOut(duration: 0.4)) {
                             session.current = nil
                         }

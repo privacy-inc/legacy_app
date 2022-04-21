@@ -51,7 +51,7 @@ struct Search: View {
                     
                     Task {
                         await field.session.items[field.index].web?.thumbnail()
-                        
+                        field.session.previous = field.index
                         withAnimation(.easeInOut(duration: 0.4)) {
                             field.session.current = nil
                         }
@@ -59,13 +59,19 @@ struct Search: View {
                 }
             ],
                 material: .ultraThin)
+            .animation(.easeInOut(duration: 0.6), value: field.typing)
             .sheet(isPresented: $settings, content: Settings.init)
         }
+        .transition(.move(edge: .bottom))
         .onChange(of: field.websites, perform: update(websites:))
         .onAppear {
             update(websites: field.websites)
             if focus {
                 field.becomeFirstResponder()
+                
+                if field.session.items[field.index].web == nil {
+                    field.session.items[field.index].flow = .search(false)
+                }
             }
         }
     }
