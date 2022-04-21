@@ -11,18 +11,23 @@ struct Tabs: View {
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                Text(trackers, format: .number)
-                    .font(.system(size: 30, weight: .thin))
-                    .padding(.top)
-                Image(systemName: "bolt.shield")
-                    .font(.system(size: 20, weight: .light))
+                VStack(spacing: 8) {
+                    Text(trackers, format: .number)
+                        .font(.system(size: 32, weight: .light))
+                        .padding(.top, 30)
+                    HStack {
+                        Image(systemName: "bolt.shield")
+                            .font(.system(size: 20, weight: .thin))
+                        Text("Trackers prevented")
+                            .font(.footnote)
+                    }
                     .foregroundStyle(.secondary)
-                Text("Trackers prevented")
-                    .font(.footnote)
-                    .foregroundStyle(.tertiary)
+                }
+                .padding(.bottom)
                 
                 if items.first?.isEmpty == true {
                     Label("No tabs", systemImage: "square.dashed")
+                        .matchedGeometryEffect(id: "close", in: animation)
                         .font(.callout)
                         .imageScale(.large)
                         .foregroundStyle(.secondary)
@@ -35,12 +40,13 @@ struct Tabs: View {
                             update(tabs: [])
                         }
                     }
+                    .matchedGeometryEffect(id: "close", in: animation)
                     .font(.footnote)
                     .buttonStyle(.bordered)
                     .buttonBorderShape(.capsule)
                     .tint(.secondary)
                     .foregroundStyle(.secondary)
-                    .padding()
+                    .padding(.vertical, 30)
                     
                     HStack(alignment: .top, spacing: 9) {
                         ForEach(0 ..< items.count, id: \.self) { index in

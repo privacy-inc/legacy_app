@@ -48,7 +48,7 @@ final class Landing: NSView, NSMenuDelegate {
             .sink {
                 let view = Vibrant(layer: false)
                 view.translatesAutoresizingMaskIntoConstraints = true
-                view.frame.size = .init(width: 200, height: 200)
+                view.frame.size = .init(width: 260, height: 180)
                 
                 let title = Text(vibrancy: false)
                 title.font = .systemFont(ofSize: 45, weight: .thin)
@@ -56,25 +56,25 @@ final class Landing: NSView, NSMenuDelegate {
                 view.addSubview(title)
                 
                 let icon = NSImageView(image: .init(systemSymbolName: "bolt.shield", accessibilityDescription: nil) ?? .init())
-                icon.symbolConfiguration = .init(pointSize: 26, weight: .light)
+                icon.symbolConfiguration = .init(pointSize: 20, weight: .light)
                     .applying(.init(hierarchicalColor: .secondaryLabelColor))
                 icon.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(icon)
                 
                 let description = Text(vibrancy: false)
-                description.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .regular)
-                description.textColor = .tertiaryLabelColor
+                description.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular)
+                description.textColor = .secondaryLabelColor
                 description.stringValue = "Trackers prevented"
                 view.addSubview(description)
                 
-                title.bottomAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+                title.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20).isActive = true
                 title.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
                 
                 icon.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12).isActive = true
-                icon.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+                icon.rightAnchor.constraint(equalTo: description.leftAnchor, constant: -4).isActive = true
                 
-                description.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-                description.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 12).isActive = true
+                description.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 10).isActive = true
+                description.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
                 
                 NSPopover().show(view, from: trackers, edge: .maxY)
                 
