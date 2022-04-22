@@ -16,7 +16,7 @@ extension Settings {
                         .foregroundColor(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: 500)
-                        .padding()
+                        .padding(30)
                 }
                 .padding(.bottom, 30)
             }

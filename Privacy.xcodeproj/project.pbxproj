@@ -148,6 +148,7 @@
 		CECE9CD22810660C009AE5EA /* About.Plus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE9CD12810660C009AE5EA /* About.Plus.swift */; };
 		CED3A74C2808989200B15765 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED3A74B2808989200B15765 /* Field.swift */; };
 		CED3A74E2808A0A100B15765 /* Bar.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED3A74D2808A0A100B15765 /* Bar.Item.swift */; };
+		CEE60B642812AD7F0027E99A /* Froob.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE60B632812AD7F0027E99A /* Froob.swift */; };
 		CEE9B15C2739481A0086BD6C /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9B15B2739481A0086BD6C /* Detail.swift */; };
 		CEE9B15E273957C20086BD6C /* Control.Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9B15D273957C20086BD6C /* Control.Label.swift */; };
 		CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBA5C2272FFA540079928E /* NSMenu.swift */; };
@@ -351,6 +352,7 @@
 		CECE9CD12810660C009AE5EA /* About.Plus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.Plus.swift; sourceTree = "<group>"; };
 		CED3A74B2808989200B15765 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		CED3A74D2808A0A100B15765 /* Bar.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Item.swift; sourceTree = "<group>"; };
+		CEE60B632812AD7F0027E99A /* Froob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.swift; sourceTree = "<group>"; };
 		CEE9B15B2739481A0086BD6C /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		CEE9B15D273957C20086BD6C /* Control.Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Label.swift; sourceTree = "<group>"; };
 		CEEBA5C2272FFA540079928E /* NSMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 				CED3A74B2808989200B15765 /* Field.swift */,
 				CE36DC7828118F3A0066747E /* Forget.Content.swift */,
 				CE36DC7628118E0E0066747E /* Forget.swift */,
+				CEE60B632812AD7F0027E99A /* Froob.swift */,
 				CE6FE9A627031D9C00403ADA /* Icon.swift */,
 				CE790DD4280AC07900B9E9E9 /* Message.swift */,
 				CE9B93F326F89F1E005E1D7F /* Navigation.swift */,
@@ -899,6 +902,7 @@
 				CE790DD5280AC07900B9E9E9 /* Message.swift in Sources */,
 				CEFC99782809A44200824E49 /* String.swift in Sources */,
 				CECE9CD028103E24009AE5EA /* About.Layer.swift in Sources */,
+				CEE60B642812AD7F0027E99A /* Froob.swift in Sources */,
 				CEBC745428083EC3002F6654 /* Navigation.swift in Sources */,
 				CE561343280B207000B44EE4 /* Detail.Navigation.swift in Sources */,
 				CE0A7C032808490C00B92FC2 /* Icon.swift in Sources */,

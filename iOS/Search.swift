@@ -12,6 +12,9 @@ struct Search: View {
             field
                 .equatable()
                 .frame(height: 1)
+            
+            Froob()
+            
             if items.first?.isEmpty == false {
                 HStack(alignment: .top, spacing: 9) {
                     ForEach(0 ..< items.count, id: \.self) { index in
