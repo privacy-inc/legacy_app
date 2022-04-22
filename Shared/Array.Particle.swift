@@ -1,6 +1,6 @@
 extension Array where Element == Particle {
-    func tick(particles: Self, width: Double, height: Double) -> Self {
-        var particles = particles
+    func tick(width: Double, height: Double) -> Self {
+        var particles = self
             .compactMap {
                 $0.tick()
             }

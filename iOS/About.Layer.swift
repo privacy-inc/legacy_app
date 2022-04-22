@@ -39,6 +39,6 @@ private final class Model: ObservableObject {
     @Published private(set) var particles = [Particle]()
     
     func tick(date: Date, size: CGSize) {
-        particles = particles.tick(particles: particles, width: size.width, height: size.height)
+        particles = particles.tick(width: size.width, height: size.height)
     }
 }

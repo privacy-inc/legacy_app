@@ -205,9 +205,9 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
                 .font: NSFont.preferredFont(forTextStyle: .title3),
                 .foregroundColor: NSColor.labelColor]))
             $0.newLine()
-            $0.append(.with(markdown: Copy.froob, attributes: [
-                .font: NSFont.preferredFont(forTextStyle: .body),
-                .foregroundColor: NSColor.secondaryLabelColor]))
+//            $0.append(.with(markdown: Copy.froob, attributes: [
+//                .font: NSFont.preferredFont(forTextStyle: .body),
+//                .foregroundColor: NSColor.secondaryLabelColor]))
         }
         
         let action = Control.Title("Continue", color: .labelColor, layer: true)
