@@ -61,7 +61,7 @@ extension Forget {
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .symbolRenderingMode(.hierarchical)
-                        .font(.system(size: 26, weight: .regular))
+                        .font(.system(size: 26, weight: .light))
                         .padding(16)
                         .foregroundStyle(.secondary)
                         .contentShape(Rectangle())

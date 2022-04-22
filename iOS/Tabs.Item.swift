@@ -85,7 +85,7 @@ extension Tabs {
                     Button(action: close) {
                         Image(systemName: "xmark")
                             .foregroundColor(.secondary)
-                            .font(.system(size: 15, weight: .light))
+                            .font(.system(size: 13, weight: .regular))
                             .padding(14)
                             .contentShape(Rectangle())
                     }
@@ -93,7 +93,7 @@ extension Tabs {
                     Circle()
                         .fill(Color(.tertiarySystemBackground))
                         .frame(width: 32, height: 32)
-                        .padding(.trailing, 10.5)
+                        .padding(.trailing, 11)
                         .padding(.top, 10)
                         .shadow(color: .black.opacity(session.dark ? 1 : 0.4), radius: 2)
                         .allowsHitTesting(false)
@@ -101,8 +101,8 @@ extension Tabs {
                     Button(action: close) {
                         Image(systemName: "xmark")
                             .foregroundColor(.secondary)
-                            .font(.system(size: 15, weight: .light))
-                            .padding(19)
+                            .font(.system(size: 13, weight: .regular))
+                            .padding(20)
                             .contentShape(Rectangle())
                     }
                 }

@@ -82,8 +82,8 @@ extension About {
                                                     learn = false
                                                 } label: {
                                                     Image(systemName: "xmark")
-                                                        .font(.system(size: 16, weight: .light))
-                                                        .padding(4)
+                                                        .font(.system(size: 12, weight: .regular))
+                                                        .padding(6)
                                                         .padding(.leading)
                                                         .foregroundStyle(.secondary)
                                                         .contentShape(Rectangle())

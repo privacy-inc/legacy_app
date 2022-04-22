@@ -24,7 +24,7 @@ extension Detail {
                             .padding(.top, 50)
                     } else {
                         Spacer()
-                            .frame(height: 20)
+                            .frame(height: 30)
                     }
                     
                     if let domain = url?.absoluteString.domain {
@@ -78,7 +78,7 @@ extension Detail {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
-                            .font(.system(size: 16, weight: .light))
+                            .font(.system(size: 16, weight: .regular))
                             .padding(18)
                             .contentShape(Rectangle())
                     }
