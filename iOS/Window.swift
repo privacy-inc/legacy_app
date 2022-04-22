@@ -10,17 +10,21 @@ struct Window: View {
             .onChange(of: scheme) {
                 session.dark = $0 == .dark
             }
-            .onOpenURL { url in
+            .onOpenURL {
+                UIApplication.shared.hide()
+                guard let url = URL(string: $0.absoluteString.replacingOccurrences(of: "privacy://", with: "https://")) else { return }
+                
                 cloud
                     .ready
                     .notify(queue: .main) {
-                        print("open url \(url)")
-//                        UIApplication.shared.hide()
-//                        session.flow = .tabs
-//                        Task
-//                            .detached(priority: .utility) {
-////                                await status.url(url: url)
-//                            }
+                        Task {
+                            if let current = session.current,
+                               session.items[current].web == nil {
+                                await session.open(url: url, index: current)
+                            } else {
+                                await session.open(url: url, change: true)
+                            }
+                        }
                     }
             }
             .task {

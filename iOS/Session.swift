@@ -39,11 +39,11 @@ final class Session: ObservableObject {
     @MainActor func open(url: URL, change: Bool) async {
         items.append(.init(flow: .web))
         
+        await open(url: url, index: items.count - 1)
+        
         if change {
             current = items.count - 1
         }
-        
-        await open(url: url, index: items.count - 1)
     }
     
     @MainActor func open(url: URL, index: Int) async {

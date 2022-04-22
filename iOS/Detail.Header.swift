@@ -22,6 +22,9 @@ extension Detail {
                             .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                             .frame(width: 50, height: 50)
                             .padding(.top, 50)
+                    } else {
+                        Spacer()
+                            .frame(height: 20)
                     }
                     
                     if let domain = url?.absoluteString.domain {
