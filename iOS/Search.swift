@@ -6,6 +6,7 @@ struct Search: View {
     let focus: Bool
     @State private var items = [[Website]]()
     @State private var settings = false
+    @AppStorage(Defaults.premium.rawValue) private var premium = false
     
     var body: some View {
         ScrollView {
@@ -13,7 +14,9 @@ struct Search: View {
                 .equatable()
                 .frame(height: 1)
             
-            Froob()
+            if field.session.froob && !premium {
+                Froob()
+            }
             
             if items.first?.isEmpty == false {
                 HStack(alignment: .top, spacing: 9) {
