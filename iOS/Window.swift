@@ -48,8 +48,6 @@ struct Window: View {
                         _ = await UNUserNotificationCenter.request()
                     }
                 }
-                
-                session.froob = true
             }
     }
 }
