@@ -22,6 +22,7 @@ extension Detail {
             .padding(.vertical, 12)
             .padding(.horizontal, 30)
             .toggleStyle(SwitchToggleStyle(tint: .secondary))
+            
             if divider {
                 Divider()
                     .padding(.horizontal, 30)

@@ -219,35 +219,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		CE0816542705C56B00E2D44E /* Tab.Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.swift; sourceTree = "<group>"; };
 		CE09C06127FF15A20032A303 /* NSWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSWindow.swift; sourceTree = "<group>"; };
 		CE0A7C012808483E00B92FC2 /* Search.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Item.swift; sourceTree = "<group>"; };
-		CE0F2D4827074C5400B63060 /* Landing.Edit.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.Content.swift; sourceTree = "<group>"; };
 		CE120D8C27328C4F00DE517E /* Shortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcut.swift; sourceTree = "<group>"; };
 		CE12DAFB2721AEF7005870BF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		CE12DAFD2721AEF7005870BF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		CE17244826F8E9B300C2CED5 /* Status.Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.Flow.swift; sourceTree = "<group>"; };
-		CE17244A26F8EEA500C2CED5 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
-		CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.swift; sourceTree = "<group>"; };
-		CE17245026F909AC00C2CED5 /* Landing.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.swift; sourceTree = "<group>"; };
 		CE1936AD272804CF00476227 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1936AF272804CF00476227 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE1936B3272804D100476227 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE1936B8272804D100476227 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		CE19EC902736B32500A412FC /* Control.Capsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Capsule.swift; sourceTree = "<group>"; };
-		CE1D9C3126FB6883004F8B6B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		CE1DB23D28044B1E00128BCF /* Shortcut.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcut.Item.swift; sourceTree = "<group>"; };
-		CE1ECE41271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.Other.swift; sourceTree = "<group>"; };
-		CE22EAF72720224E00A9B29B /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
-		CE22EAF927202EAF00A9B29B /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
-		CE22EAFB272037BE00A9B29B /* Plus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.swift; sourceTree = "<group>"; };
-		CE22EAFD2720390400A9B29B /* Plus.Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Banner.swift; sourceTree = "<group>"; };
 		CE25B83B27F9B51A003FCB31 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		CE25B83D27F9B542003FCB31 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		CE25B83F27F9B55B003FCB31 /* ListInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInfo.swift; sourceTree = "<group>"; };
-		CE29640B2726AFF5000C3E5B /* Window.Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Modal.swift; sourceTree = "<group>"; };
-		CE29640F2726BA84000C3E5B /* Trackers.Stand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Stand.swift; sourceTree = "<group>"; };
-		CE2964112726D39F000C3E5B /* Tab.Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Header.swift; sourceTree = "<group>"; };
 		CE3576A72728091D005854B5 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		CE3576A927280938005854B5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CE3576AB2728096E005854B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -258,18 +243,7 @@
 		CE36DC7628118E0E0066747E /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
 		CE36DC7828118F3A0066747E /* Forget.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.Content.swift; sourceTree = "<group>"; };
 		CE36DC7A281199FB0066747E /* Control.Prominent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Prominent.swift; sourceTree = "<group>"; };
-		CE383745270DD0FC006A8FE7 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
-		CE398B6F2715893200029FFC /* Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Find.swift; sourceTree = "<group>"; };
-		CE3B64FD27199CD10040AD0A /* Search.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Item.swift; sourceTree = "<group>"; };
-		CE3B64FF2719B1B60040AD0A /* Settings.Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Notifications.swift; sourceTree = "<group>"; };
-		CE3B65012719B23A0040AD0A /* Settings.Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Features.swift; sourceTree = "<group>"; };
 		CE3C653327483276000CF55A /* NSMutableAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedString.swift; sourceTree = "<group>"; };
-		CE4047E627070BD800E101D1 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
-		CE4047E82707115800E101D1 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
-		CE4047EA270721C000E101D1 /* Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmarks.swift; sourceTree = "<group>"; };
-		CE4047EC2707235000E101D1 /* Listed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listed.swift; sourceTree = "<group>"; };
-		CE4047EE2707247400E101D1 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
-		CE4047F0270726BA00E101D1 /* Listed.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listed.Remote.swift; sourceTree = "<group>"; };
 		CE4312622736D25B00DA0F99 /* Preferences.Features.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.Features.swift; sourceTree = "<group>"; };
 		CE4312632736D25B00DA0F99 /* Preferences.Blocker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.Blocker.swift; sourceTree = "<group>"; };
 		CE4312642736D25B00DA0F99 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -281,25 +255,15 @@
 		CE46B4E126F797F700A5B5BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE46B4EA26F7982200A5B5BB /* Colours.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colours.xcassets; sourceTree = "<group>"; };
 		CE46B4EF26F79B2200A5B5BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		CE470A6326F9DE8F002D560A /* Landing.Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Section.swift; sourceTree = "<group>"; };
 		CE470A6526FA0AEB002D560A /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
-		CE470A6726FA0F3C002D560A /* Landing.Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Trackers.swift; sourceTree = "<group>"; };
-		CE470A6926FA10CB002D560A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CE470A6C26FA1DB2002D560A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CE470A6E26FA2284002D560A /* Landing.Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Activity.swift; sourceTree = "<group>"; };
-		CE480E33271C802C00774E5C /* Landing.Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.swift; sourceTree = "<group>"; };
-		CE480E35271C835000774E5C /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
-		CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Item.swift; sourceTree = "<group>"; };
 		CE52EDCF280578D50048F3F0 /* Secure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secure.swift; sourceTree = "<group>"; };
-		CE532769271B13FA005C55D5 /* Status.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.Item.swift; sourceTree = "<group>"; };
-		CE54E13A27133A390013541F /* Options.Content.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.Action.swift; sourceTree = "<group>"; };
 		CE54EDBE2722F6D9006588DA /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE54EDC32722F6D9006588DA /* App.Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.Delegate.swift; sourceTree = "<group>"; };
 		CE54EDD1272301F6006588DA /* watchOS Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "watchOS Extension.entitlements"; sourceTree = "<group>"; };
 		CE54EDD2272301F8006588DA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		CE561342280B207000B44EE4 /* Detail.Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Navigation.swift; sourceTree = "<group>"; };
 		CE561344280B34E300B44EE4 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
-		CE571DD02705DC270032C8A8 /* Options.Content.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.Control.swift; sourceTree = "<group>"; };
 		CE5D41B0272C3D8800AEBE0F /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
 		CE5D41B5272C484900AEBE0F /* Tab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		CE5D41BB272C5CDC00AEBE0F /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
@@ -309,18 +273,10 @@
 		CE5D669A2801A61800A05B6A /* Menu.CopyLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.CopyLink.swift; sourceTree = "<group>"; };
 		CE5D669C2801C64B00A05B6A /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CE5F1278272EB93E002D0AD2 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
-		CE5F70C42721A41100C7203B /* Froob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Froob.swift; sourceTree = "<group>"; };
-		CE63A0AF2719C34D00756E02 /* Settings.Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Navigation.swift; sourceTree = "<group>"; };
-		CE63A0B32719CCB800756E02 /* Settings.Javascript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Javascript.swift; sourceTree = "<group>"; };
-		CE63A0B52719CD6E00756E02 /* Settings.Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Location.swift; sourceTree = "<group>"; };
-		CE63A0B72719CF6F00756E02 /* Settings.Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Browser.swift; sourceTree = "<group>"; };
-		CE63F093271453CC00918E54 /* Options.Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Share.swift; sourceTree = "<group>"; };
 		CE660AC1273AA978009A800E /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		CE69DA762806EC1B0073FFD5 /* Learn.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Learn.Item.swift; sourceTree = "<group>"; };
 		CE6BFE9327380AD000ECF118 /* Segmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segmented.swift; sourceTree = "<group>"; };
 		CE6FE9A627031D9C00403ADA /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
-		CE6FE9A827031FCB00403ADA /* Landing.History.Item.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.History.Item.Remote.swift; sourceTree = "<group>"; };
-		CE6FE9AA2703345C00403ADA /* Tabs.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Item.swift; sourceTree = "<group>"; };
 		CE742FFD2729759900F5F5B8 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
 		CE742FFF272981EA00F5F5B8 /* CollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionItem.swift; sourceTree = "<group>"; };
 		CE743001272981EA00F5F5B8 /* CollectionCellState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCellState.swift; sourceTree = "<group>"; };
@@ -331,7 +287,6 @@
 		CE74300F272983CB00F5F5B8 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		CE743013272987E700F5F5B8 /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		CE770FA427E4C4B5008A0F88 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		CE78C92B27AEBFE80033E510 /* Landing.Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Forget.swift; sourceTree = "<group>"; };
 		CE790DD4280AC07900B9E9E9 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		CE790DD6280AD39F00B9E9E9 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		CE790DD9280AE7DE00B9E9E9 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
@@ -340,11 +295,9 @@
 		CE790DE2280AEF4900B9E9E9 /* Detail.Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Header.swift; sourceTree = "<group>"; };
 		CE790DE5280AF88900B9E9E9 /* Detail.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Action.swift; sourceTree = "<group>"; };
 		CE790DE8280AFC4D00B9E9E9 /* Detail.Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Switch.swift; sourceTree = "<group>"; };
-		CE7DAB7526FB42DF00BEAA0F /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		CE7DAB7726FB49CE00BEAA0F /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CE82C6FD27F4991200C5C46E /* Tab.Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Counter.swift; sourceTree = "<group>"; };
 		CE83061C280EB78D0077BA14 /* Browser.Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.Features.swift; sourceTree = "<group>"; };
-		CE8422C627171D83007D7A0B /* Recover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recover.swift; sourceTree = "<group>"; };
 		CE84E62D273D4BD60071429B /* Control.Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Symbol.swift; sourceTree = "<group>"; };
 		CE8AF27B26FF698A00F6655F /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		CE8BA2EC272D72E500E2D73F /* Tab.Off.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Off.swift; sourceTree = "<group>"; };
@@ -353,26 +306,14 @@
 		CE8BA2F6272D9B3E00E2D73F /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CE8BA2F8272D9B6300E2D73F /* Search.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Cell.swift; sourceTree = "<group>"; };
 		CE8BA2FA272D9B7700E2D73F /* Search.Cell.Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Cell.Editor.swift; sourceTree = "<group>"; };
-		CE8DFC1C2707424D00229E92 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		CE8FC4992740180000BE4CED /* Web.Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Location.swift; sourceTree = "<group>"; };
 		CE90BB17271B363200F59AF6 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
-		CE91AA24270878E10061A512 /* Landing.Edit.Content.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.Content.Item.swift; sourceTree = "<group>"; };
-		CE91AA26270882790061A512 /* Landing.Edit.Representable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Edit.Representable.swift; sourceTree = "<group>"; };
-		CE9424EA270F4A06002225CE /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		CE957E8227492D02001DEE19 /* Vibrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vibrant.swift; sourceTree = "<group>"; };
 		CE99B050272167660077BAC6 /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		CE99B052272173EB0077BAC6 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		CE99B053272178360077BAC6 /* Store.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.Item.swift; sourceTree = "<group>"; };
-		CE9B636F26FC8B6200CD4DCE /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
-		CE9B637126FC8BA700CD4DCE /* Search.Representable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Representable.swift; sourceTree = "<group>"; };
-		CE9B637526FCA05800CD4DCE /* Search.Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Header.swift; sourceTree = "<group>"; };
-		CE9B93EF26F89BA6005E1D7F /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
-		CE9B93F126F89E6D005E1D7F /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		CE9B93F326F89F1E005E1D7F /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
-		CE9DFA0C2706136500D69810 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE9DFA0E27061D5400D69810 /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
-		CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.swift; sourceTree = "<group>"; };
-		CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.Bookmarks.Item.Remote.swift; sourceTree = "<group>"; };
 		CEA2B28D28003F5700E2F201 /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
 		CEA2B28F2800435B00E2F201 /* Control.Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Title.swift; sourceTree = "<group>"; };
 		CEA2B291280047D600E2F201 /* NSPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPopover.swift; sourceTree = "<group>"; };
@@ -410,8 +351,6 @@
 		CECE9CD12810660C009AE5EA /* About.Plus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.Plus.swift; sourceTree = "<group>"; };
 		CED3A74B2808989200B15765 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		CED3A74D2808A0A100B15765 /* Bar.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Item.swift; sourceTree = "<group>"; };
-		CED63AE927047E5A001C8183 /* Options.Representable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Representable.swift; sourceTree = "<group>"; };
-		CED63AEB27048150001C8183 /* Options.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.Content.swift; sourceTree = "<group>"; };
 		CEE9B15B2739481A0086BD6C /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		CEE9B15D273957C20086BD6C /* Control.Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Label.swift; sourceTree = "<group>"; };
 		CEEBA5C2272FFA540079928E /* NSMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
@@ -545,7 +484,6 @@
 		CE46B4CF26F797E900A5B5BB = {
 			isa = PBXGroup;
 			children = (
-				CEBC744C28083E48002F6654 /* Legacy */,
 				CEAAFB2127009BE100149F0C /* Frameworks */,
 				CE46B4DC26F797F600A5B5BB /* iOS */,
 				CE1936AE272804CF00476227 /* macOS */,
@@ -651,74 +589,6 @@
 				CE12DAFD2721AEF7005870BF /* SwiftUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CEBC744C28083E48002F6654 /* Legacy */ = {
-			isa = PBXGroup;
-			children = (
-				CE22EAF72720224E00A9B29B /* About.swift */,
-				CE4047E82707115800E101D1 /* Action.swift */,
-				CE9424EA270F4A06002225CE /* Activity.swift */,
-				CE4047EA270721C000E101D1 /* Bookmarks.swift */,
-				CE470A6926FA10CB002D560A /* Card.swift */,
-				CE398B6F2715893200029FFC /* Find.swift */,
-				CE5F70C42721A41100C7203B /* Froob.swift */,
-				CE8DFC1C2707424D00229E92 /* History.swift */,
-				CE22EAF927202EAF00A9B29B /* Info.swift */,
-				CE7DAB7526FB42DF00BEAA0F /* Int.swift */,
-				CE470A6E26FA2284002D560A /* Landing.Activity.swift */,
-				CE1ECE41271B229E00A4329A /* Landing.Bookmarks.Item.Other.swift */,
-				CE9DFA122706285B00D69810 /* Landing.Bookmarks.Item.Remote.swift */,
-				CE9DFA102706275C00D69810 /* Landing.Bookmarks.Item.swift */,
-				CE17244E26F9094700C2CED5 /* Landing.Bookmarks.swift */,
-				CE91AA24270878E10061A512 /* Landing.Edit.Content.Item.swift */,
-				CE0F2D4827074C5400B63060 /* Landing.Edit.Content.swift */,
-				CE91AA26270882790061A512 /* Landing.Edit.Representable.swift */,
-				CE480E33271C802C00774E5C /* Landing.Edit.swift */,
-				CE78C92B27AEBFE80033E510 /* Landing.Forget.swift */,
-				CE6FE9A827031FCB00403ADA /* Landing.History.Item.Remote.swift */,
-				CE4A6DAC2702289000458E9B /* Landing.History.Item.swift */,
-				CE17245026F909AC00C2CED5 /* Landing.History.swift */,
-				CE470A6326F9DE8F002D560A /* Landing.Section.swift */,
-				CE17244A26F8EEA500C2CED5 /* Landing.swift */,
-				CE470A6726FA0F3C002D560A /* Landing.Trackers.swift */,
-				CE4047F0270726BA00E101D1 /* Listed.Remote.swift */,
-				CE4047EC2707235000E101D1 /* Listed.swift */,
-				CE54E13A27133A390013541F /* Options.Content.Action.swift */,
-				CE571DD02705DC270032C8A8 /* Options.Content.Control.swift */,
-				CED63AEB27048150001C8183 /* Options.Content.swift */,
-				CED63AE927047E5A001C8183 /* Options.Representable.swift */,
-				CE63F093271453CC00918E54 /* Options.Share.swift */,
-				CE480E35271C835000774E5C /* Options.swift */,
-				CE22EAFD2720390400A9B29B /* Plus.Banner.swift */,
-				CE22EAFB272037BE00A9B29B /* Plus.swift */,
-				CE8422C627171D83007D7A0B /* Recover.swift */,
-				CE9B637526FCA05800CD4DCE /* Search.Header.swift */,
-				CE3B64FD27199CD10040AD0A /* Search.Item.swift */,
-				CE9B637126FC8BA700CD4DCE /* Search.Representable.swift */,
-				CE9B636F26FC8B6200CD4DCE /* Search.swift */,
-				CE63A0B72719CF6F00756E02 /* Settings.Browser.swift */,
-				CE3B65012719B23A0040AD0A /* Settings.Features.swift */,
-				CE63A0B32719CCB800756E02 /* Settings.Javascript.swift */,
-				CE63A0B52719CD6E00756E02 /* Settings.Location.swift */,
-				CE63A0AF2719C34D00756E02 /* Settings.Navigation.swift */,
-				CE3B64FF2719B1B60040AD0A /* Settings.Notifications.swift */,
-				CE9DFA0C2706136500D69810 /* Settings.swift */,
-				CE4047E627070BD800E101D1 /* Sidebar.swift */,
-				CE17244826F8E9B300C2CED5 /* Status.Flow.swift */,
-				CE532769271B13FA005C55D5 /* Status.Item.swift */,
-				CE1D9C3126FB6883004F8B6B /* Status.swift */,
-				CE2964112726D39F000C3E5B /* Tab.Header.swift */,
-				CE0816542705C56B00E2D44E /* Tab.Loading.swift */,
-				CE9B93EF26F89BA6005E1D7F /* Tab.swift */,
-				CE6FE9AA2703345C00403ADA /* Tabs.Item.swift */,
-				CE9B93F126F89E6D005E1D7F /* Tabs.swift */,
-				CE29640F2726BA84000C3E5B /* Trackers.Stand.swift */,
-				CE383745270DD0FC006A8FE7 /* Trackers.swift */,
-				CE4047EE2707247400E101D1 /* UIImage.swift */,
-				CE29640B2726AFF5000C3E5B /* Window.Modal.swift */,
-			);
-			path = Legacy;
 			sourceTree = "<group>";
 		};
 		CEEE59CE2721B6770038952A /* watchOS */ = {

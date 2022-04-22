@@ -23,7 +23,6 @@ final class Web: Webview, UIViewRepresentable {
          dark: Bool) {
         
         self.session = session
-        print("web")
         let configuration = WKWebViewConfiguration()
         configuration.dataDetectorTypes = [.link]
         configuration.defaultWebpagePreferences.preferredContentMode = .mobile
@@ -64,7 +63,6 @@ final class Web: Webview, UIViewRepresentable {
     
     deinit {
         scrollView.delegate = nil
-        print("web gone")
     }
     
     func thumbnail() async {
