@@ -28,24 +28,28 @@ struct Window: View {
                     }
             }
             .task {
-                cloud.ready.notify(queue: .main) {
-                    cloud.pull.send()
-                }
-                
                 session.dark = scheme == .dark
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    switch Defaults.action {
-                    case .rate:
-                        UIApplication.shared.review()
-                    case .froob:
-                        session.froob = true
-                    case .none:
-                        break
-                    }
+                cloud.ready.notify(queue: .main) {
+                    cloud.pull.send()
                     
-                    Task {
-                        _ = await UNUserNotificationCenter.request()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        switch Defaults.action {
+                        case .rate:
+                            UIApplication.shared.review()
+                        case .froob:
+                            withAnimation(.easeInOut(duration: 0.4)) {
+                                session.froob = true
+                            }
+                        case .none:
+                            break
+                        }
+                        
+                        Task
+                            .detached {
+                                _ = await UNUserNotificationCenter.request()
+                                await store.launch()
+                            }
                     }
                 }
             }

@@ -14,7 +14,7 @@ struct Search: View {
                 .equatable()
                 .frame(height: 1)
             
-            if field.session.froob && !premium {
+            if field.session.froob && !premium && !field.typing {
                 Froob()
             }
             

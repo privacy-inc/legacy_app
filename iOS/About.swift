@@ -11,9 +11,9 @@ struct About: View {
                 .equatable()
             
             Rectangle()
-                .fill(LinearGradient(colors: [.init(white: 1, opacity: 0),
-                                              .init(white: 1, opacity: 0.85),
-                                              .init(white: 1, opacity: 0.95)], startPoint: .top, endPoint: .bottom))
+                .fill(LinearGradient(colors: [.init(.systemBackground.withAlphaComponent(0)),
+                                              .init(.systemBackground.withAlphaComponent(0.85)),
+                                              .init(.systemBackground.withAlphaComponent(0.95))], startPoint: .top, endPoint: .bottom))
                 .edgesIgnoringSafeArea(.all)
             
             VStack(alignment: .trailing) {

@@ -6,7 +6,7 @@ extension Control {
         init(_ title: String) {
             let text = Text(vibrancy: false)
             text.stringValue = title
-            text.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .medium)
+            text.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .semibold)
             text.textColor = .white
             
             super.init(layer: true)
@@ -24,7 +24,7 @@ extension Control {
             
             switch state {
             case .highlighted, .pressed:
-                layer!.backgroundColor = NSColor.systemBlue.withAlphaComponent(0.8).cgColor
+                layer!.backgroundColor = NSColor.systemBlue.withAlphaComponent(0.95).cgColor
             default:
                 layer!.backgroundColor = NSColor.systemBlue.cgColor
             }

@@ -4,6 +4,7 @@ import Specs
 
 final class Landing: NSView, NSMenuDelegate {
     private weak var list: List!
+    private weak var froob: NSView?
     private var subs = Set<AnyCancellable>()
     private let session: Session
 
@@ -24,6 +25,72 @@ final class Landing: NSView, NSMenuDelegate {
         self.list = list
         list.menu = .init()
         list.menu!.delegate = self
+        
+        (NSApp as! App)
+            .froob
+            .sink { [weak self] in
+                if $0 && !Defaults.isPremium {
+                    list.top.value = 200
+                    
+                    var froob = self?.froob
+                    
+                    if froob == nil {
+                        froob = NSView()
+                        froob!.wantsLayer = true
+                        froob!.translatesAutoresizingMaskIntoConstraints = false
+                        
+                        let title = Text(vibrancy: true)
+                        title.attributedStringValue = .make(alignment: .center) {
+                            $0.append(.make("Support Privacy Browser", attributes: [
+                                .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .medium),
+                                .foregroundColor: NSColor.labelColor]))
+                            $0.newLine()
+                            $0.append(.make("Give your support to the independent team behind this browser.", attributes: [
+                                .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular),
+                                .foregroundColor: NSColor.secondaryLabelColor]))
+                        }
+                        froob!.addSubview(title)
+                        
+                        let control = Control.Prominent("Privacy Plus")
+                        froob!.addSubview(control)
+                        self?.add(control
+                            .click
+                            .sink {
+                                NSApp.orderFrontStandardAboutPanel(nil)
+                            })
+                        
+                        froob!.widthAnchor.constraint(equalToConstant: 300).isActive = true
+                        froob!.heightAnchor.constraint(equalToConstant: 170).isActive = true
+                        
+                        title.topAnchor.constraint(equalTo: froob!.topAnchor).isActive = true
+                        title.centerXAnchor.constraint(equalTo: froob!.centerXAnchor).isActive = true
+                        title.widthAnchor.constraint(lessThanOrEqualToConstant: 260).isActive = true
+                        
+                        control.widthAnchor.constraint(equalToConstant: 260).isActive = true
+                        control.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20).isActive = true
+                        control.centerXAnchor.constraint(equalTo: froob!.centerXAnchor).isActive = true
+                    }
+                    
+                    froob!.alphaValue = 0
+                    list.documentView!.addSubview(froob!)
+                    
+                    froob!.topAnchor.constraint(equalTo: list.documentView!.topAnchor, constant: 30).isActive = true
+                    froob!.centerXAnchor.constraint(equalTo: list.documentView!.centerXAnchor).isActive = true
+                    
+                    NSAnimationContext
+                        .runAnimationGroup {
+                            $0.allowsImplicitAnimation = true
+                            $0.duration = 1
+                            froob!.alphaValue = 1
+                        }
+                    
+                } else {
+                    list.top.value = 15
+                    self?.froob?.removeFromSuperview()
+                }
+            }
+            .store(in: &subs)
+        
         addSubview(list)
         
         let configure = Control.Symbol("slider.vertical.3", point: 18, size: 40, weight: .light, hierarchical: true)
@@ -137,6 +204,10 @@ final class Landing: NSView, NSMenuDelegate {
         if with.clickCount == 1 {
             window?.makeFirstResponder(self)
         }
+    }
+    
+    private func add(_ sub: AnyCancellable) {
+        subs.insert(sub)
     }
     
     @objc private func open() {

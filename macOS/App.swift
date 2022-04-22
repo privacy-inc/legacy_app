@@ -1,12 +1,17 @@
 import AppKit
 import UserNotifications
+import StoreKit
+import Combine
+import Specs
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate, UNUserNotificationCenterDelegate {
+    let froob = CurrentValueSubject<_, Never>(false)
+    
     required init?(coder: NSCoder) { nil }
     override init() {
         super.init()
         delegate = self
-        
+
         NSAppleEventManager.shared().setEventHandler(
             self,
             andSelector: #selector(handle(_:_:)),
@@ -28,11 +33,24 @@ import UserNotifications
             
             self.newWindow()
             
-            Task
-                .detached {
-                    _ = await UNUserNotificationCenter.request()
-                    await store.launch()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                switch Defaults.action {
+                case .rate:
+                    SKStoreReviewController.requestReview()
+                case .froob:
+                    self.froob.value = true
+                case .none:
+                    break
                 }
+                
+                self.froob.value = true
+                
+                Task
+                    .detached {
+                        _ = await UNUserNotificationCenter.request()
+                        await store.launch()
+                    }
+            }
         }
     }
     

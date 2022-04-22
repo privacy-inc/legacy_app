@@ -35,7 +35,7 @@ extension About {
                         .foregroundStyle(.secondary)
                         .padding(.bottom, 2)
                         
-                        Text("Contribute to research\nand development of\nPrivacy Browser.")
+                        Text("Sponsor research\nand development of\nPrivacy Browser.")
                             .font(.body.weight(.medium))
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
@@ -46,7 +46,7 @@ extension About {
                             }
                         } label: {
                             Text("Support Now")
-                                .font(.callout.weight(.medium))
+                                .font(.callout.weight(.semibold))
                                 .frame(minWidth: 260)
                                 .frame(minHeight: 28)
                         }

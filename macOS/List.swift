@@ -3,6 +3,7 @@ import Combine
 import Specs
 
 final class List: Collection<ListCell, ListInfo> {
+    let top = CurrentValueSubject<_, Never>(CGFloat(15))
     let empty = CurrentValueSubject<_, Never>(true)
     let selected = PassthroughSubject<ListInfo.ID, Never>()
     private let session: Session
@@ -17,7 +18,7 @@ final class List: Collection<ListCell, ListInfo> {
         scrollerInsets.top = 8
         scrollerInsets.bottom = 8
         
-        let vertical = CGFloat(15)
+        let bottom = CGFloat(15)
         let info = CurrentValueSubject<[ListInfo], Never>([])
         
         session
@@ -51,15 +52,17 @@ final class List: Collection<ListCell, ListInfo> {
         info
             .dropFirst()
             .removeDuplicates()
-            .sink { [weak self] in
-                guard !$0.isEmpty else {
+            .combineLatest(top
+                .removeDuplicates())
+            .sink { [weak self] info, top in
+                guard !info.isEmpty else {
                     self?.items.send([])
                     self?.size.send(.init(width: 0, height: 0))
                     return
                 }
                 
-                let result = $0
-                    .reduce(into: (items: Set<CollectionItem<ListInfo>>(), y: vertical)) {
+                let result = info
+                    .reduce(into: (items: Set<CollectionItem<ListInfo>>(), y: top)) {
                         $0.items.insert(.init(
                             info: $1,
                             rect: .init(
@@ -70,7 +73,7 @@ final class List: Collection<ListCell, ListInfo> {
                         $0.y += 52
                     }
                 self?.items.send(result.items)
-                self?.size.send(.init(width: 0, height: result.y + vertical))
+                self?.size.send(.init(width: 0, height: result.y + bottom))
             }
             .store(in: &subs)
         

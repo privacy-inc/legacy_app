@@ -17,7 +17,7 @@ struct Froob: View {
                 about = true
             } label: {
                 Text("Privacy Plus")
-                    .font(.callout.weight(.medium))
+                    .font(.callout.weight(.semibold))
                     .frame(minWidth: 260)
                     .frame(minHeight: 28)
             }
