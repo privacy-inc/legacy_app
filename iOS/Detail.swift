@@ -62,15 +62,9 @@ final class Detail: UIHostingController<Detail.Content>, UIViewControllerReprese
     private func share(web: Web) {
         let share = UIActivityViewController.share(web: web)
         share.popoverPresentationController?.sourceView = view
-        share.completionWithItemsHandler = { [weak self] _, completed, _, _ in
-            self?.dismiss(animated: true)
-            
-            if !completed {
-                DispatchQueue
-                    .main
-                    .asyncAfter(deadline: .now() + 0.2) { [weak self] in
-                        self?.dismiss(animated: true)
-                    }
+        share.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
+            if completed && activity != nil {
+                self?.dismiss(animated: true)
             }
         }
         present(share, animated: true)

@@ -14,22 +14,30 @@ extension UIActivityViewController {
 
 private class Option: UIActivity {
     private(set) weak var web: Web?
+    final override class var activityCategory: UIActivity.Category { .action }
 
     init(web: Web) {
         self.web = web
         super.init()
     }
 
-    override func canPerform(withActivityItems: [Any]) -> Bool {
+    final override func canPerform(withActivityItems: [Any]) -> Bool {
         true
     }
 
-    func controller(with: Any) -> UIViewController {
+    final func controller(with: Any) -> UIViewController {
         let controller = UIActivityViewController(activityItems: [with], applicationActivities: nil)
         controller.completionWithItemsHandler = { [weak self] _, _, _, _ in
             self?.activityDidFinish(true)
         }
-        return controller
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let navigation = UINavigationController(rootViewController: controller)
+            navigation.setNavigationBarHidden(true, animated: false)
+            return navigation
+        } else {
+            return controller
+        }
     }
 }
 
