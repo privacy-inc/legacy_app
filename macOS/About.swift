@@ -28,30 +28,19 @@ final class About: NSWindow {
         image.imageScaling = .scaleNone
         vibrant.addSubview(image)
         
+        let gradient = CAGradientLayer()
+        gradient.startPoint = .init(x: 0.5, y: 1)
+        gradient.endPoint = .init(x: 0.5, y: 0)
+        gradient.locations = [0, 0.5, 1]
+        gradient.colors = [CGColor.white, CGColor(gray: 1, alpha: 0.2), CGColor(gray: 1, alpha: 0.1)]
+        gradient.frame = .init(origin: .zero, size: frame.size)
+        
         let banner = NSView()
         banner.layer = Layer()
         banner.wantsLayer = true
         banner.translatesAutoresizingMaskIntoConstraints = false
+        banner.layer!.mask = gradient
         content.addSubview(banner)
-        
-        let title = Text(vibrancy: true)
-        title.stringValue = "Privacy"
-        title.font = .preferredFont(forTextStyle: .title2)
-        title.textColor = .labelColor
-        content.addSubview(title)
-        
-        let subtitle = Text(vibrancy: true)
-        subtitle.stringValue = "Support research and\ndevelopment of Privacy Browser"
-        subtitle.textColor = .secondaryLabelColor
-        subtitle.font = .preferredFont(forTextStyle: .callout)
-        subtitle.alignment = .center
-        content.addSubview(subtitle)
-        
-        let plus = NSImageView(image: .init(systemSymbolName: "plus", accessibilityDescription: nil) ?? .init())
-        plus.translatesAutoresizingMaskIntoConstraints = false
-        plus.symbolConfiguration = .init(pointSize: 18, weight: .regular)
-        plus.contentTintColor = .labelColor
-        content.addSubview(plus)
         
         let text = Text(vibrancy: true)
         text.attributedStringValue = .make(alignment: .center) {
@@ -79,7 +68,7 @@ final class About: NSWindow {
         let stack = NSStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
-        stack.spacing = 5
+        stack.spacing = 10
         content.addSubview(stack)
 
         timer
@@ -99,29 +88,28 @@ final class About: NSWindow {
                 
                 if Defaults.isPremium {
                     let check = NSImageView(image: .init(systemSymbolName: "checkmark.circle.fill", accessibilityDescription: nil) ?? .init())
-                    check.symbolConfiguration = .init(pointSize: 30, weight: .bold)
-                        .applying(.init(hierarchicalColor: .init(named: "Shades")!))
+                    check.symbolConfiguration = .init(pointSize: 35, weight: .bold)
+                        .applying(.init(paletteColors: [.white, .systemBlue]))
                     
                     let text = Text(vibrancy: true)
                     text.stringValue = "We received your support\nThank you!"
                     text.alignment = .center
-                    text.textColor = .secondaryLabelColor
-                    text.font = .preferredFont(forTextStyle: .footnote)
+                    text.textColor = .labelColor
+                    text.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .medium)
                     
                     stack.setViews([check, text], in: .center)
-                    stack.setCustomSpacing(10, after: check)
                 } else {
                     switch status {
                     case .loading:
                         let image = NSImageView(image: .init(systemSymbolName: "hourglass", accessibilityDescription: nil) ?? .init())
-                        image.symbolConfiguration = .init(pointSize: 40, weight: .ultraLight)
+                        image.symbolConfiguration = .init(pointSize: 30, weight: .ultraLight)
                             .applying(.init(hierarchicalColor: .init(named: "Dawn")!))
                         stack.setViews([image], in: .center)
                     case let .error(error):
                         let text = Text(vibrancy: true)
-                        text.font = .preferredFont(forTextStyle: .callout)
+                        text.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .medium)
                         text.alignment = .center
-                        text.textColor = .secondaryLabelColor
+                        text.textColor = .labelColor
                         text.stringValue = error
                         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
                         text.widthAnchor.constraint(equalToConstant: 300).isActive = true
@@ -129,15 +117,36 @@ final class About: NSWindow {
                     case let .products(products):
                         guard let product = products.first else { return }
                         
+                        let title = Text(vibrancy: true)
+                        title.stringValue = "Privacy"
+                        title.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .medium)
+                        title.textColor = .secondaryLabelColor
+                        
+                        let plus = NSImageView(image: .init(systemSymbolName: "plus", accessibilityDescription: nil) ?? .init())
+                        plus.symbolConfiguration = .init(pointSize: 16, weight: .light)
+                        plus.contentTintColor = .secondaryLabelColor
+                        
+                        let horizontal1 = NSStackView(views: [title, plus])
+                        horizontal1.spacing = 2
+                        
+                        let subtitle = Text(vibrancy: true)
+                        subtitle.stringValue = "Sponsor research\nand development of\nPrivacy Browser."
+                        subtitle.textColor = .labelColor
+                        subtitle.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .medium)
+                        subtitle.alignment = .center
+                        
                         let price = Text(vibrancy: true)
-                        price.stringValue = product.displayPrice
+                        price.stringValue = "1 time only " + product.displayPrice + " purchase."
                         price.font = .preferredFont(forTextStyle: .body)
                         price.textColor = .labelColor
                         
-                        let purchase = Control.Capsule("Purchase", color: .systemBlue, foreground: .white)
+                        let purchase = Control.Prominent("Support Now")
+                        purchase.widthAnchor.constraint(equalToConstant: 260).isActive = true
                         self?.add(purchase
                             .click
                             .sink {
+                                (NSApp as! App).froob.value = false
+                                
                                 Task {
                                     await store.purchase(product)
                                 }
@@ -147,22 +156,26 @@ final class About: NSWindow {
                         self?.add(restore
                             .click
                             .sink {
+                                (NSApp as! App).froob.value = false
+                                
                                 Task {
                                     await store.restore()
                                 }
                             })
                         
-                        let learn = Control.Title("Learn more", color: .systemMint, layer: false)
+                        let learn = Control.Title("Learn More", color: .systemBlue, layer: false)
                         self?.add(learn
                             .click
                             .sink {
                                 (NSApp as! App).showLearn(with: .purchases)
                             })
                         
-                        let horizontal = NSStackView(views: [restore, learn])
-                        horizontal.distribution = .fillEqually
+                        let horizontal2 = NSStackView(views: [restore, learn])
+                        horizontal2.distribution = .fill
                         
-                        stack.setViews([price, purchase, horizontal], in: .center)
+                        stack.setViews([horizontal1, subtitle, purchase, price, horizontal2], in: .center)
+                        stack.setCustomSpacing(14, after: horizontal1)
+                        stack.setCustomSpacing(50, after: price)
                     }
                 }
             }
@@ -173,24 +186,15 @@ final class About: NSWindow {
         vibrant.leftAnchor.constraint(equalTo: image.leftAnchor).isActive = true
         vibrant.rightAnchor.constraint(equalTo: image.rightAnchor).isActive = true
         
-        image.centerXAnchor.constraint(equalTo: banner.centerXAnchor).isActive = true
-        image.centerYAnchor.constraint(equalTo: banner.centerYAnchor).isActive = true
+        image.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
+        image.topAnchor.constraint(equalTo: content.topAnchor, constant: 150).isActive = true
         
         banner.topAnchor.constraint(equalTo: content.topAnchor).isActive = true
         banner.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         banner.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
-        banner.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        banner.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
         
-        title.centerXAnchor.constraint(equalTo: content.centerXAnchor, constant: -15).isActive = true
-        title.topAnchor.constraint(equalTo: banner.bottomAnchor).isActive = true
-        
-        plus.centerYAnchor.constraint(equalTo: title.centerYAnchor).isActive = true
-        plus.leftAnchor.constraint(equalTo: title.rightAnchor, constant: 2).isActive = true
-        
-        subtitle.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 3).isActive = true
-        subtitle.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
-        
-        stack.topAnchor.constraint(equalTo: subtitle.bottomAnchor).isActive = true
+        stack.topAnchor.constraint(equalTo: image.bottomAnchor).isActive = true
         stack.bottomAnchor.constraint(equalTo: text.topAnchor).isActive = true
         stack.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         stack.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true

@@ -43,8 +43,6 @@ import Specs
                     break
                 }
                 
-                self.froob.value = true
-                
                 Task
                     .detached {
                         _ = await UNUserNotificationCenter.request()

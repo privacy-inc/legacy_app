@@ -69,6 +69,7 @@ final class Landing: NSView, NSMenuDelegate {
                         control.widthAnchor.constraint(equalToConstant: 260).isActive = true
                         control.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20).isActive = true
                         control.centerXAnchor.constraint(equalTo: froob!.centerXAnchor).isActive = true
+                        self?.froob = froob
                     }
                     
                     froob!.alphaValue = 0

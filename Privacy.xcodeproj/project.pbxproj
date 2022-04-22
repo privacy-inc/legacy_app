@@ -14,7 +14,6 @@
 		CE1936B0272804CF00476227 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1936AF272804CF00476227 /* App.swift */; };
 		CE1936B4272804D100476227 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1936B3272804D100476227 /* Assets.xcassets */; };
 		CE1936BD2728059800476227 /* Specs in Frameworks */ = {isa = PBXBuildFile; productRef = CE1936BC2728059800476227 /* Specs */; };
-		CE19EC912736B32500A412FC /* Control.Capsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE19EC902736B32500A412FC /* Control.Capsule.swift */; };
 		CE1DB23E28044B1E00128BCF /* Shortcut.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1DB23D28044B1E00128BCF /* Shortcut.Item.swift */; };
 		CE202D062808B2AA00EB63F0 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5548726FDD4FA00FE0E9C /* Web.swift */; };
 		CE25B83C27F9B51A003FCB31 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25B83B27F9B51A003FCB31 /* List.swift */; };
@@ -229,7 +228,6 @@
 		CE1936AF272804CF00476227 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE1936B3272804D100476227 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE1936B8272804D100476227 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		CE19EC902736B32500A412FC /* Control.Capsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Capsule.swift; sourceTree = "<group>"; };
 		CE1DB23D28044B1E00128BCF /* Shortcut.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcut.Item.swift; sourceTree = "<group>"; };
 		CE25B83B27F9B51A003FCB31 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		CE25B83D27F9B542003FCB31 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
@@ -420,7 +418,6 @@
 				CE743003272981EA00F5F5B8 /* CollectionCell.swift */,
 				CE743001272981EA00F5F5B8 /* CollectionCellState.swift */,
 				CE742FFF272981EA00F5F5B8 /* CollectionItem.swift */,
-				CE19EC902736B32500A412FC /* Control.Capsule.swift */,
 				CEE9B15D273957C20086BD6C /* Control.Label.swift */,
 				CE36DC7A281199FB0066747E /* Control.Prominent.swift */,
 				CE5D41BC272C5CDC00AEBE0F /* Control.State.swift */,
@@ -816,7 +813,6 @@
 				CE8BA2F7272D9B3E00E2D73F /* Search.swift in Sources */,
 				CE3576B027281C25005854B5 /* NSApplication.swift in Sources */,
 				CEB558092743F18500B19D62 /* Particle.swift in Sources */,
-				CE19EC912736B32500A412FC /* Control.Capsule.swift in Sources */,
 				CE3576AE27281689005854B5 /* Global.swift in Sources */,
 				CE74300E2729825500F5F5B8 /* Flip.swift in Sources */,
 				CEF1484F27F1F9660017AD40 /* Downloads.swift in Sources */,
