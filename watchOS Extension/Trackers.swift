@@ -2,65 +2,24 @@ import SwiftUI
 import Specs
 
 struct Trackers: View {
-//    @State private var report = [Events.Report]()
-    @State private var count = 0
+    @State private var trackers = 0
     
     var body: some View {
-        List {
-//            Label("\(Text("Trackers").foregroundColor(.primary))", systemImage: "shield.lefthalf.filled")
-//                .font(.headline)
-//                .foregroundStyle(Color("Shades"))
-//                .symbolRenderingMode(.palette)
-//                .listRowBackground(Color.clear)
-//                .allowsHitTesting(false)
-//
-//            Group {
-//                Text(count, format: .number)
-//                    .font(.caption2.monospaced())
-//                + Text(" prevented")
-//                    .font(.caption2)
-//            }
-//            .foregroundStyle(.secondary)
-//            .listRowBackground(Color.clear)
-//            .allowsHitTesting(false)
-//
-//            ForEach(report) { item in
-//                VStack(alignment: .leading) {
-//                    Text(verbatim: item.website + " ")
-//                        .foregroundColor(.primary)
-//                        .font(.callout.bold())
-//
-//                    Text(item.trackers.count, format: .number)
-//                        .foregroundColor(.secondary)
-//                        .font(.caption2.monospaced())
-//                    + Text(verbatim: item.trackers.count == 1 ? " tracker" : " trackers")
-//                        .foregroundColor(.secondary)
-//                        .font(.caption2)
-//
-//                    Text(verbatim: item.date.formatted(.relative(presentation: .named, unitsStyle: .narrow)))
-//                        .foregroundColor(.secondary)
-//                        .font(.caption2)
-//                }
-//                .allowsHitTesting(false)
-//
-//                VStack(alignment: .leading) {
-//                    ForEach(item.trackers, id: \.self, content: Text.init(verbatim:))
-//                }
-//                .font(.footnote)
-//                .foregroundStyle(.secondary)
-//                .listRowBackground(Color.clear)
-//                .allowsHitTesting(false)
-//            }
+        VStack(spacing: 10) {
+            Text(trackers, format: .number)
+                .font(.system(size: 40, weight: .light))
+            HStack {
+                Image(systemName: "bolt.shield")
+                    .font(.system(size: 30, weight: .thin))
+                Text("Trackers\nprevented")
+                    .font(.footnote)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .foregroundStyle(.secondary)
         }
-        .ignoresSafeArea(edges: .top)
-//        .onReceive(cloud) {
-//            count = $0.events.prevented
-//            report = $0
-//                .events
-//                .report
-//                .filter {
-//                    !$0.trackers.isEmpty
-//                }
-//        }
+        .onReceive(cloud) {
+            trackers = $0.tracking.total
+        }
     }
 }

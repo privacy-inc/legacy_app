@@ -40,7 +40,7 @@ extension Forget {
                             }
                     } label: {
                         Text("Forget")
-                            .font(.callout.weight(.medium))
+                            .font(.callout.weight(.semibold))
                             .frame(maxWidth: .greatestFiniteMagnitude)
                             .frame(minHeight: 30)
                     }

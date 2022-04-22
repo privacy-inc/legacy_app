@@ -1,6 +1,6 @@
+import CloudKit
 import Archivable
 import Specs
-import CloudKit
 
 let cloud = Cloud<Archive, CKContainer>.new(identifier: "iCloud.privacy")
 

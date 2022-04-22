@@ -8,7 +8,6 @@ import SwiftUI
     var body: some Scene {
         WindowGroup {
             TabView(selection: $selection) {
-                Activity()
                 Trackers()
                 Forget()
             }
