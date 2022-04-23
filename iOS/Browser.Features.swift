@@ -56,7 +56,7 @@ extension Browser {
                 
                 if status.reader {
                     HStack(spacing: 30) {
-                        Bar.Item(icon: "textformat.size.smaller") {
+                        Bar.Item(size: 20, icon: "textformat.size.smaller") {
                             if size > 0.3 {
                                 size -= 0.25
                             } else {
@@ -85,7 +85,7 @@ extension Browser {
                         .tint(.primary.opacity(session.dark ? 0.7 : 0.3))
                         .buttonStyle(.bordered)
                         
-                        Bar.Item(icon: "textformat.size.larger") {
+                        Bar.Item(size: 20, icon: "textformat.size.larger") {
                             if size < 0.25 {
                                 size = 0.25
                             } else {

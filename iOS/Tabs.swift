@@ -97,10 +97,10 @@ struct Tabs: View {
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(items: [
-                .init(icon: "line.3.horizontal") {
+                .init(size: 16, icon: "line.3.horizontal") {
                     settings = true
                 },
-                .init(icon: "plus") {
+                .init(size: 20, icon: "plus") {
                     let item = Session.Item(flow: .search(true))
                     session.items.append(item)
                     
@@ -108,7 +108,7 @@ struct Tabs: View {
                         session.current = session.items.count - 1
                     }
                 },
-                .init(icon: "flame") {
+                .init(size: 20, icon: "flame") {
                     forget = true
                 }
             ],

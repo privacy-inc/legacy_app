@@ -9,7 +9,7 @@ extension Detail {
         
         var body: some View {
             HStack(spacing: 0) {
-                Bar.Item(icon: "chevron.backward") {
+                Bar.Item(size: 20, icon: "chevron.backward") {
                     web.goBack()
                 }
                 .foregroundStyle(back ? .primary : .tertiary)
@@ -17,7 +17,7 @@ extension Detail {
                 
                 Spacer()
                 
-                Bar.Item(icon: loading ? "xmark" : "arrow.clockwise") {
+                Bar.Item(size: 20, icon: loading ? "xmark" : "arrow.clockwise") {
                     if loading {
                         web.stopLoading()
                     } else {
@@ -27,7 +27,7 @@ extension Detail {
                 
                 Spacer()
                 
-                Bar.Item(icon: "chevron.forward") {
+                Bar.Item(size: 20, icon: "chevron.forward") {
                     web.goForward()
                 }
                 .foregroundStyle(forward ? .primary : .tertiary)

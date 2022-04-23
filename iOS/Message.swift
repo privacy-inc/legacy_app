@@ -25,7 +25,7 @@ struct Message: View {
         .background(Color(.secondarySystemBackground))
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(items: [
-                    .init(icon: "chevron.backward") {
+                    .init(size: 16, icon: "chevron.backward") {
                         if session.items[index].web!.url == nil {
                             session.items[index].flow = .search(false)
                         } else {
@@ -33,7 +33,7 @@ struct Message: View {
                         }
                         session.objectWillChange.send()
                     },
-                    .init(icon: "arrow.clockwise") {
+                    .init(size: 16, icon: "arrow.clockwise") {
                         let url = session
                             .items[index]
                             .info?
@@ -44,13 +44,13 @@ struct Message: View {
                         url
                             .map(session.items[index].web!.load(url:))
                     },
-                    .init(icon: "magnifyingglass") {
+                    .init(size: 20, icon: "magnifyingglass") {
                         withAnimation(.easeInOut(duration: 0.4)) {
                             session.items[index].flow = .search(true)
                             session.objectWillChange.send()
                         }
                     },
-                    .init(icon: "square.on.square") {
+                    .init(size: 16, icon: "square.on.square") {
                         session.previous = index
                         withAnimation(.easeInOut(duration: 0.4)) {
                             session.current = nil

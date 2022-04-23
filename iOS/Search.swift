@@ -43,16 +43,16 @@ struct Search: View {
         .background(.ultraThickMaterial)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(items: [
-                .init(icon: "line.3.horizontal") {
+                .init(size: 16, icon: "line.3.horizontal") {
                     field.cancel(clear: false)
                     settings = true
                 },
                 field.typing ? .init(size: 15, icon: "xmark") {
                     field.cancel(clear: true)
-                } : .init(icon: "magnifyingglass") {
+                } : .init(size: 20, icon: "magnifyingglass") {
                     field.becomeFirstResponder()
                 },
-                .init(icon: "square.on.square") {
+                .init(size: 16, icon: "square.on.square") {
                     field.cancel(clear: false)
                     
                     Task {

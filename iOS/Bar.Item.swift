@@ -2,7 +2,7 @@ import SwiftUI
 
 extension Bar {
     struct Item: View {
-        var size = CGFloat(20)
+        let size: CGFloat
         let icon: String
         let action: () -> Void
         
