@@ -7,6 +7,7 @@ extension Search {
     struct Item: View {
         let field: Field
         let website: Website
+        @State var counter = 0
         @StateObject private var icon = Icon()
         
         var body: some View {
@@ -33,8 +34,39 @@ extension Search {
                     }
                 }
             }
+            .buttonStyle(.plain)
             .padding()
             .modifier(Card(dark: field.session.dark))
+            .contextMenu {
+                Text(counter.formatted() + "\nTrackers prevented")
+                    .font(.callout)
+                Divider()
+                Button {
+                    UIPasteboard.general.string = website.id
+                    Task {
+                        await UNUserNotificationCenter.send(message: "Link copied!")
+                    }
+                } label: {
+                    Label("Copy Link", systemImage: "link")
+                }
+                Button {
+                    guard let url = URL(string: website.id) else { return }
+                    UIApplication.shared.share(url)
+                } label: {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                }
+                Divider()
+                Button {
+                    Task {
+                        await cloud.delete(url: website.id)
+                    }
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+            }
+            .onReceive(cloud) {
+                counter = $0.tracking.count(domain: website.id.domain)
+            }
             .task {
                 await icon.load(website: .init(string: website.id))
             }
