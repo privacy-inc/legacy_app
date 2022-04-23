@@ -47,7 +47,7 @@ struct Search: View {
                     field.cancel(clear: false)
                     settings = true
                 },
-                field.typing ? .init(icon: "xmark") {
+                field.typing ? .init(size: 15, icon: "xmark") {
                     field.cancel(clear: true)
                 } : .init(icon: "magnifyingglass") {
                     field.becomeFirstResponder()
@@ -64,7 +64,7 @@ struct Search: View {
                     }
                 }
             ],
-                material: .ultraThin)
+                material: field.typing ? .regular : .ultraThin)
             .animation(.easeInOut(duration: 0.6), value: field.typing)
             .sheet(isPresented: $settings, content: Settings.init)
         }
