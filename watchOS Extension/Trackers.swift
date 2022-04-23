@@ -7,10 +7,10 @@ struct Trackers: View {
     var body: some View {
         VStack(spacing: 10) {
             Text(trackers, format: .number)
-                .font(.system(size: 40, weight: .light))
+                .font(.system(size: 45, weight: .light))
             HStack {
                 Image(systemName: "bolt.shield")
-                    .font(.system(size: 30, weight: .thin))
+                    .font(.system(size: 28, weight: .thin))
                 Text("Trackers\nprevented")
                     .font(.footnote)
                     .multilineTextAlignment(.leading)

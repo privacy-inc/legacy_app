@@ -10,6 +10,7 @@ struct Forget: View {
                     .font(.body.weight(.medium))
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal)
+                    .padding(.top)
                 
                 if forgotten {
                     Image(systemName: "checkmark.circle.fill")
@@ -19,7 +20,7 @@ struct Forget: View {
                         .padding(.bottom)
                 } else {
                     Image(systemName: "flame.fill")
-                        .font(.system(size: 40, weight: .light))
+                        .font(.system(size: 40, weight: .ultraLight))
                         .symbolRenderingMode(.hierarchical)
                         .foregroundColor(.init("Dawn"))
                     
@@ -44,6 +45,7 @@ struct Forget: View {
                     .tint(.blue)
                     .foregroundColor(.white)
                     .padding([.leading, .trailing, .bottom])
+                    .padding(.horizontal)
                     .padding(.bottom)
                 }
             }

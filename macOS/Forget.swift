@@ -17,7 +17,7 @@ final class Forget: NSView {
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let image = NSImageView(image: .init(systemSymbolName: "flame.fill", accessibilityDescription: nil) ?? .init())
-        image.symbolConfiguration = .init(pointSize: 60, weight: .light)
+        image.symbolConfiguration = .init(pointSize: 60, weight: .ultraLight)
             .applying(.init(hierarchicalColor: .init(named: "Dawn")!))
         
         let control = Control.Prominent("Forget")
