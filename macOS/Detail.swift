@@ -12,7 +12,7 @@ final class Detail: NSView {
     
     required init?(coder: NSCoder) { nil }
     init(session: Session, id: UUID) {
-        super.init(frame: .init(origin: .zero, size: .init(width: 280, height: 200)))
+        super.init(frame: .init(origin: .zero, size: .init(width: 300, height: 200)))
         let icon = Icon(size: 50)
         
         let text = Text(vibrancy: true)

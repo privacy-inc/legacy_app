@@ -186,6 +186,18 @@ final class Landing: NSView, NSMenuDelegate {
             return
         }
         menu.items = [
+            .child("") { item in
+                Task {
+                    let count = await cloud.model.tracking.count(domain: url.absoluteString.domain)
+                    item.attributedTitle = .make(count.formatted(), attributes: [
+                        .font : NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .largeTitle).pointSize + 5, weight: .light)])
+                }
+            },
+            .child("") {
+                $0.attributedTitle = .make("Trackers prevented", attributes: [
+                    .font : NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular)])
+            },
+            .separator(),
             .child("Open", #selector(open)) {
                 $0.target = self
                 $0.image = .init(systemSymbolName: "return", accessibilityDescription: nil)
