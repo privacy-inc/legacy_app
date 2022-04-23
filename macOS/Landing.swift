@@ -116,15 +116,15 @@ final class Landing: NSView, NSMenuDelegate {
             .sink {
                 let view = Vibrant(layer: false)
                 view.translatesAutoresizingMaskIntoConstraints = true
-                view.frame.size = .init(width: 260, height: 180)
+                view.frame.size = .init(width: 240, height: 240)
                 
                 let title = Text(vibrancy: false)
-                title.font = .systemFont(ofSize: 45, weight: .thin)
+                title.font = .systemFont(ofSize: 60, weight: .thin)
                 title.textColor = .labelColor
                 view.addSubview(title)
                 
                 let icon = NSImageView(image: .init(systemSymbolName: "bolt.shield", accessibilityDescription: nil) ?? .init())
-                icon.symbolConfiguration = .init(pointSize: 20, weight: .light)
+                icon.symbolConfiguration = .init(pointSize: 30, weight: .light)
                     .applying(.init(hierarchicalColor: .secondaryLabelColor))
                 icon.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(icon)
@@ -132,7 +132,7 @@ final class Landing: NSView, NSMenuDelegate {
                 let description = Text(vibrancy: false)
                 description.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular)
                 description.textColor = .secondaryLabelColor
-                description.stringValue = "Trackers prevented"
+                description.stringValue = "Trackers\nprevented"
                 view.addSubview(description)
                 
                 title.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20).isActive = true
@@ -141,7 +141,7 @@ final class Landing: NSView, NSMenuDelegate {
                 icon.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12).isActive = true
                 icon.rightAnchor.constraint(equalTo: description.leftAnchor, constant: -4).isActive = true
                 
-                description.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 10).isActive = true
+                description.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 22).isActive = true
                 description.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
                 
                 NSPopover().show(view, from: trackers, edge: .maxY)
@@ -190,9 +190,9 @@ final class Landing: NSView, NSMenuDelegate {
                 $0.target = self
                 $0.image = .init(systemSymbolName: "return", accessibilityDescription: nil)
             },
-            Menu.CopyLink(url: url, icon: true, shortcut: false),
+            Menu.Link(url: url, icon: true, shortcut: false),
             .separator(),
-            Menu.Share(url: url, icon: true),
+            Menu.Share(title: "Share", url: url, icon: true),
             .separator(),
             .child("Delete", #selector(delete)) {
                 $0.target = self

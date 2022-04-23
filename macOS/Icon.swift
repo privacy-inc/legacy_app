@@ -24,7 +24,7 @@ final class Icon: NSView {
         self.image = image
         addSubview(image)
         
-        heightAnchor.constraint(equalToConstant: size).isActive = true
+        heightAnchor.constraint(equalTo: widthAnchor).isActive = true
         width = widthAnchor.constraint(equalToConstant: 0)
         width.isActive = true
         

@@ -82,7 +82,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                             let url = try? await (self?.evaluateJavaScript(Script.favicon.method)) as? String,
                             settings.http || (!settings.http && url.hasPrefix("https://"))
                         else { return }
-
                         await favicon.received(url: url, for: website)
                     }
                 }

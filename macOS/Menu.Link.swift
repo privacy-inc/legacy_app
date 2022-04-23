@@ -2,7 +2,7 @@ import AppKit
 import UserNotifications
 
 extension Menu {
-    final class CopyLink: NSMenuItem {
+    final class Link: NSMenuItem {
         private let url: URL
         
         required init(coder: NSCoder) { fatalError() }

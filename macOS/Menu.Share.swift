@@ -5,10 +5,10 @@ extension Menu {
         private let url: URL
         
         required init(coder: NSCoder) { fatalError() }
-        init(url: URL, icon: Bool) {
+        init(title: String, url: URL, icon: Bool) {
             self.url = url
             
-            super.init(title: "Share", action: nil, keyEquivalent: "")
+            super.init(title: title, action: nil, keyEquivalent: "")
             submenu = .init(title: "Share")
             submenu!.items = [
                 .child(url.absoluteString.capped(max: 47)),

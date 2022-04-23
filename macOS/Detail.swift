@@ -12,7 +12,7 @@ final class Detail: NSView {
     
     required init?(coder: NSCoder) { nil }
     init(session: Session, id: UUID) {
-        super.init(frame: .init(origin: .zero, size: .init(width: 320, height: 200)))
+        super.init(frame: .init(origin: .zero, size: .init(width: 280, height: 200)))
         let icon = Icon(size: 50)
         
         let text = Text(vibrancy: true)
@@ -32,18 +32,20 @@ final class Detail: NSView {
         stack.spacing = 3
         stack.setCustomSpacing(20, after: icon)
         stack.setCustomSpacing(20, after: text)
-        stack.setCustomSpacing(30, after: pause)
+        stack.setCustomSpacing(20, after: pause)
         addSubview(stack)
         self.stack = stack
         
         topAnchor.constraint(equalTo: topAnchor).isActive = true
         leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 40).isActive = true
+        bottomAnchor.constraint(equalTo: stack.bottomAnchor, constant: 32).isActive = true
         
         stack.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
         stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 30).isActive = true
         stack.widthAnchor.constraint(equalTo: widthAnchor, constant: -60).isActive = true
+        
+        disable.leftAnchor.constraint(equalTo: stack.leftAnchor).isActive = true
         
         if case let .web(web) = session.flow(of: id) {
             icon.icon(website: web.url)
@@ -56,26 +58,55 @@ final class Detail: NSView {
                     text.attributedStringValue = .make { string in
                         if let title = title,
                            !title.isEmpty {
-                            string.append(.make(title + " ", attributes: [
-                                .font: NSFont.preferredFont(forTextStyle: .callout),
+                            string.append(.make(title.capped(max: 300) + " ", attributes: [
+                                .font: NSFont.preferredFont(forTextStyle: .body),
                                 .foregroundColor: NSColor.labelColor]))
                         }
                         
                         if let domain = url?.absoluteString.domain {
                             string.append(.make(domain, attributes: [
-                                .font: NSFont.preferredFont(forTextStyle: .callout),
+                                .font: NSFont.preferredFont(forTextStyle: .body),
                                 .foregroundColor: NSColor.tertiaryLabelColor]))
                         }
                     }
                 }
                 .store(in: &subs)
             
-            share
-                .click
-                .sink { [weak self] in
-                    self?.share(web: web)
-                }
-                .store(in: &subs)
+            if let url = web.url {
+                share.menu = .init()
+                share.menu!.items = [
+                    Menu.Link(url: url, icon: true, shortcut: false),
+                    .separator(),
+                    .child("Download...", #selector(web.saveAs)) {
+                        $0.target = web
+                        $0.image = .init(systemSymbolName: "square.and.arrow.down", accessibilityDescription: nil)
+                    },
+                    .child("Export as PDF...", #selector(web.exportAsPdf)) {
+                        $0.target = web
+                        $0.image = .init(systemSymbolName: "doc.richtext", accessibilityDescription: nil)
+                    },
+                    .child("Export as Snapshot...", #selector(web.exportAsSnapshot)) {
+                        $0.target = web
+                        $0.image = .init(systemSymbolName: "text.below.photo.fill", accessibilityDescription: nil)
+                    },
+                    .child("Export as Web archive...", #selector(web.exportAsWebarchive)) {
+                        $0.target = web
+                        $0.image = .init(systemSymbolName: "doc.zipper", accessibilityDescription: nil)
+                    },
+                    .child("Print...", #selector(web.printPage)) {
+                        $0.target = web
+                        $0.image = .init(systemSymbolName: "printer", accessibilityDescription: nil)
+                    },
+                    .separator(),
+                    Menu.Share(title: "To Service...", url: url, icon: true)]
+                
+                share
+                    .click
+                    .sink {
+                        share.menu?.popUp(positioning: nil, at: .init(x: 0, y: -8), in: share)
+                    }
+                    .store(in: &subs)
+            }
             
             bookmark
                 .click
@@ -115,68 +146,5 @@ final class Detail: NSView {
                 }
                 .store(in: &subs)
         }
-    }
-    
-    private func share(web: Web) {
-        let title = Text(vibrancy: true)
-        title.stringValue = "Share"
-        title.font = .preferredFont(forTextStyle: .body)
-        title.textColor = .labelColor
-
-        let save = Control.Label(title: "Download", symbol: "square.and.arrow.down")
-        save
-            .click
-            .sink { [weak self] in
-                self?.popover?.close()
-                web.saveAs()
-            }
-            .store(in: &subs)
-        
-        let pdf = Control.Label(title: "PDF", symbol: "doc.richtext")
-        pdf
-            .click
-            .sink { [weak self] in
-                self?.popover?.close()
-                web.exportAsPdf()
-            }
-            .store(in: &subs)
-        
-        let snapshot = Control.Label(title: "Snapshot", symbol: "text.below.photo.fill")
-        snapshot
-            .click
-            .sink { [weak self] in
-                self?.popover?.close()
-                web.exportAsSnapshot()
-            }
-            .store(in: &subs)
-        
-        let archive = Control.Label(title: "Webarchive", symbol: "doc.zipper")
-        archive
-            .click
-            .sink { [weak self] in
-                self?.popover?.close()
-                web.exportAsWebarchive()
-            }
-            .store(in: &subs)
-        
-        let print = Control.Label(title: "Print", symbol: "printer")
-        print
-            .click
-            .sink { [weak self] in
-                self?.popover?.close()
-                web.printPage()
-            }
-            .store(in: &subs)
-        
-        stack.setViews([title, save, pdf, snapshot, archive, print], in: .top)
-        stack.setCustomSpacing(20, after: title)
-        
-        NSAnimationContext
-            .runAnimationGroup {
-                $0.allowsImplicitAnimation = true
-                $0.duration = 0.3
-                stack.layoutSubtreeIfNeeded()
-                popover?.contentSize = .init(width: 240, height: 275)
-            }
     }
 }

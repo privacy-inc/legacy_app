@@ -12,8 +12,8 @@ final class Menu: NSMenu, NSMenuDelegate {
         shortcut.button!.image = NSImage(named: "status")
         shortcut.button!.target = self
         shortcut.button!.action = #selector(triggerShortcut)
-        shortcut.button!.menu = .init()
         shortcut.button!.sendAction(on: [.leftMouseUp, .rightMouseUp])
+        shortcut.button!.menu = .init()
         shortcut.button!.menu!.items = [
             .child("Show", #selector(NSApplication.show)),
             .separator(),
@@ -68,12 +68,12 @@ final class Menu: NSMenu, NSMenuDelegate {
         
         items += [
             .separator(),
-            Share(url: url, icon: false),
+            Share(title: "Share", url: url, icon: false),
             .separator(),
             .child("Save As...", #selector(web.saveAs), "s") {
                 $0.target = web
             },
-            CopyLink(url: url, icon: false, shortcut: true),
+            Link(url: url, icon: false, shortcut: true),
             .separator(),
             .child("Export as PDF...", #selector(web.exportAsPdf)) {
                 $0.target = web

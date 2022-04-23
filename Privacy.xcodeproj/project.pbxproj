@@ -64,7 +64,7 @@
 		CE5D41BF272C5CDC00AEBE0F /* Control.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D41BC272C5CDC00AEBE0F /* Control.State.swift */; };
 		CE5D66972801A09D00A05B6A /* Menu.Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D66962801A09D00A05B6A /* Menu.Share.swift */; };
 		CE5D66992801A28700A05B6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D66982801A28700A05B6A /* String.swift */; };
-		CE5D669B2801A61800A05B6A /* Menu.CopyLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D669A2801A61800A05B6A /* Menu.CopyLink.swift */; };
+		CE5D669B2801A61800A05B6A /* Menu.Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D669A2801A61800A05B6A /* Menu.Link.swift */; };
 		CE5D669D2801C64B00A05B6A /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5D669C2801C64B00A05B6A /* Trackers.swift */; };
 		CE5F1279272EB93E002D0AD2 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5F1278272EB93E002D0AD2 /* Web.swift */; };
 		CE660AC2273AA978009A800E /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE660AC1273AA978009A800E /* NSAttributedString.swift */; };
@@ -267,7 +267,7 @@
 		CE5D41BC272C5CDC00AEBE0F /* Control.State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.State.swift; sourceTree = "<group>"; };
 		CE5D66962801A09D00A05B6A /* Menu.Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.Share.swift; sourceTree = "<group>"; };
 		CE5D66982801A28700A05B6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		CE5D669A2801A61800A05B6A /* Menu.CopyLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.CopyLink.swift; sourceTree = "<group>"; };
+		CE5D669A2801A61800A05B6A /* Menu.Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.Link.swift; sourceTree = "<group>"; };
 		CE5D669C2801C64B00A05B6A /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CE5F1278272EB93E002D0AD2 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CE660AC1273AA978009A800E /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
@@ -432,7 +432,7 @@
 				CE25B83B27F9B51A003FCB31 /* List.swift */,
 				CE25B83D27F9B542003FCB31 /* ListCell.swift */,
 				CE25B83F27F9B55B003FCB31 /* ListInfo.swift */,
-				CE5D669A2801A61800A05B6A /* Menu.CopyLink.swift */,
+				CE5D669A2801A61800A05B6A /* Menu.Link.swift */,
 				CE5D66962801A09D00A05B6A /* Menu.Share.swift */,
 				CEEBA5C827302A1C0079928E /* Menu.swift */,
 				CEBFC84A273178BE00EFDA17 /* Message.swift */,
@@ -798,7 +798,7 @@
 				CE25B84027F9B55B003FCB31 /* ListInfo.swift in Sources */,
 				CE5D66992801A28700A05B6A /* String.swift in Sources */,
 				CE957E8327492D02001DEE19 /* Vibrant.swift in Sources */,
-				CE5D669B2801A61800A05B6A /* Menu.CopyLink.swift in Sources */,
+				CE5D669B2801A61800A05B6A /* Menu.Link.swift in Sources */,
 				CEA2B28E28003F5700E2F201 /* Forget.swift in Sources */,
 				CE660AC2273AA978009A800E /* NSAttributedString.swift in Sources */,
 				CE25B83E27F9B542003FCB31 /* ListCell.swift in Sources */,
