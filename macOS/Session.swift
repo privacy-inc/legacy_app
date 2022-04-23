@@ -84,8 +84,8 @@ struct Session {
             .value
             .first {
                 $0.id == id
-            }!
-            .flow
+            }?
+            .flow ?? .list
     }
     
     @MainActor func search(string: String, id: UUID) async {
