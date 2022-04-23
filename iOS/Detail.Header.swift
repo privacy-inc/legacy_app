@@ -47,6 +47,7 @@ extension Detail {
                                 .font(.system(size: 20, weight: .light))
                             Text(counter, format: .number)
                                 .font(.callout.monospacedDigit())
+                                .padding(.trailing, 4)
                         }
                         .contentShape(Rectangle())
                     }

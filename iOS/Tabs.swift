@@ -17,19 +17,19 @@ struct Tabs: View {
                 .edgesIgnoringSafeArea(.all)
             ScrollViewReader { proxy in
                 ScrollView {
-                    VStack(spacing: 8) {
+                    VStack(spacing: 5) {
                         Text(trackers, format: .number)
-                            .font(.system(size: 32, weight: .light))
-                            .padding(.top, 30)
+                            .font(.system(size: 40, weight: .thin))
+                            .padding(.top, 40)
                         HStack {
                             Image(systemName: "bolt.shield")
-                                .font(.system(size: 20, weight: .thin))
+                                .font(.system(size: 25, weight: .thin))
                             Text("Trackers prevented")
-                                .font(.footnote)
+                                .font(.callout)
                         }
                         .foregroundStyle(.secondary)
                     }
-                    .padding(.bottom)
+                    .padding(.bottom, 30)
                     
                     if items.first?.isEmpty == true {
                         Label("No tabs", systemImage: "square.dashed")
