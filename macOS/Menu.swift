@@ -1,6 +1,5 @@
 import AppKit
 import StoreKit
-import Specs
 
 final class Menu: NSMenu, NSMenuDelegate {
     let shortcut = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -308,7 +307,6 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     @objc private func triggerRate() {
         SKStoreReviewController.requestReview()
-        Defaults.hasRated = true
     }
     
     @objc private func triggerWebsite() {

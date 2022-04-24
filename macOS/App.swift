@@ -1,6 +1,5 @@
 import AppKit
 import UserNotifications
-import StoreKit
 import Combine
 import Specs
 
@@ -33,22 +32,15 @@ import Specs
             
             self.newWindow()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                switch Defaults.action {
-                case .rate:
-                    SKStoreReviewController.requestReview()
-                case .froob:
-                    self.froob.value = true
-                case .none:
-                    break
-                }
-                
-                Task
-                    .detached {
-                        _ = await UNUserNotificationCenter.request()
-                        await store.launch()
-                    }
+            if Defaults.froob {
+                self.froob.value = true
             }
+            
+            Task
+                .detached {
+                    _ = await UNUserNotificationCenter.request()
+                    await store.launch()
+                }
         }
     }
     
