@@ -1,6 +1,8 @@
 import AppKit
 import Combine
 import UserNotifications
+import StoreKit
+import Specs
 
 final class Detail: NSView {
     private weak var stack: NSStackView!
@@ -118,6 +120,10 @@ final class Detail: NSView {
                     Task {
                         await cloud.bookmark(url: url, title: web.title ?? "")
                         await UNUserNotificationCenter.send(message: "Bookmark added!")
+                        
+                        if Defaults.rate {
+                            SKStoreReviewController.requestReview()
+                        }
                     }
                 }
                 .store(in: &subs)

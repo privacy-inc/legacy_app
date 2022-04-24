@@ -1,6 +1,8 @@
 import AppKit
 import Combine
 import UserNotifications
+import StoreKit
+import Specs
 
 final class Forget: NSView {
     private var subs = Set<AnyCancellable>()
@@ -33,6 +35,10 @@ final class Forget: NSView {
                         await cloud.forget()
                         await UNUserNotificationCenter.send(message: "Forgot everything!")
                     }
+                
+                if Defaults.rate {
+                    SKStoreReviewController.requestReview()
+                }
             }
             .store(in: &subs)
         

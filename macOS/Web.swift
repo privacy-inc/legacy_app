@@ -1,6 +1,7 @@
 import WebKit
 import Combine
 import UniformTypeIdentifiers
+import StoreKit
 import Specs
 
 final class Web: Webview {
@@ -310,6 +311,10 @@ final class Web: Webview {
             if $0 == .OK, let url = panel.url {
                 try? data.write(to: url, options: .atomic)
                 NSWorkspace.shared.activateFileViewerSelecting([url])
+                
+                if Defaults.rate {
+                    SKStoreReviewController.requestReview()
+                }
             }
         }
     }
