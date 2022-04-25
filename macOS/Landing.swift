@@ -98,7 +98,7 @@ final class Landing: NSView, NSMenuDelegate {
         addSubview(vibrant)
         
         let title = Text(vibrancy: true)
-        title.font = .systemFont(ofSize: 30, weight: .thin)
+        title.font = .systemFont(ofSize: 40, weight: .thin)
         title.textColor = .labelColor
         addSubview(title)
         
