@@ -26,6 +26,7 @@ struct Froob: View {
             .foregroundColor(.white)
         }
         .padding(30)
+        .padding(.bottom, 10)
         .sheet(isPresented: $about, content: About.init)
     }
 }

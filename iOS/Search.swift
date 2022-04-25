@@ -29,7 +29,7 @@ struct Search: View {
                     }
                 }
                 .padding(.horizontal, 9)
-                .padding(.top, 25)
+                .padding(.top)
                 .padding(.bottom, 40)
             } else {
                 Label("No bookmarks or history", systemImage: "clock")
