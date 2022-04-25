@@ -3,7 +3,7 @@ import AppKit
 final class ListCell: CollectionCell<ListInfo> {
     private weak var text: Text!
     private weak var icon: Icon!
-    private weak var separator: Vibrant!
+    private weak var separator: Separator!
     private weak var vibrant: Vibrant!
     
     override var item: CollectionItem<ListInfo>? {
@@ -33,7 +33,7 @@ final class ListCell: CollectionCell<ListInfo> {
         vibrant.layer!.cornerRadius = 12
         self.vibrant = vibrant
         
-        let separator = Vibrant(layer: true)
+        let separator = Separator()
         self.separator = separator
         
         super.init()
@@ -78,7 +78,5 @@ final class ListCell: CollectionCell<ListInfo> {
         default:
             vibrant.layer!.backgroundColor = .clear
         }
-        
-        separator.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.07).cgColor
     }
 }

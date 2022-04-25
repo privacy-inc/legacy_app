@@ -118,6 +118,9 @@
 		CEAAFB2D27009E9600149F0C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAAFB2A27009E9600149F0C /* Store.swift */; };
 		CEABD1F5272AE07100F56852 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABD1F4272AE07100F56852 /* Icon.swift */; };
 		CEAFF0122741522200A9F744 /* Autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAFF0112741522200A9F744 /* Autocomplete.swift */; };
+		CEB1764F2816A4730013584C /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB1764E2816A4730013584C /* Separator.swift */; };
+		CEB176512816A89D0013584C /* Learn.Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB176502816A89D0013584C /* Learn.Action.swift */; };
+		CEB176532816AEDD0013584C /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB176522816AEDD0013584C /* Stack.swift */; };
 		CEB22E9227355208001C77E0 /* Web.Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E9127355208001C77E0 /* Web.Destination.swift */; };
 		CEB22E94273578E1001C77E0 /* Learn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB22E93273578E1001C77E0 /* Learn.swift */; };
 		CEB558072743F18500B19D62 /* Array.Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE99B050272167660077BAC6 /* Array.Particle.swift */; };
@@ -326,6 +329,9 @@
 		CEAAFB2A27009E9600149F0C /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		CEABD1F4272AE07100F56852 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		CEAFF0112741522200A9F744 /* Autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.swift; sourceTree = "<group>"; };
+		CEB1764E2816A4730013584C /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
+		CEB176502816A89D0013584C /* Learn.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Learn.Action.swift; sourceTree = "<group>"; };
+		CEB176522816AEDD0013584C /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		CEB22E9127355208001C77E0 /* Web.Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Destination.swift; sourceTree = "<group>"; };
 		CEB22E93273578E1001C77E0 /* Learn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Learn.swift; sourceTree = "<group>"; };
 		CEB5580C274409FC00B19D62 /* About.Layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.Layer.swift; sourceTree = "<group>"; };
@@ -427,6 +433,7 @@
 				CEABD1F4272AE07100F56852 /* Icon.swift */,
 				CE742FFD2729759900F5F5B8 /* Landing.swift */,
 				CE74300B2729825500F5F5B8 /* Layer.swift */,
+				CEB176502816A89D0013584C /* Learn.Action.swift */,
 				CE69DA762806EC1B0073FFD5 /* Learn.Item.swift */,
 				CEB22E93273578E1001C77E0 /* Learn.swift */,
 				CE25B83B27F9B51A003FCB31 /* List.swift */,
@@ -453,11 +460,13 @@
 				CE8BA2F6272D9B3E00E2D73F /* Search.swift */,
 				CE52EDCF280578D50048F3F0 /* Secure.swift */,
 				CE6BFE9327380AD000ECF118 /* Segmented.swift */,
+				CEB1764E2816A4730013584C /* Separator.swift */,
 				CEBDD5552728232600F2F493 /* Session.Flow.swift */,
 				CE8BA2EE272D741900E2D73F /* Session.Item.swift */,
 				CEBB8BDE2728258300016F2C /* Session.swift */,
 				CE1DB23D28044B1E00128BCF /* Shortcut.Item.swift */,
 				CE120D8C27328C4F00DE517E /* Shortcut.swift */,
+				CEB176522816AEDD0013584C /* Stack.swift */,
 				CE4312652736D25B00DA0F99 /* Switch.swift */,
 				CE82C6FD27F4991200C5C46E /* Tab.Counter.swift */,
 				CE8BA2EC272D72E500E2D73F /* Tab.Off.swift */,
@@ -795,6 +804,7 @@
 				CE74300D2729825500F5F5B8 /* Layer.swift in Sources */,
 				CEEBA5C4272FFA540079928E /* NSMenu.swift in Sources */,
 				CEA2B292280047D600E2F201 /* NSPopover.swift in Sources */,
+				CEB176532816AEDD0013584C /* Stack.swift in Sources */,
 				CE25B84027F9B55B003FCB31 /* ListInfo.swift in Sources */,
 				CE5D66992801A28700A05B6A /* String.swift in Sources */,
 				CE957E8327492D02001DEE19 /* Vibrant.swift in Sources */,
@@ -848,6 +858,7 @@
 				CE5D66972801A09D00A05B6A /* Menu.Share.swift in Sources */,
 				CE8BA2FB272D9B7700E2D73F /* Search.Cell.Editor.swift in Sources */,
 				CE4312692736D25C00DA0F99 /* Preferences.swift in Sources */,
+				CEB176512816A89D0013584C /* Learn.Action.swift in Sources */,
 				CE09C06227FF15A20032A303 /* NSWindow.swift in Sources */,
 				CEBB8BDF2728258300016F2C /* Session.swift in Sources */,
 				CEB22E9227355208001C77E0 /* Web.Destination.swift in Sources */,
@@ -859,6 +870,7 @@
 				CE743007272981EA00F5F5B8 /* CollectionCellState.swift in Sources */,
 				CE3576B327281CE4005854B5 /* Copy.swift in Sources */,
 				CE3576B227281C3F005854B5 /* Window.swift in Sources */,
+				CEB1764F2816A4730013584C /* Separator.swift in Sources */,
 				CE74300A272981EA00F5F5B8 /* Collection.swift in Sources */,
 				CEBFC8472731686300EFDA17 /* Tab.Progress.swift in Sources */,
 				CE3576B427281CF7005854B5 /* Store.Item.swift in Sources */,

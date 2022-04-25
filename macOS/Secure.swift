@@ -8,7 +8,7 @@ final class Secure: NSView {
         let icon = NSImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.symbolConfiguration = .init(pointSize: 40, weight: .thin)
-            .applying(.init(hierarchicalColor: .tertiaryLabelColor))
+            .applying(.init(hierarchicalColor: .secondaryLabelColor))
         addSubview(icon)
         
         let message = Text(vibrancy: false)

@@ -16,8 +16,7 @@ extension Shortcut {
             layer!.masksToBounds = false
             addSubview(background)
             
-            let separator = Vibrant(layer: true)
-            separator.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+            let separator = Separator()
             addSubview(separator)
             
             let text = Text(vibrancy: true)

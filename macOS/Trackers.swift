@@ -36,10 +36,7 @@ final class Trackers: NSView {
         description.maximumNumberOfLines = 2
         addSubview(description)
         
-        let separator = NSView()
-        separator.wantsLayer = true
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        separator.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+        let separator = Separator()
         addSubview(separator)
         
         let background = NSView()
@@ -130,14 +127,10 @@ final class Trackers: NSView {
                 stack.setViews($0
                     .enumerated()
                     .map { item in
-                        let view = Vibrant(layer: true)
+                        let view = Vibrant(layer: false)
                         
-                        let separator = CAShapeLayer()
-                        separator.fillColor = .clear
-                        separator.lineWidth = 1
-                        separator.strokeColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-                        separator.path = .init(rect: .init(x: 40, y: 0, width: width - 70, height: 0), transform: nil)
-                        view.layer!.addSublayer(separator)
+                        let separator = Separator()
+                        view.addSubview(separator)
                         
                         let index = Text(vibrancy: false)
                         index.stringValue = (item.0 + 1).formatted()
@@ -177,7 +170,12 @@ final class Trackers: NSView {
                         text.rightAnchor.constraint(lessThanOrEqualTo: count.leftAnchor, constant: -10).isActive = true
                         text.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
                         
-                        view.bottomAnchor.constraint(equalTo: count.bottomAnchor, constant: 10).isActive = true
+                        separator.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
+                        separator.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 35).isActive = true
+                        separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+                        separator.bottomAnchor.constraint(equalTo: count.bottomAnchor, constant: 10).isActive = true
+                        
+                        view.bottomAnchor.constraint(equalTo: separator.bottomAnchor).isActive = true
                         
                         return view
                     }, in: .center)

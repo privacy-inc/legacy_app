@@ -10,8 +10,7 @@ final class Shortcut: NSView {
     init() {
         super.init(frame: .init(origin: .zero, size: .init(width: width, height: 480)))
         
-        let separator = Vibrant(layer: true)
-        separator.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
+        let separator = Separator()
         addSubview(separator)
         
         let background = NSVisualEffectView()

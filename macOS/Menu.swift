@@ -240,7 +240,7 @@ final class Menu: NSMenu, NSMenuDelegate {
                 case is About:
                     title = "About"
                 case is Learn:
-                    title = "Learn more"
+                    title = "Learn More"
                 case is Preferences:
                     title = "Preferences"
                 default:

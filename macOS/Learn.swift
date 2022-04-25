@@ -26,13 +26,8 @@ final class Learn: NSWindow {
         side.material = .hudWindow
         content.addSubview(side)
         
-        let border = Vibrant(layer: true)
-        border.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-        side.addSubview(border)
-        
-        let selector = Vibrant(layer: true)
-        selector.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-        side.addSubview(selector)
+        let separator = Separator()
+        side.addSubview(separator)
         
         let flip = Flip()
         flip.translatesAutoresizingMaskIntoConstraints = false
@@ -52,14 +47,22 @@ final class Learn: NSWindow {
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         flip.addSubview(text)
         
-        let menu = NSStackView(views: Item
+        let menu = Stack(views: Item
             .allCases
             .map { item in
-                let button = Control.Title(item.title, color: .labelColor, layer: false)
+                let button = Action(item: item)
                 button
                     .click
                     .sink { [weak self] in
                         self?.item.send(item)
+                    }
+                    .store(in: &subs)
+                
+                self
+                    .item
+                    .removeDuplicates()
+                    .sink {
+                        button.state = $0 == item ? .selected : .on
                     }
                     .store(in: &subs)
                 return button
@@ -67,7 +70,7 @@ final class Learn: NSWindow {
         menu.orientation = .vertical
         menu.alignment = .leading
         menu.translatesAutoresizingMaskIntoConstraints = false
-        menu.spacing = 20
+        menu.spacing = 1
         side.addSubview(menu)
         
         side.topAnchor.constraint(equalTo: content.topAnchor).isActive = true
@@ -75,20 +78,14 @@ final class Learn: NSWindow {
         side.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         side.widthAnchor.constraint(equalToConstant: 240).isActive = true
         
-        border.rightAnchor.constraint(equalTo: side.rightAnchor).isActive = true
-        border.topAnchor.constraint(equalTo: side.topAnchor).isActive = true
-        border.bottomAnchor.constraint(equalTo: side.bottomAnchor).isActive = true
-        border.widthAnchor.constraint(equalToConstant: 1).isActive = true
+        separator.rightAnchor.constraint(equalTo: side.rightAnchor).isActive = true
+        separator.topAnchor.constraint(equalTo: side.topAnchor).isActive = true
+        separator.bottomAnchor.constraint(equalTo: side.bottomAnchor).isActive = true
+        separator.widthAnchor.constraint(equalToConstant: 1).isActive = true
         
-        selector.leftAnchor.constraint(equalTo: side.leftAnchor).isActive = true
-        selector.rightAnchor.constraint(equalTo: border.leftAnchor).isActive = true
-        selector.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        let selectorCenter = selector.centerYAnchor.constraint(equalTo: side.topAnchor)
-        selectorCenter.isActive = true
-        
-        menu.leftAnchor.constraint(equalTo: side.leftAnchor, constant: 10).isActive = true
+        menu.leftAnchor.constraint(equalTo: side.leftAnchor).isActive = true
         menu.topAnchor.constraint(equalTo: side.topAnchor, constant: 60).isActive = true
-        menu.rightAnchor.constraint(equalTo: border.leftAnchor).isActive = true
+        menu.rightAnchor.constraint(equalTo: separator.leftAnchor).isActive = true
         
         scroll.topAnchor.constraint(equalTo: content.topAnchor, constant: 1).isActive = true
         scroll.leftAnchor.constraint(equalTo: side.rightAnchor).isActive = true
@@ -106,7 +103,6 @@ final class Learn: NSWindow {
         
         item
             .sink { item in
-                selectorCenter.constant = 75 + (47 * .init(item.rawValue))
                 text.attributedStringValue = .with(markdown: item.info,
                                                    attributes: [
                                                     .foregroundColor: NSColor.labelColor,
