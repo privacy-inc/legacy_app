@@ -94,6 +94,27 @@ final class Landing: NSView, NSMenuDelegate {
         
         addSubview(list)
         
+        let vibrant = Vibrant(layer: false)
+        addSubview(vibrant)
+        
+        let title = Text(vibrancy: true)
+        title.font = .systemFont(ofSize: 30, weight: .thin)
+        title.textColor = .labelColor
+        addSubview(title)
+        
+        let icon = NSImageView(image: .init(systemSymbolName: "bolt.shield", accessibilityDescription: nil) ?? .init())
+        icon.symbolConfiguration = .init(pointSize: 30, weight: .light)
+            .applying(.init(hierarchicalColor: .secondaryLabelColor))
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        vibrant.addSubview(icon)
+        
+        let description = Text(vibrancy: true)
+        description.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .regular)
+        description.textColor = .secondaryLabelColor
+        description.alignment = .right
+        description.stringValue = "Trackers\nprevented"
+        addSubview(description)
+        
         let configure = Control.Symbol("slider.vertical.3", point: 18, size: 40, weight: .light, hierarchical: true)
         configure
             .click
@@ -110,52 +131,24 @@ final class Landing: NSView, NSMenuDelegate {
             }
             .store(in: &subs)
         
-        let trackers = Control.Symbol("bolt.shield", point: 21, size: 40, weight: .light, hierarchical: true)
-        trackers
-            .click
-            .sink {
-                let view = Vibrant(layer: false)
-                view.translatesAutoresizingMaskIntoConstraints = true
-                view.frame.size = .init(width: 240, height: 240)
-                
-                let title = Text(vibrancy: false)
-                title.font = .systemFont(ofSize: 60, weight: .thin)
-                title.textColor = .labelColor
-                view.addSubview(title)
-                
-                let icon = NSImageView(image: .init(systemSymbolName: "bolt.shield", accessibilityDescription: nil) ?? .init())
-                icon.symbolConfiguration = .init(pointSize: 30, weight: .light)
-                    .applying(.init(hierarchicalColor: .secondaryLabelColor))
-                icon.translatesAutoresizingMaskIntoConstraints = false
-                view.addSubview(icon)
-                
-                let description = Text(vibrancy: false)
-                description.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular)
-                description.textColor = .secondaryLabelColor
-                description.stringValue = "Trackers\nprevented"
-                view.addSubview(description)
-                
-                title.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20).isActive = true
-                title.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-                
-                icon.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12).isActive = true
-                icon.rightAnchor.constraint(equalTo: description.leftAnchor, constant: -4).isActive = true
-                
-                description.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 22).isActive = true
-                description.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
-                
-                NSPopover().show(view, from: trackers, edge: .maxY)
-                
-                Task {
-                    title.stringValue = await cloud.model.tracking.total.formatted()
-                }
-            }
-            .store(in: &subs)
-        
-        let stack = NSStackView(views: [trackers, forget, configure])
+        let stack = NSStackView(views: [forget, configure])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
         addSubview(stack)
+        
+        title.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
+        title.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
+        
+        vibrant.topAnchor.constraint(equalTo: icon.topAnchor, constant: -5).isActive = true
+        vibrant.bottomAnchor.constraint(equalTo: icon.bottomAnchor, constant: 5).isActive = true
+        vibrant.leftAnchor.constraint(equalTo: icon.leftAnchor, constant: -5).isActive = true
+        vibrant.rightAnchor.constraint(equalTo: icon.rightAnchor, constant: 5).isActive = true
+        
+        icon.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12).isActive = true
+        icon.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
+        
+        description.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -4).isActive = true
+        description.centerYAnchor.constraint(equalTo: icon.centerYAnchor).isActive = true
         
         stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -17).isActive = true
         stack.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
@@ -173,6 +166,14 @@ final class Landing: NSView, NSMenuDelegate {
             .removeDuplicates()
             .sink {
                 empty.isHidden = !$0
+            }
+            .store(in: &subs)
+        
+        cloud
+            .map(\.tracking.total)
+            .removeDuplicates()
+            .sink {
+                title.stringValue = $0.formatted()
             }
             .store(in: &subs)
     }
