@@ -28,7 +28,7 @@ final class Detail: NSView {
         
         let disable = Switch(title: "Disable text selection")
         
-        let stack = NSStackView(views: [icon, text, share, bookmark, pause, disable])
+        let stack = Stack(views: [icon, text, share, bookmark, pause, disable])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
         stack.spacing = 3

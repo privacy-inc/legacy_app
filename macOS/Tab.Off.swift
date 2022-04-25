@@ -96,6 +96,7 @@ extension Tab {
         
         override func updateLayer() {
             super.updateLayer()
+            
             NSApp.effectiveAppearance.performAsCurrentDrawingAppearance {
                 switch state {
                 case .pressed, .highlighted:

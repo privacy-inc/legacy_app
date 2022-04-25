@@ -41,7 +41,7 @@ final class Shortcut: NSView {
         scroll.automaticallyAdjustsContentInsets = false
         background.addSubview(scroll)
         
-        let stack = NSStackView()
+        let stack = Stack()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.orientation = .vertical
         stack.spacing = 2

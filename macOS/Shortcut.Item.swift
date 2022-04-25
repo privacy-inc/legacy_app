@@ -9,7 +9,7 @@ extension Shortcut {
         required init?(coder: NSCoder) { nil }
         init(window: Window, item: Session.Item) {
             let background = Vibrant(layer: true)
-            background.layer!.cornerRadius = 6
+            background.layer!.cornerRadius = 8
             self.background = background
             
             super.init(layer: true)
@@ -21,7 +21,7 @@ extension Shortcut {
             
             let text = Text(vibrancy: true)
             text.font = .preferredFont(forTextStyle: .body)
-            text.textColor = .secondaryLabelColor
+            text.textColor = .labelColor
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             text.maximumNumberOfLines = 1
             text.lineBreakMode = .byTruncatingTail
@@ -31,7 +31,7 @@ extension Shortcut {
                 let check = NSImageView(image: .init(systemSymbolName: "checkmark.circle.fill", accessibilityDescription: nil) ?? .init())
                 check.translatesAutoresizingMaskIntoConstraints = false
                 check.symbolConfiguration = .init(pointSize: 24, weight: .medium)
-                    .applying(.init(hierarchicalColor: .systemBlue))
+                check.contentTintColor = .systemBlue
                 addSubview(check)
                 
                 check.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
@@ -103,11 +103,13 @@ extension Shortcut {
         override func updateLayer() {
             super.updateLayer()
             
-            switch state {
-            case .highlighted, .pressed, .selected:
-                background.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-            default:
-                background.layer!.backgroundColor = .clear
+            NSApp.effectiveAppearance.performAsCurrentDrawingAppearance {
+                switch state {
+                case .highlighted, .pressed, .selected:
+                    background.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+                default:
+                    background.layer!.backgroundColor = .clear
+                }
             }
         }
     }

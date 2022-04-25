@@ -31,15 +31,17 @@ extension Control {
         override func updateLayer() {
             super.updateLayer()
             
-            switch state {
-            case .selected:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.2).cgColor
-            case .pressed:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
-            case .highlighted:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-            default:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.035).cgColor
+            NSApp.effectiveAppearance.performAsCurrentDrawingAppearance {
+                switch state {
+                case .selected:
+                    layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.2).cgColor
+                case .pressed:
+                    layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
+                case .highlighted:
+                    layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+                default:
+                    layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.035).cgColor
+                }
             }
         }
         
