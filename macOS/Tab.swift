@@ -57,6 +57,13 @@ final class Tab: NSView, NSMenuDelegate {
         load()
     }
     
+    override func updateLayer() {
+        subviews
+            .forEach {
+                $0.updateLayer()
+            }
+    }
+    
     func align(after: NSLayoutXAxisAnchor) {
         leftGuide = leftAnchor.constraint(equalTo: after, constant: 10)
     }

@@ -93,7 +93,7 @@ extension Tab {
             stop.toolTip = "Stop"
             stop.state = .hidden
             
-            let stack = NSStackView(views: [prompt, close, search, secure, insecure, back, forward, reload, stop, options, counter])
+            let stack = Stack(views: [prompt, close, search, secure, insecure, back, forward, reload, stop, options, counter])
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.spacing = 0
             addSubview(stack)

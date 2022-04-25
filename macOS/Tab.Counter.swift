@@ -48,13 +48,15 @@ extension Tab {
         override func updateLayer() {
             super.updateLayer()
             
-            switch state {
-            case .pressed, .highlighted:
-                text.textColor = .labelColor
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.12).cgColor
-            default:
-                text.textColor = .secondaryLabelColor
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+            NSApp.effectiveAppearance.performAsCurrentDrawingAppearance {
+                switch state {
+                case .pressed, .highlighted:
+                    text.textColor = .labelColor
+                    layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.2).cgColor
+                default:
+                    text.textColor = .secondaryLabelColor
+                    layer!.backgroundColor = NSColor.separatorColor.cgColor
+                }
             }
         }
         
