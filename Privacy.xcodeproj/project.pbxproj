@@ -1001,6 +1001,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "Download files to your folder.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2022 Privacy Inc";
+				INFOPLIST_KEY_NSLocationUsageDescription = "This website wants to access your location.";
 				INFOPLIST_KEY_NSPrincipalClass = Privacy.App;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1048,6 +1049,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "Download files to your folder.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "2020-2022 Privacy Inc";
+				INFOPLIST_KEY_NSLocationUsageDescription = "This website wants to access your location.";
 				INFOPLIST_KEY_NSPrincipalClass = Privacy.App;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
