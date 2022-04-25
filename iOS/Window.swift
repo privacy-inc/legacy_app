@@ -33,24 +33,17 @@ struct Window: View {
                 cloud.ready.notify(queue: .main) {
                     cloud.pull.send()
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        switch Defaults.action {
-                        case .rate:
-                            UIApplication.shared.review()
-                        case .froob:
-                            withAnimation(.easeInOut(duration: 0.4)) {
-                                session.froob = true
-                            }
-                        case .none:
-                            break
+                    if Defaults.froob {
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            session.froob = true
                         }
-                        
-                        Task
-                            .detached {
-                                _ = await UNUserNotificationCenter.request()
-                                await store.launch()
-                            }
                     }
+                    
+                    Task
+                        .detached {
+                            _ = await UNUserNotificationCenter.request()
+                            await store.launch()
+                        }
                 }
             }
     }

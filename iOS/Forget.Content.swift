@@ -1,4 +1,5 @@
 import SwiftUI
+import Specs
 
 extension Forget {
     struct Content: View {
@@ -35,6 +36,10 @@ extension Forget {
                                 await MainActor.run {
                                     session.objectWillChange.send()
                                     dismiss()
+                                    
+                                    if Defaults.rate {
+                                        UIApplication.shared.review()
+                                    }
                                 }
                             }
                     } label: {

@@ -10,7 +10,7 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
-    func review() {
+    @MainActor func review() {
         scene
             .map(SKStoreReviewController.requestReview(in:))
     }

@@ -1,4 +1,5 @@
 import SwiftUI
+import Specs
 
 extension Detail {
     struct Content: View {
@@ -65,6 +66,10 @@ extension Detail {
                             await cloud.bookmark(url: url, title: session.items[index].web?.title ?? "")
                             await UNUserNotificationCenter.send(message: "Bookmark added!")
                             dismiss()
+                            
+                            if Defaults.rate {
+                                UIApplication.shared.review()
+                            }
                         }
                     }
                     

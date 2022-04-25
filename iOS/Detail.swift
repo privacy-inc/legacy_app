@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import Specs
 
 final class Detail: UIHostingController<Detail.Content>, UIViewControllerRepresentable, UISheetPresentationControllerDelegate {
     private let status: Browser.Status
@@ -65,6 +66,10 @@ final class Detail: UIHostingController<Detail.Content>, UIViewControllerReprese
         share.completionWithItemsHandler = { [weak self] activity, completed, _, _ in
             if completed && activity != nil {
                 self?.dismiss(animated: true)
+            }
+            
+            if Defaults.rate {
+                UIApplication.shared.review()
             }
         }
         present(share, animated: true)

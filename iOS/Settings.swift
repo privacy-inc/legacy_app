@@ -185,8 +185,9 @@ struct Settings: View {
             .sheet(isPresented: $about, content: About.init)
             
             Button {
-                UIApplication.shared.review()
-                Defaults.hasRated = true
+                Task {
+                    await UIApplication.shared.review()
+                }
             } label: {
                 HStack {
                     Text("Rate on the App Store")
