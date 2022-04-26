@@ -97,7 +97,7 @@ struct Tabs: View {
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(items: [
-                .init(size: 16, icon: "line.3.horizontal") {
+                .init(size: 17, icon: "line.3.horizontal") {
                     settings = true
                 },
                 .init(size: 20, icon: "plus") {

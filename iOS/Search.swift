@@ -44,7 +44,7 @@ struct Search: View {
         .background(.ultraThickMaterial)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(items: [
-                .init(size: 16, icon: "line.3.horizontal") {
+                .init(size: 17, icon: "line.3.horizontal") {
                     field.cancel(clear: false)
                     settings = true
                 },
