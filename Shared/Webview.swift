@@ -231,6 +231,21 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
               description: (didFailWithError as NSError).localizedDescription)
     }
     
+    final func download(_: WKDownload, decidedPolicyForHTTPRedirection: HTTPURLResponse, newRequest: URLRequest) async -> WKDownload.RedirectPolicy {
+        switch await cloud.policy(request: newRequest.url!, from: decidedPolicyForHTTPRedirection.url ?? url!) {
+        case .allow:
+            return .allow
+        default:
+            return .cancel
+        }
+    }
+    
+    final func download(_: WKDownload, respondTo: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
+        settings.http
+        ? (.useCredential, respondTo.protectionSpace.serverTrust.map(URLCredential.init(trust:)))
+        : (.performDefaultHandling, nil)
+    }
+    
 #if os(macOS)
     
     final func download(_: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
