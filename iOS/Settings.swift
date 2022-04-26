@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreLocation
 import Specs
 
 struct Settings: View {
@@ -6,6 +7,8 @@ struct Settings: View {
     @State private var autoplay = Specs.Settings.Autoplay.none
     @State private var http = false
     @State private var about = false
+    @State private var notifications = false
+    @State private var location = false
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -43,6 +46,13 @@ struct Settings: View {
             engine = $0.settings.search
             autoplay = $0.settings.configuration.autoplay
             http = $0.settings.configuration.http
+        }
+        .task {
+            let status = CLLocationManager().authorizationStatus
+            location = status != .denied || status != .notDetermined
+            
+            let settings = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
+            notifications = settings != .notDetermined && settings != .denied
         }
     }
     
@@ -127,6 +137,13 @@ struct Settings: View {
                     Text("Notifications")
                         .font(.callout)
                     Spacer()
+                    Image(systemName: notifications
+                          ? "checkmark.circle.fill"
+                          : "exclamationmark.triangle.fill")
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundColor(notifications ? .blue : .pink)
+                    .font(.system(size: 14, weight: .medium))
+                    .frame(width: 22)
                     Image(systemName: "app.badge")
                         .symbolRenderingMode(.multicolor)
                         .font(.system(size: 16, weight: .light))
@@ -140,6 +157,13 @@ struct Settings: View {
                     Text("Location access")
                         .font(.callout)
                     Spacer()
+                    Image(systemName: location
+                          ? "checkmark.circle.fill"
+                          : "exclamationmark.triangle.fill")
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundColor(location ? .blue : .pink)
+                    .font(.system(size: 14, weight: .medium))
+                    .frame(width: 22)
                     Image(systemName: "location")
                         .symbolRenderingMode(.multicolor)
                         .font(.system(size: 16, weight: .light))
