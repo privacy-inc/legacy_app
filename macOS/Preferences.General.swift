@@ -14,7 +14,7 @@ extension Preferences {
             let browserIcon = NSImageView(image: .init(systemSymbolName: "magnifyingglass", accessibilityDescription: nil) ?? .init())
             browserIcon.translatesAutoresizingMaskIntoConstraints = false
             browserIcon.symbolConfiguration = .init(pointSize: 18, weight: .light)
-                .applying(.init(hierarchicalColor: .secondaryLabelColor))
+                .applying(.init(hierarchicalColor: .labelColor))
             addSubview(browserIcon)
             
             let browserText = Text(vibrancy: true)
@@ -50,7 +50,7 @@ extension Preferences {
             let notificationsIcon = NSImageView(image: .init(systemSymbolName: "app.badge", accessibilityDescription: nil) ?? .init())
             notificationsIcon.translatesAutoresizingMaskIntoConstraints = false
             notificationsIcon.symbolConfiguration = .init(pointSize: 18, weight: .light)
-                .applying(.init(hierarchicalColor: .secondaryLabelColor))
+                .applying(.init(hierarchicalColor: .labelColor))
             addSubview(notificationsIcon)
             
             let notificationsText = Text(vibrancy: true)
@@ -83,7 +83,7 @@ extension Preferences {
             let locationIcon = NSImageView(image: .init(systemSymbolName: "location", accessibilityDescription: nil) ?? .init())
             locationIcon.translatesAutoresizingMaskIntoConstraints = false
             locationIcon.symbolConfiguration = .init(pointSize: 18, weight: .light)
-                .applying(.init(hierarchicalColor: .secondaryLabelColor))
+                .applying(.init(hierarchicalColor: .labelColor))
             addSubview(locationIcon)
             
             let locationText = Text(vibrancy: true)
@@ -120,10 +120,11 @@ extension Preferences {
             browserText.leftAnchor.constraint(equalTo: leftAnchor, constant: 90).isActive = true
             
             browser.centerYAnchor.constraint(equalTo: browserText.centerYAnchor).isActive = true
-            browser.leftAnchor.constraint(equalTo: centerXAnchor, constant: 70).isActive = true
+            browser.rightAnchor.constraint(equalTo: browserBadge.leftAnchor, constant: -10).isActive = true
             
-            browserBadge.centerYAnchor.constraint(equalTo: browser.centerYAnchor).isActive = true
-            browserBadge.leftAnchor.constraint(equalTo: browser.rightAnchor, constant: 20).isActive = true
+            browserBadge.centerYAnchor.constraint(equalTo: browserText.centerYAnchor).isActive = true
+            browserBadge.rightAnchor.constraint(equalTo: rightAnchor, constant: -50).isActive = true
+            browserBadge.widthAnchor.constraint(equalToConstant: 30).isActive = true
             
             notificationsIcon.centerXAnchor.constraint(equalTo: leftAnchor, constant: 60).isActive = true
             notificationsIcon.centerYAnchor.constraint(equalTo: notificationsText.centerYAnchor).isActive = true
@@ -132,10 +133,11 @@ extension Preferences {
             notificationsText.leftAnchor.constraint(equalTo: leftAnchor, constant: 90).isActive = true
             
             notifications.centerYAnchor.constraint(equalTo: notificationsText.centerYAnchor).isActive = true
-            notifications.leftAnchor.constraint(equalTo: browser.leftAnchor).isActive = true
+            notifications.rightAnchor.constraint(equalTo: notificationsBadge.leftAnchor, constant: -10).isActive = true
             
-            notificationsBadge.centerYAnchor.constraint(equalTo: notifications.centerYAnchor).isActive = true
-            notificationsBadge.leftAnchor.constraint(equalTo: notifications.rightAnchor, constant: 20).isActive = true
+            notificationsBadge.centerYAnchor.constraint(equalTo: notificationsText.centerYAnchor).isActive = true
+            notificationsBadge.rightAnchor.constraint(equalTo: rightAnchor, constant: -50).isActive = true
+            notificationsBadge.widthAnchor.constraint(equalToConstant: 30).isActive = true
             
             locationIcon.centerXAnchor.constraint(equalTo: leftAnchor, constant: 60).isActive = true
             locationIcon.centerYAnchor.constraint(equalTo: locationText.centerYAnchor).isActive = true
@@ -144,10 +146,11 @@ extension Preferences {
             locationText.leftAnchor.constraint(equalTo: leftAnchor, constant: 90).isActive = true
             
             location.centerYAnchor.constraint(equalTo: locationText.centerYAnchor).isActive = true
-            location.leftAnchor.constraint(equalTo: browser.leftAnchor).isActive = true
+            location.rightAnchor.constraint(equalTo: locationBadge.leftAnchor, constant: -10).isActive = true
             
             locationBadge.centerYAnchor.constraint(equalTo: locationText.centerYAnchor).isActive = true
-            locationBadge.leftAnchor.constraint(equalTo: location.rightAnchor, constant: 20).isActive = true
+            locationBadge.rightAnchor.constraint(equalTo: rightAnchor, constant: -50).isActive = true
+            locationBadge.widthAnchor.constraint(equalToConstant: 30).isActive = true
             
             Task {
                 await update(badge: browserBadge, value: NSWorkspace

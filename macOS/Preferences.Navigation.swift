@@ -64,7 +64,7 @@ extension Preferences {
             addSubview(stack)
             
             stack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-            stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 140).isActive = true
+            stack.leftAnchor.constraint(equalTo: leftAnchor, constant: 130).isActive = true
             
             cloud
                 .first()

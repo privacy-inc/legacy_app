@@ -61,14 +61,14 @@ final class Detail: NSView {
                         if let title = title,
                            !title.isEmpty {
                             string.append(.make(title.capped(max: 300) + " ", attributes: [
-                                .font: NSFont.preferredFont(forTextStyle: .body),
+                                .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular),
                                 .foregroundColor: NSColor.labelColor]))
                         }
                         
                         if let domain = url?.absoluteString.domain {
                             string.append(.make(domain, attributes: [
-                                .font: NSFont.preferredFont(forTextStyle: .body),
-                                .foregroundColor: NSColor.tertiaryLabelColor]))
+                                .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .light),
+                                .foregroundColor: NSColor.secondaryLabelColor]))
                         }
                     }
                 }

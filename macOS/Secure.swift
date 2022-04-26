@@ -34,14 +34,10 @@ final class Secure: NSView {
                                 ? "Using an encrypted connnection to "
                                 : "Using an insecure connnection to ",
                                 attributes: [
-                                    .font: NSFont.preferredFont(forTextStyle: .body),
+                                    .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular),
                     .foregroundColor: NSColor.labelColor]))
                 $0.append(.make(domain, attributes: [
-                    .font: NSFontManager.shared.font(withFamily: NSFont.preferredFont(forTextStyle: .body).familyName ?? "",
-                                                     traits: [.italicFontMask],
-                                                     weight: 5,
-                                                     size: NSFont.preferredFont(forTextStyle: .body).pointSize)
-                    ?? NSFont.preferredFont(forTextStyle: .body),
+                    .font: NSFont.systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .light),
                     .foregroundColor: NSColor.secondaryLabelColor]))
                 $0.newLine()
                 $0.newLine()

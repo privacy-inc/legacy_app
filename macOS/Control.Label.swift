@@ -12,7 +12,7 @@ extension Control {
             let icon = NSImageView(image: .init(systemSymbolName: symbol, accessibilityDescription: nil) ?? .init())
             icon.translatesAutoresizingMaskIntoConstraints = false
             icon.symbolConfiguration = .init(pointSize: 13, weight: .regular)
-                .applying(.init(hierarchicalColor: .secondaryLabelColor))
+                .applying(.init(hierarchicalColor: .labelColor))
             
             super.init(layer: true)
             layer!.cornerRadius = 8

@@ -13,7 +13,7 @@ final class Segmented: NSView {
         let icon = NSImageView(image: .init(systemSymbolName: symbol, accessibilityDescription: nil) ?? .init())
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.symbolConfiguration = .init(pointSize: 16, weight: .regular)
-            .applying(.init(hierarchicalColor: .secondaryLabelColor))
+            .applying(.init(hierarchicalColor: .labelColor))
         addSubview(icon)
         
         let text = Text(vibrancy: false)
@@ -37,9 +37,10 @@ final class Segmented: NSView {
         
         text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         text.leftAnchor.constraint(equalTo: leftAnchor, constant: 45).isActive = true
+        text.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
         control.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
-        control.leftAnchor.constraint(equalTo: text.rightAnchor, constant: 20).isActive = true
+        control.leftAnchor.constraint(equalTo: text.rightAnchor).isActive = true
     }
     
     override var allowsVibrancy: Bool {
