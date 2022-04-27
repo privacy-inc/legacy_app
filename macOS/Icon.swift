@@ -3,9 +3,10 @@ import Combine
 import Specs
 
 final class Icon: NSView {
-    private(set) weak var image: NSImageView!
+    let image = CurrentValueSubject<NSImage?, Never>(nil)
     private weak var width: NSLayoutConstraint!
-    private var sub: AnyCancellable?
+    private var sub1: AnyCancellable?
+    private var sub2: AnyCancellable?
     private let size: CGFloat
     
     required init?(coder: NSCoder) { nil }
@@ -21,7 +22,6 @@ final class Icon: NSView {
         image.layer!.cornerCurve = .continuous
         image.imageScaling = .scaleProportionallyUpOrDown
         image.translatesAutoresizingMaskIntoConstraints = false
-        self.image = image
         addSubview(image)
         
         heightAnchor.constraint(equalTo: widthAnchor).isActive = true
@@ -32,6 +32,11 @@ final class Icon: NSView {
         image.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         image.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         image.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        
+        sub2 = self.image
+            .sink {
+                image.image = $0
+            }
     }
     
     override func hitTest(_: NSPoint) -> NSView? {
@@ -39,6 +44,10 @@ final class Icon: NSView {
     }
     
     func icon(website: URL?) {
+        image.value = nil
+        width.constant = 0
+        sub1?.cancel()
+        
         Task
             .detached { [weak self] in
                 await self?.update(website: website)
@@ -46,16 +55,14 @@ final class Icon: NSView {
     }
     
     @MainActor private func update(website: URL?) async {
-        width.constant = 0
-        sub?.cancel()
         guard
             let website = website,
             let publisher = await favicon.publisher(for: website)
         else { return }
-        sub = publisher
+        sub1 = publisher
             .sink { [weak self, size] in
                 self?.width.constant = size
-                self?.image.image = $0
+                self?.image.value = $0
             }
     }
 }

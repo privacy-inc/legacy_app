@@ -1,6 +1,8 @@
-import AppKit
 import WebKit
 import Combine
+import UserNotifications
+import StoreKit
+import Specs
 
 final class Downloads: NSVisualEffectView {
     private weak var stack: NSStackView!
@@ -23,9 +25,8 @@ final class Downloads: NSVisualEffectView {
         done
             .click
             .sink { [weak self] in
-//                stack.animator().setViews([], in: .center)
-//                self?.animator().frame.size.height = 1
-                self?.add(download: nil)
+                stack.animator().setViews([], in: .center)
+                self?.animator().frame.size.height = 1
             }
             .store(in: &subs)
         addSubview(done)
@@ -38,8 +39,68 @@ final class Downloads: NSVisualEffectView {
         done.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
     }
     
-    func add(download: WKDownload?) {
-        animator().frame.size.height = .init(stack.views.count + 1) * 36 + 60
+    func add(download: WKDownload) {
+        guard !stack.views.map({ ($0 as! Item).download }).contains(download) else { return }
         stack.animator().addView(Item(download: download), in: .center)
+        resize()
+    }
+    
+    func remove(item: Item) {
+        stack.animator().removeView(item)
+        resize()
+    }
+    
+    func failed(download: WKDownload, data: Data?) {
+        stack
+            .views
+            .map {
+                $0 as! Item
+            }
+            .first {
+                $0.download == download
+            }
+            .map {
+                $0.cancel(data: data)
+            }
+    }
+    
+    func destination(download: WKDownload, url: URL) {
+        stack
+            .views
+            .map {
+                $0 as! Item
+            }
+            .first {
+                $0.download == download
+            }
+            .map {
+                $0.url = url
+            }
+    }
+    
+    func finished(download: WKDownload) {
+        stack
+            .views
+            .map {
+                $0 as! Item
+            }
+            .first {
+                $0.download == download
+            }
+            .map {
+                $0.finished()
+            }
+        
+        Task {
+            await UNUserNotificationCenter.send(message: "Download finished")
+        }
+        
+        if Defaults.rate {
+            SKStoreReviewController.requestReview()
+        }
+    }
+    
+    private func resize() {
+        animator().frame.size.height = .init(stack.views.count) * 40 + 60
     }
 }

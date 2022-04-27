@@ -60,6 +60,14 @@ extension Tab {
             title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
             title.centerYAnchor.constraint(equalTo: close.centerYAnchor, constant: -1).isActive = true
             
+            icon
+                .image
+                .sink {
+                    icon.isHidden = $0 == nil
+                    close.state = $0 == nil ? .on : .hidden
+                }
+                .store(in: &subs)
+            
             publisher
                 .first()
                 .sink { [weak self] in
@@ -67,9 +75,6 @@ extension Tab {
                     case .list:
                         title.stringValue = "New tab"
                     case let .web(web):
-                        icon.isHidden = false
-                        close.state = .hidden
-                        
                         self?.add(web
                             .publisher(for: \.url)
                             .compactMap {
@@ -115,7 +120,7 @@ extension Tab {
         
         override func mouseExited(with: NSEvent) {
             super.mouseExited(with: with)
-            guard icon.image.image != nil else { return }
+            guard icon.image.value != nil else { return }
             close.state = .hidden
             icon.isHidden = false
         }

@@ -125,6 +125,14 @@ final class Web: Webview {
         return nil
     }
     
+    func download(_ download: WKDownload, didFailWithError: Error, resumeData: Data?) {
+        (window as? Window)?.downloads.failed(download: download, data: resumeData)
+    }
+    
+    func downloadDidFinish(_ download: WKDownload) {
+        (window as? Window)?.downloads.finished(download: download)
+    }
+    
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
         menu.remove(id: "WKMenuItemIdentifierSearchWeb")
 
@@ -179,6 +187,27 @@ final class Web: Webview {
                     $0.representedObject = window
                 }
         }
+    }
+    
+    override func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
+        super.webView(webView, navigationAction: navigationAction, didBecome: didBecome)
+        (window as? Window)?.downloads.add(download: didBecome)
+    }
+    
+    override func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, didBecome: WKDownload) {
+        super.webView(webView, navigationResponse: navigationResponse, didBecome: didBecome)
+        (window as? Window)?.downloads.add(download: didBecome)
+    }
+    
+    override func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
+        let directory = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
+        let url = FileManager.default.fileExists(atPath: directory.appendingPathComponent(suggestedFilename).path)
+            ? directory.appendingPathComponent(UUID().uuidString + "_" + suggestedFilename)
+            : directory.appendingPathComponent(suggestedFilename)
+        
+        (window as? Window)?.downloads.destination(download: download, url: url)
+        
+        return url
     }
     
     @objc func saveAs() {

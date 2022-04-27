@@ -124,6 +124,18 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         }
     }
     
+    func webView(_: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
+        didBecome.delegate = self
+    }
+    
+    func webView(_: WKWebView, navigationResponse: WKNavigationResponse, didBecome: WKDownload) {
+        didBecome.delegate = self
+    }
+    
+    func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
+        nil
+    }
+    
     final func load(url: URL) {
         load(.init(url: url))
     }
@@ -218,18 +230,12 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         return .download
     }
     
-    final func webView(_: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
-        didBecome.delegate = self
-    }
     
-    final func webView(_: WKWebView, navigationResponse: WKNavigationResponse, didBecome: WKDownload) {
-        didBecome.delegate = self
-    }
-    
-    final func download(_ download: WKDownload, didFailWithError: Error, resumeData: Data?) {
-        error(url: download.originalRequest?.url,
-              description: (didFailWithError as NSError).localizedDescription)
-    }
+//    
+//    final func download(_ download: WKDownload, didFailWithError: Error, resumeData: Data?) {
+//        error(url: download.originalRequest?.url,
+//              description: (didFailWithError as NSError).localizedDescription)
+//    }
     
     final func download(_: WKDownload, decidedPolicyForHTTPRedirection: HTTPURLResponse, newRequest: URLRequest) async -> WKDownload.RedirectPolicy {
         switch await cloud.policy(request: newRequest.url!, from: decidedPolicyForHTTPRedirection.url ?? url!) {
@@ -248,19 +254,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     
 #if os(macOS)
     
-    final func download(_: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
-        FileManager.default.fileExists(atPath: downloads.appendingPathComponent(suggestedFilename).path)
-            ? downloads.appendingPathComponent(UUID().uuidString + "_" + suggestedFilename)
-            : downloads.appendingPathComponent(suggestedFilename)
-    }
-
-    final func downloadDidFinish(_: WKDownload) {
-        NSWorkspace.shared.activateFileViewerSelecting([downloads])
-    }
-
-    private var downloads: URL {
-        FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
-    }
+    
     
 #elseif os(iOS)
     

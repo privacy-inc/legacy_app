@@ -33,7 +33,7 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
         
         let accessory = NSTitlebarAccessoryViewController()
         accessory.view = downloads
-        accessory.view.frame.size.height = 100
+        accessory.view.frame.size.height = 1
         accessory.layoutAttribute = .bottom
         addTitlebarAccessoryViewController(accessory)
 
