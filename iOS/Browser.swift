@@ -13,7 +13,7 @@ struct Browser: View {
             .transition(.identity)
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(items: [
-                    .init(size: 16, icon: "slider.vertical.3") {
+                    .init(size: 17, icon: "slider.vertical.3") {
                         status.small = true
                         detail = true
                     },
@@ -40,7 +40,7 @@ struct Browser: View {
                         }
             }
             .safeAreaInset(edge: .top, spacing: 0) {
-                Features(status: status, session: session, index: index)
+                Features(session: session, status: status, index: index)
             }
             .task {
                 status.reader = session.items[index].reader

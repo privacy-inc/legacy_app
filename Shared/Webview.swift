@@ -1,5 +1,7 @@
 import WebKit
 import Combine
+import UserNotifications
+import StoreKit
 import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate {
@@ -103,6 +105,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     }
     
     deinit {
+        print("web gone")
         stopLoading()
         uiDelegate = nil
         navigationDelegate = nil
@@ -134,6 +137,22 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     
     func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
         nil
+    }
+    
+    func download(_: WKDownload, didFailWithError error: Error, resumeData: Data?) {
+        Task {
+            await UNUserNotificationCenter.send(message: error.localizedDescription)
+        }
+    }
+    
+    final func downloadDidFinish(_: WKDownload) {
+        Task {
+            await UNUserNotificationCenter.send(message: "Download finished!")
+        }
+        
+        if Defaults.rate {
+            SKStoreReviewController.requestReview()
+        }
     }
     
     final func load(url: URL) {
@@ -230,13 +249,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         return .download
     }
     
-    
-//    
-//    final func download(_ download: WKDownload, didFailWithError: Error, resumeData: Data?) {
-//        error(url: download.originalRequest?.url,
-//              description: (didFailWithError as NSError).localizedDescription)
-//    }
-    
     final func download(_: WKDownload, decidedPolicyForHTTPRedirection: HTTPURLResponse, newRequest: URLRequest) async -> WKDownload.RedirectPolicy {
         switch await cloud.policy(request: newRequest.url!, from: decidedPolicyForHTTPRedirection.url ?? url!) {
         case .allow:
@@ -251,25 +263,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         ? (.useCredential, respondTo.protectionSpace.serverTrust.map(URLCredential.init(trust:)))
         : (.performDefaultHandling, nil)
     }
-    
-#if os(macOS)
-    
-    
-    
-#elseif os(iOS)
-    
-    final func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
-        decideDestinationUsing
-            .url
-            .map {
-                try? UIApplication.shared.share(Data(contentsOf: $0).temporal(suggestedFilename))
-            }
-        
-        await download.cancel()
-        return nil
-    }
-    
-#endif
     
     @MainActor final class func clear() async {
         URLCache.shared.removeAllCachedResponses()

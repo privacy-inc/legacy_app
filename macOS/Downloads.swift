@@ -1,6 +1,5 @@
 import WebKit
 import Combine
-import UserNotifications
 import StoreKit
 import Specs
 
@@ -90,10 +89,6 @@ final class Downloads: NSVisualEffectView {
             .map {
                 $0.finished()
             }
-        
-        Task {
-            await UNUserNotificationCenter.send(message: "Download finished")
-        }
         
         if Defaults.rate {
             SKStoreReviewController.requestReview()

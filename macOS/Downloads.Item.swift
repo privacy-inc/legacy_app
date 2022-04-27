@@ -108,7 +108,7 @@ extension Downloads {
             
             heightAnchor.constraint(equalToConstant: 40).isActive = true
             
-            base.widthAnchor.constraint(equalToConstant: 160).isActive = true
+            base.widthAnchor.constraint(equalToConstant: 180).isActive = true
             base.heightAnchor.constraint(equalToConstant: 40).isActive = true
             
             weight.rightAnchor.constraint(equalTo: base.rightAnchor).isActive = true
@@ -159,7 +159,7 @@ extension Downloads {
                 .publisher(for: \.fractionCompleted)
                 .removeDuplicates()
                 .sink {
-                    progress.animator().frame.size.width = 160 * $0
+                    progress.animator().frame.size.width = 180 * $0
                 }
                 .store(in: &subs)
         }

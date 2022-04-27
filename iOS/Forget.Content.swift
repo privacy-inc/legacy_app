@@ -28,6 +28,7 @@ extension Forget {
                         
                         Task
                             .detached(priority: .utility) {
+                                try? FileManager.default.removeItem(at: .init(fileURLWithPath: NSTemporaryDirectory()))
                                 await Webview.clear()
                                 await favicon.clear()
                                 await cloud.forget()

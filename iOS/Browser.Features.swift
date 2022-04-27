@@ -2,8 +2,8 @@ import SwiftUI
 
 extension Browser {
     struct Features: View {
+        @ObservedObject var session: Session
         @ObservedObject var status: Status
-        let session: Session
         let index: Int
         @State private var size = Double(1)
         @State private var find = ""
@@ -101,6 +101,13 @@ extension Browser {
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 10)
+                }
+                
+                if !session.downloads.isEmpty {
+                    if status.find || status.reader {
+                        Divider()
+                    }
+                    Downloads(session: session)
                 }
                 
                 Progress(progress: progress)

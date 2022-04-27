@@ -1,10 +1,11 @@
-import Foundation
 import SwiftUI
+import WebKit
 import Specs
 
 final class Session: ObservableObject {
     @Published var current: Int? = 0
     @Published var froob = false
+    @Published var downloads = [(download: WKDownload, status: Downloads.Status)]()
     var items: [Item]
     var dark = false
     var previous = 0

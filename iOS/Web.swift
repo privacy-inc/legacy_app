@@ -4,7 +4,7 @@ import Specs
 
 final class Web: Webview, UIViewRepresentable {
     private let session: Session
-
+    
     @MainActor var fontSize: CGFloat {
         get async {
             guard
@@ -35,7 +35,7 @@ final class Web: Webview, UIViewRepresentable {
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.clipsToBounds = false
         scrollView.indicatorStyle = dark && settings.dark ? .white : .default
-
+        
         let background = UIColor
             .secondarySystemBackground
             .resolvedColor(with: .init(userInterfaceStyle: dark ? .dark : .light))
@@ -96,6 +96,35 @@ final class Web: Webview, UIViewRepresentable {
         scrollView.scrollRectToVisible(rect, animated: true)
     }
     
+    override func download(_ download: WKDownload, didFailWithError: Error, resumeData: Data?) {
+        super.download(download, didFailWithError: didFailWithError, resumeData: resumeData)
+        session
+            .downloads
+            .remove {
+                $0.download == download
+            }
+        
+        if let data = resumeData {
+            session.downloads.append((download: download, status: .cancelled(data)))
+        }
+    }
+    
+    override func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
+        super.webView(webView, navigationAction: navigationAction, didBecome: didBecome)
+        session.downloads.append((download: didBecome, status: .on))
+    }
+    
+    override func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, didBecome: WKDownload) {
+        super.webView(webView, navigationResponse: navigationResponse, didBecome: didBecome)
+        session.downloads.append((download: didBecome, status: .on))
+    }
+    
+    override func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
+        FileManager.default.fileExists(atPath: URL.temporal(suggestedFilename).path)
+        ? URL.temporal(UUID().uuidString + "_" + suggestedFilename)
+        : URL.temporal(suggestedFilename)
+    }
+    
     override func deeplink(url: URL) {
         UIApplication.shared.open(url)
     }
@@ -116,10 +145,10 @@ final class Web: Webview, UIViewRepresentable {
         isOpaque = false
         UIApplication.shared.hide()
     }
-
+    
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if action.sourceFrame.isMainFrame,
-            (action.targetFrame == nil && action.navigationType == .other) || action.navigationType == .linkActivated {
+           (action.targetFrame == nil && action.navigationType == .other) || action.navigationType == .linkActivated {
             _ = action
                 .request
                 .url
@@ -140,7 +169,7 @@ final class Web: Webview, UIViewRepresentable {
                 elements
                     .insert(UIAction(title: NSLocalizedString("Open", comment: ""),
                                      image: UIImage(systemName: "paperplane"))
-                    { [weak self] _ in
+                            { [weak self] _ in
                         self?.load(url: url)
                     }, at: 0)
                 
@@ -162,7 +191,7 @@ final class Web: Webview, UIViewRepresentable {
                             await self?.session.open(url: url, change: true)
                         }
                     }, at: 2)
-                }
+            }
             return .init(title: "", children: elements)
         }
     }
@@ -178,8 +207,8 @@ final class Web: Webview, UIViewRepresentable {
     func makeUIView(context: Context) -> Web {
         self
     }
-
+    
     func updateUIView(_: Web, context: Context) {
-
+        
     }
 }
