@@ -3,6 +3,7 @@ import Combine
 
 final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
     let session: Session
+    let downloads = Downloads()
     let finder = NSTextFinder()
     private weak var findbar: NSTitlebarAccessoryViewController!
     private var subs = Set<AnyCancellable>()
@@ -30,11 +31,11 @@ final class Window: NSWindow, NSWindowDelegate, NSTextFinderBarContainer {
         bar.layoutAttribute = .top
         addTitlebarAccessoryViewController(bar)
         
-        let downloads = NSTitlebarAccessoryViewController()
-        downloads.view = Downloads(session: session)
-        downloads.view.frame.size.height = 1
-        downloads.layoutAttribute = .bottom
-        addTitlebarAccessoryViewController(downloads)
+        let accessory = NSTitlebarAccessoryViewController()
+        accessory.view = downloads
+        accessory.view.frame.size.height = 100
+        accessory.layoutAttribute = .bottom
+        addTitlebarAccessoryViewController(accessory)
 
         let findbar = NSTitlebarAccessoryViewController()
         findbar.view = .init()

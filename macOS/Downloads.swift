@@ -1,10 +1,45 @@
 import AppKit
+import WebKit
+import Combine
 
 final class Downloads: NSVisualEffectView {
+    private weak var stack: NSStackView!
+    private var subs = Set<AnyCancellable>()
+    
     required init?(coder: NSCoder) { nil }
-    init(session: Session) {
+    init() {
         super.init(frame: .zero)
         state = .active
         material = .menu
+        
+        let stack = NSStackView()
+        stack.orientation = .vertical
+        stack.spacing = 0
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stack)
+        self.stack = stack
+        
+        let done = Control.Title("Clear", color: .labelColor, layer: true)
+        done
+            .click
+            .sink { [weak self] in
+//                stack.animator().setViews([], in: .center)
+//                self?.animator().frame.size.height = 1
+                self?.add(download: nil)
+            }
+            .store(in: &subs)
+        addSubview(done)
+        
+        stack.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        stack.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        stack.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        
+        done.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        done.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
+    }
+    
+    func add(download: WKDownload?) {
+        animator().frame.size.height = .init(stack.views.count + 1) * 36 + 60
+        stack.animator().addView(Item(download: download), in: .center)
     }
 }

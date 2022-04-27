@@ -19,6 +19,7 @@
 		CE25B83C27F9B51A003FCB31 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25B83B27F9B51A003FCB31 /* List.swift */; };
 		CE25B83E27F9B542003FCB31 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25B83D27F9B542003FCB31 /* ListCell.swift */; };
 		CE25B84027F9B55B003FCB31 /* ListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25B83F27F9B55B003FCB31 /* ListInfo.swift */; };
+		CE2946DA28180CF600E812B1 /* Downloads.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2946D928180CF600E812B1 /* Downloads.Item.swift */; };
 		CE3576A82728091D005854B5 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3576A72728091D005854B5 /* CloudKit.framework */; };
 		CE3576AA27280938005854B5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3576A927280938005854B5 /* StoreKit.framework */; };
 		CE3576AC27281541005854B5 /* Colours.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE46B4EA26F7982200A5B5BB /* Colours.xcassets */; };
@@ -233,6 +234,7 @@
 		CE25B83B27F9B51A003FCB31 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		CE25B83D27F9B542003FCB31 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		CE25B83F27F9B55B003FCB31 /* ListInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInfo.swift; sourceTree = "<group>"; };
+		CE2946D928180CF600E812B1 /* Downloads.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloads.Item.swift; sourceTree = "<group>"; };
 		CE3576A72728091D005854B5 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		CE3576A927280938005854B5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CE3576AB2728096E005854B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				CE84E62D273D4BD60071429B /* Control.Symbol.swift */,
 				CEA2B28F2800435B00E2F201 /* Control.Title.swift */,
 				CEE9B15B2739481A0086BD6C /* Detail.swift */,
+				CE2946D928180CF600E812B1 /* Downloads.Item.swift */,
 				CEF1484E27F1F9660017AD40 /* Downloads.swift */,
 				CE74300C2729825500F5F5B8 /* Flip.swift */,
 				CEA2B28D28003F5700E2F201 /* Forget.swift */,
@@ -797,6 +800,7 @@
 				CE742FFE2729759900F5F5B8 /* Landing.swift in Sources */,
 				CEBFC84B273178BE00EFDA17 /* Message.swift in Sources */,
 				CE3576B527281CFD005854B5 /* Store.State.swift in Sources */,
+				CE2946DA28180CF600E812B1 /* Downloads.Item.swift in Sources */,
 				CE790DD8280AD39F00B9E9E9 /* Info.swift in Sources */,
 				CE43126F2736D71500DA0F99 /* Preferences.Navigation.swift in Sources */,
 				CE3576B827281D24005854B5 /* UNUserNotificationCenter.swift in Sources */,
