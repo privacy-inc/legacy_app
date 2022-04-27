@@ -33,6 +33,9 @@ final class Forget: NSView {
                         await Webview.clear()
                         await favicon.clear()
                         await cloud.forget()
+                        
+                        try? FileManager.default.removeItem(at: .init(fileURLWithPath: NSTemporaryDirectory()))
+                        
                         await UNUserNotificationCenter.send(message: "Forgot everything!")
                     }
                 

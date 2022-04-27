@@ -28,10 +28,12 @@ extension Forget {
                         
                         Task
                             .detached(priority: .utility) {
-                                try? FileManager.default.removeItem(at: .init(fileURLWithPath: NSTemporaryDirectory()))
                                 await Webview.clear()
                                 await favicon.clear()
                                 await cloud.forget()
+                                
+                                try? FileManager.default.removeItem(at: .init(fileURLWithPath: NSTemporaryDirectory()))
+                                
                                 await UNUserNotificationCenter.send(message: "Forgot everything!")
                                 
                                 await MainActor.run {

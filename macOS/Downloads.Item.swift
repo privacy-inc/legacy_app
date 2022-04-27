@@ -4,7 +4,6 @@ import Combine
 
 extension Downloads {
     final class Item: NSView {
-        var url: URL?
         let download: WKDownload
         private weak var title: Text!
         private weak var stop: Control.Symbol!
@@ -71,11 +70,8 @@ extension Downloads {
                            let resume = await download.webView?.resumeDownload(fromResumeData: data) {
                             
                             resume.delegate = download.webView as? Web
+                            resume.progress.fileURL = download.progress.fileURL
                             downloads?.add(download: resume)
-                            
-                            if let url = self?.url {
-                                downloads?.destination(download: resume, url: url)
-                            }
                         }
                         
                         if let self = self {
@@ -91,7 +87,7 @@ extension Downloads {
             show
                 .click
                 .sink { [weak self] in
-                    guard let url = self?.url else { return }
+                    guard let url = self?.download.progress.fileURL else { return }
                     NSWorkspace.shared.activateFileViewerSelecting([url])
                 }
                 .store(in: &subs)
@@ -162,6 +158,20 @@ extension Downloads {
                     progress.animator().frame.size.width = 180 * $0
                 }
                 .store(in: &subs)
+            
+            download
+                .progress
+                .publisher(for: \.isFinished)
+                .filter {
+                    $0
+                }
+                .sink { _ in
+                    title.stringValue = download.progress.fileURL?.lastPathComponent ?? "Download finished"
+                    show.state = .on
+                    again.state = .hidden
+                    stop.state = .hidden
+                }
+                .store(in: &subs)
         }
         
         @MainActor func cancel(data: Data?) {
@@ -170,13 +180,6 @@ extension Downloads {
             again.state = .on
             stop.state = .hidden
             show.state = .hidden
-        }
-        
-        func finished() {
-            title.stringValue = url?.lastPathComponent ?? "Download finished"
-            show.state = .on
-            again.state = .hidden
-            stop.state = .hidden
         }
     }
 }

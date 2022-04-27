@@ -26,6 +26,7 @@ final class Downloads: NSVisualEffectView {
             .sink { [weak self] in
                 stack.animator().setViews([], in: .center)
                 self?.animator().frame.size.height = 1
+                try? FileManager.default.removeItem(at: .init(fileURLWithPath: NSTemporaryDirectory()))
             }
             .store(in: &subs)
         addSubview(done)
@@ -61,38 +62,6 @@ final class Downloads: NSVisualEffectView {
             .map {
                 $0.cancel(data: data)
             }
-    }
-    
-    func destination(download: WKDownload, url: URL) {
-        stack
-            .views
-            .map {
-                $0 as! Item
-            }
-            .first {
-                $0.download == download
-            }
-            .map {
-                $0.url = url
-            }
-    }
-    
-    func finished(download: WKDownload) {
-        stack
-            .views
-            .map {
-                $0 as! Item
-            }
-            .first {
-                $0.download == download
-            }
-            .map {
-                $0.finished()
-            }
-        
-        if Defaults.rate {
-            SKStoreReviewController.requestReview()
-        }
     }
     
     private func resize() {
