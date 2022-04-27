@@ -105,7 +105,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
     }
     
     deinit {
-        print("web gone")
         stopLoading()
         uiDelegate = nil
         navigationDelegate = nil
