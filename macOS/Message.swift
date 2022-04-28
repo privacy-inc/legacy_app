@@ -13,7 +13,7 @@ final class Message: NSView {
             .applying(.init(hierarchicalColor: .secondaryLabelColor))
         addSubview(icon)
         
-        let text = Text(vibrancy: true)
+        let text = Text(vibrancy: false)
         text.attributedStringValue = .make {
             if let url = info.url?.absoluteString {
                 $0.append(.make(url.capped(max: 100), attributes: [
@@ -47,5 +47,9 @@ final class Message: NSView {
                 $0.timingFunction = .init(name: .easeInEaseOut)
                 animator().alphaValue = 1
             }
+    }
+    
+    override var allowsVibrancy: Bool {
+        true
     }
 }
