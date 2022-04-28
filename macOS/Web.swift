@@ -196,6 +196,13 @@ final class Web: Webview {
         (window as? Window)?.downloads.failed(download: download, data: resumeData)
     }
     
+    override func downloadDidFinish(_ download: WKDownload) {
+        super.downloadDidFinish(download)
+        if Defaults.rate {
+            SKStoreReviewController.requestReview()
+        }
+    }
+    
     override func download(_ download: WKDownload, decideDestinationUsing: URLResponse, suggestedFilename: String) async -> URL? {
         let directory = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
         return FileManager.default.fileExists(atPath: directory.appendingPathComponent(suggestedFilename).path)

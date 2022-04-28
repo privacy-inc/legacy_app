@@ -96,19 +96,6 @@ final class Web: Webview, UIViewRepresentable {
         scrollView.scrollRectToVisible(rect, animated: true)
     }
     
-    override func download(_ download: WKDownload, didFailWithError: Error, resumeData: Data?) {
-        super.download(download, didFailWithError: didFailWithError, resumeData: resumeData)
-        session
-            .downloads
-            .remove {
-                $0.download == download
-            }
-        
-        if let data = resumeData {
-            session.downloads.append((download: download, status: .cancelled(data)))
-        }
-    }
-    
     override func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
         super.webView(webView, navigationAction: navigationAction, didBecome: didBecome)
         session.downloads.append((download: didBecome, status: .on))
@@ -123,6 +110,26 @@ final class Web: Webview, UIViewRepresentable {
         FileManager.default.fileExists(atPath: URL.temporal(suggestedFilename).path)
         ? URL.temporal(UUID().uuidString + "_" + suggestedFilename)
         : URL.temporal(suggestedFilename)
+    }
+    
+    override func download(_ download: WKDownload, didFailWithError: Error, resumeData: Data?) {
+        super.download(download, didFailWithError: didFailWithError, resumeData: resumeData)
+        session
+            .downloads
+            .remove {
+                $0.download == download
+            }
+        
+        if let data = resumeData {
+            session.downloads.append((download: download, status: .cancelled(data)))
+        }
+    }
+    
+    override func downloadDidFinish(_ download: WKDownload) {
+        super.downloadDidFinish(download)
+        if Defaults.rate {
+            UIApplication.shared.review()
+        }
     }
     
     override func deeplink(url: URL) {

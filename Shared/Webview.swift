@@ -1,7 +1,6 @@
 import WebKit
 import Combine
 import UserNotifications
-import StoreKit
 import Specs
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate {
@@ -144,13 +143,9 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         }
     }
     
-    final func downloadDidFinish(_: WKDownload) {
+    func downloadDidFinish(_: WKDownload) {
         Task {
             await UNUserNotificationCenter.send(message: "Download finished!")
-        }
-        
-        if Defaults.rate {
-            SKStoreReviewController.requestReview()
         }
     }
     
