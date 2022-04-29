@@ -116,14 +116,25 @@ extension Browser {
                 
                 Divider()
             }
+            .onReceive(session.items[index].web!.publisher(for: \.isLoading)) {
+                guard !$0 else { return }
+                
+                Task {
+                    await update()
+                }
+            }
             .onReceive(session.items[index].web!.publisher(for: \.url)) { _ in
                 Task {
-                    try? await Task.sleep(nanoseconds: 150_000_000)
-                    size = await session.items[index].web!.fontSize
+                    await update()
                 }
             }
             .background(.regularMaterial)
             .onReceive(session.items[index].web!.progress, perform: progress(value:))
+        }
+        
+        private func update() async {
+            try? await Task.sleep(nanoseconds: 150_000_000)
+            size = await session.items[index].web!.fontSize
         }
         
         private func progress(value: Double) {
