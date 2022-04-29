@@ -10,7 +10,7 @@ extension Settings {
         var body: some View {
             List {
                 Section {
-                    Toggle("Force dark mode", isOn: $dark)
+                    Toggle("Dark mode", isOn: $dark)
                         .onChange(of: dark) { update in
                             Task
                                 .detached(priority: .utility) {

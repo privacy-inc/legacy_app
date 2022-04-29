@@ -9,7 +9,7 @@ extension Preferences {
         init() {
             super.init(frame: .init(origin: .zero, size: .init(width: 580, height: 340)))
             
-            let dark = Switch(title: "Force dark mode")
+            let dark = Switch(title: "Dark mode")
             dark
                 .change
                 .sink { value in
