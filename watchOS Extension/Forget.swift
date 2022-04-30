@@ -6,7 +6,7 @@ struct Forget: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
-                Text("Forget history and trackers on all your devices.")
+                Text("Forget Everything")
                     .font(.body.weight(.medium))
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal)
@@ -20,7 +20,7 @@ struct Forget: View {
                         .padding(.bottom)
                 } else {
                     Image(systemName: "flame.fill")
-                        .font(.system(size: 40, weight: .ultraLight))
+                        .font(.system(size: 30, weight: .ultraLight))
                         .symbolRenderingMode(.hierarchical)
                         .foregroundColor(.init("Dawn"))
                     
