@@ -15,9 +15,28 @@ struct Tabs: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     VStack(spacing: 5) {
+                        if items.first?.isEmpty == false {
+                            HStack {
+                                Button("Close tabs") {
+                                    session.items = []
+                                    withAnimation(.easeInOut(duration: 0.4)) {
+                                        update(tabs: [])
+                                    }
+                                }
+                                .matchedGeometryEffect(id: "close", in: animation)
+                                .font(.footnote)
+                                .buttonStyle(.bordered)
+                                .buttonBorderShape(.capsule)
+                                .tint(.secondary)
+                                .foregroundStyle(.secondary)
+                                .padding([.top, .leading], 20)
+                                Spacer()
+                            }
+                        }
+                        
                         Text(trackers, format: .number)
                             .font(.system(size: 40, weight: .thin))
-                            .padding(.top, 40)
+                            .padding(.top, 30)
                         HStack {
                             Image(systemName: "bolt.shield")
                                 .font(.system(size: 25, weight: .thin))
@@ -26,7 +45,7 @@ struct Tabs: View {
                         }
                         .foregroundStyle(.secondary)
                     }
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 35)
                     
                     if items.first?.isEmpty == true {
                         Label("No tabs", systemImage: "square.dashed")
@@ -34,23 +53,9 @@ struct Tabs: View {
                             .font(.callout)
                             .imageScale(.large)
                             .foregroundStyle(.secondary)
-                            .padding([.top, .leading], 30)
+                            .padding([.top, .leading], 20)
                             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     } else {
-                        Button("Close all tabs") {
-                            session.items = []
-                            withAnimation(.easeInOut(duration: 0.4)) {
-                                update(tabs: [])
-                            }
-                        }
-                        .matchedGeometryEffect(id: "close", in: animation)
-                        .font(.footnote)
-                        .buttonStyle(.bordered)
-                        .buttonBorderShape(.capsule)
-                        .tint(.secondary)
-                        .foregroundStyle(.secondary)
-                        .padding(.vertical, 30)
-                        
                         HStack(alignment: .top, spacing: 9) {
                             ForEach(0 ..< items.count, id: \.self) { index in
                                 VStack {

@@ -58,7 +58,7 @@ extension Tabs {
                                         .frame(height: Self.height, alignment: .top)
                                         .modifier(Card(dark: session.dark))
                                 }
-                                Text("\(web.title?.capped(max: 90) ?? "") \(Text(web.url?.absoluteString.domain ?? "").foregroundColor(.secondary))")
+                                Text("\(web.title?.capped(max: 160) ?? "") \(Text(web.url?.absoluteString.domain ?? "").foregroundColor(.secondary))")
                                     .font(.caption2)
                                     .multilineTextAlignment(.leading)
                                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
@@ -66,17 +66,17 @@ extension Tabs {
                                     .padding(.bottom)
                             }
                         } else {
-                            VStack(spacing: 10) {
+                            HStack(spacing: 10) {
                                 Image(systemName: "magnifyingglass")
                                     .font(.system(size: 20, weight: .light))
-                                    .frame(maxWidth: .greatestFiniteMagnitude)
-                                    .padding(.vertical, 30)
-                                    .modifier(Card(dark: session.dark))
+                                    .padding([.leading, .top, .bottom], 20)
                                 Text("New tab")
-                                    .font(.caption2)
-                                    .padding(.bottom)
+                                    .font(.footnote)
+                                Spacer()
                             }
+                            .frame(maxWidth: .greatestFiniteMagnitude)
                             .foregroundStyle(.secondary)
+                            .modifier(Card(dark: session.dark))
                         }
                     }
                 }

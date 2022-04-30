@@ -10,17 +10,14 @@ extension Forget {
         var body: some View {
             ZStack(alignment: .topTrailing) {
                 VStack(spacing: 0) {
-                    Text("Forget history, cache, trackers and cookies.")
-                        .font(.title2.weight(.medium))
-                        .fixedSize(horizontal: false, vertical: true)
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                        .padding(.top, 20)
+                    Text("Forget Everything")
+                        .font(.title.weight(.medium))
+                        .padding(.top)
                     Spacer()
                     Image(systemName: "flame.fill")
-                        .font(.system(size: 60, weight: .ultraLight))
+                        .font(.system(size: 50, weight: .ultraLight))
                         .symbolRenderingMode(.hierarchical)
                         .foregroundColor(.init("Dawn"))
-                    Spacer()
                     Spacer()
                     Button {
                         session.items = []
@@ -66,10 +63,10 @@ extension Forget {
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "xmark.circle.fill")
+                    Image(systemName: "xmark")
                         .symbolRenderingMode(.hierarchical)
-                        .font(.system(size: 26, weight: .light))
-                        .padding(16)
+                        .font(.system(size: 16, weight: .regular))
+                        .padding(22)
                         .foregroundStyle(.secondary)
                         .contentShape(Rectangle())
                 }

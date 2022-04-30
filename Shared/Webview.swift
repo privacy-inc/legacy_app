@@ -84,6 +84,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                             settings.http || (!settings.http && url.hasPrefix("https://"))
                         else { return }
                         await favicon.received(url: url, for: website)
+                        
+                        print(url)
                     }
                 }
                 .store(in: &subs)
