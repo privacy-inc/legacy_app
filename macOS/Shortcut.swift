@@ -4,7 +4,7 @@ import Combine
 private let width = CGFloat(420)
 
 final class Shortcut: NSView {
-    private var sub: AnyCancellable?
+    private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
     init() {
@@ -19,12 +19,22 @@ final class Shortcut: NSView {
         background.state = .active
         addSubview(background)
         
-        let forget = Control.Symbol("flame", point: 26, size: 40, weight: .light, hierarchical: true)
-        sub = forget
+        let configure = Control.Symbol("slider.vertical.3", point: 18, size: 40, weight: .light, hierarchical: true)
+        configure
+            .click
+            .sink {
+                (NSApp as! App).showPreferencesWindow(nil)
+            }
+            .store(in: &subs)
+        addSubview(configure)
+        
+        let forget = Control.Symbol("flame", point: 18, size: 40, weight: .light, hierarchical: true)
+        forget
             .click
             .sink {
                 NSPopover().show(Forget(), from: forget, edge: .maxY)
             }
+            .store(in: &subs)
         addSubview(forget)
         
         let flip = Flip()
@@ -53,12 +63,15 @@ final class Shortcut: NSView {
         background.bottomAnchor.constraint(equalTo: separator.topAnchor).isActive = true
         
         separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        separator.bottomAnchor.constraint(equalTo: forget.topAnchor, constant: -30).isActive = true
+        separator.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50).isActive = true
         separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
-        forget.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30).isActive = true
-        forget.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        configure.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5).isActive = true
+        configure.rightAnchor.constraint(equalTo: forget.leftAnchor, constant: -10).isActive = true
+        
+        forget.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5).isActive = true
+        forget.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         
         scroll.topAnchor.constraint(equalTo: background.topAnchor, constant: 1).isActive = true
         scroll.leftAnchor.constraint(equalTo: background.leftAnchor).isActive = true
