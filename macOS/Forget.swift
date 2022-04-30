@@ -12,14 +12,13 @@ final class Forget: NSView {
         super.init(frame: .init(origin: .zero, size: .init(width: 260, height: 300)))
         
         let text = Text(vibrancy: true)
-        text.stringValue = "Forget history, cache, trackers and cookies."
-        text.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .medium)
+        text.stringValue = "Forget Everything"
+        text.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title1).pointSize, weight: .medium)
         text.textColor = .labelColor
-        text.alignment = .left
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let image = NSImageView(image: .init(systemSymbolName: "flame.fill", accessibilityDescription: nil) ?? .init())
-        image.symbolConfiguration = .init(pointSize: 60, weight: .ultraLight)
+        image.symbolConfiguration = .init(pointSize: 50, weight: .ultraLight)
             .applying(.init(hierarchicalColor: .init(named: "Dawn")!))
         
         let control = Control.Prominent("Forget")
@@ -44,8 +43,6 @@ final class Forget: NSView {
                 }
             }
             .store(in: &subs)
-        
-        
         
         let stack = NSStackView(views: [text, image, control])
         stack.orientation = .vertical
