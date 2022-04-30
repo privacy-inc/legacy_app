@@ -75,7 +75,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                     $0
                 }
                 .removeDuplicates()
-                .debounce(for: .seconds(3), scheduler: DispatchQueue.main)
+                .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
                 .sink { [weak self] website in
                     Task { [weak self] in
                         guard
@@ -84,8 +84,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
                             settings.http || (!settings.http && url.hasPrefix("https://"))
                         else { return }
                         await favicon.received(url: url, for: website)
-                        
-                        print(url)
                     }
                 }
                 .store(in: &subs)
