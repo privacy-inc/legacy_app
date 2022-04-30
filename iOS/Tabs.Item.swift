@@ -95,7 +95,7 @@ extension Tabs {
                         .frame(width: 32, height: 32)
                         .padding(.trailing, 11)
                         .padding(.top, 10)
-                        .shadow(color: .black.opacity(session.dark ? 1 : 0.4), radius: 2)
+                        .shadow(color: .black.opacity(session.dark ? 1 : 0.2), radius: 2)
                         .allowsHitTesting(false)
                     
                     Button(action: close) {

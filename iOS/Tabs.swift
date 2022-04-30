@@ -12,9 +12,6 @@ struct Tabs: View {
     
     var body: some View {
         ZStack {
-            Rectangle()
-                .fill(.ultraThickMaterial)
-                .edgesIgnoringSafeArea(.all)
             ScrollViewReader { proxy in
                 ScrollView {
                     VStack(spacing: 5) {

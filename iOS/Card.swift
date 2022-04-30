@@ -8,6 +8,6 @@ struct Card: ViewModifier {
             .fixedSize(horizontal: false, vertical: true)
             .background(Color(.tertiarySystemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .shadow(color: .black.opacity(dark ? 1 : 0.1), radius: 4)
+            .shadow(color: .black.opacity(dark ? 1 : 0.1), radius: 3)
     }
 }

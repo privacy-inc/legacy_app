@@ -128,7 +128,7 @@ extension Browser {
                     await update()
                 }
             }
-            .background(.regularMaterial)
+            .background(.thickMaterial)
             .onReceive(session.items[index].web!.progress, perform: progress(value:))
         }
         

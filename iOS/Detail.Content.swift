@@ -90,7 +90,7 @@ extension Detail {
                 
                 Navigation(web: session.items[index].web!)
             }
-            .background(.thinMaterial)
+            .background(.thickMaterial)
             .task {
                 selectable = session.items[index].web!.configuration.preferences.isTextInteractionEnabled
             }

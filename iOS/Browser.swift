@@ -33,7 +33,7 @@ struct Browser: View {
                         }
                     }
                 ],
-                    material: .regular)
+                    material: .thick)
                         .sheet(isPresented: $detail) {
                             Detail(status: status, session: session, index: index)
                                 .ignoresSafeArea(edges: .bottom)

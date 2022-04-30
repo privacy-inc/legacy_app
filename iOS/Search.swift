@@ -41,7 +41,6 @@ struct Search: View {
             }
         }
         .frame(maxWidth: .greatestFiniteMagnitude)
-        .background(.ultraThickMaterial)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Bar(items: [
                 .init(size: 17, icon: "line.3.horizontal") {
