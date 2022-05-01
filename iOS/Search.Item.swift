@@ -33,6 +33,7 @@ extension Search {
                         text(string: "\(website.title) \(domain)")
                     }
                 }
+                .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
             .padding()
