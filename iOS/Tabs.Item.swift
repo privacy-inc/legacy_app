@@ -63,7 +63,7 @@ extension Tabs {
                                     .multilineTextAlignment(.leading)
                                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                                     .padding(.horizontal, 10)
-                                    .padding(.bottom)
+                                    .padding(.bottom, 8)
                             }
                         } else {
                             HStack(spacing: 10) {
@@ -92,16 +92,22 @@ extension Tabs {
                 } else {
                     Circle()
                         .fill(Color(.tertiarySystemBackground))
-                        .frame(width: 32, height: 32)
-                        .padding(.trailing, 11)
-                        .padding(.top, 10)
-                        .shadow(color: .black.opacity(session.dark ? 1 : 0.2), radius: 2)
+                        .frame(width: 28, height: 28)
+                        .padding(.trailing, 11.5)
+                        .padding(.top, 11)
                         .allowsHitTesting(false)
                     
+                    Circle()
+                        .fill(Color.primary)
+                        .frame(width: 26, height: 26)
+                        .padding(.trailing, 12.5)
+                        .padding(.top, 12)
+                        .allowsHitTesting(false)
+
                     Button(action: close) {
                         Image(systemName: "xmark")
-                            .foregroundColor(.secondary)
-                            .font(.system(size: 13, weight: .regular))
+                            .foregroundColor(Color(.tertiarySystemBackground))
+                            .font(.system(size: 10, weight: .medium))
                             .padding(20)
                             .contentShape(Rectangle())
                     }
