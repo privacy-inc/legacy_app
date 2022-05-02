@@ -107,9 +107,10 @@ final class Web: Webview {
                         case .window:
                             NSApp.window(url: url)
                         case .download:
-                            Task {
-                                await startDownload(using: action.request)
-                            }
+                            Task
+                                .detached(priority: .utility) { [weak self] in
+                                    await self?.download(request: action.request)
+                                }
                         case nil:
                             if settings.popups {
                                 NSApp.open(url: url, change: true)
@@ -301,6 +302,12 @@ final class Web: Webview {
                         save(data: $0, name: download.lastPathComponent, types: types)
                     }
             }
+    }
+    
+    private func download(request: URLRequest) async {
+        let download = await startDownload(using: request)
+        download.delegate = self
+        (window as? Window)?.downloads.add(download: download)
     }
     
     @objc private func here(item: NSMenuItem) {
