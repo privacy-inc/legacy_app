@@ -24,10 +24,4 @@ extension NSMenuItem {
                 _ = NSApp.sendAction(action, to: $0.target, from: $0)
             }
     }
-    
-    func immitate(with title: String, action: Selector) -> Self {
-        let item = Self(title: NSLocalizedString(title, comment: ""), action: action, keyEquivalent: "")
-        item.representedObject = self
-        return item
-    }
 }

@@ -19,11 +19,21 @@ extension Search.Cell {
         
         override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
             menu
-                .discard {
+                .items
+                .removeAll {
                     $0.identifier?.rawValue.contains("search") == true
+                    || $0.identifier?.rawValue.contains("open") == true
                 }
-                .discard {
-                    $0.identifier?.rawValue.contains("openLink") == true
+            
+            menu
+                .items
+                .removeAll {
+                    $0
+                        .submenu?
+                        .items
+                        .contains {
+                            $0.identifier?.rawValue == "invoke"
+                        } ?? false
                 }
         }
         

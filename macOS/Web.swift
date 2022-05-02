@@ -125,60 +125,31 @@ final class Web: Webview {
         return nil
     }
     
-    override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
-        menu.remove(id: "WKMenuItemIdentifierSearchWeb")
+    override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {        
+        menu
+            .items
+            .remove {
+                $0.identifier?.rawValue == "WKMenuItemIdentifierOpenLink"
+                || $0.identifier?.rawValue == "WKMenuItemIdentifierSearchWeb"
+            }
 
-        if let image = menu.remove(id: "WKMenuItemIdentifierOpenImageInNewWindow") {
-            let here = image.immitate(with: "Open Image", action: #selector(here(item:)))
-            here.target = self
-            
-            let tabStay = image.immitate(with: "Open Image in New Tab", action: #selector(tab(stay:)))
-            tabStay.target = self
-            
-            let tabChange = image.immitate(with: "Open Image in New Tab and Change", action: #selector(tab(change:)))
-            tabChange.target = self
-            
-            menu.items = [
-                here,
-                tabStay,
-                tabChange,
-                image,
-                .separator()
-            ]
-            + menu.items
-            
-            menu
-                .mutate(id: "WKMenuItemIdentifierDownloadImage") {
-                    $0.target = self
-                    $0.action = #selector(download(item:))
-                    $0.representedObject = image
-                }
-        }
-        
-        if let window = menu.remove(id: "WKMenuItemIdentifierOpenLinkInNewWindow") {
-            window.title = "Open in New Window"
-            
-            let tabStay = window.immitate(with: "Open in New Tab", action: #selector(tab(stay:)))
-            tabStay.target = self
-            
-            let tabChange = window.immitate(with: "Open in New Tab and Change", action: #selector(tab(change:)))
-            tabChange.target = self
-            
-            menu.items = [
-                tabStay,
-                tabChange,
-                window,
-                .separator()
-            ]
-            + menu.items
-            
-            menu
-                .mutate(id: "WKMenuItemIdentifierDownloadLinkedFile") {
-                    $0.target = self
-                    $0.action = #selector(download(item:))
-                    $0.representedObject = window
-                }
-        }
+        menu
+            .replace(id: "WKMenuItemIdentifierOpenImageInNewWindow",
+                     download: "WKMenuItemIdentifierDownloadImage",
+                     name: " Image",
+                     web: self)
+
+        menu
+            .replace(id: "WKMenuItemIdentifierOpenLinkInNewWindow",
+                     download: "WKMenuItemIdentifierDownloadLinkedFile",
+                     name: "",
+                     web: self)
+
+        menu
+            .replace(id: "WKMenuItemIdentifierOpenMediaInNewWindow",
+                     download: "WKMenuItemIdentifierDownloadMedia",
+                     name: " Video",
+                     web: self)
     }
     
     override func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
@@ -256,6 +227,31 @@ final class Web: Webview {
         pageZoom /= 1.1
     }
     
+    @objc func here(item: NSMenuItem) {
+        destination = .here
+        item.activate()
+    }
+    
+    @objc func tab(change item: NSMenuItem) {
+        destination = .tab(true)
+        item.activate()
+    }
+
+    @objc func tab(stay item: NSMenuItem) {
+        destination = .tab(false)
+        item.activate()
+    }
+    
+    @objc func window(item: NSMenuItem) {
+        destination = .window
+        item.activate()
+    }
+
+    @objc func download(item: NSMenuItem) {
+        destination = .download
+        item.activate()
+    }
+    
     @MainActor @objc func exportAsPdf() {
         guard url?.pathExtension.lowercased() != "pdf" else {
             saveAs(types: [.pdf])
@@ -308,26 +304,6 @@ final class Web: Webview {
         let download = await startDownload(using: request)
         download.delegate = self
         (window as? Window)?.downloads.add(download: download)
-    }
-    
-    @objc private func here(item: NSMenuItem) {
-        destination = .here
-        item.activate()
-    }
-    
-    @objc private func tab(change item: NSMenuItem) {
-        destination = .tab(true)
-        item.activate()
-    }
-
-    @objc private func tab(stay item: NSMenuItem) {
-        destination = .tab(false)
-        item.activate()
-    }
-
-    @objc private func download(item: NSMenuItem) {
-        destination = .download
-        item.activate()
     }
     
     @MainActor private func save(data: Data, name: String, types: [UTType]) {

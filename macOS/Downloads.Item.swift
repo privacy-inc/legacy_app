@@ -132,15 +132,7 @@ extension Downloads {
             let expand = stack.widthAnchor.constraint(equalToConstant: 500)
             expand.priority = .defaultLow
             expand.isActive = true
-            
-            download
-                .progress
-                .publisher(for: \.localizedDescription)
-                .sink {
-                    title.stringValue = $0
-                }
-                .store(in: &subs)
-            
+
             download
                 .progress
                 .publisher(for: \.localizedAdditionalDescription)
@@ -162,14 +154,18 @@ extension Downloads {
             download
                 .progress
                 .publisher(for: \.isFinished)
-                .filter {
-                    $0
-                }
-                .sink { _ in
-                    title.stringValue = download.progress.fileURL?.lastPathComponent ?? "Download finished"
-                    show.state = .on
-                    again.state = .hidden
-                    stop.state = .hidden
+                .combineLatest(download
+                    .progress
+                    .publisher(for: \.localizedDescription))
+                .sink { finished, localizedDescription in
+                    if finished {
+                        title.stringValue = download.progress.fileURL?.lastPathComponent ?? "Download finished"
+                        show.state = .on
+                        again.state = .hidden
+                        stop.state = .hidden
+                    } else {
+                        title.stringValue = localizedDescription ?? "Downloading..."
+                    }
                 }
                 .store(in: &subs)
         }
