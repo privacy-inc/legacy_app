@@ -107,10 +107,9 @@ final class Web: Webview {
                         case .window:
                             NSApp.window(url: url)
                         case .download:
-                            Task
-                                .detached(priority: .utility) { [weak self] in
-                                    await self?.download(url: url)
-                                }
+                            Task {
+                                await startDownload(using: action.request)
+                            }
                         case nil:
                             if settings.popups {
                                 NSApp.open(url: url, change: true)
@@ -301,14 +300,6 @@ final class Web: Webview {
                     .map {
                         save(data: $0, name: download.lastPathComponent, types: types)
                     }
-            }
-    }
-    
-    private func download(url: URL) async {
-        guard let (data, _) = try? await URLSession.shared.data(from: url, delegate: nil) else { return }
-        await MainActor
-            .run { [weak self] in
-                self?.save(data: data, name: url.lastPathComponent, types: [])
             }
     }
     
