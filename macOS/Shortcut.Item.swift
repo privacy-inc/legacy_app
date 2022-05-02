@@ -3,8 +3,8 @@ import Combine
 
 extension Shortcut {
     final class Item: Control {
-        private var sub: AnyCancellable?
         private weak var background: Vibrant!
+        private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
         init(window: Window, item: Session.Item) {
@@ -64,16 +64,31 @@ extension Shortcut {
                 text.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
                 
             case let .web(web):
-                text.stringValue = web.title ?? web.url?.absoluteString.domain ?? ""
-                
                 let icon = Icon(size: 20)
-                icon.icon(website: web.url)
                 addSubview(icon)
                 
                 icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
                 icon.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
                 
                 text.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 10).isActive = true
+                
+                web
+                    .publisher(for: \.title)
+                    .compactMap {
+                        $0
+                    }
+                    .removeDuplicates()
+                    .sink {
+                        text.stringValue = $0
+                    }
+                    .store(in: &subs)
+                
+                web
+                    .publisher(for: \.url)
+                    .removeDuplicates()
+                    .sink(receiveValue: icon.icon(website:))
+                    .store(in: &subs)
+                
             case let .message(_, info):
                 text.stringValue = info.title
                 
@@ -91,13 +106,14 @@ extension Shortcut {
                 text.leftAnchor.constraint(equalTo: icon.rightAnchor).isActive = true
             }
             
-            sub = click
+            click
                 .first()
                 .sink {
                     NSApp.activate(ignoringOtherApps: true)
                     window.makeKeyAndOrderFront(nil)
                     window.session.current.send(item.id)
                 }
+                .store(in: &subs)
         }
         
         override func updateLayer() {
