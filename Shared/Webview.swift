@@ -20,7 +20,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = settings.popups && settings.javascript
         configuration.preferences.isFraudulentWebsiteWarningEnabled = !settings.http
         configuration.defaultWebpagePreferences.allowsContentJavaScript = settings.javascript
-        configuration.websiteDataStore = .nonPersistent()
+        configuration.websiteDataStore = settings.cookies ? .default() : .nonPersistent()
         configuration.userContentController.addUserScript(.init(source: Script.favicon.script, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         configuration.userContentController.addUserScript(.init(source: settings.scripts, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         

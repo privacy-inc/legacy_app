@@ -29,6 +29,10 @@ extension Forget {
                                 await favicon.clear()
                                 await cloud.forget()
                                 
+                                FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).forEach {
+                                    try? FileManager.default.removeItem(at: $0)
+                                }
+                                
                                 try? FileManager.default.removeItem(at: .init(fileURLWithPath: NSTemporaryDirectory()))
                                 
                                 await UNUserNotificationCenter.send(message: "Forgot everything!")
