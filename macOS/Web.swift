@@ -102,8 +102,10 @@ final class Web: Webview {
                         switch destination {
                         case .here:
                             load(url: url)
-                        case let .tab(change):
-                            NSApp.open(url: url, change: change)
+                        case .tabStay:
+                            NSApp.open(url: url, change: false)
+                        case .tabChange:
+                            NSApp.open(url: url, change: true)
                         case .window:
                             NSApp.window(url: url)
                         case .download:
@@ -150,6 +152,34 @@ final class Web: Webview {
                      download: "WKMenuItemIdentifierDownloadMedia",
                      name: " Video",
                      web: self)
+        menu
+            .items
+            .append(contentsOf: [
+                .separator(),
+                .parent("Find...", [
+                    .child("Image and..."),
+                    .child("Open in New Tab", #selector(find(item:))) {
+                        $0.target = self
+                        $0.tag = Destination.tabChange.rawValue
+                        $0.representedObject = Script.image.script
+                    },
+                    .child("Download", #selector(find(item:))) {
+                        $0.target = self
+                        $0.tag = Destination.download.rawValue
+                        $0.representedObject = Script.image.script
+                    },
+                    .separator(),
+                    .child("Video and..."),
+                    .child("Open in New Tab", #selector(find(item:))) {
+                        $0.target = self
+                        $0.tag = Destination.tabChange.rawValue
+                        $0.representedObject = Script.video.script
+                    },
+                    .child("Download", #selector(find(item:))) {
+                        $0.target = self
+                        $0.tag = Destination.download.rawValue
+                        $0.representedObject = Script.video.script
+                    }])])
     }
     
     override func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
@@ -227,28 +257,8 @@ final class Web: Webview {
         pageZoom /= 1.1
     }
     
-    @objc func here(item: NSMenuItem) {
-        destination = .here
-        item.activate()
-    }
-    
-    @objc func tab(change item: NSMenuItem) {
-        destination = .tab(true)
-        item.activate()
-    }
-
-    @objc func tab(stay item: NSMenuItem) {
-        destination = .tab(false)
-        item.activate()
-    }
-    
-    @objc func window(item: NSMenuItem) {
-        destination = .window
-        item.activate()
-    }
-
-    @objc func download(item: NSMenuItem) {
-        destination = .download
+    @objc func forward(item: NSMenuItem) {
+        destination = .init(rawValue: item.tag)
         item.activate()
     }
     
@@ -318,6 +328,22 @@ final class Web: Webview {
                 if Defaults.rate {
                     SKStoreReviewController.requestReview()
                 }
+            }
+        }
+    }
+    
+    @objc private func find(item: NSMenuItem) {
+        Task {
+            guard
+                let script = item.representedObject as? String,
+                let string = try? await evaluateJavaScript(script) as? String,
+                let url = URL(string: string)
+            else { return }
+            
+            if item.tag == Destination.download.rawValue {
+                await download(request: .init(url: url))
+            } else {
+                NSApp.open(url: url, change: true)
             }
         }
     }

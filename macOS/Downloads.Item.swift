@@ -9,6 +9,7 @@ extension Downloads {
         private weak var stop: Control.Symbol!
         private weak var again: Control.Symbol!
         private weak var show: Control.Symbol!
+        private weak var progress: NSView!
         private var data: Data?
         private var subs = Set<AnyCancellable>()
         
@@ -39,6 +40,7 @@ extension Downloads {
             progress.layer!.cornerRadius = bar.layer!.cornerRadius
             progress.layer!.backgroundColor = NSColor.systemBlue.cgColor
             base.addSubview(progress)
+            self.progress = progress
             
             let weight = Text(vibrancy: true)
             weight.font = .monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .caption1).pointSize, weight: .regular)
@@ -144,21 +146,18 @@ extension Downloads {
             
             download
                 .progress
-                .publisher(for: \.fractionCompleted)
-                .removeDuplicates()
-                .sink {
-                    progress.animator().frame.size.width = 180 * $0
-                }
-                .store(in: &subs)
-            
-            download
-                .progress
                 .publisher(for: \.isFinished)
                 .combineLatest(download
                     .progress
-                    .publisher(for: \.localizedDescription))
-                .sink { finished, localizedDescription in
-                    if finished {
+                    .publisher(for: \.localizedDescription),
+                               download
+                                   .progress
+                                   .publisher(for: \.fractionCompleted))
+                .removeDuplicates {
+                    $0.0 == $1.0 && $0.1 == $1.1 && $0.2 == $1.2
+                }
+                .sink { finished, localizedDescription, fraction in
+                    if finished || fraction == 1 {
                         title.stringValue = download.progress.fileURL?.lastPathComponent ?? "Download finished"
                         show.state = .on
                         again.state = .hidden
@@ -166,6 +165,7 @@ extension Downloads {
                     } else {
                         title.stringValue = localizedDescription ?? "Downloading..."
                     }
+                    progress.animator().frame.size.width = 180 * fraction
                 }
                 .store(in: &subs)
         }
@@ -176,6 +176,7 @@ extension Downloads {
             again.state = .on
             stop.state = .hidden
             show.state = .hidden
+            progress.layer!.backgroundColor = NSColor.systemPink.cgColor
         }
     }
 }

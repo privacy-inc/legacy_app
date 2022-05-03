@@ -27,7 +27,7 @@ extension Downloads {
                         Capsule()
                             .fill(Color.primary.opacity(0.1))
                         Capsule()
-                            .fill(.blue)
+                            .fill(status == .on ? .blue : .pink)
                             .frame(width: progress * 150)
                     }
                     .frame(height: 6)

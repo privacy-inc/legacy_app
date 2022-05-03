@@ -1,9 +1,10 @@
 import Foundation
 
-enum Destination {
+enum Destination: Int {
     case
     here,
     window,
     download,
-    tab(Bool)
+    tabStay,
+    tabChange
 }
