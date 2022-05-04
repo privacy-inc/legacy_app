@@ -25,7 +25,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9su-hT-iBb" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="DMt-dJ-DkU"/>
                             <constraint firstItem="9su-hT-iBb" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="XO9-tb-z8k"/>
@@ -39,8 +39,8 @@
     </scenes>
     <resources>
         <image name="Logo" width="100" height="100"/>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
