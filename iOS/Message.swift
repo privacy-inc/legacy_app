@@ -25,7 +25,7 @@ struct Message: View {
         .background(Color(.secondarySystemBackground))
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 Bar(items: [
-                    .init(size: 16, icon: "chevron.backward") {
+                    .init(size: 17, icon: "chevron.backward") {
                         if session.items[index].web!.url == nil {
                             session.items[index].flow = .search(false)
                         } else {
