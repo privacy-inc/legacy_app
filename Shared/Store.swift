@@ -18,7 +18,7 @@ struct Store {
         do {
             let products = try await Product.products(for: Item.allCases.map(\.rawValue))
             if products.isEmpty {
-                status.send(.error(Copy.noPurchases))
+                status.send(.error("No In-App Purchases available at the moment, try again later."))
             } else {
                 status.send(
                     .products(

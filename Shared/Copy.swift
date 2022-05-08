@@ -29,10 +29,6 @@ The data stored locally is protected by the operative system's *sandbox*, meanin
 By using this app you are accepting these terms.
 """
     
-    static let noPurchases = """
-No In-App Purchases available at the moment, try again later.
-"""
-    
     static let why = """
 By purchasing _Privacy +_ you are supporting the development and research necessary to fulfil our mission of bringing the most secure and private browser to iOS and macOS. This is an In-App Purchase, it is non-consumable, meaning it is a **1 time only** purchase and you can use on both platforms.
 
