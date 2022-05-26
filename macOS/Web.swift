@@ -114,7 +114,8 @@ final class Web: Webview {
                                     await self?.download(request: action.request)
                                 }
                         case nil:
-                            if settings.popups {
+                            if settings.popups ||
+                                action.request.url?.absoluteString.domain == action.sourceFrame.request.url?.absoluteString.domain {
                                 NSApp.open(url: url, change: true)
                             }
                         }
