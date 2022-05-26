@@ -212,6 +212,16 @@ final class Web: Webview {
             : directory.appendingPathComponent(suggestedFilename)
     }
     
+    func webView(_: WKWebView, runOpenPanelWith: WKOpenPanelParameters, initiatedByFrame: WKFrameInfo) async -> [URL]? {
+        let browse = NSOpenPanel()
+        browse.allowsMultipleSelection = runOpenPanelWith.allowsMultipleSelection
+        browse.canChooseDirectories = runOpenPanelWith.allowsDirectories
+        browse.title = "Upload"
+        browse.prompt = "Upload"
+        guard browse.runModal() == .OK else { return nil }
+        return browse.urls
+    }
+    
     @objc func saveAs() {
         saveAs(types: [])
     }
