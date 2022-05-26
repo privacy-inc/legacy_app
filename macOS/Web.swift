@@ -212,6 +212,8 @@ final class Web: Webview {
             : directory.appendingPathComponent(suggestedFilename)
     }
     
+    override func doCommand(by: Selector) { }
+    
     func webView(_: WKWebView, runOpenPanelWith: WKOpenPanelParameters, initiatedByFrame: WKFrameInfo) async -> [URL]? {
         let browse = NSOpenPanel()
         browse.allowsMultipleSelection = runOpenPanelWith.allowsMultipleSelection
