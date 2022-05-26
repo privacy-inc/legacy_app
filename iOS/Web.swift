@@ -181,7 +181,7 @@ final class Web: Webview, UIViewRepresentable {
                     }, at: 0)
                 
                 elements
-                    .insert(UIAction(title: NSLocalizedString("Open in New Tab", comment: ""),
+                    .insert(UIAction(title: NSLocalizedString("New Tab", comment: ""),
                                      image: UIImage(systemName: "plus.square"))
                             { [weak self] _ in
                         Task { [weak self] in
@@ -190,7 +190,7 @@ final class Web: Webview, UIViewRepresentable {
                     }, at: 1)
                 
                 elements
-                    .insert(UIAction(title: NSLocalizedString("Open in New Tab and Change", comment: ""),
+                    .insert(UIAction(title: NSLocalizedString("Change New Tab", comment: ""),
                                      image: UIImage(systemName: "plus.square.on.square"))
                             { [weak self] _ in
                         Task { [weak self] in
