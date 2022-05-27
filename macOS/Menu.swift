@@ -181,7 +181,7 @@ final class Menu: NSMenu, NSMenuDelegate {
             },
             .separator(),
             .child("Full Screen", #selector(Window.toggleFullScreen), "f") {
-                $0.keyEquivalentModifierMask = [.function]
+                $0.keyEquivalentModifierMask = .function
             }]
     }
     
@@ -203,15 +203,15 @@ final class Menu: NSMenu, NSMenuDelegate {
             },
             .child("Show Next Tab", #selector(Window.triggerNextTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
                 $0.isEnabled = ((NSApp.keyWindow as? Window)?.session.items.value.count ?? 0) > 1
-                $0.keyEquivalentModifierMask = [.control]
+                $0.keyEquivalentModifierMask = .control
             },
             .child("Alternate Previous Tab", #selector(Window.triggerPreviousTab), "{") {
                 $0.isEnabled = ((NSApp.keyWindow as? Window)?.session.items.value.count ?? 0) > 1
-                $0.keyEquivalentModifierMask = [.command]
+                $0.keyEquivalentModifierMask = .command
             },
             .child("Alternate Next Tab", #selector(Window.triggerNextTab), "}") {
                 $0.isEnabled = ((NSApp.keyWindow as? Window)?.session.items.value.count ?? 0) > 1
-                $0.keyEquivalentModifierMask = [.command]
+                $0.keyEquivalentModifierMask = .command
             },
             .separator(),
             .child("Bring All to Front", #selector(NSApplication.arrangeInFront)),

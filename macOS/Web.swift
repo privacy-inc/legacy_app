@@ -212,8 +212,6 @@ final class Web: Webview {
             : directory.appendingPathComponent(suggestedFilename)
     }
     
-    override func doCommand(by: Selector) { }
-    
     func webView(_: WKWebView, runOpenPanelWith: WKOpenPanelParameters, initiatedByFrame: WKFrameInfo) async -> [URL]? {
         let browse = NSOpenPanel()
         browse.allowsMultipleSelection = runOpenPanelWith.allowsMultipleSelection
@@ -273,6 +271,14 @@ final class Web: Webview {
     @objc func forward(item: NSMenuItem) {
         destination = .init(rawValue: item.tag)
         item.activate()
+    }
+    
+    @objc func selectNextKeyView(_ sender: Any?) {
+        (window as? Window)?.triggerNextTab()
+    }
+    
+    @objc func selectPreviousKeyView(_ sender: Any?) {
+        (window as? Window)?.triggerPreviousTab()
     }
     
     @MainActor @objc func exportAsPdf() {
