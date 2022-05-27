@@ -25,6 +25,7 @@ final class List: Collection<ListCell, ListInfo> {
             .filter
             .removeDuplicates()
             .sink { [weak self] _ in
+                self?.highlighted.value = nil
                 self?.contentView.bounds.origin.y = 0
             }
             .store(in: &subs)
