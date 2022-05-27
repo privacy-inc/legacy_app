@@ -273,11 +273,11 @@ final class Web: Webview {
         item.activate()
     }
     
-    @objc func selectNextKeyView(_ sender: Any?) {
+    @objc func selectNextKeyView(_: Any?) {
         (window as? Window)?.triggerNextTab()
     }
     
-    @objc func selectPreviousKeyView(_ sender: Any?) {
+    @objc func selectPreviousKeyView(_: Any?) {
         (window as? Window)?.triggerPreviousTab()
     }
     

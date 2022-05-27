@@ -44,6 +44,7 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
                         clip.intersects($0.rect)
                     }
             }
+            .removeDuplicates()
             .sink { [weak self] visible in
                 self?
                     .cells
@@ -97,8 +98,9 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
                 $0 == self?.contentView
             }
             .map {
-                $0.documentVisibleRect
+                $0.documentVisibleRect.bounded
             }
+            .removeDuplicates()
             .subscribe(clip)
             .store(in: &subs)
         
