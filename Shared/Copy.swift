@@ -18,7 +18,7 @@ There is nothing stored on iCloud that could be linked to you or your devices.
 
 We do our best to protect your data, however we are a **very small independent team** and we can't commit to provide the maximum state of the art digital security, and we depend mostly of Apple's iCloud own resilience.
 
-You data gets stored both locally and on a *public database* on iCloud.
+Your data gets stored both locally and on a *public database* on iCloud.
 
 It is stored on the *public database* so that it doesn't affect your own's account iCloud quota. Instead we take care of the quota for you, we pay for this storage so that you don't have to pay for it with your account.
 
