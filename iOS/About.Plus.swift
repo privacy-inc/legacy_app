@@ -1,6 +1,4 @@
 import SwiftUI
-import StoreKit
-import Specs
 
 extension About {
     struct Plus: View {
