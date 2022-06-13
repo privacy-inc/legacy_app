@@ -336,6 +336,7 @@
 		CEAAFB2927009E9600149F0C /* UNUserNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenter.swift; sourceTree = "<group>"; };
 		CEAAFB2A27009E9600149F0C /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		CEABD1F4272AE07100F56852 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		CEAC93FB2850FBCE00420D94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CEAFF0112741522200A9F744 /* Autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Autocomplete.swift; sourceTree = "<group>"; };
 		CEB1764E2816A4730013584C /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		CEB176502816A89D0013584C /* Learn.Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Learn.Action.swift; sourceTree = "<group>"; };
@@ -611,6 +612,7 @@
 		CEEE59CE2721B6770038952A /* watchOS */ = {
 			isa = PBXGroup;
 			children = (
+				CEAC93FB2850FBCE00420D94 /* Info.plist */,
 				CEEE59CF2721B6780038952A /* Assets.xcassets */,
 			);
 			path = watchOS;
@@ -1533,6 +1535,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = watchOS_WatchKit_Extension;
+				INFOPLIST_FILE = watchOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = incognit;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1597,6 +1601,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = watchOS_WatchKit_Extension;
+				INFOPLIST_FILE = watchOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Privacy;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = incognit;
 				MTL_ENABLE_DEBUG_INFO = NO;

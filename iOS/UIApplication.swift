@@ -20,6 +20,9 @@ extension UIApplication {
             .keyWindow?
             .rootViewController
             .map {
+                $0.presentedViewController ?? $0
+            }
+            .map {
                 let controller = UIActivityViewController(activityItems: [any], applicationActivities: nil)
                 controller.popoverPresentationController?.sourceView = $0.view
                 $0.present(controller, animated: true)
