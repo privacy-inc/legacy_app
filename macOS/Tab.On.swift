@@ -337,8 +337,8 @@ extension Tab {
             progress.updateLayer()
         }
         
-        func controlTextDidChange(_ control: Notification) {
-            guard let search = control.object as? Search else { return }
+        func controlTextDidChange(_ notification: Notification) {
+            guard let search = notification.object as? Search else { return }
             
             if session.flow(of: id) != .list {
                 if self.autocomplete == nil {
