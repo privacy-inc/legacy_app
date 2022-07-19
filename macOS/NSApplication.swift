@@ -48,6 +48,7 @@ extension NSApplication {
     }
     
     @objc func show() {
+        NSApp.activate(ignoringOtherApps: true)
         activeWindow?
             .orderFrontRegardless()
     }

@@ -8,7 +8,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     init() {
         super.init(title: "")
         items = [app, file, edit, view, window, help]
-        shortcut.button!.image = NSImage(named: "status")
+        shortcut.button!.image = .init(named: "status")
         shortcut.button!.target = self
         shortcut.button!.action = #selector(triggerShortcut)
         shortcut.button!.sendAction(on: [.leftMouseUp, .rightMouseUp])
