@@ -25,6 +25,7 @@ extension UIApplication {
             .map {
                 let controller = UIActivityViewController(activityItems: [any], applicationActivities: nil)
                 controller.popoverPresentationController?.sourceView = $0.view
+                controller.popoverPresentationController?.sourceRect = .zero
                 $0.present(controller, animated: true)
             }
     }
