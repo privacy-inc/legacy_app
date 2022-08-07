@@ -27,21 +27,19 @@ import Specs
         registerForRemoteNotifications()
         UNUserNotificationCenter.current().delegate = self
 
+        newWindow()
+        
         cloud.ready.notify(queue: .main) {
-            cloud.pull.send()
-            
-            self.newWindow()
-            
             if Defaults.froob {
                 self.froob.value = true
             }
-            
-            Task
-                .detached {
-                    _ = await UNUserNotificationCenter.request()
-                    await store.launch()
-                }
         }
+        
+        Task
+            .detached {
+                _ = await UNUserNotificationCenter.request()
+                await store.launch()
+            }
     }
     
     func applicationDidBecomeActive(_: Notification) {
@@ -107,12 +105,10 @@ import Specs
     
     private func launch(urls: [URL]) {
         cloud.ready.notify(queue: .main) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                urls
-                    .forEach {
-                        NSApp.open(url: $0, change: true)
-                    }
-            }
+            urls
+                .forEach {
+                    NSApp.open(url: $0, change: true)
+                }
         }
     }
     
