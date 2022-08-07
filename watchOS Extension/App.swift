@@ -11,11 +11,6 @@ import SwiftUI
                 Trackers()
                 Forget()
             }
-            .task {
-                cloud.ready.notify(queue: .main) {
-                    cloud.pull.send()
-                }
-            }
         }
         .onChange(of: phase) {
             if $0 == .active {

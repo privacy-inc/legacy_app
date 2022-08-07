@@ -31,20 +31,19 @@ struct Window: View {
                 session.dark = scheme == .dark
                 
                 cloud.ready.notify(queue: .main) {
-                    cloud.pull.send()
-                    
                     if Defaults.froob {
                         withAnimation(.easeInOut(duration: 0.4)) {
                             session.froob = true
                         }
                     }
-                    
-                    Task
-                        .detached {
-                            _ = await UNUserNotificationCenter.request()
-                            await store.launch()
-                        }
                 }
+                
+                _ = await UNUserNotificationCenter.request()
+                
+                Task
+                    .detached {
+                        await store.launch()
+                    }
             }
     }
 }
