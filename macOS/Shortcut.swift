@@ -23,6 +23,7 @@ final class Shortcut: NSView {
         configure
             .click
             .sink {
+                NSApp.activate(ignoringOtherApps: true)
                 (NSApp as! App).showPreferencesWindow(nil)
             }
             .store(in: &subs)
